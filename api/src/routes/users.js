@@ -1,3 +1,4 @@
+
 const { Router } = require("express");
 const { getUser, createUser } = require("../controllers/user");
 
@@ -27,3 +28,4 @@ router.post("/", async (req, res) => {
 });
 
 module.exports = router;
+
