@@ -1,12 +1,18 @@
-const { Router } = require('express');
-const { House, User, Review } = require('../db');
-
+const { Router } = require("express");
+const { addReview, getReviews } = require("../controllers/reviews");
 const router = Router();
 
-router.get('/', async (req, res) => {
-    const allReviews = await Review.findAll()
-    res.json(allReviews)
+router.get("/", async (req, res) => {
+  const { houseId } = req.body;
+  try {
+    const allReviews = await getReviews(houseId);
+    res.status(200).json(allReviews);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
 });
+
+
 
 router.get('/:houseId', async (req, res) => {
 
@@ -52,6 +58,5 @@ router.delete('/', async (req, res) => {
         console.log(error)
     }
 })
-
 
 module.exports = router;
