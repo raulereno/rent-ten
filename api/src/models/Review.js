@@ -27,16 +27,6 @@ module.exports = (sequelize) => {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 //     reviews: [{
 //                 id: 
 //                 user: 
