@@ -5,23 +5,35 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="#">
-            <img src="../favicon.ico" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-            RENT TEN
+            <img src="../../assets/logo.png" alt="Logo" width="100" class="d-inline-block align-text-top">
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a type="button" class="nav-link active" aria-current="page"
-                        (click)="auth.loginWithRedirect()">Iniciar Sesión</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/about">Acerca</a>
-                </li>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-1">
+
+                <div>
+                    <li class="nav-item">
+                        <button (click)="loginWithRedirect()" *ngIf="(auth.isAuthenticated$ | async) === false">Iniciar
+                            Sesion</button>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" routerLink="/about">Acerca</a>
+                    </li>
+
+                    <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
+                        <pre *ngIf="auth.user$ | async as user">
+                            <span>Bienvenido, {{user.name}}</span>
+                            <span>{{user.email}}</span>
+                            <img class="img-responsive img-rounded" style="max-height: 50px; border-radius: 50%; max-width: 50px;" src="{{user.picture}}"/>
+                        </pre>
+                        <button (click)="logout()">Cerrar Sesion</button>
+                    </li>
+
+                </div>
+
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                <button class="btn btn-light" type="submit">Buscar</button>
-            </form>
+
         </div>
     </div>
 </nav>

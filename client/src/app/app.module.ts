@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AboutComponent } from './about/about.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { environment as env } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -22,8 +24,7 @@ import { NavbarComponent } from './navbar/navbar.component';
       { path: 'about', component: AboutComponent },
     ]),
     AuthModule.forRoot({
-      domain: "dev-fw4pifkr3xl3w7w3.us.auth0.com",
-      clientId: "olX2EyfVrVWLZzLLvwOYRBtDu65R35hO"
+      ... env.auth,
     })
   ],
   providers: [],
