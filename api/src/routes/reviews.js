@@ -8,6 +8,19 @@ router.get('/', async (req, res) => {
     res.json(allReviews)
 });
 
+router.get('/:houseId', async (req, res) => {
+
+    const houseId = req.params.houseId
+
+    try {
+        const houseReviews = await Review.findAll({ where: { HouseId: houseId } })
+        res.status(200).json(houseReviews)
+
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 router.post('/', async (req, res) => {
     const { opinion, rating, userId, houseId } = req.body
 

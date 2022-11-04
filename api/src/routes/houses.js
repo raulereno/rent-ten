@@ -37,9 +37,12 @@ router.post('/setowner', async (req, res) => {
 
 router.post('/createhouse', async (req, res) => {
     const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } = req.body
+    const { userId } = req.query 
 
     try {
         const newHouse = await House.create(req.body)
+        newHouse.setUsers(userId)
+        
         res.status(201).json(newHouse)
 
     } catch (error) {
