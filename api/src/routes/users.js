@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  console.log(req.body);
+
   try {
     const newUser = await createUser(req.body);
     res.status(201).json(newUser);
@@ -25,6 +25,7 @@ router.post("/", async (req, res) => {
     res.status(400).json(error.message);
   }
 });
+
 
 module.exports = router;
 
