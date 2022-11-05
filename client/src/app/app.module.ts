@@ -16,14 +16,14 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {NgxDropzoneModule} from 'ngx-dropzone';
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AboutComponent,
     NavbarComponent,
+    CreateHouseComponent,
+    
   ],
   imports: [
     BrowserModule,

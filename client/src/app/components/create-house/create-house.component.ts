@@ -39,12 +39,6 @@ export class CreateHouseComponent implements OnInit {
   get currentHouse(){
     return JSON.stringify(this.newHouse)
   }
-  onSubmit(event:Event){
-    event.preventDefault()
-    console.log(event);
-    let value = <HTMLInputElement>event.target
-
-    console.log(value);
-  }
+  
 
 }
