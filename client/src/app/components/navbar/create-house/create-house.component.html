@@ -1,0 +1,53 @@
+<form action="houses/createhouse" method="post" (ngSubmit)="onSubmit($event)" style="display: flex; flex-direction:column; width: 35%;" >
+    <h2>Datos del alojamiento:</h2>
+    <label for="input_country">Pais:</label>
+    <input type="text" name="country" id="input_country" [(ngModel)]="newHouse.country">
+
+    <label for="input_city">Ciudad:</label>
+    <input type="text" name="city" id="input_city" [(ngModel)]="newHouse.city">
+
+    <label for="input_rooms">Numero de habitaciones:</label>
+    <input type="number" name="rooms" id="input_rooms" [(ngModel)]="newHouse.rooms">
+
+    <label for="input_bathrooms">Numero de baños:</label>
+    <input type="number" name="bathrooms" id="input_bathrooms" [(ngModel)]="newHouse.bathrooms">
+
+    <label for="input_maxpeople">¿Para cuantas personas es su alojamiento?</label>
+    <input type="number" name="maxpeople" id="input_maxpeople" [(ngModel)]="newHouse.maxpeople">
+
+    <div>
+        <label for="input_allowpets">¿Se permiten mascotas?</label>
+        <input type="checkbox" name="allowpets" id="input_allowpets" value="true" [(ngModel)]="newHouse.allowpets">
+        
+    </div>
+
+    <div>
+        <span>¿Su alojamiento posee conexión a internet?</span>
+        <input type="checkbox" name="wifi" id="input_wifi" value="true" [(ngModel)]="newHouse.wifi">
+    </div>
+
+    <label for="select_type">Tipo de alojamiento:</label>
+    <select name="type" id="select_type" [(ngModel)]="newHouse.type">
+        
+        <option value="house">Casa</option>
+        <option value="departament">Departamento</option>
+        <option value="guest house">Casa de huespedes</option>
+        <option value="hotel">Hotel</option>
+    </select>
+
+    <button type="submit">Crear</button>
+</form>
+
+<div>
+    {{currentHouse}}
+</div>
+<!-- 
+        city: 
+        country:
+        rooms: 
+        bathrooms: 
+        maxpeople: 
+        allowpets: true o false, ver si hacerlo con un selec o con un checkbox 
+        wifi: true o false, ver si hacerlo con un selec o con un checkbox
+        type: 'departament', 'guest house', 'house', 'hotel'
+ -->
