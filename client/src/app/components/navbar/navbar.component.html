@@ -1,10 +1,34 @@
+<p>
+    <mat-toolbar color="secundary" class="mat-elevation-z9">
+        <span>
+            <a routerLink="/home">
+                <img src="../../assets/logo.png" alt="Logo" width="100" class="d-inline-block align-text-top">
+            </a>
+
+        </span>
+
+        <div class="spacer"></div>
+        <a mat-button routerLink="/home">Inicio</a>
+        <a mat-button routerLink="/about">Acerca</a>
+        <!-- <a mat-raised-button>Sign up</a> -->
+        <a mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false" aria-label="Sing Up">
+            <mat-icon (click)="loginWithRedirect()">
+                account_circle
+            </mat-icon>
+        </a>
+        <button mat-button (click)="logout()" *ngIf="(auth.isAuthenticated$ | async) === true">Cerrar Sesión</button>
+    </mat-toolbar>
+</p>
+
+
+<!-- 
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" routerLink="">
             <img src="../../assets/logo.png" alt="Logo" width="100" class="d-inline-block align-text-top">
         </a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
@@ -38,4 +62,4 @@
 
         </div>
     </div>
-</nav>
+</nav> -->
