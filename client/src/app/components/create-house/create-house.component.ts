@@ -30,6 +30,7 @@ export class CreateHouseComponent implements OnInit {
     wifi:false,
     type:"",
   }
+
   constructor() { }
 
   ngOnInit(): void {

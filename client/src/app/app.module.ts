@@ -11,11 +11,12 @@ import { LoginComponent } from './components/login/login.component';
 import { AboutComponent } from './components/about/about.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { environment as env } from 'src/environments/environment';
-import { CreateHouseComponent } from './components/navbar/create-house/create-house.component';
+import { CreateHouseComponent } from './components/create-house/create-house.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {NgxDropzoneModule} from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
