@@ -10,6 +10,10 @@ interface NewHouse{
   wifi:boolean;
   type:string;
 }
+let notNum=(string:string)=>{
+  
+
+}
 
 @Component({
   selector: 'app-create-house',
@@ -30,6 +34,29 @@ export class CreateHouseComponent implements OnInit {
     wifi:false,
     type:"",
   }
+  files: File[] = [];
+
+  onSelect(event:any) {
+    console.log(event.addedFiles[0].name);
+    if(this.files.some(e=>e.name === event.addedFiles[0].name)){
+      return
+    }
+    this.files.push(...event.addedFiles);
+    console.log(this.files);
+  }
+  
+  onRemove(event:any) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+  
+  onSubmit(event:any){
+    event.preventDefault()
+    console.log(event);
+    if(!this.files[0]){
+      alert("Ingresa al menos una foto de portada")
+    }
+  }
 
   constructor() { }
 
@@ -37,6 +64,7 @@ export class CreateHouseComponent implements OnInit {
   }
 
   get currentHouse(){
+    console.log(this.newHouse);
     return JSON.stringify(this.newHouse)
   }
   
