@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,15 +27,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AboutComponent,
     NavbarComponent,
     CreateHouseComponent,
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
+      { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
-      { path: 'createhouse', component: CreateHouseComponent }
+      { path: 'createhouse', component: CreateHouseComponent },
+      { path: 'profile', component: ProfileComponent}
+
     ]),
     AuthModule.forRoot({
       ...env.auth,
@@ -42,6 +48,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    HttpClientModule,
     NgxDropzoneModule,
   ],
   providers: [],

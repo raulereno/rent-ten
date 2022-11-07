@@ -24,6 +24,12 @@ module.exports = (sequelize) => {
             defaultValue: "Argentina",
         },
 
+        picture: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            defaultValue: 'https://ateamymm.ca/defaulthouse.jpg'
+        },
+
         rooms: {
             type: DataTypes.INTEGER,
             allowNull: true,
