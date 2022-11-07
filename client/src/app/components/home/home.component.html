@@ -1,16 +1,11 @@
 <div>
     <div>
-        <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
-            <option selected>Abre este menú select</option>
-            <option value="1">Uno</option>
-            <option value="2">Dos</option>
-            <option value="3">Tres</option>
+        <select ngModel="selectedCountry.id" class="form-select form-select-lg mb-3"
+            aria-label="Ejemplo de .form-select-lg" (change)="onSelect($event)">
+            <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
         </select>
         <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
-            <option selected>Abre este menú select</option>
-            <option value="1">Uno</option>
-            <option value="2">Dos</option>
-            <option value="3">Tres</option>
+            <option *ngFor="let city of cities" value="city.id">{{city.name}}</option>
         </select>
 
     </div>

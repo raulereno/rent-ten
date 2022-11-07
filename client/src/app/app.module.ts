@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthModule } from '@auth0/auth0-angular';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -16,6 +19,20 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+const routes: Routes = [
+  {
+    path: '',
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'about', component: AboutComponent },
+      { path: 'createhouse', component: CreateHouseComponent },
+      { path: "**", redirectTo: 'home' }
+    ]
+  }
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,17 +40,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AboutComponent,
     NavbarComponent,
     CreateHouseComponent,
-    
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'about', component: AboutComponent },
-      { path: 'createhouse', component: CreateHouseComponent }
-    ]),
+    RouterModule.forRoot(routes),
     AuthModule.forRoot({
       ...env.auth,
     }),
@@ -41,6 +54,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    HttpClientModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
