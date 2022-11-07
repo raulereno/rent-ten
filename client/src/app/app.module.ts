@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { RouterModule } from '@angular/router';
 import { AuthModule } from '@auth0/auth0-angular';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,6 +15,7 @@ import { environment as env } from 'src/environments/environment';
 import { CreateHouseComponent } from './components/create-house/create-house.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -25,9 +27,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     AboutComponent,
     NavbarComponent,
     CreateHouseComponent,
-    ProfileComponent,
-    HomeComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -49,6 +49,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
+    NgxDropzoneModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

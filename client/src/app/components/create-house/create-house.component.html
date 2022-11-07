@@ -1,4 +1,4 @@
-<form action="houses/createhouse" method="post" style="display: flex; flex-direction:column; width: 35%;" >
+<form action="houses/createhouse" method="post" style="display: flex; flex-direction:column; width: 35%;" (ngSubmit)="onSubmit($event)">
     <h2>Datos del alojamiento:</h2>
     <label for="input_country">Pais:</label>
     <input type="text" name="country" id="input_country" [(ngModel)]="newHouse.country">
@@ -34,6 +34,17 @@
         <option value="guest house">Casa de huespedes</option>
         <option value="hotel">Hotel</option>
     </select>
+    <div class="dropzone">
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Arrastra o haz click para seleccionar las fotos</ngx-dropzone-label>
+            
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files; let i= index" [file]="f"  [removable]="true" (removed)="onRemove(f)" [ngClass]="{'isCoverPhoto':i===0}">
+                
+                <ngx-dropzone-label *ngIf="i===0" [ngClass]="{'labelCoverPhoto':i===0}">Foto de portada</ngx-dropzone-label>
+              
+              </ngx-dropzone-image-preview>
+        </ngx-dropzone>
+    </div>
 
     <button type="submit">Crear</button>
 </form>
