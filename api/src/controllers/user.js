@@ -7,20 +7,24 @@ const getUser = (mail, password) => {
     throw new Error("Es requerido el mail");
   }
 
-  const findUser = User.findOne({ where: { mail } });
+  const findUser = User.findOne({ where: { mail: mail } });
 
   return findUser;
 };
 
 const createUser = async (data) => {
-  const { name, lastname, mail, country } = data;
-  if (!name || !lastname || !mail || !country) {
+
+  const { mail } = data;
+  const finder = await User.findOne({where: {sub: data.sub}})
+  console.log(finder)
+
+  if (!mail) {
     throw new Error(
       "Estos datos son requeridos para la creación de un usuario"
     );
   }
-
-  const createUser = await User.create(data);
+  if (!finder) {
+  const createUser = await User.create(data)}
 
   return createUser;
 };

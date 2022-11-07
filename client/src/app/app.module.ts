@@ -15,6 +15,8 @@ import { CreateHouseComponent } from './components/create-house/create-house.com
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AboutComponent,
     NavbarComponent,
     CreateHouseComponent,
+    ProfileComponent,
+    HomeComponent
     
   ],
   imports: [
@@ -30,9 +34,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
+      { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
-      { path: 'createhouse', component: CreateHouseComponent }
+      { path: 'createhouse', component: CreateHouseComponent },
+      { path: 'profile', component: ProfileComponent}
+
     ]),
     AuthModule.forRoot({
       ...env.auth,
@@ -41,6 +48,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

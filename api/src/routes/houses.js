@@ -6,7 +6,7 @@ const router = Router();
 // --- GET METHODS ---
 router.get('/', async (req, res) => {
     const allHouses = await House.findAll({ include: User })
-    res.status(200).json({ msg: "Working" })
+    res.status(200).json(allHouses)
 });
 
 
@@ -41,7 +41,8 @@ router.post('/createhouse', async (req, res) => {
 
     try {
         const newHouse = await House.create(req.body)
-        newHouse.setUsers(userId)
+        if (userId) {
+        newHouse.setUsers(userId)}
         
         res.status(201).json(newHouse)
 
@@ -57,7 +58,7 @@ router.put('/edithouse/:id', async (req, res) => {
 
     const houseId = req.params.id
     const { userId } = req.query
-    const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } = req.body
+    const { city, country, picture, rooms, bathrooms, maxpeople, allowpets, wifi, type } = req.body
 
     try {
         const house = await House.findByPk(houseId, { include: User })
