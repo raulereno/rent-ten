@@ -19,6 +19,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CloudinaryModule } from '@cloudinary/ng';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatIconModule,
     HttpClientModule,
     NgxDropzoneModule,
+    CloudinaryModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

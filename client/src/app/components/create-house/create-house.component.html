@@ -18,7 +18,7 @@
     <div>
         <label for="input_allowpets">¿Se permiten mascotas?</label>
         <input type="checkbox" name="allowpets" id="input_allowpets" value="true" [(ngModel)]="newHouse.allowpets">
-        
+
     </div>
 
     <div>
@@ -28,7 +28,7 @@
 
     <label for="select_type">Tipo de alojamiento:</label>
     <select name="type" id="select_type" [(ngModel)]="newHouse.type">
-        
+
         <option value="house">Casa</option>
         <option value="departament">Departamento</option>
         <option value="guest house">Casa de huespedes</option>
@@ -37,11 +37,11 @@
     <div class="dropzone">
         <ngx-dropzone (change)="onSelect($event)">
             <ngx-dropzone-label>Arrastra o haz click para seleccionar las fotos</ngx-dropzone-label>
-            
+
             <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files; let i= index" [file]="f"  [removable]="true" (removed)="onRemove(f)" [ngClass]="{'isCoverPhoto':i===0}">
-                
+
                 <ngx-dropzone-label *ngIf="i===0" [ngClass]="{'labelCoverPhoto':i===0}">Foto de portada</ngx-dropzone-label>
-              
+
               </ngx-dropzone-image-preview>
         </ngx-dropzone>
     </div>
@@ -52,13 +52,15 @@
 <div>
     {{currentHouse}}
 </div>
-<!-- 
-        city: 
+
+<img *ngIf="newHouse.picture" src={{newHouse.picture[0]}} style="width: 20rem; height: 20rem;" alt="">
+<!--
+        city:
         country:
-        rooms: 
-        bathrooms: 
-        maxpeople: 
-        allowpets: true o false, ver si hacerlo con un selec o con un checkbox 
+        rooms:
+        bathrooms:
+        maxpeople:
+        allowpets: true o false, ver si hacerlo con un selec o con un checkbox
         wifi: true o false, ver si hacerlo con un selec o con un checkbox
         type: 'departament', 'guest house', 'house', 'hotel'
  -->

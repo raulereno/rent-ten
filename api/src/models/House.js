@@ -1,73 +1,73 @@
-const {DataTypes} = require('sequelize');
-
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
+  sequelize.define(
+    "House",
+    {
+      id: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
+      },
 
-    sequelize.define('House', {
+      city: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: "Argentina",
+      },
 
-        id: {
-            type: DataTypes.UUID,
-            allowNull: false,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
-        },
+      country: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: "Argentina",
+      },
 
-        city: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: "Argentina",
-        },
+      picture: {
+        type: DataTypes.ARRAY(DataTypes.TEXT),
+        allowNull: true,
+        defaultValue: "https://ateamymm.ca/defaulthouse.jpg",
+      },
 
-        country: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: "Argentina",
-        },
+      rooms: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 1,
+      },
 
-        picture: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-            defaultValue: 'https://ateamymm.ca/defaulthouse.jpg'
-        },
+      bathrooms: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 1,
+      },
 
-        rooms: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            defaultValue: 1,
-        },
+      maxpeople: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 1,
+      },
 
-        bathrooms: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            defaultValue: 1,
-        },
+      allowpets: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
 
-        maxpeople: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            defaultValue: 1,
-        },
+      wifi: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
 
-        allowpets: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-
-        wifi: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-
-        type: {
-            type: DataTypes.ENUM('departament', 'guest house', 'house', 'hotel'),
-            allowNull: true,                
-        },
+      type: {
+        type: DataTypes.ENUM("departament", "guest house", "house", "hotel"),
+        allowNull: true,
+      },
     },
 
     {
-        timestamps: false,
-    })
-}
+      timestamps: false,
+    }
+  );
+};
 
 // {
 //     id: number
@@ -81,13 +81,13 @@ module.exports = (sequelize) => {
 //     wifi: boolean;
 //     type: ENUM ['departament', 'guest house', 'house', 'hotel']
 //     reviews: [{
-//                 id: 
-//                 user: 
-//                 review: 
+//                 id:
+//                 user:
+//                 review:
 //                 rating: }]
 //     reserved: [{
 //                 by: (id_user)
-//                 from: date 
+//                 from: date
 //                 to: date
 //                 }];
 //     }

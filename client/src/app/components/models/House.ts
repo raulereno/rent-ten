@@ -1,5 +1,5 @@
 export interface House {
-    Users: any[];
+    Users?: any[];
     allowpets: boolean;
     bathrooms: number;
     city: string;
