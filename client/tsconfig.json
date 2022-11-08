@@ -16,6 +16,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "strictPropertyInitialization": false,
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
     "target": "es2020",
