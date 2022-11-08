@@ -67,6 +67,12 @@ module.exports = (sequelize) => {
             type: DataTypes.ENUM('department', 'guest house', 'house', 'hotel'),
             allowNull: true,                
         },
+        
+        price: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0
+        },
 
         bookings: {
             type: DataTypes.ARRAY(DataTypes.JSON),
