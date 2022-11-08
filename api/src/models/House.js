@@ -24,6 +24,17 @@ module.exports = (sequelize) => {
             defaultValue: "Argentina",
         },
 
+        address: {
+            type:DataTypes.TEXT,
+            allowNull: true,
+        },
+
+        picture: {
+            type: DataTypes.ARRAY(DataTypes.TEXT),
+            allowNull: true,
+            defaultValue: ['https://ateamymm.ca/defaulthouse.jpg']
+        },
+
         rooms: {
             type: DataTypes.INTEGER,
             allowNull: true,
@@ -53,9 +64,20 @@ module.exports = (sequelize) => {
         },
 
         type: {
-            type: DataTypes.ENUM('departament', 'guest house', 'house', 'hotel'),
+            type: DataTypes.ENUM('department', 'guest house', 'house', 'hotel'),
             allowNull: true,                
         },
+        
+        price: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0
+        },
+
+        bookings: {
+            type: DataTypes.ARRAY(DataTypes.JSON),
+            allowNull: true
+        }
     },
 
     {
