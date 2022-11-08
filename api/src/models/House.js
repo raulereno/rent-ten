@@ -74,10 +74,10 @@ module.exports = (sequelize) => {
             defaultValue: 0
         },
 
-        bookings: {
+         bookings: {
             type: DataTypes.ARRAY(DataTypes.JSON),
             allowNull: true
-        }
+        } 
     },
 
     {
