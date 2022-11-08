@@ -59,6 +59,13 @@ import { CloudinaryModule } from '@cloudinary/ng';
     MatIconModule,
     HttpClientModule,
     NgxDropzoneModule,
+    CommonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    CloudinaryModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent],
