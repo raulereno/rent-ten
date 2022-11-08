@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import { HouseComponent } from './components/home/house/house.component';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
+import { HousedetailComponent } from './components/housedetail/housedetail.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     HomeComponent,
     ProfileComponent,
     HouseComponent,
+    HousedetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { MatNativeDateModule } from '@angular/material/core';
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      { path: 'profile', component: ProfileComponent}
+      { path: 'profile', component: ProfileComponent},
+      { path: 'housedetail/:id', component: HousedetailComponent}
     ]),
     AuthModule.forRoot({
       ...env.auth,

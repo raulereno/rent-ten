@@ -21,9 +21,6 @@ export class NavbarComponent implements OnInit {
     this.auth.user$.subscribe(profile => {
       this.profileJson = profile;
       this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data);
-      setTimeout(() => {
-        this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
-      }, 500);
     });
 
   }
@@ -32,8 +29,9 @@ export class NavbarComponent implements OnInit {
     console.log(this.dbProfile)
   }
 
-  loginWithRedirect(): void {
+  loginWithRedirect = async ():Promise<void> => {
     this.auth.loginWithRedirect();
+    this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
   }
 
   logout(): void {

@@ -38,7 +38,7 @@ export class HouseComponent implements OnInit {
       this.http.setFavorite(houseId, userId)
       setTimeout(() => {
         this.ngOnInit()
-      }, 200);
+      }, 100);
     }
   }
 
@@ -47,7 +47,7 @@ export class HouseComponent implements OnInit {
     this.http.deleteFavorite(houseId, userId)
     setTimeout(() => {
       this.ngOnInit()
-    }, 200);
+    }, 100);
   }
 
 
