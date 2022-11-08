@@ -16,6 +16,57 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get('/getuser', async (req,res) => {
+  const {mail} = req.query
+  try {
+    const finder = await User.findOne({where: {mail: mail}})
+    res.status(200).json(finder)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.put('/addfavoritehouse', async (req, res) => {
+
+  const {userId, houseId} = req.body
+
+  try {
+      const user = await User.findByPk(userId)
+
+      if (user.favoriteshouses.some(house => house == houseId)) {
+        res.status(200).json({msg: `he user ${userId} already have house ${houseId} in favorites.`})
+      } else {
+        user.update({favoriteshouses: [...user.favoriteshouses, houseId]})
+        res.status(200).json({msg: `${houseId} house eliminated from ${userId} user favorites`})
+      }
+
+  } catch (error) {
+      console.log(error)
+  }
+
+})
+
+router.put('/deletefavoritehouse', async (req, res) => {
+
+  const {userId, houseId} = req.body
+
+  try {
+      const user = await User.findByPk(userId)
+
+      if (user.favoriteshouses.some(house => house == houseId)) {
+        user.update({favoriteshouses: user.favoriteshouses.filter(house => house !== houseId)})
+        res.status(200).json({msg: `eliminated.`})
+
+      } else {
+        res.status(200).json({msg: `no house with id ${houseId} in user ${userId}`})
+      }
+
+  } catch (error) {
+      console.log(error)
+  }
+
+})
+
 router.post("/", async (req, res) => {
 
   try {

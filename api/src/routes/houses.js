@@ -1,12 +1,13 @@
 const { Router } = require('express');
 const { House, User, Review } = require('../db');
+const { extraHouses } = require('../../extra-db/extra-db')
 
 const router = Router();
 
 // --- GET METHODS ---
 router.get('/', async (req, res) => {
     const allHouses = await House.findAll({ include: User })
-    res.status(200).json({ msg: "Working" })
+    res.status(200).json(allHouses)
 });
 
 
@@ -37,12 +38,14 @@ router.post('/setowner', async (req, res) => {
 
 router.post('/createhouse', async (req, res) => {
     const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } = req.body
-    const { userId } = req.query 
+    const { userId } = req.query
 
     try {
         const newHouse = await House.create(req.body)
-        newHouse.setUsers(userId)
-        
+        if (userId) {
+            newHouse.setUsers(userId)
+        }
+
         res.status(201).json(newHouse)
 
     } catch (error) {
@@ -57,7 +60,7 @@ router.put('/edithouse/:id', async (req, res) => {
 
     const houseId = req.params.id
     const { userId } = req.query
-    const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } = req.body
+    const { city, country, picture, rooms, bathrooms, maxpeople, allowpets, wifi, type } = req.body
 
     try {
         const house = await House.findByPk(houseId, { include: User })
@@ -96,4 +99,21 @@ router.delete('/deletehouse', async (req, res) => {
     }
 })
 
+
+// --- EXTRA TO FULL DB ---
+
+router.post('/fulldb', async (req, res) => {
+
+    try {
+        extraHouses.forEach(async house => {
+            let finder = await House.findOne({ where: house })
+            if (!finder) { await House.create(house) }
+            })
+            
+        res.status(200).json({msg: "Base de datos creada"})
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
 module.exports = router;
