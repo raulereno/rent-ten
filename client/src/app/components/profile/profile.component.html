@@ -4,9 +4,12 @@
         <p>{{dbProfile.name}}</p>
         <p>{{dbProfile.lastname}}</p>
         <p>{{dbProfile.mail}}</p>
+        <p>sub json auth0: {{profileJson.sub}}</p>
+        <p>id db: {{dbProfile.id}}</p>
 
+        <button (click)="showInfo()"></button>
         <div class="row align-items-start">
-            <h3 *ngIf="dbProfile.favoriteshouses.length > 0">Favorites houses: </h3>
+            <h3 *ngIf="favoritesHouses.length > 0">Favorites houses: </h3>
             <div *ngFor="let house of favoritesHouses">
                 <img style="max-width: 250px;" class="img-thumbnail" src={{house.picture}} />
                 <ul>

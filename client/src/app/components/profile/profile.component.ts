@@ -4,11 +4,14 @@ import { DataServiceService } from 'src/app/services/data-service.service';
 import { userProfile } from '../models/UserProfile';
 import { House } from '../models/House';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+
 })
+
 export class ProfileComponent implements OnInit {
 
   dbProfile: userProfile = {
@@ -56,6 +59,8 @@ export class ProfileComponent implements OnInit {
   showInfo(): void {
     console.log(this.allHouses)
     console.log(this.favoritesHouses)
+    console.log(this.dbProfile.favoriteshouses)
+    this.ngOnInit()
   }
 
 }

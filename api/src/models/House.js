@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
       },
 
       picture: {
-        type: DataTypes.ARRAY(DataTypes.TEXT),
+        type: DataTypes.TEXT,
         allowNull: true,
         defaultValue: "https://ateamymm.ca/defaulthouse.jpg",
       },
@@ -59,6 +59,15 @@ module.exports = (sequelize) => {
 
       type: {
         type: DataTypes.ENUM("departament", "guest house", "house", "hotel"),
+        allowNull: true,
+      },
+      type: {
+        type: DataTypes.ENUM("department", "guest house", "house", "hotel"),
+        allowNull: true,
+      },
+
+      bookings: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: true,
       },
     },

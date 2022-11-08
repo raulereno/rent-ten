@@ -41,6 +41,12 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
 
+      authorized: {
+        type: DataTypes.ENUM('all', 'view', 'not', 'unsubscribed'),
+        allowNull: false,
+        defaultValue: 'all'
+      },
+
       admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

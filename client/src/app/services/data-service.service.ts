@@ -25,9 +25,11 @@ export class DataServiceService {
     })
   }
 
+
   getHouses(): Observable<any> {
     return this.http.get<any>(`http://localhost:3001/houses`)
   }
+
 
   setFavorite(houseId:string, userId:string) {
   this.http.put<any>(`http://localhost:3001/users/addfavoritehouse`, {houseId: houseId, userId: userId}).subscribe({
@@ -36,6 +38,7 @@ export class DataServiceService {
       }
     })
   }
+
 
   deleteFavorite(houseId:string, userId:string) {
     this.http.put<any>(`http://localhost:3001/users/deletefavoritehouse`, {houseId: houseId, userId: userId}).subscribe({

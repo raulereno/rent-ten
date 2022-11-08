@@ -1,4 +1,4 @@
-<div >
+<div>
     <div>
         <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
             <option selected>Abre este menú select</option>
@@ -14,9 +14,8 @@
         </select>
     </div>
 </div>
-<div class="container">
+<!-- <div class="container">
     <div class="row align-items-start">
-
         <div *ngFor="let house of allHouses">
             <div class="col">
                 <img style="max-width: 270px" class="img-thumbnail" src={{house.picture}} />
@@ -36,4 +35,29 @@
             </div>
         </div>
     </div>
+</div> -->
+<!-- 
+<div>checkin: <input required pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="checkin" type="date"></div>
+<div>checkout: <input required pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="checkout" type="date"></div>
+ -->
+
+ <button (click)="showInfo()"></button>
+
+<div class='container'>
+    <form [formGroup]="form">
+        <mat-form-field>
+
+            <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
+                <input matStartDate placeholder="start date" formControlName="start">
+                <input matEndDate placeholder="end date" formControlName="end">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+        </mat-form-field>
+    </form>
 </div>
+
+
+
+<app-house *ngFor="let house of allHouses" [house]="house"></app-house>
