@@ -1,0 +1,30 @@
+<div>
+    <div class="container">
+        <img src="{{dbProfile.picture}}" />
+        <p>{{dbProfile.name}}</p>
+        <p>{{dbProfile.lastname}}</p>
+        <p>{{dbProfile.mail}}</p>
+        <p>sub json auth0: {{profileJson.sub}}</p>
+        <p>id db: {{dbProfile.id}}</p>
+
+        <button (click)="showInfo()"></button>
+        <div class="row align-items-start">
+            <h3 *ngIf="favoritesHouses.length > 0">Favorites houses: </h3>
+            <div *ngFor="let house of favoritesHouses">
+                <img style="max-width: 250px;" class="img-thumbnail" src={{house.picture}} />
+                <ul>
+                    <li>{{house.id}}</li>
+                    <li>Country: {{house.country}}</li>
+                    <li>City: {{house.city}}</li>
+                    <li>Rooms: {{house.rooms}}</li>
+                    <li>Bathrooms: {{house.bathrooms}}</li>
+                    <li>Maxpeople: {{house.maxpeople}}</li>
+                    <li>Allowpets: {{house.allowpets}}</li>
+                    <button class="btn btn-outline-danger" (click)="deleteFavorite(house.id, dbProfile.id)">Delete from
+                        favorites</button>
+                </ul>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>

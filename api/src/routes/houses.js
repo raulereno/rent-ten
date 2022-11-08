@@ -103,11 +103,9 @@ router.delete('/deletehouse', async (req, res) => {
 // --- EXTRA TO FULL DB ---
 
 router.post('/fulldb', async (req, res) => {
-    
+
     try {
-        
         extraHouses.forEach(async house => {
-            
             let finder = await House.findOne({ where: house })
             if (!finder) { await House.create(house) }
             })
