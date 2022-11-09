@@ -7,7 +7,7 @@ import { DataServiceService } from '../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
 import { House } from '../../models/House';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Booking } from '../models/Booking';
+import { Booking } from '../../models/Booking';
 import { Store } from '@ngrx/store';
 import { loadCountries, loadedCountries } from 'src/app/redux/actions/countries.actions';
 import { Observable } from 'rxjs';
