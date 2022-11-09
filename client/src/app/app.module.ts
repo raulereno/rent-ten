@@ -53,7 +53,6 @@ import { CloudinaryModule } from '@cloudinary/ng';
     AuthModule.forRoot({
       ...env.auth,
     }),
-    BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
