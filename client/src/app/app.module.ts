@@ -27,7 +27,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 
 import { CloudinaryModule } from '@cloudinary/ng';
-import { DetailComponent } from './components/detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { DetailComponent } from './components/detail/detail.component';
     HomeComponent,
     ProfileComponent,
     HouseComponent,
-    DetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +49,7 @@ import { DetailComponent } from './components/detail/detail.component';
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
       { path: 'profile', component: ProfileComponent},
-      {path:'home/:id', component:DetailComponent}
+
     ]),
     AuthModule.forRoot({
       ...env.auth,
