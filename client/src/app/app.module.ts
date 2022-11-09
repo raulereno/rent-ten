@@ -28,7 +28,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 
 // import { CloudinaryModule } from '@cloudinary/ng';
-import { CloudinaryModule } from '@cloudinary/ng'
+import { CloudinaryModule } from '@cloudinary/ng';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment'
+import { countriesReducer } from './redux/reducers/countries.reducers';
+import { ROOT_REDUCERS } from './redux/store/app.state';
 
 
 const routes: Routes = [
@@ -75,7 +80,9 @@ const routes: Routes = [
     CloudinaryModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    StoreModule.forRoot(ROOT_REDUCERS),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent],

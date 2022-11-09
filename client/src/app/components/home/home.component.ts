@@ -8,6 +8,10 @@ import { AuthService } from '@auth0/auth0-angular';
 import { House } from '../models/House';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Booking } from '../models/Booking';
+import { Store } from '@ngrx/store';
+import { loadCountries, loadedCountries } from 'src/app/redux/actions/countries.actions';
+import { Observable } from 'rxjs';
+import { selectorListCountries, selectorListLoading } from 'src/app/redux/selectors/selectors';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,6 +21,10 @@ import { Booking } from '../models/Booking';
 
 export class HomeComponent implements OnInit {
 
+  //variable para escuchar y que se declara para poder imrpimir/pintar en pagina
+  loading$: Observable<any> = new Observable();
+  countries$: Observable<any> = new Observable()
+
   public selectedCountry: Country = {
     id: 0,
     name: '',
@@ -25,7 +33,16 @@ export class HomeComponent implements OnInit {
   public countries: Country[] | undefined;
   public cities: City[] | undefined;
 
-  constructor(private dataSvc: Data, public http: DataServiceService, public auth: AuthService, private fb: FormBuilder) { }
+  // ****** CONSTRUCTOR ******* //
+  constructor(
+    private dataSvc: Data,
+    public http: DataServiceService,
+    public auth: AuthService,
+    private fb: FormBuilder,
+    private store: Store<any>,
+    //Inyectamos un servicio para mostrar datos
+    private data: Data
+  ) { }
 
   getContries(): void {
     this.dataSvc.getCountries().subscribe(countries => this.countries = countries)
@@ -47,7 +64,27 @@ export class HomeComponent implements OnInit {
 
 
 
+  // Cuando se ejecute el On Init (Ciclos de Vida)
   ngOnInit(): void {
+
+    //variable para escuchar y que se declara para poder imrpimir/pintar en pagina
+    this.loading$ = this.store.select(selectorListLoading);
+    this.countries$ = this.store.select(selectorListCountries);
+
+    // DISPARADOR DE ACTIONS
+    this.store.dispatch(loadCountries())
+
+    this.data?.getCountries()
+      .subscribe((response: Country[]) => {
+        console.log('_______', response)
+        this.store.dispatch(loadedCountries(
+          { countries: response }
+        ))
+      })
+
+
+    ///////////////
+
     // this.countries = this.dataSvc.getCountries();
     this.getContries();
     // this.getCities();
