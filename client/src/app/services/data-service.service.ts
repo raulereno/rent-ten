@@ -35,6 +35,11 @@ export class DataServiceService {
     return this.http.get<any>(`http://localhost:3001/houses`);
   }
 
+  getHouse(id:string):Observable<any>{
+    return this.http.get(`http://localhost:3001/houses/${id}`)
+
+  }
+
   setFavorite(houseId: string, userId: string) {
     this.http
       .put<any>(`http://localhost:3001/users/addfavoritehouse`, {

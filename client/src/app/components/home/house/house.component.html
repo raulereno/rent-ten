@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row align-items-start">
             <div class="col">
-                <!-- <button (click)="showInfo()"></button> -->
+               <button (click)="showInfo()"></button>
                 <a style="font-size: 30px; cursor: pointer" (click)="paginationBack()">&#x3c;</a>
                 <img style="max-width: 270px" class="img-thumbnail" [src]="giveMePhoto()"/>
                 <a style="font-size: 30px; cursor: pointer" (click)="paginationForward()">&#x3e;</a>
@@ -20,7 +20,7 @@
                     <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
                         (click)="deleteFavorite(house.id, dbProfile.id)">Delete from favorites</button>
                 </ul>
-
+                <a routerLink="/home/{{house.id}}" >IR A DETALLE</a>
             </div>
     </div>
 </div>
