@@ -9,6 +9,14 @@
         </select>
     </div>
 </div>
+
+<b>Cargando...{{loading$ | async | json}}</b>
+<br>
+
+<select>
+    <option *ngFor="let country of countries$ |async" value={{country.name}}>{{country.name}}</option>
+</select>
+<b *ngFor="let country of countries$ |async">{{country.name}}</b>
 <!-- <div class="container">
     <div class="row align-items-start">
         <div *ngFor="let house of allHouses">
@@ -36,7 +44,7 @@
 <div>checkout: <input required pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="checkout" type="date"></div>
  -->
 
- <button (click)="showInfo()"></button>
+<button (click)="showInfo()"></button>
 
 <div class='container'>
     <form [formGroup]="form">
