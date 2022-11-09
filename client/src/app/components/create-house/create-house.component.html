@@ -30,7 +30,7 @@
     <select name="type" id="select_type" [(ngModel)]="newHouse.type">
 
         <option value="house">Casa</option>
-        <option value="departament">Departamento</option>
+        <option value="department">Departamento</option>
         <option value="guest house">Casa de huespedes</option>
         <option value="hotel">Hotel</option>
     </select>
@@ -52,8 +52,11 @@
 <div>
     {{currentHouse}}
 </div>
-
+<button (click)="showInfo()"></button>
 <img *ngIf="newHouse.picture" src={{newHouse.picture[0]}} style="width: 20rem; height: 20rem;" alt="">
+<div *ngIf="_auth.user$ | async as user">
+  <p>{{user}}</p>
+</div>
 <!--
         city:
         country:

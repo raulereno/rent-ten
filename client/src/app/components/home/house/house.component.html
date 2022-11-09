@@ -20,6 +20,7 @@
                     (click)="setFavorite(house.id, dbProfile.id)">Add to favorites</button>
                 <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
                     (click)="deleteFavorite(house.id, dbProfile.id)">Delete from favorites</button>
+
             </ul>
 
         </div>

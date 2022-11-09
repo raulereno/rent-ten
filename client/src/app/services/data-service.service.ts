@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { NewHouse } from './../components/create-house/create-house.component';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,44 @@ export class DataServiceService {
 
 
   updateUser(mail: string, picture: string, sub: string) {
+    if (mail && picture && sub) {
     this.http.post<any>('http://localhost:3001/users', { mail: mail, picture: picture, sub: sub }).subscribe({
         error: error => {
             console.error('There was an error!', error);
         }
-    })
+    }) }
   }
 
+  verifyAccount(mail: string) {
+      return this.http.post(`http://localhost:3001/users/requirecode/${mail}`, mail).subscribe({
+        error:error=>{
+          console.log(error);
+        }
+      })
+  } 
+
+  sendVerificationCode(mail:string, code:string): Observable<any>  {
+    return this.http.get<any>(`http://localhost:3001/users/verifymail/${mail}?code=${code}`)
+  } 
+
+//   sendVerificationCode(mail:string, code:string): Observable<any> {
+//     return this.http
+//             .get(`http://localhost:3001/users/verifymail/${mail}?code=${code}`)
+//             .pipe(
+//                 catchError((error):any => {
+//                   // console.log(error.error.msg)
+//                   return error.error.msg
+//                     // let errorMsg: string;
+//                     // if (error.error instanceof ErrorEvent) {
+//                     //     this.errorMsg = Error: ${error.error.message};
+//                     // } else {
+//                     //     this.errorMsg = this.getServerErrorMessage(error);
+//                     // }
+
+//                     // return throwError(errorMsg);
+//                 })
+//             );
+// }
 
   getHouses(): Observable<any> {
     return this.http.get<any>(`http://localhost:3001/houses`)
@@ -42,7 +74,6 @@ export class DataServiceService {
     })
   }
 
-
   deleteFavorite(houseId:string, userId:string) {
     this.http.put<any>(`http://localhost:3001/users/deletefavoritehouse`, {houseId: houseId, userId: userId}).subscribe({
         error: error => {
@@ -50,5 +81,14 @@ export class DataServiceService {
         }
       })
     }
+
+    createHouse(house:NewHouse, email:string){
+    this.http.post(`http://localhost:3001/houses/createhouse?userMail=${email}`,house).subscribe({
+      error:error=>{
+        console.log(error);
+      }
+    })
+  }
+
 }
 

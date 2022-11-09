@@ -24,24 +24,9 @@ const createUser = async (data) => {
     );
   }
   if (!finder) {
-  const createUser = await User.create(data)}
+  await User.create(data)}
 
   return createUser;
 };
-
-//Hacer una nueva ruta de admind rent-ten/admin y separar los controllers
-
-//Funcion que va a mostrar todos los usuarios, a aquellas personas que tiene autorización
-// const allUser = async (mail) => {
-//   const user = await User.findOne({ where: { mail } });
-
-//   if (!user.admin) {
-//     throw new Error("Se requieren permisos");
-//   }
-
-//   const allUsers = await User.findAll();
-
-//   return allUsers;
-// };
 
 module.exports = { getUser, createUser };

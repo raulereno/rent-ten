@@ -36,22 +36,23 @@ router.post('/setowner', async (req, res) => {
     }
 })
 
-router.post('/createhouse', async (req, res) => {
-    const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } = req.body
-    const { userId } = req.query
-
+router.post("/createhouse", async (req, res) => {
+    const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
+      req.body;
+    const { userMail } = req.query;
+    const { userId } = req.query;
+  
     try {
-        const newHouse = await House.create(req.body)
-        if (userId) {
-            newHouse.setUsers(userId)
-        }
-
-        res.status(201).json(newHouse)
-
+      const newHouse = await House.create(req.body);
+      if (userId) {
+        newHouse.setUsers(userId);
+      }
+  
+      res.status(201).json(newHouse);
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-})
+  });
 
 
 // --- PUT METHODS ---

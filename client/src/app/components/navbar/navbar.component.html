@@ -17,7 +17,7 @@
         <mat-icon>account_circle</mat-icon>
     </a>
 
-    <!-- <button mat-button (click)="showInfo()" *ngIf="(auth.isAuthenticated$ | async) === true">ShowInfo</button> -->
+    <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
 
     <div *ngIf="(auth.isAuthenticated$ | async) === true">
         <a mat-button routerLink="/profile">
@@ -27,53 +27,3 @@
     </div>
 
 </mat-toolbar>
-
-
-
-<!--
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" routerLink="">
-            <img src="../../assets/logo.png" alt="Logo" width="100" class="d-inline-block align-text-top">
-        </a>
-
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-1">
-
-                <div>
-                    <li>
-                        <a routerLink="/createhouse">Se anfitrión</a>
-                    </li>
-                    <li class="nav-item">
-                        <button (click)="loginWithRedirect()" *ngIf="(auth.isAuthenticated$ | async) === false">Iniciar
-                            Sesion</button>
-                    </li>
-
-                    <li class="nav-item">
-
-                        <a class="nav-link" routerLink="/about">Acerca</a>
-                    </li>
-
-                    <li class="nav-item" *ngIf="(auth.isAuthenticated$ | async) === true">
-                        <pre *ngIf="auth.user$ | async as user">
-                            <span>Bienvenido, {{user.name}}</span>
-                            <span>{{user.email}}</span>
-                            <img class="img-responsive img-rounded" style="max-height: 50px; border-radius: 50%; max-width: 50px;" src="{{user.picture}}"/>
-                        </pre>
-                        <button (click)="logout()">Cerrar Sesion</button>
-                    </li>
-
-                    <button (click)="showInfo()"></button>
-
-                </div>
-
-            </ul>
-
-        </div>
-    </div>
-</nav> -->

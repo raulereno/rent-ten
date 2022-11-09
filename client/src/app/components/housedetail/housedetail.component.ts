@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
-import { House } from '../models/House';
+import { House } from '../../models/House';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Booking } from '../models/Booking';
-
+import { Booking } from '../../models/Booking';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-housedetail',
   templateUrl: './housedetail.component.html',
@@ -12,7 +12,7 @@ import { Booking } from '../models/Booking';
 })
 export class HousedetailComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, public http: DataServiceService, private fb: FormBuilder) {}
+  constructor(private route: ActivatedRoute, public http: DataServiceService, private fb: FormBuilder, private location: Location) {}
 
   paramsId: string | null
   house: House
@@ -32,9 +32,14 @@ export class HousedetailComponent implements OnInit {
   }
 
   unavailableDays = (calendarDate: Date):boolean => {
+    console.log(calendarDate)
     if (!this.house.bookings) return true
     return !this.house.bookings.some((d:Booking) => calendarDate > new Date(d.start) && calendarDate <= new Date(new Date(d.end).getTime() + (24 * 60 * 60 * 1000)))
 }
+
+  goBack(): void {
+    this.location.back()
+  }
 
 }
 

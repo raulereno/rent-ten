@@ -47,6 +47,17 @@ module.exports = (sequelize) => {
         defaultValue: 'all'
       },
 
+      verified: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'not_verified',
+      },
+
+      verificationCode: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+
       admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
