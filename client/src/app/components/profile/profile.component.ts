@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { DataServiceService } from 'src/app/services/data-service.service';
-import { userProfile } from '../models/UserProfile';
-import { House } from '../models/House';
+import { userProfile } from '../../models/UserProfile';
+import { House } from '../../models/House';
 
 
 @Component({

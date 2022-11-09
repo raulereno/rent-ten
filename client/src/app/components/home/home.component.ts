@@ -5,9 +5,9 @@ import { filter, map, take } from 'rxjs/operators'
 import { Data } from '../../services/data.service';
 import { DataServiceService } from '../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
-import { House } from '../models/House';
+import { House } from '../../models/House';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Booking } from '../models/Booking';
+import { Booking } from '../../models/Booking';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
