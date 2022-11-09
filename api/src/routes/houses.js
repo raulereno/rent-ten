@@ -12,9 +12,11 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
+  console.log(id);
 
   try {
     const house = await House.findByPk(id, { include: User });
+    console.log(house);
     res.status(200).json(house);
   } catch (error) {
     console.log(error);
