@@ -5,9 +5,10 @@ import { filter, map, take } from 'rxjs/operators'
 import { Data } from '../../services/data.service';
 import { DataServiceService } from '../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
-import { House } from '../models/House';
+import { House } from '../../models/House';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Booking } from '../models/Booking';
+import { Booking } from '../../models/Booking';
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -99,6 +100,16 @@ export class HomeComponent implements OnInit {
   showInfo() {
     console.log(this.allHouses)
   }
+
+  handlePage(e: PageEvent){
+    this.page_size = e.pageSize
+    this.page_number= e.pageIndex + 1
+
+  }
+
+  page_size: number = 3
+  page_number: number = 1
+  page_size_options = [5,10,20,50,100] 
 }
 
 

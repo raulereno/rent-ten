@@ -53,6 +53,7 @@
     </form>
 </div>
 
+<mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
 
 
-<app-house *ngFor="let house of allHouses" [house]="house"></app-house>
+<app-house *ngFor="let house of allHouses | paginate: page_size:page_number" [house]="house" ></app-house>

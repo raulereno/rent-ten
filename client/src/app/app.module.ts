@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -28,7 +29,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 
 // import { CloudinaryModule } from '@cloudinary/ng';
-import { CloudinaryModule } from '@cloudinary/ng'
+import { CloudinaryModule } from '@cloudinary/ng';
+import { PaginatePipe } from './pipes/paginate.pipe';
+
 
 
 const routes: Routes = [
@@ -54,6 +57,8 @@ const routes: Routes = [
     HomeComponent,
     ProfileComponent,
     HouseComponent,
+    PaginatePipe,
+
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,8 @@ const routes: Routes = [
     CloudinaryModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
