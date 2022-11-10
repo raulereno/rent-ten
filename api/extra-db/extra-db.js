@@ -72,5 +72,3 @@ module.exports = {
     extraHouses
 }
 
-
-//            type: DataTypes.ENUM('department', 'guest house', 'house', 'hotel'),

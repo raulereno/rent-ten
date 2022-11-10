@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { loadCountries, loadedCountries } from 'src/app/redux/actions/countries.actions';
 import { Observable } from 'rxjs';
 import { selectorListCountries, selectorListLoading } from 'src/app/redux/selectors/selectors';
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -136,6 +137,16 @@ export class HomeComponent implements OnInit {
   showInfo() {
     console.log(this.allHouses)
   }
+
+  handlePage(e: PageEvent){
+    this.page_size = e.pageSize
+    this.page_number= e.pageIndex + 1
+
+  }
+
+  page_size: number = 3
+  page_number: number = 1
+  page_size_options = [5,10,20,50,100] 
 }
 
 
