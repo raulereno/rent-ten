@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { House } from '../../models/House';
+import { House } from '../../../models/House';
 import { DataServiceService } from '../../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
 

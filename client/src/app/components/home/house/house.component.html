@@ -20,7 +20,6 @@
                     <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
                         (click)="deleteFavorite(house.id, dbProfile.id)">Delete from favorites</button>
                 </ul>
-                <a routerLink="/home/{{house.id}}" >IR A DETALLE</a>
             </div>
     </div>
 </div>

@@ -1,19 +1,22 @@
 <div>
     <div>
-        <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
-            <option selected>Abre este menú select</option>
-            <option value="1">Uno</option>
-            <option value="2">Dos</option>
-            <option value="3">Tres</option>
+        <select ngModel="selectedCountry.id" class="form-select form-select-lg mb-3"
+            aria-label="Ejemplo de .form-select-lg" (change)="onSelect($event)">
+            <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
         </select>
         <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
-            <option selected>Abre este menú select</option>
-            <option value="1">Uno</option>
-            <option value="2">Dos</option>
-            <option value="3">Tres</option>
+            <option *ngFor="let city of cities" value="city.id">{{city.name}}</option>
         </select>
     </div>
 </div>
+
+<b>Cargando...{{loading$ | async | json}}</b>
+<br>
+
+<select>
+    <option *ngFor="let country of countries$ |async" value={{country.name}}>{{country.name}}</option>
+</select>
+<b *ngFor="let country of countries$ |async">{{country.name}}</b>
 <!-- <div class="container">
     <div class="row align-items-start">
         <div *ngFor="let house of allHouses">
@@ -41,7 +44,7 @@
 <div>checkout: <input required pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="checkout" type="date"></div>
  -->
 
- <button (click)="showInfo()"></button>
+<button (click)="showInfo()"></button>
 
 <div class='container'>
     <form [formGroup]="form">
@@ -58,6 +61,7 @@
     </form>
 </div>
 
+<mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
 
 
-<app-house *ngFor="let house of allHouses" [house]="house"></app-house>
+<app-house *ngFor="let house of allHouses | paginate: page_size:page_number" [house]="house" ></app-house>

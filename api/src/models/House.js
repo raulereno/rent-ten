@@ -58,6 +58,10 @@ module.exports = (sequelize) => {
       },
 
       type: {
+        type: DataTypes.ENUM("departament", "guest house", "house", "hotel"),
+        allowNull: true,
+      },
+      type: {
         type: DataTypes.ENUM("department", "guest house", "house", "hotel"),
         allowNull: true,
       },
