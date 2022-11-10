@@ -52,7 +52,7 @@
 <div>
     {{currentHouse}}
 </div>
-
+<button (click)="showInfo()"></button>
 <img *ngIf="newHouse.picture" src={{newHouse.picture[0]}} style="width: 20rem; height: 20rem;" alt="">
 <div *ngIf="_auth.user$ | async as user">
   <p>{{user}}</p>

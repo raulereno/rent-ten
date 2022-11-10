@@ -47,11 +47,13 @@ const routes: Routes = [
     path: '',
     children: [
       { path: 'home', component: HomeComponent },
+      { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      {path:'profile',component:ProfileComponent },
+      {path:  'profile',component:ProfileComponent },
       { path: "**", redirectTo: 'home' },
+      { path: 'housedetail/:id', component: HousedetailComponent},
     ]
   }
 ];
@@ -67,20 +69,12 @@ const routes: Routes = [
     ProfileComponent,
     HouseComponent,
     PaginatePipe,
-
   ],
   imports: [
     BrowserModule,
     CommonModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
-      { path: '', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'about', component: AboutComponent },
-      { path: 'createhouse', component: CreateHouseComponent },
-      { path: 'profile', component: ProfileComponent}
-    ]),
+    RouterModule.forRoot(routes),
     AuthModule.forRoot({
       ...env.auth,
     }),

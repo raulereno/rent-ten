@@ -10,6 +10,7 @@ export interface House {
     picture: string[];
     rooms: number;
     type: string;
+    price: number;
     wifi: boolean;
     bookings: any[];
 }
