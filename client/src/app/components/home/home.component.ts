@@ -22,7 +22,6 @@ import { PageEvent } from '@angular/material/paginator';
 
 export class HomeComponent implements OnInit {
 
-  //variable para escuchar y que se declara para poder imrpimir/pintar en pagina
   loading$: Observable<any> = new Observable();
   countries$: Observable<any> = new Observable()
 
@@ -57,7 +56,7 @@ export class HomeComponent implements OnInit {
 
   page_size: number = 5
   page_number: number = 1
-  page_size_options = [5, 10, 20] 
+  page_size_options = [5, 10, 20]
 
 
   // --- ON INIT ---
@@ -76,7 +75,7 @@ export class HomeComponent implements OnInit {
           { countries: response }
         ))
       })
-
+    // this.countries = this.dataSvc.getCountries();
     this.getContries();
 
     this.auth.user$.subscribe(profile => {
@@ -115,8 +114,4 @@ export class HomeComponent implements OnInit {
     this.page_size = e.pageSize
     this.page_number= e.pageIndex + 1
   }
-
-
 }
-
-
