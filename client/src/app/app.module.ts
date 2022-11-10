@@ -53,7 +53,6 @@ const routes: Routes = [
       { path: 'createhouse', component: CreateHouseComponent },
       {path:  'profile',component:ProfileComponent },
       { path: "**", redirectTo: 'home' },
-      { path: 'housedetail/:id', component: HousedetailComponent},
     ]
   }
 ];
