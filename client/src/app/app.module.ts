@@ -1,9 +1,12 @@
+import { HousedetailComponent } from './components/housedetail/housedetail.component';
 //Modulos de Angular
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 //COMPONENTES
 import { AppComponent } from './app.component';
 import { HouseComponent } from './components/home/house/house.component';
@@ -51,7 +54,8 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      {path:  'profile',component:ProfileComponent },
+      { path:  'profile',component:ProfileComponent },
+      { path: 'housedetail/:id', component:HousedetailComponent},
       { path: "**", redirectTo: 'home' },
     ]
   }
@@ -72,7 +76,9 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     CommonModule,
+    NoopAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     AuthModule.forRoot({
       ...env.auth,
@@ -85,8 +91,8 @@ const routes: Routes = [
     NgxDropzoneModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    BrowserAnimationsModule,
     CloudinaryModule,
-    ReactiveFormsModule,
     MatDialogModule,
     MatInputModule,
     MatPaginatorModule,

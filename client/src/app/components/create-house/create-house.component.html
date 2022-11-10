@@ -1,42 +1,52 @@
 <form action="houses/createhouse" method="post" style="display: flex; flex-direction:column; width: 35%;" (ngSubmit)="onSubmit($event)">
-    <h2>Datos del alojamiento:</h2>
-    <label for="input_country">Pais:</label>
-    <input type="text" name="country" id="input_country" [(ngModel)]="newHouse.country">
+    <h2>Place Data:</h2>
+    <label for="input_country">Country:</label>
 
-    <label for="input_city">Ciudad:</label>
-    <input type="text" name="city" id="input_city" [(ngModel)]="newHouse.city">
+    <select name="country" id="" [(ngModel)]="newHouse.country" (ngModelChange)="searchStates($event)" >
+      <option  *ngFor="let country of countries$ |async" [ngValue]="country.name"  >{{country.name}}</option>
+    </select>
 
-    <label for="input_rooms">Numero de habitaciones:</label>
+    <label for="input_country">States:</label>
+    <select name="states" [(ngModel)]="newHouse.state" id="" (ngModelChange)="searchCities($event)">
+        <option *ngFor="let state of states$" [ngValue]="state.name"> {{state.name}}</option>
+    </select>
+
+    <label>City:</label>
+    <select name="city" [(ngModel)]="newHouse.city" id="">
+        <option *ngFor="let city of cities$" [ngValue]="city">{{city}}</option>
+    </select>
+
+    <label for="input_rooms">Number of rooms:</label>
     <input type="number" name="rooms" id="input_rooms" [(ngModel)]="newHouse.rooms">
 
-    <label for="input_bathrooms">Numero de baños:</label>
+    <label for="input_bathrooms">Number of bathrooms:</label>
     <input type="number" name="bathrooms" id="input_bathrooms" [(ngModel)]="newHouse.bathrooms">
 
-    <label for="input_maxpeople">¿Para cuantas personas es su alojamiento?</label>
+    <label for="input_maxpeople">How many guests would you like to welcome?</label>
     <input type="number" name="maxpeople" id="input_maxpeople" [(ngModel)]="newHouse.maxpeople">
 
     <div>
-        <label for="input_allowpets">¿Se permiten mascotas?</label>
+        <label for="input_allowpets">Do you allow pets?</label>
         <input type="checkbox" name="allowpets" id="input_allowpets" value="true" [(ngModel)]="newHouse.allowpets">
 
     </div>
 
     <div>
-        <span>¿Su alojamiento posee conexión a internet?</span>
+        <span>Does the place have wifi connection?</span>
         <input type="checkbox" name="wifi" id="input_wifi" value="true" [(ngModel)]="newHouse.wifi">
     </div>
 
-    <label for="select_type">Tipo de alojamiento:</label>
+    <label for="select_type">What kind of place will you host?</label>
     <select name="type" id="select_type" [(ngModel)]="newHouse.type">
 
-        <option value="house">Casa</option>
-        <option value="department">Departamento</option>
-        <option value="guest house">Casa de huespedes</option>
+        <option value="house">House</option>
+        <option value="department">Department</option>
+        <option value="guest house">Guest House</option>
         <option value="hotel">Hotel</option>
     </select>
     <div class="dropzone">
         <ngx-dropzone (change)="onSelect($event)">
-            <ngx-dropzone-label>Arrastra o haz click para seleccionar las fotos</ngx-dropzone-label>
+            <ngx-dropzone-label>Drag or click to select the photos of the place</ngx-dropzone-label>
 
             <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files; let i= index" [file]="f"  [removable]="true" (removed)="onRemove(f)" [ngClass]="{'isCoverPhoto':i===0}">
 
@@ -52,11 +62,10 @@
 <div>
     {{currentHouse}}
 </div>
-<button (click)="showInfo()"></button>
-<img *ngIf="newHouse.picture" src={{newHouse.picture[0]}} style="width: 20rem; height: 20rem;" alt="">
-<div *ngIf="_auth.user$ | async as user">
+<!-- <button (click)="showInfo()"></button> -->
+<!-- <div *ngIf="_auth.user$ | async as user">
   <p>{{user}}</p>
-</div>
+</div> -->
 <!--
         city:
         country:
