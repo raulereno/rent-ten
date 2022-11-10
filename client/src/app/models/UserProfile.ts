@@ -7,5 +7,7 @@ export interface userProfile {
         mail: string;
         country: string;
         admin: boolean;
+        verified: string;
+        verificationCode: string;
         favoriteshouses: string[]
 }

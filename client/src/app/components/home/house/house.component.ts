@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { House } from '../../../models/House';
 import { DataServiceService } from '../../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
+import { userProfile } from '../../../models/UserProfile';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-house',
@@ -11,24 +13,16 @@ import { AuthService } from '@auth0/auth0-angular';
 export class HouseComponent implements OnInit {
 
   @Input() house: House;
+  @Input() dbProfile: userProfile
 
-
-  constructor(public http: DataServiceService, public auth: AuthService) { }
+  constructor(public http: DataServiceService, public auth: AuthService, private router: Router) { }
 
   profileJson: any;
-  dbProfile: any = {}
   allHouses: House[] = []
   indexPhoto:number = 0
 
 
   ngOnInit(): void {
-    this.auth.user$.subscribe(profile => {
-      this.profileJson = profile;
-      this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data);
-      this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
-    });
-
-    this.http.getHouses().subscribe(data => this.allHouses = data);
   }
 
   setFavorite(houseId: string, userId: string): void {
@@ -36,18 +30,15 @@ export class HouseComponent implements OnInit {
         this.auth.loginWithRedirect();
     } else {
       this.http.setFavorite(houseId, userId)
-      setTimeout(() => {
-        this.ngOnInit()
-      }, 200);
+      this.dbProfile.favoriteshouses.push(houseId)
     }
   }
 
 
   deleteFavorite(houseId: string, userId: string): void {
     this.http.deleteFavorite(houseId, userId)
-    setTimeout(() => {
-      this.ngOnInit()
-    }, 200);
+    let index = this.dbProfile.favoriteshouses.indexOf(houseId)
+    this.dbProfile.favoriteshouses.splice(index, 1)
   }
 
 
@@ -61,8 +52,7 @@ export class HouseComponent implements OnInit {
   }
 
   showInfo() {
-    console.log(this.indexPhoto)
-    console.log(this.house.picture[this.indexPhoto])
+    console.log(this.dbProfile)
   }
 
   giveMePhoto() {
