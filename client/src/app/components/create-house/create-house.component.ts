@@ -22,8 +22,6 @@ export interface NewHouse {
   styleUrls: ['./create-house.component.css'],
   providers: [UploadImgService]
 })
-
-
 export class CreateHouseComponent implements OnInit {
 
   newHouse: NewHouse = {
@@ -39,14 +37,15 @@ export class CreateHouseComponent implements OnInit {
   }
 
   files: File[] = [];
-
   email: string = "";
 
-  constructor(private _uploadImg: UploadImgService, private _http: DataServiceService, public _auth: AuthService) { }
-
+  constructor(
+    private _uploadImg: UploadImgService,
+    private _http: DataServiceService,
+    public _auth: AuthService
+  ) {}
 
   ngOnInit(): void {
-
     this._auth.user$.subscribe(profile => {
       this.email = profile?.email ? profile?.email : ""
     });
@@ -97,12 +96,8 @@ export class CreateHouseComponent implements OnInit {
     return JSON.stringify(this.newHouse)
   }
 
-
   showInfo() {
     console.log(this.files)
   }
-
-
-
 
 }

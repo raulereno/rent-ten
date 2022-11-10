@@ -19,8 +19,9 @@ export class HouseComponent implements OnInit {
 
   profileJson: any;
   allHouses: House[] = []
-  indexPhoto = 0
- 
+  indexPhoto:number = 0
+
+
   ngOnInit(): void {
   }
 
@@ -56,7 +57,7 @@ export class HouseComponent implements OnInit {
 
   giveMePhoto() {
     return this.house.picture[this.indexPhoto]
-  } 
+  }
 
   paginationForward() {
     if (this.indexPhoto !== (this.house.picture.length- 1) ){ this.indexPhoto++ }

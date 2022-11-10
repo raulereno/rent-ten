@@ -37,6 +37,22 @@ import { countriesReducer } from './redux/reducers/countries.reducers';
 import { ROOT_REDUCERS } from './redux/store/app.state';
 
 
+const routes: Routes = [
+  {
+    path: '',
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: '', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'about', component: AboutComponent },
+      { path: 'createhouse', component: CreateHouseComponent },
+      {path:  'profile',component:ProfileComponent },
+      { path: "**", redirectTo: 'home' },
+      { path: 'housedetail/:id', component: HousedetailComponent},
+    ]
+  }
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,19 +70,10 @@ import { ROOT_REDUCERS } from './redux/store/app.state';
     BrowserModule,
     CommonModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
-      { path: '', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'about', component: AboutComponent },
-      { path: 'createhouse', component: CreateHouseComponent },
-      { path: 'profile', component: ProfileComponent},
-      { path: 'housedetail/:id', component: HousedetailComponent}
-    ]),
+    RouterModule.forRoot(routes),
     AuthModule.forRoot({
       ...env.auth,
     }),
-    BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,

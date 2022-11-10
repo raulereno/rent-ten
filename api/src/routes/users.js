@@ -16,15 +16,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+
 router.get('/getuser', async (req, res) => {
   const { mail } = req.query
   try {
     const finder = await User.findOne({ where: { mail: mail } })
     res.status(200).json(finder)
+
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
 
 router.put('/addfavoritehouse', async (req, res) => {
 
@@ -43,11 +45,10 @@ router.put('/addfavoritehouse', async (req, res) => {
   } catch (error) {
     console.log(error)
   }
+});
 
-})
 
 router.put('/deletefavoritehouse', async (req, res) => {
-
   const { userId, houseId } = req.body
 
   try {
@@ -56,18 +57,16 @@ router.put('/deletefavoritehouse', async (req, res) => {
     if (user.favoriteshouses.some(house => house == houseId)) {
       user.update({ favoriteshouses: user.favoriteshouses.filter(house => house !== houseId) })
       res.status(200).json({ msg: `eliminated.` })
-
     } else {
       res.status(200).json({ msg: `no house with id ${houseId} in user ${userId}` })
     }
-
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
-})
+});
 
 router.post("/", async (req, res) => {
+
   const { mail } = req.body
 
   try {
@@ -83,7 +82,6 @@ router.post("/", async (req, res) => {
     console.log(error)
     res.status(400).json(error.message);
   }
-
 });
 
 router.post('/requirecode/:mail', async (req, res) => {
@@ -122,15 +120,13 @@ router.get('/verifymail/:mail', async (req, res) => {
       await user.update({ verified: 'verified', code: 'verified' })
       return res.status(200).json({ msg: `Thanks, your account is now verified!` })
     } else {
-      throw new Error({msg: "Wrong verification code"})
+      throw new Error({ msg: "Wrong verification code" })
     }
 
   } catch (error) {
-    res.status(400).json({msg: "Wrong verification code"})
+    res.status(400).json({ msg: "Wrong verification code" })
   }
 })
-
-
 
 
 module.exports = router;

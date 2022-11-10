@@ -13,16 +13,15 @@ const getUser = (mail, password) => {
 };
 
 const createUser = async (data) => {
-
   const { mail } = data;
-  const finder = await User.findOne({where: {sub: data.sub}})
-  console.log(finder)
+  const finder = await User.findOne({ where: { sub: data.sub } });
 
   if (!mail) {
     throw new Error(
       "Estos datos son requeridos para la creación de un usuario"
     );
   }
+
   if (!finder) {
   await User.create(data)}
 
