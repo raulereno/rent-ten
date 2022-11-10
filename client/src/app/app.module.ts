@@ -46,7 +46,8 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      { path: "**", redirectTo: 'home' }
+      {path:'profile',component:ProfileComponent },
+      { path: "**", redirectTo: 'home' },
     ]
   }
 ];
