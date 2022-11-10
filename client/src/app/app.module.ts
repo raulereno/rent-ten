@@ -7,7 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -46,9 +46,9 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      {path:  'profile',component:ProfileComponent },
-      { path: "**", redirectTo: 'home' },
+      { path: 'profile',component:ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent},
+      { path: "**", redirectTo: 'home' },
     ]
   }
 ];
