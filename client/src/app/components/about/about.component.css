@@ -1,0 +1,16 @@
+h1 {
+  text-align: center;
+}
+
+ul {
+  /*display: flex;
+  flex-direction: row; */
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+img {
+  width: 250px;
+  height: 250px;
+}

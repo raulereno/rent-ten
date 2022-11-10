@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,8 +28,13 @@ import { HouseComponent } from './components/home/house/house.component';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 import { HousedetailComponent } from './components/housedetail/housedetail.component';
-
-import { CloudinaryModule } from '@cloudinary/ng'
+import { CloudinaryModule } from '@cloudinary/ng';
+import { PaginatePipe } from './pipes/paginate.pipe';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment'
+import { countriesReducer } from './redux/reducers/countries.reducers';
+import { ROOT_REDUCERS } from './redux/store/app.state';
 
 
 @NgModule({
@@ -42,6 +48,7 @@ import { CloudinaryModule } from '@cloudinary/ng'
     ProfileComponent,
     HouseComponent,
     HousedetailComponent,
+    PaginatePipe,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +78,10 @@ import { CloudinaryModule } from '@cloudinary/ng'
     CloudinaryModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule,
+    StoreModule.forRoot(ROOT_REDUCERS),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent],
