@@ -27,10 +27,9 @@ import { CommonModule } from '@angular/common';
 import { HouseComponent } from './components/home/house/house.component';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { HousedetailComponent } from './components/housedetail/housedetail.component';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { PaginatePipe } from './pipes/paginate.pipe';
-
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment'
@@ -43,10 +42,13 @@ const routes: Routes = [
     path: '',
     children: [
       { path: 'home', component: HomeComponent },
+      { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      { path: "**", redirectTo: 'home' }
+      {path:  'profile',component:ProfileComponent },
+      { path: "**", redirectTo: 'home' },
+      { path: 'housedetail/:id', component: HousedetailComponent},
     ]
   }
 ];
@@ -61,8 +63,8 @@ const routes: Routes = [
     HomeComponent,
     ProfileComponent,
     HouseComponent,
+    HousedetailComponent,
     PaginatePipe,
-
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,6 @@ const routes: Routes = [
     AuthModule.forRoot({
       ...env.auth,
     }),
-    BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,

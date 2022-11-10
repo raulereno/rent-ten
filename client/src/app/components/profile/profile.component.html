@@ -1,17 +1,47 @@
 <div>
+
     <div class="container">
+
+        <!-- ---- PROFILE ---- -->
+
         <img src="{{dbProfile.picture}}" />
+        <button style="float:right" (click)="showProfileJson()">Console log Profile json & profile DB</button>
         <p>{{dbProfile.name}}</p>
         <p>{{dbProfile.lastname}}</p>
-        <p>{{dbProfile.mail}}</p>
-        <p>sub json auth0: {{profileJson.sub}}</p>
-        <p>id db: {{dbProfile.id}}</p>
 
-        <button (click)="showInfo()"></button>
+
+        <!-- ---- EMAIL ---- -->
+        <div>
+
+            <h3>{{dbProfile.mail}}
+                <h4 *ngIf="dbProfile.verified === 'verified'" style="color: green">&#x2714;Your email is verified</h4>
+            </h3>
+
+            <h5 *ngIf="dbProfile.verified === 'not_verified'" style="color: red; font-weight: 400;">
+                <button style="size: 50%" (click)="verifyAccount()" type="button"
+                    class="btn btn-outline-danger btn-sm">Verify</button>
+                    &#x2716; Your account is not verified
+            </h5>
+
+            <div *ngIf="dbProfile.verified === 'pending'">
+                
+                    <form>
+                        <p>Please enter the security code which you received in your email</p>
+                        <input #code name="code" value="" type="string" placeholder="Insert the code">
+                        <button style="size: 50%" (click)="sendVerificationCode(code.value)" type="button"
+                            class="btn btn-outline-warning btn-sm">Verify</button>
+                    </form>
+            </div>
+
+            <p style="color:red" *ngIf="error">{{error.error.msg}}</p>
+        </div>
+
+        <!-- ---- FAVORITES HOUSES ---- -->
+
         <div class="row align-items-start">
             <h3 *ngIf="favoritesHouses.length > 0">Favorites houses: </h3>
             <div *ngFor="let house of favoritesHouses">
-                <img style="max-width: 250px;" class="img-thumbnail" src={{house.picture}} />
+                <img style="max-width: 250px;" class="img-thumbnail" src={{house.picture[0]}} />
                 <ul>
                     <li>{{house.id}}</li>
                     <li>Country: {{house.country}}</li>
@@ -26,5 +56,7 @@
                 <hr />
             </div>
         </div>
+
+
     </div>
 </div>
