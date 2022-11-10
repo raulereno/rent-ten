@@ -28,7 +28,6 @@ import { HouseComponent } from './components/home/house/house.component';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 
-// import { CloudinaryModule } from '@cloudinary/ng';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { PaginatePipe } from './pipes/paginate.pipe';
 
