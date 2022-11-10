@@ -10,36 +10,17 @@
     </div>
 </div>
 
-<button (click)="showInfo()"></button>
-
-<app-house *ngFor="let house of allHouses" [house]="house" [dbProfile]="dbProfile"></app-house>
-
-<b>Cargando...{{loading$ | async | json}}</b>
-<br>
-
+<!-- 
 <select>
     <option *ngFor="let country of countries$ |async" value={{country.name}}>{{country.name}}</option>
-</select>
-<b *ngFor="let country of countries$ |async">{{country.name}}</b>
-
-<button (click)="showInfo()"></button>
-
-<div class='container'>
-    <form [formGroup]="form">
-        <mat-form-field>
-
-            <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
-                <input matStartDate placeholder="start date" formControlName="start">
-                <input matEndDate placeholder="end date" formControlName="end">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-
-        </mat-form-field>
-    </form>
+</select> -->
+<div>
+    <mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+        (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
 </div>
-
-<mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
-
-
-<app-house *ngFor="let house of allHouses | paginate: page_size:page_number" [house]="house" ></app-house>
+<hr/>
+<div>
+    <app-house *ngFor="let house of allHouses | paginate: page_size:page_number" [house]="house"
+        [dbProfile]="dbProfile">
+    </app-house>
+</div>
