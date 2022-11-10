@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Country, City } from '../../models/model.interface';
 import { filter, map, take } from 'rxjs/operators'
-
 import { Data } from '../../services/data.service';
 import { DataServiceService } from '../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
 import { House } from '../../models/House';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Booking } from '../../models/Booking';
+import { Store } from '@ngrx/store';
+import { loadCountries, loadedCountries } from 'src/app/redux/actions/countries.actions';
+import { Observable } from 'rxjs';
+import { selectorListCountries, selectorListLoading } from 'src/app/redux/selectors/selectors';
 import { PageEvent } from '@angular/material/paginator';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,6 +22,10 @@ import { PageEvent } from '@angular/material/paginator';
 
 export class HomeComponent implements OnInit {
 
+  //variable para escuchar y que se declara para poder imrpimir/pintar en pagina
+  loading$: Observable<any> = new Observable();
+  countries$: Observable<any> = new Observable()
+
   public selectedCountry: Country = {
     id: 0,
     name: '',
@@ -26,17 +34,20 @@ export class HomeComponent implements OnInit {
   public countries: Country[] | undefined;
   public cities: City[] | undefined;
 
-  constructor(private dataSvc: Data, public http: DataServiceService, public auth: AuthService, private fb: FormBuilder) { }
+  // ****** CONSTRUCTOR ******* //
+
+  constructor(
+    private dataSvc: Data,
+    public http: DataServiceService,
+    public auth: AuthService,
+    private fb: FormBuilder,
+    private store: Store<any>,
+    private data: Data
+  ) { }
 
   getContries(): void {
     this.dataSvc.getCountries().subscribe(countries => this.countries = countries)
   }
-
-  // getCities(): void {
-  //   this.dataSvc.getCities().subscribe(cities => this.cities = cities)
-  // }
-
-  // --- LOCAL VARIABLES ---
 
   form: FormGroup;
 
@@ -44,17 +55,29 @@ export class HomeComponent implements OnInit {
   dbProfile: any = {}
   allHouses: House[] = []
 
+  page_size: number = 5
+  page_number: number = 1
+  page_size_options = [5, 10, 20] 
+
+
   // --- ON INIT ---
 
-
-
   ngOnInit(): void {
-    // this.countries = this.dataSvc.getCountries();
+
+    this.loading$ = this.store.select(selectorListLoading);
+    this.countries$ = this.store.select(selectorListCountries);
+
+    this.store.dispatch(loadCountries())
+
+    this.data?.getCountries()
+      .subscribe((response: Country[]) => {
+        console.log('_______', response)
+        this.store.dispatch(loadedCountries(
+          { countries: response }
+        ))
+      })
+
     this.getContries();
-    // this.getCities();
-    // this.cities = this.dataSvc.getCities();
-    // console.log(this.cities);
-    // console.log(this.countries);
 
     this.auth.user$.subscribe(profile => {
       this.profileJson = profile;
@@ -81,19 +104,6 @@ export class HomeComponent implements OnInit {
 
   onSelect(event: any): void {
     let id = parseInt(event.target.value)
-    // console.log('Id => ', event.target.value)
-
-    // console.log(id)
-
-    // let filterCities = this.dataSvc.getCities().pipe(map(elemet => elemet.filter(item => item.countryId === id))).subscribe(city => this.cities = city)
-
-    // // let filterCities = this.dataSvc.getCities().forEach(element => element.filter(item => item.countryId === id))
-
-
-    // console.log(filterCities)
-
-    // this.cities = filterCities
-
     this.cities = this.dataSvc.getCities().filter(item => item.countryId === id);
 
   }
@@ -104,15 +114,9 @@ export class HomeComponent implements OnInit {
   handlePage(e: PageEvent){
     this.page_size = e.pageSize
     this.page_number= e.pageIndex + 1
-
   }
 
-  page_size: number = 3
-  page_number: number = 1
-  page_size_options = [5,10,20,50,100] 
 
-
-  
 }
 
 

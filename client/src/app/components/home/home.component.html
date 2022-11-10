@@ -9,51 +9,18 @@
         </select>
     </div>
 </div>
-<!-- <div class="container">
-    <div class="row align-items-start">
-        <div *ngFor="let house of allHouses">
-            <div class="col">
-                <img style="max-width: 270px" class="img-thumbnail" src={{house.picture}} />
-                <ul>
-                    <li>{{house.id}}</li>
-                    <li>Country: {{house.country}}</li>
-                    <li>City: {{house.city}}</li>
-                    <li>Rooms: {{house.rooms}}</li>
-                    <li>Bathrooms: {{house.bathrooms}}</li>
-                    <li>Maxpeople: {{house.maxpeople}}</li>
-                    <li>Allowpets: {{house.allowpets}}</li>
-                    <button *ngIf="checkIsFavorite(house.id) === false" class="btn btn-outline-warning"
-                        (click)="setFavorite(house.id, dbProfile.id)">Add to favorites</button>
-                    <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
-                        (click)="deleteFavorite(house.id, dbProfile.id)">Delete from favorites</button>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!--
-<div>checkin: <input required pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="checkin" type="date"></div>
-<div>checkout: <input required pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="checkout" type="date"></div>
- -->
 
- <button (click)="showInfo()"></button>
-
-<div class='container'>
-    <form [formGroup]="form">
-        <mat-form-field>
-
-            <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
-                <input matStartDate placeholder="start date" formControlName="start">
-                <input matEndDate placeholder="end date" formControlName="end">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-
-        </mat-form-field>
-    </form>
+<!-- 
+<select>
+    <option *ngFor="let country of countries$ |async" value={{country.name}}>{{country.name}}</option>
+</select> -->
+<div>
+    <mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+        (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
 </div>
-
-<mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
-
-
-<app-house *ngFor="let house of allHouses | paginate: page_size:page_number" [house]="house" ></app-house>
+<hr/>
+<div>
+    <app-house *ngFor="let house of allHouses | paginate: page_size:page_number" [house]="house"
+        [dbProfile]="dbProfile">
+    </app-house>
+</div>

@@ -8,7 +8,19 @@ let extraHouses = [
         bathrooms: 2,
         allowpets: true,
         wifi: true,
-        type: 'house'
+        type: 'house',
+        price: 200,
+        address: "San Martin 494",
+        bookings: [
+            {
+                "start": "2022-11-01",
+                "end": "2022-11-07"
+            },
+            {
+                "start": "2022-11-11",
+                "end": "2022-11-17"
+            }
+        ]
     },
 
     {
@@ -19,7 +31,19 @@ let extraHouses = [
         bathrooms: 1,
         allowpets: false,
         wifi: false,
-        type: 'guest house'
+        type: 'guest house',
+        price: 100,
+        address: "Gerardito 94",
+        bookings: [
+            {
+                "start": "2022-11-01",
+                "end": "2022-11-30"
+            },
+            {
+                "start": "2022-12-15",
+                "end": "2022-12-30"
+            }
+        ]
     },
 
     {
@@ -30,7 +54,19 @@ let extraHouses = [
         bathrooms: 2,
         allowpets: true,
         wifi: true,
-        type: 'hotel'
+        type: 'hotel',
+        price: 50,
+        address: "Gustavo Rolon 20",
+        bookings: [
+            {
+                "start": "2022-11-01",
+                "end": "2022-11-07"
+            },
+            {
+                "start": "2022-11-15",
+                "end": "2022-11-20"
+            }
+        ]
     },
 
     {
@@ -41,7 +77,19 @@ let extraHouses = [
         bathrooms: 1,
         allowpets: true,
         wifi: true,
-        type: 'department'
+        type: 'department',
+        price: 175,
+        address: "San Luis 2024",
+        bookings: [
+            {
+                "start": "2022-11-15",
+                "end": "2022-11-30"
+            },
+            {
+                "start": "2022-11-03",
+                "end": "2022-11-08"
+            }
+        ]
     },
 
     {
@@ -52,7 +100,19 @@ let extraHouses = [
         bathrooms: 1,
         allowpets: false,
         wifi: true,
-        type: 'hotel'
+        type: 'hotel',
+        price: 80,
+        address: "Av Belgrano 3494",
+        bookings: [
+            {
+                "start": "2022-11-11",
+                "end": "2022-11-15"
+            },
+            {
+                "start": "2022-12-01",
+                "end": "2022-12-15"
+            }
+        ]
     },
 
     {
@@ -63,7 +123,19 @@ let extraHouses = [
         bathrooms: 2,
         allowpets: true,
         wifi: true,
-        type: 'house'
+        type: 'house',
+        price: 120,
+        address: "Calle Santiago 4344",
+        bookings: [
+            {
+                "start": "2022-11-01",
+                "end": "2022-11-07"
+            },
+            {
+                "start": "2022-11-11",
+                "end": "2022-11-17"
+            }
+        ]
     },
 
 ]
