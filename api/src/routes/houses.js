@@ -126,6 +126,17 @@ router.delete("/deletehouse", async (req, res) => {
   }
 });
 
+router.get("/countriesDB/all", async (req, res) => {
+  try {
+    const houses = await House.findAll({
+      attributes: ["id", "country", "city"],
+    });
+
+    res.status(200).json(houses);
+  } catch (error) {
+    res.status(404).json(error.message);
+  }
+});
 // --- EXTRA TO FULL DB ---
 
 router.post("/fulldb", async (req, res) => {

@@ -3,7 +3,6 @@ import { Country } from 'src/app/models/location.model';
 
 //Constantes de para las Actions
 export const LOAD_DATA = '[COUNTRIES List] Load Data';
-
 export const LOADED_COUNTRIES = '[COUNTRIES List] Loaded Countries';
 export const LOADED_STATE = '[STATE List] Loaded States';
 export const LOADED_CITIES = '[CITIES List] Loaded Cities';
