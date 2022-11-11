@@ -3,17 +3,11 @@ import { HousedetailComponent } from './components/housedetail/housedetail.compo
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthModule } from '@auth0/auth0-angular';
-
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
-import {MatPaginatorModule} from '@angular/material/paginator';
-
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+//COMPONENTES
 import { AppComponent } from './app.component';
 import { HouseComponent } from './components/home/house/house.component';
 import { LoginComponent } from './components/login/login.component';
@@ -60,8 +54,8 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      {path:  'profile',component:ProfileComponent },
-      { path: 'housedetail/:id', component: HousedetailComponent},
+      { path:  'profile',component:ProfileComponent },
+      { path: 'housedetail/:id', component:HousedetailComponent},
       { path: "**", redirectTo: 'home' },
     ]
   }
