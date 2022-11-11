@@ -1,11 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
-import { ProfileState } from 'src/app/models/Country.state';
+import { GlobalState } from 'src/app/models/Country.state';
 import { loadedCountries } from '../actions/countries.actions';
 import { loadHouses } from '../actions/houses.actions';
 import { userProfile } from 'src/app/models/UserProfile';
 import { addFavoriteHouse, deleteFavoriteHouse, loadProfile } from '../actions/userprofile.actions';
 
-export const initialState: ProfileState = { 
+export const initialState: GlobalState = { 
+    countries: [],
+    state: [],
+    cities: [],
+    allHouses: [],
     loading: false, 
     userProfile: {
         id: '',

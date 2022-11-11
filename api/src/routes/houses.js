@@ -50,10 +50,9 @@ router.post("/createhouse", async (req, res) => {
       newHouse.setUsers(user.id);
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
-})
+});
 
 router.post("/createhouse", async (req, res) => {
   const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =

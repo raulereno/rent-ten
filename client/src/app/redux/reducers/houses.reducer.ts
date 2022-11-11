@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import { HousesState } from 'src/app/models/Country.state';
+import { GlobalState } from 'src/app/models/Country.state';
 import { loadedCountries } from '../actions/countries.actions';
 import { loadHouses } from '../actions/houses.actions';
 
-export const initialState: HousesState = { loading: false, allHouses: [] }
+export const initialState: GlobalState = { loading: false, allHouses: [] }
 
 export const housesReducer = createReducer(
     initialState,
