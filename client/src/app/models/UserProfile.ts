@@ -5,7 +5,10 @@ export interface userProfile {
         sub: string;
         lastname: string;
         mail: string;
+        authorized: string;
         country: string;
         admin: boolean;
-        favoriteshouses: string[]
+        verified: string;
+        verificationCode: string;
+        favoriteshouses?: string[];
 }

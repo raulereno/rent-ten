@@ -1,82 +1,117 @@
 import { Component, OnInit } from '@angular/core';
-import { Country, City } from '../../models/model.interface';
-import { filter, map, take } from 'rxjs/operators'
-
-import { Data } from '../../services/data.service';
+import { Country, City } from '../../models/location.model';
+import { LocationService } from '../../services/location.service';
 import { DataServiceService } from '../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
-import { House } from '../models/House';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Booking } from '../models/Booking';
+import { House } from '../../models/House';
 import { Store } from '@ngrx/store';
-import { loadCountries, loadedCountries } from 'src/app/redux/actions/countries.actions';
-import { Observable } from 'rxjs';
-import { selectorListCountries, selectorListLoading } from 'src/app/redux/selectors/selectors';
+import { loadCountries, loadedCountries, loadHouses, loadProfile, addFavoriteHouse, handleFilters } from 'src/app/redux/actions/location.actions';
+import { Observable, pipe } from 'rxjs';
+import { selectorListCountries, selectorListHouses, selectorListLoading, selectorListProfile, selectorListBackup } from 'src/app/redux/selectors/selectors';
+import { PageEvent } from '@angular/material/paginator';
+import { userProfile } from 'src/app/models/UserProfile';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [Data],
+  providers: [LocationService],
 })
 
 export class HomeComponent implements OnInit {
 
-  //variable para escuchar y que se declara para poder imrpimir/pintar en pagina
   loading$: Observable<any> = new Observable();
   countries$: Observable<any> = new Observable()
-  pais$: any = { countries: "" };
-  city$: any = { ciudad: "" }
-
-  public selectedCountry: Country = {
-    id: 0,
-    name: '',
-  }
+  allHouses$: Observable<any> = new Observable()
+  userProfile$: Observable<any> = new Observable()
+  backupHouses$: Observable<any> = new Observable()
 
   public countries: Country[] | undefined;
   public cities: City[] | undefined;
+  public allHouses: House[]
+  public userProfile: userProfile;
+  public backupHouses: House[]
 
   // ****** CONSTRUCTOR ******* //
+
   constructor(
-    private dataSvc: Data,
+    private dataSvc: LocationService,
     public http: DataServiceService,
     public auth: AuthService,
-    private fb: FormBuilder,
     private store: Store<any>,
-    //Inyectamos un servicio para mostrar datos
-    private data: Data
-  ) { }
+  ) {
+
+  }
 
   getContries(): void {
     this.dataSvc.getCountries().subscribe(countries => this.countries = countries)
   }
 
-  // getCities(): void {
-  //   this.dataSvc.getCities().subscribe(cities => this.cities = cities)
-  // }
-
-  // --- LOCAL VARIABLES ---
-
-  form: FormGroup;
-
   profileJson: any;
   dbProfile: any = {}
-  allHouses: House[] = []
+
+  page_size: number = 5
+  page_number: number = 1
+  page_size_options = [5, 10, 20]
+  filterHouses: House[] = []
+
+  minPrice: number;
+  maxPrice: number;
+  allowpets: boolean;
+  wifi: boolean;
+  selectedCountry: string;
 
   // --- ON INIT ---
 
-
-
-  // Cuando se ejecute el On Init (Ciclos de Vida)
   ngOnInit(): void {
 
-    //variable para escuchar y que se declara para poder imrpimir/pintar en pagina
     this.loading$ = this.store.select(selectorListLoading);
     this.countries$ = this.store.select(selectorListCountries);
+    this.allHouses$ = this.store.select(selectorListHouses)
+    this.userProfile$ = this.store.select(selectorListProfile)
+    this.backupHouses$ = this.store.select(selectorListBackup)
 
-    // DISPARADOR DE ACTIONS
     this.store.dispatch(loadCountries())
 
-    this.data?.getCountries()
+    this.getCountries()
+    this.getContries();
+    this.loadProfile();
+    this.loadHouses()
+
+  }
+
+  // --- LOCAL FUNCTIONS ----
+
+  showInfo() {
+    console.log()
+  }
+
+
+  // --- ON INIT ----
+
+  loadHouses(): void {
+    this.http.getHouses().subscribe((res) => {
+      this.store.dispatch(loadHouses({ allHouses: res }))
+      this.allHouses$.subscribe(res => this.allHouses = res)
+    })
+  }
+
+  loadProfile(): void {
+    this.auth.user$.subscribe(profile => {
+      this.profileJson = profile;
+      this.http.getUser(this.profileJson.email).subscribe(res => {
+        this.store.dispatch(loadProfile({ userProfile: res }))
+        this.userProfile$.subscribe(res => {
+          this.userProfile = res
+          this.dbProfile = res
+        })
+      })
+      this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
+    })
+  }
+
+  getCountries() {
+    this.dataSvc.getCountries()
       .subscribe((response: Country[]) => {
         console.log('_______', response)
 
@@ -86,61 +121,58 @@ export class HomeComponent implements OnInit {
         ))
 
       })
+  }
+
+
+  // --- PAGINATION ----
+
+  handlePage(e: PageEvent) {
+    this.page_size = e.pageSize
+    this.page_number = e.pageIndex + 1
+  }
 
 
 
+  // --- ORDER AND FILTERS ----
 
-    ///////////////
+  handlePriceMin(event: any) {
+    this.minPrice = event.target.value
+    console.log(this.minPrice, this.maxPrice, this.allowpets, this.wifi)
+    this.handleFilters()
+  }
 
-    // this.countries = this.dataSvc.getCountries();
-    this.getContries();
-    // this.getCities();
-    // this.cities = this.dataSvc.getCities();
-    // console.log(this.cities);
-    // console.log(this.countries);
-
-    this.auth.user$.subscribe(profile => {
-      this.profileJson = profile;
-      this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data)
-      this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
-    })
-
-    this.http.getHouses().subscribe(data => this.allHouses = data);
-
-    this.form = this.fb.group({
-      daterange: new FormGroup({
-        start: new FormControl(),
-        end: new FormControl()
-      })
-    })
+  handlePriceMax(event: any) {
+    this.maxPrice = event.target.value
+    this.handleFilters()
 
   }
 
-  // --- LOCAL FUNCTIONS ----
-
-  unavailableDays = (calendarDate: Date): boolean => {
-    return !this.allHouses[0].bookings.some((d: Booking) => calendarDate > new Date(d.start) && calendarDate <= new Date(new Date(d.end).getTime() + (24 * 60 * 60 * 1000)))
+  handleCheckboxP(pets: boolean): void {
+    this.allowpets = pets
+    this.handleFilters()
   }
 
-  onSelect(event: any): void {
-    let id = event.target.value
-
-    // console.log(id)
-
-    // let filterCities = this.dataSvc.getCities().pipe(map(elemet => elemet.filter(item => item.countryId === id))).subscribe(city => this.cities = city)
-
-    // // let filterCities = this.dataSvc.getCities().forEach(element => element.filter(item => item.countryId === id))
-
-
-    // console.log(filterCities)
-
-    // this.cities = filterCities
-
-    this.cities = this.dataSvc.getCities().filter(item => item.name === id);
-
+  handleCheckboxW(wifi: boolean): void {
+    this.wifi = wifi
+    this.handleFilters()
   }
-  showInfo() {
-    console.log(this.allHouses)
+
+  handleCountry(country: string) {
+    this.selectedCountry = country
+    this.handleFilters()
+  }
+
+  handleFilters() {
+    this.store.dispatch(handleFilters({
+      payload: {
+        minPrice: this.minPrice,
+        maxPrice: this.maxPrice,
+        allowPets: this.allowpets,
+        wifi: this.wifi,
+        selectedCountry: this.selectedCountry
+      }
+    }))
+    this.page_number = 0
   }
 
 
@@ -157,7 +189,7 @@ export class HomeComponent implements OnInit {
 
     // console.log("Resultado: ", result)
 
-    this.city$ = result
+    // this.city$ = result
 
 
     // console.log("Filtro Array ", filterCountry)
@@ -167,5 +199,3 @@ export class HomeComponent implements OnInit {
 
   }
 }
-
-

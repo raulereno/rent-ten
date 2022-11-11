@@ -15,29 +15,20 @@ export class NavbarComponent implements OnInit {
 
   profileJson: any;
   dbProfile: any = {}
-
+  isLogged: boolean;
 
   ngOnInit(): void {
-    this.auth.user$.subscribe(profile => {
-      this.profileJson = profile;
-      this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data);
-      setTimeout(() => {
-        this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
-      }, 500);
-    });
-
   }
 
-  showInfo(): void {
-    console.log(this.dbProfile)
-  }
-
-  loginWithRedirect(): void {
-    this.auth.loginWithRedirect();
+  loginWithRedirect = async ():Promise<void> => {
+    this.auth.loginWithRedirect({authorizationParams: {redirect_uri: window.location.origin}})
   }
 
   logout(): void {
     this.auth.logout({ returnTo: this.doc.location.origin })
+  }
+
+  showInfo(): void {
   }
 
 }

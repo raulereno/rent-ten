@@ -1,0 +1,45 @@
+<button routerLink="/home" type="button" class="btn btn-secondary btn-sm">Home</button>
+<div class='container'>
+    <form [formGroup]="form">
+        <mat-form-field>
+
+            <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
+                <input matStartDate placeholder="start date" formControlName="start">
+                <input matEndDate placeholder="end date" formControlName="end">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+        </mat-form-field>
+    </form>
+    <div *ngIf="house.bookings">
+        <h2>&#x26A0; This house has bookings on this dates:</h2>
+        <div>
+            <ul>
+                <li *ngFor="let book of house.bookings">
+                    &#x2714; From: {{book.start}} &#x27A4; To: {{book.end}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col">
+            <img style="max-width: 270px" class="img-thumbnail" src={{house.picture[0]}} />
+            <ul>
+                <li>{{house.id}}</li>
+                <li>{{house.price}} USD</li>
+                <li>Country: {{house.country}}</li>
+                <li>City: {{house.city}}</li>
+                <li>Rooms: {{house.rooms}}</li>
+                <li>Bathrooms: {{house.bathrooms}}</li>
+                <li>Maxpeople: {{house.maxpeople}}</li>
+                <li>Allowpets: {{house.allowpets}}</li>
+            </ul>
+            <button type="button" class="btn btn-outline-info">Book this house</button>
+        </div>
+    </div>
+</div>

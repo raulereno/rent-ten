@@ -1,7 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { House } from '../../models/House';
+import { House } from '../../../models/House';
 import { DataServiceService } from '../../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
+import { userProfile } from '../../../models/UserProfile';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { addFavoriteHouse, deleteFavoriteHouse } from 'src/app/redux/actions/location.actions';
+import { Store } from '@ngrx/store';
+import { selectorListProfile } from 'src/app/redux/selectors/selectors';
+
 
 @Component({
   selector: 'app-house',
@@ -11,24 +18,19 @@ import { AuthService } from '@auth0/auth0-angular';
 export class HouseComponent implements OnInit {
 
   @Input() house: House;
+  @Input() dbProfile: userProfile
 
+  userProfile$: Observable<any> = new Observable()
+  public userProfile: userProfile;
 
-  constructor(public http: DataServiceService, public auth: AuthService) { }
+  constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>,) { }
 
   profileJson: any;
-  dbProfile: any = {}
   allHouses: House[] = []
-  indexPhoto = 0
+  indexPhoto:number = 0
 
- 
   ngOnInit(): void {
-    this.auth.user$.subscribe(profile => {
-      this.profileJson = profile;
-      this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data);
-      this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
-    });
-
-    this.http.getHouses().subscribe(data => this.allHouses = data);
+    this.userProfile$ = this.store.select(selectorListProfile)
   }
 
   setFavorite(houseId: string, userId: string): void {
@@ -36,18 +38,13 @@ export class HouseComponent implements OnInit {
         this.auth.loginWithRedirect();
     } else {
       this.http.setFavorite(houseId, userId)
-      setTimeout(() => {
-        this.ngOnInit()
-      }, 200);
+      this.store.dispatch(addFavoriteHouse({payload: houseId}))
     }
   }
 
-
   deleteFavorite(houseId: string, userId: string): void {
     this.http.deleteFavorite(houseId, userId)
-    setTimeout(() => {
-      this.ngOnInit()
-    }, 200);
+    this.store.dispatch(deleteFavoriteHouse({payload: houseId}))
   }
 
 
@@ -57,17 +54,15 @@ export class HouseComponent implements OnInit {
     } else {
       return false
     }
-
   }
 
   showInfo() {
-    console.log(this.indexPhoto)
-    console.log(this.house.picture[this.indexPhoto])
+    console.log(this.userProfile$)
   }
 
   giveMePhoto() {
     return this.house.picture[this.indexPhoto]
-  } 
+  }
 
   paginationForward() {
     if (this.indexPhoto !== (this.house.picture.length- 1) ){ this.indexPhoto++ }

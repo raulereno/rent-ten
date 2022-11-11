@@ -1,109 +1,52 @@
-<p>Cargando...{{loading$ | async | json}}</p>
-<p>Pais...{{pais$| json}}</p>
-<p>Ciudad...{{city$| json}}</p>
+<div class="container">
 
+    <button style="margin-right: 2%" (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
+        class="btn btn-primary btn-sm">Allow Pets</button>
+    <button style="margin-right: 2%" (click)="handleCheckboxP(true)"
+        *ngIf="allowpets === undefined || allowpets === false" type="button" class="btn btn-secondary btn-sm">Allow
+        Pets</button>
 
-<div>
-    <div>
-        <select name="countries" [(ngModel)]="pais$" (change)="onChange(pais$.name)"
-            class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg" (change)="onSelect($event)">
-            <option *ngFor="let country of countries$ |async" [ngValue]="country">{{country.name}}</option>
-        </select>
-        <select name="cities" [(ngModel)]="city$" class="form-select form-select-lg mb-3"
-            aria-label="Ejemplo de .form-select-lg">
-            <option *ngFor="let ciudad of city$" [ngValue]="city$">{{ciudad}}</option>
-        </select>
-    </div>
+    <button style="margin-left: 2%" (click)="handleCheckboxW(false)" *ngIf="wifi === true" type="button"
+        class="btn btn-primary btn-sm">With Wi-Fi</button>
+    <button style="margin-left: 2%" (click)="handleCheckboxW(true)" *ngIf="wifi === undefined || wifi === false"
+        type="button" class="btn btn-secondary btn-sm">With Wi-Fi</button>
+
 </div>
+<div class="container">
 
-<!-- *ngIf="city$.length" -->
+    <mat-form-field appearance="outline">
+        <mat-label>Min price</mat-label>
+        <input type="number" matInput placeholder="USD" [(ngModel)]="minPrice" (input)="handlePriceMin($event)">
+        <mat-icon matPrefix>dolar_symbol</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Max price</mat-label>
+        <input type="number" matInput placeholder="USD" [(ngModel)]="maxPrice" (input)="handlePriceMax($event)">
+        <mat-icon matPrefix>dolar_symbol</mat-icon>
+    </mat-form-field>
 
 
-<!-- <select name="countries" [(ngModel)]="pais" (change)="onChange(pais.name)">
-    <option *ngFor="let country of countries$ |async" [ngValue]="country">{{country.name}}</option>
-</select>
-{{pais.name | json}} -->
+    <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
+        style="max-height: 45px; max-width: 20%;" class="form-select form-select-sm"
+        aria-label="Ejemplo de .form-select-lg">
+        <option selected value="">Select a country</option>
+
+        <option *ngFor="let house of backupHouses$ | async" value="{{house.country}}">{{house.country}}</option>
+
+        <!-- <option *ngFor="let house of handleSelectCountries(backupHouses$ | async)" value="{{house.country}}">{{house.country}}</option> -->
+    </select>
 
 
-
-
-
-<!-- <ng-container *ngFor="let menaceProcessus of menaceProcessusTab">
-    <tr>
-         <td colspan="4" bgcolor="#f1f1f1"><b>{{menaceProcessus?.processus?.nom}}</b></td>
-    </tr>
-    <ng-container *ngFor="let actif of menaceProcessus?.actifs">
-        <tr>
-            <td [rowSpan]="actif?.menaces?.length+1">{{actif?.actif?.nom}}</td>
-        </tr>
-     <ng-container *ngFor="let mnVuln of actif?.menaces">
-        <tr>
-             <td>{{mnVuln?.vulnerabilite?.nom}}</td>
-             <td>
-                 <select class="form-control" 
-                  (change)="mnVuln?.menaceActif?.menace.id = $event.target.value; 
-                            updateMenaceProcessus()">
-                      <option></option>
-                      <option *ngFor="let menace of menaces" 
-                          [value]="menace.id" 
-                          [selected]="menace.id === mnVuln?.menaceActif?.menace.id">
-                        {{menace.nom}}</option>
-                  </select>
-              </td>
-              <td>
-                 <input class="form-control" 
-                    type="text" [value]="mnVuln?.menaceActif?.probabilite"> 
-              </td>
-          </tr>
-      </ng-container>
-    </ng-container>
- </ng-container> -->
-
-<b *ngFor="let country of countries$ |async">{{country.name}}</b>
-<!-- <div class="container">
-    <div class="row align-items-start">
-        <div *ngFor="let house of allHouses">
-            <div class="col">
-                <img style="max-width: 270px" class="img-thumbnail" src={{house.picture}} />
-                <ul>
-                    <li>{{house.id}}</li>
-                    <li>Country: {{house.country}}</li>
-                    <li>City: {{house.city}}</li>
-                    <li>Rooms: {{house.rooms}}</li>
-                    <li>Bathrooms: {{house.bathrooms}}</li>
-                    <li>Maxpeople: {{house.maxpeople}}</li>
-                    <li>Allowpets: {{house.allowpets}}</li>
-                    <button *ngIf="checkIsFavorite(house.id) === false" class="btn btn-outline-warning"
-                        (click)="setFavorite(house.id, dbProfile.id)">Add to favorites</button>
-                    <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
-                        (click)="deleteFavorite(house.id, dbProfile.id)">Delete from favorites</button>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!--
-<div>checkin: <input required pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="checkin" type="date"></div>
-<div>checkout: <input required pattern="\d{4}-\d{2}-\d{2}" [(ngModel)]="checkout" type="date"></div>
- -->
-
-<button (click)="showInfo()"></button>
-
-<div class='container'>
-    <form [formGroup]="form">
-        <mat-form-field>
-
-            <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
-                <input matStartDate placeholder="start date" formControlName="start">
-                <input matEndDate placeholder="end date" formControlName="end">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-
-        </mat-form-field>
-    </form>
 </div>
 
 
+<mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+    (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
 
-<app-house *ngFor="let house of allHouses" [house]="house"></app-house>
+<hr />
+<div class="container">
+    <app-house class="card_house" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
+        [house]="house" [dbProfile]="dbProfile">
+    </app-house>
+</div>
