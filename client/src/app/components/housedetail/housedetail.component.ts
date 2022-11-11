@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 })
 export class HousedetailComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, public http: DataServiceService, private fb: FormBuilder, private location: Location) {}
+  constructor(private route: ActivatedRoute, public http: DataServiceService, private fb: FormBuilder, private location: Location, ) {}
 
   paramsId: string | null
   house: House

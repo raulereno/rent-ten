@@ -35,6 +35,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment'
 import { countriesReducer } from './redux/reducers/countries.reducers';
 import { ROOT_REDUCERS } from './redux/store/app.state';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+
 
 
 const routes: Routes = [
@@ -46,9 +49,9 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      {path:  'profile',component:ProfileComponent },
-      { path: "**", redirectTo: 'home' },
+      { path:  'profile',component:ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent},
+      { path: "**", redirectTo: 'home' },
     ]
   }
 ];
@@ -87,6 +90,7 @@ const routes: Routes = [
     MatDialogModule,
     MatInputModule,
     MatPaginatorModule,
+    MatCheckboxModule,
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],

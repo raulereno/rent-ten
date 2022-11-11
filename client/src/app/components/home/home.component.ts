@@ -12,6 +12,7 @@ import { loadCountries, loadedCountries } from 'src/app/redux/actions/countries.
 import { Observable } from 'rxjs';
 import { selectorListCountries, selectorListLoading } from 'src/app/redux/selectors/selectors';
 import { PageEvent } from '@angular/material/paginator';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox'
 
 @Component({
   selector: 'app-home',
@@ -54,11 +55,15 @@ export class HomeComponent implements OnInit {
   profileJson: any;
   dbProfile: any = {}
   allHouses: House[] = []
+  filterHouses: House[]=[]
+  minPrice:number;
+  maxPrice:number;
 
   page_size: number = 5
   page_number: number = 1
   page_size_options = [5, 10, 20] 
 
+  
 
   // --- ON INIT ---
 
@@ -86,6 +91,9 @@ export class HomeComponent implements OnInit {
     })
 
     this.http.getHouses().subscribe(data => this.allHouses = data);
+
+    this.http.getHouses().subscribe(data => this.filterHouses = data);
+
 
     this.form = this.fb.group({
       daterange: new FormGroup({
@@ -115,6 +123,36 @@ export class HomeComponent implements OnInit {
     this.page_size = e.pageSize
     this.page_number= e.pageIndex + 1
   }
+
+  handlePriceMin(event:any){
+     this.allHouses= this.filterHouses.filter((e)=>e.price >= event.target.value)
+     
+  }
+
+  handlePriceMax(event:any){
+     this.allHouses= this.filterHouses.filter((e)=>e.price <= event.target.value)
+  }
+
+  handleCheckboxP(event: MatCheckboxChange):void{
+    
+    this.allHouses=this.filterHouses.filter((e)=>e.allowpets===false ? e.allowpets==event.checked:this.allHouses)
+  }
+  
+  handleCheckboxW(event: MatCheckboxChange):void{
+    this.allHouses=this.filterHouses.filter((e)=>e.wifi===false ? e.allowpets==event.checked:this.allHouses)
+  }
+  
+  handleCheckbox(event: MatCheckboxChange):void{
+    console.log(MatCheckbox.name)
+    if (MatCheckbox.name)
+    this.allHouses=this.filterHouses.filter((e)=>e.wifi===false ? e.allowpets==event.checked:this.allHouses)
+  }
+
+  submit() {
+    console.log(this.form.value.name);
+  }
+
+
 
 
 }
