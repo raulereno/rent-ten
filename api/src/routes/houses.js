@@ -130,10 +130,14 @@ router.delete("/deletehouse", async (req, res) => {
 
 router.post("/fulldb", async (req, res) => {
   try {
-    extraHouses.forEach(async (house) => {
-      let finder = await House.findOne({ where: house });
-      if (!finder) {
-        await House.create(house);
+    extraHouses(50).forEach(async (house) => {
+      try {
+        let finder = await House.findOne({ where: house });
+        if (!finder) {
+          await House.create(house);
+        }
+      } catch (error) {
+        console.log(error);
       }
     });
 
