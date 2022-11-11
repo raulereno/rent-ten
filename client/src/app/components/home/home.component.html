@@ -1,26 +1,50 @@
-<div>
-    <div>
-        <!-- <select ngModel="selectedCountry.id" class="form-select form-select-lg mb-3"
-            aria-label="Ejemplo de .form-select-lg" (change)="onSelect($event)">
-            <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
-        </select>
-        <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
-            <option *ngFor="let city of cities" value="city.id">{{city.name}}</option>
-        </select> -->
-    </div>
+<div class="container">
+
+    <button style="margin-right: 2%" (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
+        class="btn btn-primary btn-sm">Allow Pets</button>
+    <button style="margin-right: 2%" (click)="handleCheckboxP(true)"
+        *ngIf="allowpets === undefined || allowpets === false" type="button" class="btn btn-secondary btn-sm">Allow
+        Pets</button>
+
+    <button style="margin-left: 2%" (click)="handleCheckboxW(false)" *ngIf="wifi === true" type="button"
+        class="btn btn-primary btn-sm">With Wi-Fi</button>
+    <button style="margin-left: 2%" (click)="handleCheckboxW(true)" *ngIf="wifi === undefined || wifi === false"
+        type="button" class="btn btn-secondary btn-sm">With Wi-Fi</button>
+
+</div>
+<div class="container">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Min price</mat-label>
+        <input type="number" matInput placeholder="USD" [(ngModel)]="minPrice" (input)="handlePriceMin($event)">
+        <mat-icon matPrefix>dolar_symbol</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Max price</mat-label>
+        <input type="number" matInput placeholder="USD" [(ngModel)]="maxPrice" (input)="handlePriceMax($event)">
+        <mat-icon matPrefix>dolar_symbol</mat-icon>
+    </mat-form-field>
+
+
+    <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)" style="max-height: 45px; max-width: 20%;" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-lg">
+        <option selected value="">Select a country</option>
+
+        <option *ngFor="let house of backupHouses$ | async" value="{{house.country}}">{{house.country}}</option>
+
+        <!-- <option *ngFor="let house of handleSelectCountries(backupHouses$ | async)" value="{{house.country}}">{{house.country}}</option> -->
+    </select>
+
+
 </div>
 
-<!--
-<select>
-    <option *ngFor="let country of countries$ |async" value={{country.name}}>{{country.name}}</option>
-</select> -->
 
-    <mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
-        (page)="handlePage($event)" showFirstLastButtons="" class="paginado"></mat-paginator>
+<mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+    (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
 
-<hr/>
-<div>
-    <app-house *ngFor="let house of allHouses | paginate: page_size:page_number" [house]="house"
-        [dbProfile]="dbProfile" class="card_house">
+<hr />
+<div class="container">
+    <app-house class="card_house" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
+        [house]="house" [dbProfile]="dbProfile">
     </app-house>
 </div>

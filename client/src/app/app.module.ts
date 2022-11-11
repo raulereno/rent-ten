@@ -6,10 +6,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 //COMPONENTES
 import { AppComponent } from './app.component';
-import { HouseComponent } from './components/home/house/house.component';
 import { LoginComponent } from './components/login/login.component';
 import { AboutComponent } from './components/about/about.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -24,6 +22,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+
+import { environment as env } from 'src/environments/environment';
+
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 //ROUTING
@@ -39,9 +40,12 @@ import { PaginatePipe } from './pipes/paginate.pipe';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ROOT_REDUCERS } from './redux/store/app.state';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HouseComponent } from './components/home/house/house.component';
 //Enviroment
 import { environment } from '../environments/environment'
-import { environment as env } from 'src/environments/environment';
+// import { environment as env } from 'src/environments/environment';
 
 
 
@@ -49,13 +53,13 @@ const routes: Routes = [
   {
     path: '',
     children: [
+      // { path: '', redirectTo: 'home' },
       { path: 'home', component: HomeComponent },
-      { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
       { path:  'profile',component:ProfileComponent },
-      { path: 'housedetail/:id', component:HousedetailComponent},
+      { path: 'housedetail/:id', component: HousedetailComponent},
       { path: "**", redirectTo: 'home' },
     ]
   }
@@ -85,6 +89,8 @@ const routes: Routes = [
       ...env.auth,
     }),
     MatToolbarModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
@@ -98,7 +104,8 @@ const routes: Routes = [
     MatInputModule,
     MatPaginatorModule,
     StoreModule.forRoot(ROOT_REDUCERS),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
