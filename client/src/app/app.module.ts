@@ -71,6 +71,7 @@ const routes: Routes = [
     HomeComponent,
     ProfileComponent,
     HouseComponent,
+    HousedetailComponent,
     PaginatePipe,
   ],
   imports: [

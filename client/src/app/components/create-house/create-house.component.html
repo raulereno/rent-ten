@@ -1,5 +1,5 @@
-<form action="houses/createhouse" method="post" style="display: flex; flex-direction:column; width: 35%;" (ngSubmit)="onSubmit($event)">
-    <h2>Place Data:</h2>
+<form class="form_creation" action="houses/createhouse" method="post" style="display: flex; flex-direction:column; width: 35%;" (ngSubmit)="onSubmit($event)">
+    <h2 class="form_title">Place Data:</h2>
     <label for="input_country">Country:</label>
 
     <select name="country" id="" [(ngModel)]="newHouse.country" (ngModelChange)="searchStates($event)" >

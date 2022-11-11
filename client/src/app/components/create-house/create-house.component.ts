@@ -64,7 +64,9 @@ export class CreateHouseComponent implements OnInit {
     this._auth.user$.subscribe(profile => {
       this.email = profile?.email ? profile?.email : ""
     });
-    this.countries$= this._store.select(selectorListCountries)
+
+    this.countries$ = this._store.select(selectorListCountries)
+
     this._locationService.getCountries().subscribe(response=>{
         console.log(response);
        this._store.dispatch(loadedCountries({countries:response.data}))
