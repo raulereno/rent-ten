@@ -35,20 +35,20 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment'
 import { countriesReducer } from './redux/reducers/countries.reducers';
 import { ROOT_REDUCERS } from './redux/store/app.state';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
     path: '',
     children: [
+      // { path: '', redirectTo: 'home' },
       { path: 'home', component: HomeComponent },
-      { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      {path:  'profile',component:ProfileComponent },
-      { path: "**", redirectTo: 'home' },
+      { path:  'profile',component:ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent},
+      { path: "**", redirectTo: 'home' },
     ]
   }
 ];
@@ -75,6 +75,8 @@ const routes: Routes = [
       ...env.auth,
     }),
     MatToolbarModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
     MatButtonModule,
     MatIconModule,
     HttpClientModule,

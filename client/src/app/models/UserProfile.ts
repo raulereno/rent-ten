@@ -5,6 +5,7 @@ export interface userProfile {
         sub: string;
         lastname: string;
         mail: string;
+        authorized: string;
         country: string;
         admin: boolean;
         verified: string;

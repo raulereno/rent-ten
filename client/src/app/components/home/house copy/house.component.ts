@@ -1,14 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { House } from '../../../models/House';
 import { DataServiceService } from '../../../services/data-service.service'
-import { AppState, AuthService } from '@auth0/auth0-angular';
+import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from '../../../models/UserProfile';
 import { Router } from '@angular/router';
 import {  } from 'src/app/models/UserProfile';
 import { Observable } from 'rxjs';
-import { addFavoriteHouse, deleteFavoriteHouse } from 'src/app/redux/actions/userprofile.actions';
-import { Store } from '@ngrx/store';
-import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 
 
 @Component({
@@ -22,31 +19,32 @@ export class HouseComponent implements OnInit {
   @Input() dbProfile: userProfile
 
   userProfile$: Observable<any> = new Observable()
-  public userProfile: userProfile;
 
-  constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>,) { }
+  constructor(public http: DataServiceService, public auth: AuthService, private router: Router) { }
 
   profileJson: any;
   allHouses: House[] = []
   indexPhoto:number = 0
-  // userProfile: userProfile;
+  userProfile: userProfile;
 
   ngOnInit(): void {
-    this.userProfile$ = this.store.select(selectorListProfile)
   }
 
   setFavorite(houseId: string, userId: string): void {
+    console.log(userId)
     if (!userId) {
         this.auth.loginWithRedirect();
     } else {
       this.http.setFavorite(houseId, userId)
-      this.store.dispatch(addFavoriteHouse({payload: houseId}))
+      this.dbProfile.favoriteshouses.push(houseId)
     }
   }
 
+
   deleteFavorite(houseId: string, userId: string): void {
     this.http.deleteFavorite(houseId, userId)
-    this.store.dispatch(deleteFavoriteHouse({payload: houseId}))
+    let index = this.dbProfile.favoriteshouses.indexOf(houseId)
+    this.dbProfile.favoriteshouses.splice(index, 1)
   }
 
 
@@ -60,7 +58,7 @@ export class HouseComponent implements OnInit {
   }
 
   showInfo() {
-    console.log(this.userProfile$)
+    console.log(this.dbProfile)
   }
 
   giveMePhoto() {
