@@ -1,9 +1,10 @@
-<form class="form_creation" action="houses/createhouse" method="post" style="display: flex; flex-direction:column; width: 35%;" (ngSubmit)="onSubmit($event)">
+<form class="form_creation" action="houses/createhouse" method="post"
+    style="display: flex; flex-direction:column; width: 35%;" (ngSubmit)="onSubmit($event)">
     <h2 class="form_title">Place Data:</h2>
     <label for="input_country">Country:</label>
 
-    <select name="country" id="" [(ngModel)]="newHouse.country" (ngModelChange)="searchStates($event)" >
-      <option  *ngFor="let country of countries$ |async" [ngValue]="country.name"  >{{country.name}}</option>
+    <select name="country" id="" [(ngModel)]="newHouse.country" (ngModelChange)="searchStates($event)">
+        <option *ngFor="let country of countries$ |async" [ngValue]="country.name">{{country.name}}</option>
     </select>
 
     <label for="input_country">States:</label>
@@ -48,11 +49,13 @@
         <ngx-dropzone (change)="onSelect($event)">
             <ngx-dropzone-label>Drag or click to select the photos of the place</ngx-dropzone-label>
 
-            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files; let i= index" [file]="f"  [removable]="true" (removed)="onRemove(f)" [ngClass]="{'isCoverPhoto':i===0}">
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files; let i= index"
+                [file]="f" [removable]="true" (removed)="onRemove(f)" [ngClass]="{'isCoverPhoto':i===0}">
 
-                <ngx-dropzone-label *ngIf="i===0" [ngClass]="{'labelCoverPhoto':i===0}">Foto de portada</ngx-dropzone-label>
+                <ngx-dropzone-label *ngIf="i===0" [ngClass]="{'labelCoverPhoto':i===0}">Foto de portada
+                </ngx-dropzone-label>
 
-              </ngx-dropzone-image-preview>
+            </ngx-dropzone-image-preview>
         </ngx-dropzone>
     </div>
 
@@ -62,17 +65,3 @@
 <div>
     {{currentHouse}}
 </div>
-<!-- <button (click)="showInfo()"></button> -->
-<!-- <div *ngIf="_auth.user$ | async as user">
-  <p>{{user}}</p>
-</div> -->
-<!--
-        city:
-        country:
-        rooms:
-        bathrooms:
-        maxpeople:
-        allowpets: true o false, ver si hacerlo con un selec o con un checkbox
-        wifi: true o false, ver si hacerlo con un selec o con un checkbox
-        type: 'departament', 'guest house', 'house', 'hotel'
- -->

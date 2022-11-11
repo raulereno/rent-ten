@@ -10,8 +10,6 @@ import { Observable, pipe } from 'rxjs';
 import { selectorListCountries, selectorListHouses, selectorListLoading, selectorListProfile, selectorListBackup } from 'src/app/redux/selectors/selectors';
 import { PageEvent } from '@angular/material/paginator';
 import { userProfile } from 'src/app/models/UserProfile';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-
 
 @Component({
   selector: 'app-home',
@@ -22,7 +20,6 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export class HomeComponent implements OnInit {
 
-  //variable para escuchar y que se declara para poder imrpimir/pintar en pagina
   loading$: Observable<any> = new Observable();
   countries$: Observable<any> = new Observable()
   allHouses$: Observable<any> = new Observable()
@@ -53,7 +50,6 @@ export class HomeComponent implements OnInit {
   profileJson: any;
   dbProfile: any = {}
 
-
   page_size: number = 5
   page_number: number = 1
   page_size_options = [5, 10, 20]
@@ -82,46 +78,33 @@ export class HomeComponent implements OnInit {
     this.loadProfile();
     this.loadHouses()
 
-
   }
 
   // --- LOCAL FUNCTIONS ----
 
-  onSelect(event: any): void {
-    let id = parseInt(event.target.value)
-    // this.cities = this.dataSvc.getCities().filter(item => item.countryId === id);
-
-  }
   showInfo() {
     console.log()
   }
 
-  handlePage(e: PageEvent) {
-    this.page_size = e.pageSize
-    this.page_number = e.pageIndex + 1
-  }
+
+  // --- ON INIT ----
 
   loadHouses(): void {
     this.http.getHouses().subscribe((res) => {
       this.store.dispatch(loadHouses({ allHouses: res }))
       this.allHouses$.subscribe(res => this.allHouses = res)
-      
     })
   }
 
   loadProfile(): void {
     this.auth.user$.subscribe(profile => {
       this.profileJson = profile;
-      // this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data)
-
       this.http.getUser(this.profileJson.email).subscribe(res => {
         this.store.dispatch(loadProfile({ userProfile: res }))
         this.userProfile$.subscribe(res => {
           this.userProfile = res
           this.dbProfile = res
-        })
-      })
-
+        })})
       this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
     })
   }
@@ -135,6 +118,18 @@ export class HomeComponent implements OnInit {
         ))
       })
   }
+
+
+  // --- PAGINATION ----
+
+  handlePage(e: PageEvent) {
+    this.page_size = e.pageSize
+    this.page_number = e.pageIndex + 1
+  }
+
+
+
+  // --- ORDER AND FILTERS ----
 
   handlePriceMin(event: any) {
     this.minPrice = event.target.value
@@ -172,20 +167,7 @@ export class HomeComponent implements OnInit {
         wifi: this.wifi,
         selectedCountry: this.selectedCountry
       }
-      
     }))
-    
     this.page_number = 0
   }
-
-  handleSelectCountries = (houses: House[]) => {
-
-    const orderAZ = houses.sort(function (a, b) {
-      if (a.country > b.country) { return 1 }
-      if (b.country > a.country) { return -1 }
-      return 0;
-  })
-
-  return orderAZ
-}
 }

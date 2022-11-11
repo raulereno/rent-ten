@@ -28,7 +28,6 @@ export class HouseComponent implements OnInit {
   profileJson: any;
   allHouses: House[] = []
   indexPhoto:number = 0
-  // userProfile: userProfile;
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
@@ -55,7 +54,6 @@ export class HouseComponent implements OnInit {
     } else {
       return false
     }
-
   }
 
   showInfo() {

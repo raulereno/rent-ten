@@ -1,7 +1,6 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 import { AppState } from '../store/app.state';
 import {  GlobalState} from 'src/app/models/Country.state';
-import { userProfile } from 'src/app/models/UserProfile';
 
 
 export const selectorItemsCountries = (state: AppState) => state.globalState;
