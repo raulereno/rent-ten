@@ -50,29 +50,27 @@ router.post("/createhouse", async (req, res) => {
       newHouse.setUsers(user.id);
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
-})
+});
 
 router.post("/createhouse", async (req, res) => {
-    const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
-      req.body;
-    const { userMail } = req.query;
-    const { userId } = req.query;
-  
-    try {
-      const newHouse = await House.create(req.body);
-      if (userId) {
-        newHouse.setUsers(userId);
-      }
-  
-      res.status(201).json(newHouse);
-    } catch (error) {
-      console.log(error);
-    }
-  });
+  const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
+    req.body;
+  const { userMail } = req.query;
+  const { userId } = req.query;
 
+  try {
+    const newHouse = await House.create(req.body);
+    if (userId) {
+      newHouse.setUsers(userId);
+    }
+
+    res.status(201).json(newHouse);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 // --- PUT METHODS ---
 
@@ -132,10 +130,14 @@ router.delete("/deletehouse", async (req, res) => {
 
 router.post("/fulldb", async (req, res) => {
   try {
-    extraHouses.forEach(async (house) => {
-      let finder = await House.findOne({ where: house });
-      if (!finder) {
-        await House.create(house);
+    extraHouses(50).forEach(async (house) => {
+      try {
+        let finder = await House.findOne({ where: house });
+        if (!finder) {
+          await House.create(house);
+        }
+      } catch (error) {
+        console.log(error);
       }
     });
 
