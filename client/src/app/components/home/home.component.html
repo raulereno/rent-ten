@@ -1,26 +1,26 @@
 <div>
     <div>
-        <select ngModel="selectedCountry.id" class="form-select form-select-lg mb-3"
+        <!-- <select ngModel="selectedCountry.id" class="form-select form-select-lg mb-3"
             aria-label="Ejemplo de .form-select-lg" (change)="onSelect($event)">
             <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
         </select>
         <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
             <option *ngFor="let city of cities" value="city.id">{{city.name}}</option>
-        </select>
+        </select> -->
     </div>
 </div>
 
-<!-- 
+<!--
 <select>
     <option *ngFor="let country of countries$ |async" value={{country.name}}>{{country.name}}</option>
 </select> -->
-<div>
+
     <mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
-        (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
-</div>
+        (page)="handlePage($event)" showFirstLastButtons="" class="paginado"></mat-paginator>
+
 <hr/>
 <div>
     <app-house *ngFor="let house of allHouses | paginate: page_size:page_number" [house]="house"
-        [dbProfile]="dbProfile">
+        [dbProfile]="dbProfile" class="card_house">
     </app-house>
 </div>

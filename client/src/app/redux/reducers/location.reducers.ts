@@ -1,19 +1,19 @@
 import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
-import { CountryState } from 'src/app/models/Country.state';
-import { Country } from 'src/app/models/model.interface';
-import { loadCountries, loadedCountries } from '../actions/countries.actions';
+import { GlobalState } from 'src/app/models/Country.state';
+import { Country } from 'src/app/models/location.model';
+import { loadData, loadedCountries } from '../actions/location.actions';
 
 // *********** ESTADO INICIAL ********** //
 //Creo una interfaz de estado inicial con sus propiedades
-export const initialState: CountryState = { loading: false, countries: [] }
+export const initialState: GlobalState = { loading: false, countries: [], state:[],cities:[] }
 
 
 // ********** REDUCERS ********* //
 //El state es el estado actual antes de que se cambie
 export const countriesReducer = createReducer(
     initialState,
-    on(loadCountries, (state) => {
+    on(loadData, (state) => {
         return { ...state, loading: true }
     }),
     on(loadedCountries, (state, { countries }) => {

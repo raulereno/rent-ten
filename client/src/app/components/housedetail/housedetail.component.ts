@@ -8,7 +8,8 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-housedetail',
   templateUrl: './housedetail.component.html',
-  styleUrls: ['./housedetail.component.css']
+  styleUrls: ['./housedetail.component.css'],
+
 })
 export class HousedetailComponent implements OnInit {
 
