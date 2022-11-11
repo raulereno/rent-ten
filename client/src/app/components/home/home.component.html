@@ -1,30 +1,37 @@
 <div>
-    <div>
-        <select ngModel="selectedCountry.id" class="form-select form-select-lg mb-3"
-            aria-label="Ejemplo de .form-select-lg" (change)="onSelect($event)">
-            <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
-        </select>
-        <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
-            <option *ngFor="let city of cities" value="city.id">{{city.name}}</option>
-        </select>
+        <div>
+            <select ngModel="selectedCountry.id" class="form-select form-select-lg mb-3"
+                aria-label="Ejemplo de .form-select-lg" (change)="onSelect($event)">
+                <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
+            </select>
+            <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
+                <option *ngFor="let city of cities" value="city.id">{{city.name}}</option>
+            </select>
+        </div>
     </div>
+    <div class="budget-range">
+        <mat-form-field appearance="outline">
+            <mat-label>MinPrice</mat-label>
+            <input type="number" matInput placeholder="USD" [(ngModel)]="minPrice" (input)="handlePriceMin($event)">
+            <mat-icon matPrefix>dolar_symbol</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>MaxPrice</mat-label>
+            <input type="number" matInput placeholder="USD" [(ngModel)]="maxPrice" (input)="handlePriceMax($event)">
+            <mat-icon matPrefix>dolar_symbol</mat-icon>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-checkbox (change)="handleCheckboxP($event)">Allowpets</mat-checkbox>
+        <mat-checkbox (change)="handleCheckboxW($event)">Wifi</mat-checkbox>
+    </div>
+    <div>
+        <mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+            (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
+    </div>
+    <hr />
+    <div>
+        <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
+            [dbProfile]="dbProfile">
+        </app-house>
 </div>
-
-<!-- 
-<select>
-    <option *ngFor="let country of countries$ |async" value={{country.name}}>{{country.name}}</option>
-</select> -->
-<div>
-    <mat-paginator [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
-        (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
-</div>
-<hr/>
-<div>
-    <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
-        [dbProfile]="dbProfile">
-    </app-house>
-</div>
-
-<button (click)="showInfo()"></button>
-
-

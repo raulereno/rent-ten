@@ -12,6 +12,8 @@ import { selectorListCountries, selectorListHouses, selectorListLoading, selecto
 import { PageEvent } from '@angular/material/paginator';
 import { addFavoriteHouse, loadProfile } from 'src/app/redux/actions/userprofile.actions';
 import { userProfile } from 'src/app/models/UserProfile';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -44,7 +46,7 @@ export class HomeComponent implements OnInit {
     public http: DataServiceService,
     public auth: AuthService,
     private store: Store<any>,
-  ) { 
+  ) {
 
   }
 
@@ -54,11 +56,15 @@ export class HomeComponent implements OnInit {
 
   profileJson: any;
   dbProfile: any = {}
- 
+
 
   page_size: number = 5
   page_number: number = 1
-  page_size_options = [5, 10, 20] 
+  page_size_options = [5, 10, 20]
+
+  filterHouses: House[] = []
+  minPrice: number;
+  maxPrice: number;
 
 
   // --- ON INIT ---
@@ -69,7 +75,7 @@ export class HomeComponent implements OnInit {
     this.countries$ = this.store.select(selectorListCountries);
     this.allHouses$ = this.store.select(selectorListHouses)
     this.userProfile$ = this.store.select(selectorListProfile)
-    
+
     this.store.dispatch(loadCountries())
 
     this.getCountries()
@@ -88,28 +94,28 @@ export class HomeComponent implements OnInit {
   }
   showInfo() {
     // console.log(this.dbProfile)
-    this.store.dispatch(addFavoriteHouse({payload: '123456'}))
+    this.store.dispatch(addFavoriteHouse({ payload: '123456' }))
   }
 
-  handlePage(e: PageEvent){
+  handlePage(e: PageEvent) {
     this.page_size = e.pageSize
-    this.page_number= e.pageIndex + 1
+    this.page_number = e.pageIndex + 1
   }
 
   loadHouses(): void {
     this.http.getHouses().subscribe((res) => {
-      this.store.dispatch(loadHouses({allHouses: res}))
+      this.store.dispatch(loadHouses({ allHouses: res }))
       this.allHouses$.subscribe(res => this.allHouses = res)
     })
   }
 
-  loadProfile():void {
+  loadProfile(): void {
     this.auth.user$.subscribe(profile => {
       this.profileJson = profile;
       // this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data)
 
       this.http.getUser(this.profileJson.email).subscribe(res => {
-        this.store.dispatch( loadProfile({userProfile: res}))
+        this.store.dispatch(loadProfile({ userProfile: res }))
         this.userProfile$.subscribe(res => {
           this.userProfile = res
           this.dbProfile = res
@@ -122,11 +128,29 @@ export class HomeComponent implements OnInit {
 
   getCountries() {
     this.dataSvc.getCountries()
-    .subscribe((response: Country[]) => {
-      console.log('_______', response)
-      this.store.dispatch(loadedCountries(
-        { countries: response }
-      ))
-    })
+      .subscribe((response: Country[]) => {
+        console.log('_______', response)
+        this.store.dispatch(loadedCountries(
+          { countries: response }
+        ))
+      })
   }
+
+  handlePriceMin(event: any) {
+    this.allHouses = this.filterHouses.filter((e) => e.price >= event.target.value)
+  }
+
+  handlePriceMax(event: any) {
+    this.allHouses = this.filterHouses.filter((e) => e.price <= event.target.value)
+  }
+
+  handleCheckboxP(event: MatCheckboxChange): void {
+
+    this.allHouses = this.filterHouses.filter((e) => e.allowpets === false ? e.allowpets == event.checked : this.allHouses)
+  }
+
+  handleCheckboxW(event: MatCheckboxChange): void {
+    this.allHouses = this.filterHouses.filter((e) => e.wifi === false ? e.allowpets == event.checked : this.allHouses)
+  }
+
 }

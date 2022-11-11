@@ -24,7 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CommonModule } from '@angular/common';
-import { HouseComponent } from './components/home/house/house.component';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 import { HousedetailComponent } from './components/housedetail/housedetail.component';
@@ -36,6 +35,8 @@ import { environment } from '../environments/environment'
 import { countriesReducer } from './redux/reducers/countries.reducers';
 import { ROOT_REDUCERS } from './redux/store/app.state';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HouseComponent } from './components/home/house/house.component';
 
 const routes: Routes = [
   {
@@ -90,7 +91,8 @@ const routes: Routes = [
     MatInputModule,
     MatPaginatorModule,
     StoreModule.forRoot(ROOT_REDUCERS),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
