@@ -47,7 +47,7 @@ import { HouseComponent } from './components/home/house/house.component';
 import { environment } from '../environments/environment'
 // import { environment as env } from 'src/environments/environment';
 
-import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 
