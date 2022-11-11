@@ -1,16 +1,14 @@
-import { createSelector } from '@ngrx/store';
-// import { CountryState, HousesState, ProfileState } from 'src/app/models/Country.state';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AppState } from '../store/app.state';
 import {  GlobalState} from 'src/app/models/Country.state';
+import { userProfile } from 'src/app/models/UserProfile';
 
-// Es el selector que tiene relacion con la propiedad del Store (storeCountries)
+
 export const selectorItemsCountries = (state: AppState) => state.globalState;
 export const selectorItemsAllHouses = (state: AppState) => state.globalState;
 export const selectorItemsUserProfile = (state: AppState) => state.globalState;
+export const selectorListBackupHouses = (state: AppState) => state.globalState
 
-// Es el selector que tiene relacion con la propiedad del Store (storeCountries)
-
-//Ingreso a la propiedad del estado en este caso (countries)
 export const selectorListCountries = createSelector(
     selectorItemsCountries,
     (state: GlobalState) => state.countries
@@ -29,4 +27,9 @@ export const selectorListHouses= createSelector(
 export const selectorListProfile= createSelector(
     selectorItemsUserProfile,
     (state: GlobalState) => state.userProfile
+)
+
+export const selectorListBackup= createSelector(
+    selectorListBackupHouses,
+    (state: GlobalState) => state.backupHouses
 )

@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { House } from '../../../models/House';
 import { DataServiceService } from '../../../services/data-service.service'
-import { AppState, AuthService } from '@auth0/auth0-angular';
+import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from '../../../models/UserProfile';
 import { Router } from '@angular/router';
-import {  } from 'src/app/models/UserProfile';
 import { Observable } from 'rxjs';
-import { addFavoriteHouse, deleteFavoriteHouse } from 'src/app/redux/actions/userprofile.actions';
+import { addFavoriteHouse, deleteFavoriteHouse } from 'src/app/redux/actions/location.actions';
 import { Store } from '@ngrx/store';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 

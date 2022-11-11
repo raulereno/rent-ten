@@ -3,23 +3,23 @@
         <div class="col">
             <a style="font-size: 30px; cursor: pointer" (click)="paginationBack()">&#x3c;</a>
             <a routerLink="/housedetail/{{house.id}}">
-                <img style="max-width: 270px" class="img-thumbnail" [src]="giveMePhoto()" />
+                <img style="max-width: 270px; max-height: 270; background-size: cover;" class="img-thumbnail" [src]="giveMePhoto()" />
             </a>
             <a style="font-size: 30px; cursor: pointer" (click)="paginationForward()">&#x3e;</a>
             <ul>
-                <li>{{house.id}}</li>
-                <li>{{house.price}} USD</li>
+                <!-- <li>{{house.id}}</li> -->
+                <h3>{{house.price}} USD</h3>
                 <li>Country: {{house.country}}</li>
                 <li>City: {{house.city}}</li>
                 <li>Rooms: {{house.rooms}}</li>
                 <li>Bathrooms: {{house.bathrooms}}</li>
                 <li>Maxpeople: {{house.maxpeople}}</li>
                 <li>Allowpets: {{house.allowpets}}</li>
-                    <button *ngIf="checkIsFavorite(house.id) === false" class="btn btn-outline-warning"
+                <li>Wifi: {{house.wifi}}</li>
+                <button *ngIf="checkIsFavorite(house.id) === false" class="btn btn-outline-warning"
                     (click)="setFavorite(house.id, dbProfile.id)">Add to favorites</button>
                 <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
                     (click)="deleteFavorite(house.id, dbProfile.id)">Delete from favorites</button>
-
             </ul>
 
         </div>

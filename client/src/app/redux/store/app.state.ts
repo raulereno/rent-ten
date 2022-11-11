@@ -1,7 +1,7 @@
 import { ActionReducerMap } from "@ngrx/store";
 // import { CountryState, HousesState, ProfileState } from "src/app/models/Country.state";
-import { housesReducer } from "../reducers/houses.reducer"
-import { profileReducer } from "../reducers/userprofile.reducer";
+// import { housesReducer } from "../reducers/houses.reducer"
+// import { profileReducer } from "../reducers/userprofile.reducer";
 import { GlobalState } from "src/app/models/Country.state";
 import { countriesReducer } from "../reducers/location.reducers";
 

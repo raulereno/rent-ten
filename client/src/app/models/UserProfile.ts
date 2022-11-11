@@ -10,5 +10,5 @@ export interface userProfile {
         admin: boolean;
         verified: string;
         verificationCode: string;
-        favoriteshouses: string[]
+        favoriteshouses?: string[];
 }

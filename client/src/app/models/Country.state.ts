@@ -22,7 +22,8 @@ export interface GlobalState {
     countries?: ReadonlyArray<Country>;
     state?:ReadonlyArray<State>
     cities?:ReadonlyArray<City>
-    userProfile?: userProfile;
+    userProfile?: userProfile
     allHouses?: ReadonlyArray<House>;
+    backupHouses?: ReadonlyArray<House>
 
 }
