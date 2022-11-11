@@ -1,4 +1,4 @@
-
+<button routerLink="/home" type="button" class="btn btn-secondary btn-sm">Home</button>
 <div class='container'>
     <form [formGroup]="form">
         <mat-form-field>
@@ -12,9 +12,7 @@
 
         </mat-form-field>
     </form>
-    <button routerLink="/home">routerlink</button>
-        <button (click)="goBack()">location</button>
-    <div *ngIf="house.bookings" >
+    <div *ngIf="house.bookings">
         <h2>&#x26A0; This house has bookings on this dates:</h2>
         <div>
             <ul>
@@ -30,7 +28,7 @@
 <div class="container">
     <div class="row align-items-start">
         <div class="col">
-                <img style="max-width: 270px" class="img-thumbnail" src={{house.picture[0]}} />
+            <img style="max-width: 270px" class="img-thumbnail" src={{house.picture[0]}} />
             <ul>
                 <li>{{house.id}}</li>
                 <li>{{house.price}} USD</li>
@@ -41,8 +39,7 @@
                 <li>Maxpeople: {{house.maxpeople}}</li>
                 <li>Allowpets: {{house.allowpets}}</li>
             </ul>
-
+            <button type="button" class="btn btn-outline-info">Book this house</button>
         </div>
     </div>
 </div>
-

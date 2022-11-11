@@ -8,11 +8,12 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-housedetail',
   templateUrl: './housedetail.component.html',
-  styleUrls: ['./housedetail.component.css']
+  styleUrls: ['./housedetail.component.css'],
+
 })
 export class HousedetailComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, public http: DataServiceService, private fb: FormBuilder, private location: Location, ) {}
+  constructor(private route: ActivatedRoute, public http: DataServiceService, private fb: FormBuilder, private location: Location) { }
 
   paramsId: string | null
   house: House
@@ -31,29 +32,14 @@ export class HousedetailComponent implements OnInit {
     })
   }
 
-  unavailableDays = (calendarDate: Date):boolean => {
+  unavailableDays = (calendarDate: Date): boolean => {
     console.log(calendarDate)
     if (!this.house.bookings) return true
-    return !this.house.bookings.some((d:Booking) => calendarDate > new Date(d.start) && calendarDate <= new Date(new Date(d.end).getTime() + (24 * 60 * 60 * 1000)))
-}
+    return !this.house.bookings.some((d: Booking) => calendarDate > new Date(d.start) && calendarDate <= new Date(new Date(d.end).getTime() + (24 * 60 * 60 * 1000)))
+  }
 
   goBack(): void {
     this.location.back()
   }
 
 }
-
-
-
-
-// router.get('/:id', async (req, res) => {
-//   const { id } = req.params
-
-//   try {
-//       const house = await House.findByPk(id, { include: User })
-//       res.status(200).json(house)
-//   } catch (error) {
-//       console.log(error)
-//   }
-
-// })
