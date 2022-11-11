@@ -1,21 +1,64 @@
+<p>Cargando...{{loading$ | async | json}}</p>
+<p>Pais...{{pais$| json}}</p>
+<p>Ciudad...{{city$| json}}</p>
+
+
 <div>
     <div>
-        <select ngModel="selectedCountry.id" class="form-select form-select-lg mb-3"
-            aria-label="Ejemplo de .form-select-lg" (change)="onSelect($event)">
-            <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
+        <select name="countries" [(ngModel)]="pais$" (change)="onChange(pais$.name)"
+            class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg" (change)="onSelect($event)">
+            <option *ngFor="let country of countries$ |async" [ngValue]="country">{{country.name}}</option>
         </select>
-        <select class="form-select form-select-lg mb-3" aria-label="Ejemplo de .form-select-lg">
-            <option *ngFor="let city of cities" value="city.id">{{city.name}}</option>
+        <select name="cities" [(ngModel)]="city$" class="form-select form-select-lg mb-3"
+            aria-label="Ejemplo de .form-select-lg">
+            <option *ngFor="let ciudad of city$" [ngValue]="city$">{{ciudad}}</option>
         </select>
     </div>
 </div>
 
-<b>Cargando...{{loading$ | async | json}}</b>
-<br>
+<!-- *ngIf="city$.length" -->
 
-<select>
-    <option *ngFor="let country of countries$ |async" value={{country.name}}>{{country.name}}</option>
+
+<!-- <select name="countries" [(ngModel)]="pais" (change)="onChange(pais.name)">
+    <option *ngFor="let country of countries$ |async" [ngValue]="country">{{country.name}}</option>
 </select>
+{{pais.name | json}} -->
+
+
+
+
+
+<!-- <ng-container *ngFor="let menaceProcessus of menaceProcessusTab">
+    <tr>
+         <td colspan="4" bgcolor="#f1f1f1"><b>{{menaceProcessus?.processus?.nom}}</b></td>
+    </tr>
+    <ng-container *ngFor="let actif of menaceProcessus?.actifs">
+        <tr>
+            <td [rowSpan]="actif?.menaces?.length+1">{{actif?.actif?.nom}}</td>
+        </tr>
+     <ng-container *ngFor="let mnVuln of actif?.menaces">
+        <tr>
+             <td>{{mnVuln?.vulnerabilite?.nom}}</td>
+             <td>
+                 <select class="form-control" 
+                  (change)="mnVuln?.menaceActif?.menace.id = $event.target.value; 
+                            updateMenaceProcessus()">
+                      <option></option>
+                      <option *ngFor="let menace of menaces" 
+                          [value]="menace.id" 
+                          [selected]="menace.id === mnVuln?.menaceActif?.menace.id">
+                        {{menace.nom}}</option>
+                  </select>
+              </td>
+              <td>
+                 <input class="form-control" 
+                    type="text" [value]="mnVuln?.menaceActif?.probabilite"> 
+              </td>
+          </tr>
+      </ng-container>
+    </ng-container>
+ </ng-container> -->
+
 <b *ngFor="let country of countries$ |async">{{country.name}}</b>
 <!-- <div class="container">
     <div class="row align-items-start">

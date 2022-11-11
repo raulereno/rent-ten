@@ -12,7 +12,7 @@ export class Data {
     private countries: Country[] = [
         {
             id: 1,
-            name: 'Brazil'
+            name: 'Brasil'
         },
         {
             id: 2,

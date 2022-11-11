@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   //variable para escuchar y que se declara para poder imrpimir/pintar en pagina
   loading$: Observable<any> = new Observable();
   countries$: Observable<any> = new Observable()
+  pais$: any = { countries: "" };
+  city$: any = { ciudad: "" }
 
   public selectedCountry: Country = {
     id: 0,
@@ -77,10 +79,15 @@ export class HomeComponent implements OnInit {
     this.data?.getCountries()
       .subscribe((response: Country[]) => {
         console.log('_______', response)
+
+        console.log(response.map(elemt => elemt.name))
         this.store.dispatch(loadedCountries(
           { countries: response }
         ))
+
       })
+
+
 
 
     ///////////////
@@ -116,8 +123,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSelect(event: any): void {
-    let id = parseInt(event.target.value)
-    // console.log('Id => ', event.target.value)
+    let id = event.target.value
 
     // console.log(id)
 
@@ -130,11 +136,35 @@ export class HomeComponent implements OnInit {
 
     // this.cities = filterCities
 
-    this.cities = this.dataSvc.getCities().filter(item => item.countryId === id);
+    this.cities = this.dataSvc.getCities().filter(item => item.name === id);
 
   }
   showInfo() {
     console.log(this.allHouses)
+  }
+
+
+
+  onChange(event: any) {
+    let eventContry = event;
+    console.log("Evento de Contry :", eventContry);
+    let filterCountry = this.allHouses.filter((elemnt) => elemnt.country === eventContry);
+    let filterCities = filterCountry.map(elemt => elemt.city)
+
+
+    let dataArr = new Set(filterCities);
+    let result = [...dataArr];
+
+    // console.log("Resultado: ", result)
+
+    this.city$ = result
+
+
+    // console.log("Filtro Array ", filterCountry)
+    // console.log("Filtro Id", filterCountry.map(elemt => elemt.id))
+    // console.log("Filtro City", filterCountry.map(elemt => elemt.city))
+    // console.log("Filtro City V2:", filterCities)
+
   }
 }
 
