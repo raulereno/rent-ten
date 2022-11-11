@@ -1,4 +1,14 @@
 <div class="container">
+    
+    <button style="margin-right: 2%" (click)="handleOrder('')" *ngIf="order === 'min'" type="button"
+        class="btn btn-primary btn-sm">Min</button>
+    <button style="margin-right: 2%" (click)="handleOrder('min')" *ngIf="order !== 'min'" type="button"
+        class="btn btn-secondary btn-sm">Min</button>
+
+    <button style="margin-right: 2%" (click)="handleOrder('')" *ngIf="order === 'max'" type="button"
+        class="btn btn-primary btn-sm">Max</button>
+    <button style="margin-right: 2%" (click)="handleOrder('max')" *ngIf="order !== 'max' || order === undefined" type="button"
+        class="btn btn-secondary btn-sm">Max</button>
 
     <button style="margin-right: 2%" (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
         class="btn btn-primary btn-sm">Allow Pets</button>

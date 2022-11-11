@@ -5,7 +5,7 @@ import { DataServiceService } from '../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
 import { House } from '../../models/House';
 import { Store } from '@ngrx/store';
-import { loadCountries, loadedCountries, loadHouses, loadProfile, addFavoriteHouse, handleFilters } from 'src/app/redux/actions/location.actions';
+import { loadCountries, loadedCountries, loadHouses, loadProfile, addFavoriteHouse, handleFilters, handleOrder } from 'src/app/redux/actions/location.actions';
 import { Observable, pipe } from 'rxjs';
 import { selectorListCountries, selectorListHouses, selectorListLoading, selectorListProfile, selectorListBackup } from 'src/app/redux/selectors/selectors';
 import { PageEvent } from '@angular/material/paginator';
@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit {
   allowpets: boolean;
   wifi: boolean;
   selectedCountry: string;
+  order: string;
 
   // --- ON INIT ---
 
@@ -156,6 +157,11 @@ export class HomeComponent implements OnInit {
   handleCountry(country: string) {
     this.selectedCountry = country
     this.handleFilters()
+  }
+
+  handleOrder(order: string) {
+    this.order = order;
+    this.store.dispatch(handleOrder({ payload: order }));
   }
 
   handleFilters() {

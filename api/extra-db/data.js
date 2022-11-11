@@ -160,7 +160,7 @@ let countries = [
     'Kenia',
     'Bulgaria',
     'Zimbabue',
-    'Angola',
+    'Angola', 
     'Nigeria',
     'Polonia',
     'Senegal',
