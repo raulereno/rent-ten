@@ -4,6 +4,11 @@ import { DataServiceService } from '../../../services/data-service.service'
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from '../../../models/UserProfile';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { addFavoriteHouse, deleteFavoriteHouse } from 'src/app/redux/actions/location.actions';
+import { Store } from '@ngrx/store';
+import { selectorListProfile } from 'src/app/redux/selectors/selectors';
+
 
 @Component({
   selector: 'app-house',
@@ -15,14 +20,17 @@ export class HouseComponent implements OnInit {
   @Input() house: House;
   @Input() dbProfile: userProfile
 
-  constructor(public http: DataServiceService, public auth: AuthService, private router: Router) { }
+  userProfile$: Observable<any> = new Observable()
+  public userProfile: userProfile;
+
+  constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>,) { }
 
   profileJson: any;
   allHouses: House[] = []
   indexPhoto:number = 0
 
-
   ngOnInit(): void {
+    this.userProfile$ = this.store.select(selectorListProfile)
   }
 
   setFavorite(houseId: string, userId: string): void {
@@ -30,15 +38,13 @@ export class HouseComponent implements OnInit {
         this.auth.loginWithRedirect();
     } else {
       this.http.setFavorite(houseId, userId)
-      this.dbProfile.favoriteshouses.push(houseId)
+      this.store.dispatch(addFavoriteHouse({payload: houseId}))
     }
   }
 
-
   deleteFavorite(houseId: string, userId: string): void {
     this.http.deleteFavorite(houseId, userId)
-    let index = this.dbProfile.favoriteshouses.indexOf(houseId)
-    this.dbProfile.favoriteshouses.splice(index, 1)
+    this.store.dispatch(deleteFavoriteHouse({payload: houseId}))
   }
 
 
@@ -48,11 +54,10 @@ export class HouseComponent implements OnInit {
     } else {
       return false
     }
-
   }
 
   showInfo() {
-    console.log(this.dbProfile)
+    console.log(this.userProfile$)
   }
 
   giveMePhoto() {
