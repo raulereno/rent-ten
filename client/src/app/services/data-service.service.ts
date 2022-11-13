@@ -12,17 +12,27 @@ export class DataServiceService {
 
   postId = '';
 
+
   getUser(mail: string): Observable<any> {
     return this.http.get<any>(
       `http://localhost:3001/users/getuser?mail=${mail}`
     );
   }
-
-  updateUser(mail: string, picture: string, sub: string) {
-    if (mail && picture && sub) {
-      this.http.post<any>('http://localhost:3001/users', { mail: mail, picture: picture, sub: sub }).subscribe({
+  //saque el picture
+  updateUser(mail: string,picture:string, sub: string) {
+    if (mail &&picture && sub) {
+      this.http.post<any>('http://localhost:3001/users', { mail: mail,picture:picture, sub: sub }).subscribe({
         error: error => {
           console.error('There was an error!', error);
+        }
+      })
+    }
+  }
+  updateProfilePicture(url:string,userID:string,authID:string){
+    if(url&&userID){
+      this.http.patch(`http://localhost:3001/users/changepicture/${userID}`,{newPicture:url, authID:authID}).subscribe({
+        error:error=>{
+          console.error('There was an error!',error);
         }
       })
     }
