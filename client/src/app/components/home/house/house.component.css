@@ -1,4 +1,117 @@
-.imgCards {
-    display: flex;
-    justify-content: center;
+.housecard{
+    width: 250px;
+    height: fit-content;
+    transition: all 0.3s;
+    animation: fadein 2s;
 }
+
+.card:hover {
+    transform: scale(1.05);
+    background-color: rgba(42, 42, 42, 0.443);
+  }
+
+.updiv{
+    display:flex;
+    margin-bottom: -15px;
+}
+
+.carrouselbutton{
+    display: flex;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 15px;
+}
+
+#leftarrow{
+    position: relative;
+    top: 45%;
+    left: 4%;
+}
+
+.image{
+    height: 200px;
+    width: 250px;
+    border-radius: 15px 15px 0px 15px;
+}
+
+#rightarrow{
+    position: relative;
+    bottom: 45%;
+    left: 86%;
+}
+
+.firstdiv{
+    display: flex;
+    margin-bottom: -10px;
+}
+
+.namediv{
+width: 88%;
+margin-left: 5px;
+}
+
+.name{
+    font-size: 18px;
+}
+
+.favdiv{
+width: 12%;
+}
+
+.favourites{
+    height: 30px;
+    width: 30px;
+
+    font-size: 25px;
+    font-weight: 100;
+    color: #ffc107;
+    border: 1px solid #ffc107;
+    border-color: #ffc107;
+    border-radius: 0px 0px 20px 20px;
+    
+    margin-top: -9px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+#addfav{
+    color: #ffc107;
+    border: 1px solid #ffc107;
+    border-color: #ffc107;
+}
+
+#addfav:hover{
+    color: #000;
+    background-color: #ffc107;
+}
+
+#removefav{
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    border-color: #dc3545;
+}
+
+#removefav:hover{
+    color: white;
+    background-color: #dc3545;
+}
+
+.info{
+    font-weight: 100;
+    color: gray;
+    margin: -4px;
+}
+
+.price{
+    color: rgb(23, 59, 3);
+    font-weight: 400;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.botdiv{
+    display:flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
