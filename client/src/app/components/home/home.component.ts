@@ -105,7 +105,8 @@ export class HomeComponent implements OnInit {
       this.store.dispatch(loadHouses({ allHouses: res }))
       this.allHouses$.subscribe(res => {
         this.allHouses = res;
-        this.countriesInDB= this.allHouses.map(e=>e.country).sort();
+        let set = new Set(this.allHouses.map(e=>e.country).sort())
+        this.countriesInDB= [...set];
       })
     })
   }
