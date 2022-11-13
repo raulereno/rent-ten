@@ -1,26 +1,44 @@
-<div class="container">
+<div class="cardContainer">
     <div class="row align-items-start">
         <div class="col">
-            <a style="font-size: 30px; cursor: pointer" (click)="paginationBack()">&#x3c;</a>
-            <a routerLink="/housedetail/{{house.id}}">
-                <img style="max-width: 270px; max-height: 270; background-size: cover;" class="img-thumbnail" [src]="giveMePhoto()" />
-            </a>
-            <a style="font-size: 30px; cursor: pointer" (click)="paginationForward()">&#x3e;</a>
-            <ul>
+            <div class="imgCards">
+                <mat-card-actions>
+                    <!-- <button (click)="showInfo()"></button> -->
+                    <mat-icon (click)="paginationBack()">navigate_before</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a routerLink="/housedetail/{{house.id}}">
+                        <img mat-card-lg-image [src]="giveMePhoto()" />
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp; <mat-icon (click)="paginationForward()">navigate_next</mat-icon>
+                </mat-card-actions>
+
+
+            </div>
+            <div>
                 <!-- <li>{{house.id}}</li> -->
-                <h3>{{house.price}} USD</h3>
-                <li>Country: {{house.country}}</li>
-                <li>City: {{house.city}}</li>
-                <li>Rooms: {{house.rooms}}</li>
-                <li>Bathrooms: {{house.bathrooms}}</li>
-                <li>Maxpeople: {{house.maxpeople}}</li>
-                <li>Allowpets: {{house.allowpets}}</li>
-                <li>Wifi: {{house.wifi}}</li>
-                <button *ngIf="checkIsFavorite(house.id) === false" class="btn btn-outline-warning"
-                    (click)="setFavorite(house.id, dbProfile.id)">Add to favorites</button>
-                <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
-                    (click)="deleteFavorite(house.id, dbProfile.id)">Delete from favorites</button>
-            </ul>
+                <mat-card-content>
+                    {{house.city}}, {{house.country}}
+                    <mat-card-subtitle>{{house.rooms}} Rooms, {{house.bathrooms}} Bathrooms,
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>
+                        <div *ngIf="house.allowpets as value; else elseBlock">Pet friendly: Yes</div>
+                        <ng-template #elseBlock>Pet friendly: Not</ng-template>
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>Maxpeople: {{house.maxpeople}} </mat-card-subtitle>
+                </mat-card-content>
+                <mat-card-subtitle *ngIf="house.country">{{house.price}} USD</mat-card-subtitle>
+                <mat-card-footer>
+                    <mat-card-actions>
+                        <button *ngIf="checkIsFavorite(house.id) === false" class="btn btn-outline-warning"
+                            (click)="setFavorite(house.id, dbProfile.id)">
+                            Add to favorites
+                        </button>
+                        <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
+                            (click)="deleteFavorite(house.id, dbProfile.id)">
+                            Delete from favorites
+                        </button>
+                    </mat-card-actions>
+                </mat-card-footer>
+            </div>
 
         </div>
     </div>
