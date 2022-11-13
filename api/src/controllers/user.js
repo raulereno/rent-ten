@@ -1,4 +1,3 @@
-const { default: axios } = require("axios");
 const { User } = require("../db");
 
 const getUser = (mail, password) => {
