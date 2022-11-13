@@ -1,21 +1,23 @@
 div {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
-.card_house{
-  background-color: rgba(128, 128, 128, 0.403);
+
+.card_house {
   margin: 0.5rem;
-  padding: 0.7rem 0.3rem 0.3rem 0.3rem ;
+  padding: 0.7rem 0.3rem 0.3rem 0.3rem;
   border-radius: 5px;
   transition: all 0.3s;
 
 }
-.card_house:hover{
-  transform: scale(1.03);
+
+.card_house:hover {
+  transform: scale(1.05);
   background-color: rgba(42, 42, 42, 0.443);
 
 }
-.paginado{
+
+.paginado {
   align-self: center;
   display: flex;
   justify-content: center;
@@ -27,8 +29,12 @@ div {
   margin-top: 1%;
   align-self: center;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   padding-left: 20px;
+}
+
+.cardFilter {
+  margin-top: 1%;
 }
 
 mat-form-field.mat-form-field {

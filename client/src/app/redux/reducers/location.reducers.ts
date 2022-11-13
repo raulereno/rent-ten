@@ -46,11 +46,16 @@ export const countriesReducer = createReducer(
             ...state,
             loading: false,
             backupHouses: allHouses,
-            allHouses: allHouses }
+            allHouses: allHouses
+        }
     }),
 
     on(loadProfile, (state, {userProfile}) => {
         return { ...state,
+            loading: false,
+    on(loadProfile, (state, { userProfile }) => {
+        return {
+            ...state,
             loading: false,
             userProfile: userProfile
         }
@@ -62,8 +67,14 @@ export const countriesReducer = createReducer(
         userProfile: {
             ...state.userProfile!,
             favoriteshouses: [...state.userProfile!.favoriteshouses!, payload]
+    on(addFavoriteHouse, (state, { payload }) => {
+        return {
+            ...state,
+            userProfile: {
+                ...state.userProfile!,
+                favoriteshouses: [...state.userProfile!.favoriteshouses!, payload]
+            }
         }
-    }
     }),
 
     on(deleteFavoriteHouse, (state, payload) => {
@@ -82,14 +93,20 @@ export const countriesReducer = createReducer(
         userProfile: {
             ...state.userProfile!,
             verified: payload
+    on(changeVerifiedStatusProfile, (state, { payload }) => {
+        return {
+            ...state,
+            userProfile: {
+                ...state.userProfile!,
+                verified: payload
+            }
         }
-    }
     }),
 
-    on (handleFilters, (state, payload) => {
+    on(handleFilters, (state, payload) => {
         let superFilter = state.backupHouses
 
-        const {minPrice, maxPrice, allowPets, wifi, selectedCountry} = payload.payload
+        const { minPrice, maxPrice, allowPets, wifi, selectedCountry, selectedCity } = payload.payload
 
         if (minPrice) {
             superFilter = superFilter?.filter((house: any) => house.price > minPrice)
@@ -109,6 +126,10 @@ export const countriesReducer = createReducer(
 
         if (selectedCountry) {
             superFilter = superFilter?.filter((house: any) => house.country === selectedCountry)
+        }
+
+        if (selectedCity) {
+            superFilter = superFilter?.filter((house: any) => house.city === selectedCity)
         }
 
         return {
