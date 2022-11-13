@@ -25,7 +25,7 @@ export const initialState: GlobalState = {
         verificationCode: '',
         favoriteshouses: []
     }
-}
+ }
 
 
 // ********** REDUCERS ********* //
@@ -49,6 +49,7 @@ export const countriesReducer = createReducer(
             allHouses: allHouses
         }
     }),
+
 
     on(loadProfile, (state, { userProfile }) => {
         return {
@@ -90,7 +91,6 @@ export const countriesReducer = createReducer(
 
     on(handleFilters, (state, payload) => {
         let superFilter = state.backupHouses
-        console.log(payload.payload)
 
         const { minPrice, maxPrice, allowPets, wifi, selectedCountry, selectedCity } = payload.payload
 

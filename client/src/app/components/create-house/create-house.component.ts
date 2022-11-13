@@ -1,18 +1,22 @@
+import { DialogBodyComponent } from './dialog-body/dialog-body.component';
+import { FormGroup, NgForm } from '@angular/forms';
 import { AppState } from './../../redux/store/app.state';
 import { Observable } from 'rxjs';
 import { loadedCountries } from './../../redux/actions/location.actions';
 import { DataServiceService } from 'src/app/services/data-service.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
 import { LocationService } from 'src/app/services/location.service';
 import { selectorListCountries } from 'src/app/redux/selectors/selectors';
+import { Location } from '@angular/common';
 
+import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
 export interface NewHouse {
   city: string;
   country: string;
-  state:string;
+  state: string;
   rooms: number;
   bathrooms: number;
   maxpeople: number;
@@ -20,97 +24,114 @@ export interface NewHouse {
   wifi: boolean;
   type: string;
   picture: string[];
+  price: number;
 }
 
-//TODO: Raul
 @Component({
   selector: 'app-create-house',
   templateUrl: './create-house.component.html',
-  styleUrls: ['./create-house.component.css'],
-  providers: [UploadImgService]
+  styleUrls: ['./create-house.component.scss'],
+  providers: [UploadImgService],
 })
 export class CreateHouseComponent implements OnInit {
-
+  //Local Variables
   newHouse: NewHouse = {
-    city: "",
-    country: "",
-    state:"",
-    rooms: 0,
-    bathrooms: 0,
-    maxpeople: 0,
+    city: '',
+    country: '',
+    state: '',
+    rooms: 1,
+    bathrooms: 1,
+    maxpeople: 1,
     allowpets: false,
     wifi: false,
-    type: "",
-    picture: []
-  }
+    price: 0,
+    type: '',
+    picture: [],
+  };
 
-  selectedCountry:any={name:"arg",};
+  selectedCountry: any = { name: 'arg' };
   files: File[] = [];
-  email: string = "";
-  countries$:Observable<any> = new Observable();
+  email: string = '';
+  countries$: Observable<any> = new Observable();
 
-  states$:any;
-  cities$:any;
+  states$: any;
+  cities$: any;
+  //TODO: hacer una interface para los errores
+  //ponerlo en true cuando el form este controlado
+  errors:any =false
 
   constructor(
     private _uploadImg: UploadImgService,
     private _http: DataServiceService,
     public _auth: AuthService,
     private _store: Store<AppState>,
-    private _locationService: LocationService
+    private _locationService: LocationService,
+    private matDialog: MatDialog,
+    private _location:Location,
   ) {}
 
   ngOnInit(): void {
-    this._auth.user$.subscribe(profile => {
-      this.email = profile?.email ? profile?.email : ""
+    this._auth.user$.subscribe((profile) => {
+
+      this.email = profile?.email ? profile?.email : '';
     });
 
-    this.countries$ = this._store.select(selectorListCountries)
+    this.countries$ = this._store.select(selectorListCountries);
 
-    this._locationService.getCountries().subscribe(response=>{
-        console.log(response);
-       this._store.dispatch(loadedCountries({countries:response.data}))
-    })
+    this._locationService.getCountries().subscribe((response) => {
+      this._store.dispatch(loadedCountries({ countries: response.data }));
+    });
+  }
+
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {}
+    let dialogRef =this.matDialog.open(DialogBodyComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(value => {
+      console.log(`Dialog sent: ${value}`);
+    });
   }
 
   onSelect(event: any) {
     // console.log(event.addedFiles[0].name);
-    if (this.files.some(e => e.name === event.addedFiles[0].name)) {
-      return
+    if (this.files.some((e) => e.name === event.addedFiles[0].name)) {
+      return;
     }
     this.files.push(...event.addedFiles);
+    this.errors=false
   }
 
-  searchStates(country:string){
-    this._locationService.getState(country).subscribe(response=>{
+  searchStates(country: string) {
+    this._locationService.getState(country).subscribe((response) => {
       this.states$ = response.data.states;
       console.log(this.states$);
-    })
+    });
   }
-  searchCities(state:string){
-
+  searchCities(state: string) {
     console.log(this.newHouse);
-    this._locationService.getCities(this.newHouse.country,state).subscribe( response => {
-      this.cities$ = response.data;
-      console.log(this.cities$);
-    })
+    this._locationService
+      .getCities(this.newHouse.country, state)
+      .subscribe((response) => {
+        this.cities$ = response.data;
+        console.log(this.cities$);
+      });
   }
-
 
   onRemove(event: any) {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  onSubmit(event: any) {
-    event.preventDefault();
-    this.onUpload();
+  onSubmit(create: NgForm) {
+
+    console.log(create);
+    this.onUpload(create);
+
   }
 
-  onUpload() {
-
+  onUpload(create: NgForm) {
     if (!this.files[0]) {
-      alert("Ingresa al menos una foto de portada")
-      return
+      alert('Ingresa al menos una foto de portada');
+      return;
     }
 
     this.files.forEach((image) => {
@@ -119,21 +140,75 @@ export class CreateHouseComponent implements OnInit {
       data.set('upload_preset', 'h4e9cy2g');
       data.set('cloud_name', 'dbgpp8nla');
 
-      this._uploadImg.uploadImage(data).subscribe(response => {
-        this.newHouse.picture?.push(response.secure_url)
+      this._uploadImg.uploadImage(data).subscribe((response) => {
+        this.newHouse.picture?.push(response.secure_url);
         if (this.files.length === this.newHouse.picture.length) {
-          this._http.createHouse(this.newHouse, this.email)}
-      })
+          this._http.createHouse(this.newHouse, this.email);
+          this.files=[]
+          create.resetForm()
+        }
+      });
     });
-
   }
 
   get currentHouse() {
-    return JSON.stringify(this.newHouse)
+    return JSON.stringify(this.newHouse);
   }
 
   showInfo() {
-    console.log(this.files)
+    console.log(this.files);
   }
 
+  handlePrice(price:number){
+    console.log(price);
+    if(price <= 0){
+      console.log("ENTRAAAAA");
+      this.newHouse.price = 0
+    }
+
+  }
+  handleType(e:string){
+    this.newHouse.type= e;
+
+  }
+
+
+
+  //Add and less number
+  handlePLusAndMinus(operator: string, name: string) {
+    switch (name) {
+      case 'bathrooms':
+        if (this.newHouse.bathrooms === 1 && operator === '+') {
+          this.newHouse.bathrooms++;
+        } else if (this.newHouse.bathrooms >= 2) {
+          operator === '+'
+            ? this.newHouse.bathrooms++
+            : this.newHouse.bathrooms--;
+        } else {
+          this.newHouse.bathrooms = 1;
+        }
+        break;
+
+      case 'rooms':
+        if (this.newHouse.rooms === 1 && operator === '+') {
+          this.newHouse.rooms++;
+        } else if (this.newHouse.rooms >= 2) {
+          operator === '+' ? this.newHouse.rooms++ : this.newHouse.rooms--;
+        } else {
+          this.newHouse.rooms = 1;
+        }
+        break;
+      case 'maxpeople':
+        if (this.newHouse.maxpeople === 1 && operator === '+') {
+          this.newHouse.maxpeople++;
+        } else if (this.newHouse.maxpeople >= 2) {
+          operator === '+'
+            ? this.newHouse.maxpeople++
+            : this.newHouse.maxpeople--;
+        } else {
+          this.newHouse.maxpeople = 1;
+        }
+        break;
+    }
+  }
 }

@@ -48,8 +48,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HouseComponent } from './components/home/house/house.component';
 //Enviroment
-import { environment } from '../environments/environment'
-import { MDCGridList } from '@material/grid-list';
+import { environment } from '../environments/environment';
+import { DialogBodyComponent } from './components/create-house/dialog-body/dialog-body.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { environment as env } from 'src/environments/environment';
 
@@ -87,6 +87,8 @@ const routes: Routes = [
     HouseComponent,
     HousedetailComponent,
     PaginatePipe,
+    DialogBodyComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -124,6 +126,8 @@ const routes: Routes = [
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [DialogBodyComponent]
+
 
 })
 export class AppModule { }
