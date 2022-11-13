@@ -3,17 +3,26 @@
   to { opacity: 1; }
 }
 
+.topdiv{
+display: flex;
+justify-content: space-evenly;
+margin: 20px;
+height: 70px;
+}
+
 .flexdiv{
   display:flex;
+  flex-direction: column;
 }
 
 .bodydiv{
-  width: 80%;
-  height: 2000px;
+  width: 100%;
+  height: fit-content;
 }
 
 .grid{
   display: grid;
+  justify-content: center;
   grid-template-columns: 290px 290px 290px 290px 290px;
 }
 

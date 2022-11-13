@@ -1,5 +1,5 @@
 <div class="flexdiv">
-    <div class="left-div">
+    <div class="topdiv">
         <button (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button" class="btn btn-primary btn-sm">Allow Pets</button>
         <button (click)="handleCheckboxP(true)" *ngIf="allowpets === undefined || allowpets === false" type="button" class="btn btn-secondary btn-sm">Allow Pets</button>
 
@@ -57,16 +57,15 @@
 
     <div class="bodydiv">
         <mat-paginator class="paginado"
-            [length]="allHouses.length"
-            [pageSize]="page_size"
-            [pageSizeOptions]="page_size_options"
-            (page)="handlePage($event)"
-            showFirstLastButtons=""
+        [length]="allHouses.length"
+        [pageSize]="page_size"
+        [pageSizeOptions]="page_size_options"
+        (page)="handlePage($event)"
+        showFirstLastButtons=""
         ></mat-paginator>
 
         <div class="grid">
             <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house" [dbProfile]="dbProfile"></app-house>
         </div>
-
     </div>
 </div>
