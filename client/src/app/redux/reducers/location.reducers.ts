@@ -50,9 +50,7 @@ export const countriesReducer = createReducer(
         }
     }),
 
-    on(loadProfile, (state, {userProfile}) => {
-        return { ...state,
-            loading: false,
+
     on(loadProfile, (state, { userProfile }) => {
         return {
             ...state,
@@ -61,12 +59,6 @@ export const countriesReducer = createReducer(
         }
     }),
 
-    on(addFavoriteHouse, (state, {payload} ) => {
-        return {
-        ...state,
-        userProfile: {
-            ...state.userProfile!,
-            favoriteshouses: [...state.userProfile!.favoriteshouses!, payload]
     on(addFavoriteHouse, (state, { payload }) => {
         return {
             ...state,
@@ -87,12 +79,6 @@ export const countriesReducer = createReducer(
         }
     }),
 
-    on(changeVerifiedStatusProfile, (state, {payload} ) => {
-        return {
-        ...state,
-        userProfile: {
-            ...state.userProfile!,
-            verified: payload
     on(changeVerifiedStatusProfile, (state, { payload }) => {
         return {
             ...state,
