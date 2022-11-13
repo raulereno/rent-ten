@@ -72,7 +72,6 @@ router.post("/createhouse", async (req, res) => {
   }
 });
 
-
 // --- PUT METHODS ---
 
 router.put("/edithouse/:id", async (req, res) => {
@@ -130,16 +129,15 @@ router.delete("/deletehouse", async (req, res) => {
 // --- EXTRA TO FULL DB ---
 
 router.post("/fulldb", async (req, res) => {
-
   try {
-    extraHouses(100).forEach(async (house) => {
+    extraHouses(50).forEach(async (house) => {
       try {
         let finder = await House.findOne({ where: house });
         if (!finder) {
           await House.create(house);
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     });
 

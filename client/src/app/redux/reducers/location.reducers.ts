@@ -4,13 +4,13 @@ import { loadData, loadedCountries, addFavoriteHouse, deleteFavoriteHouse, loadP
 
 // *********** ESTADO INICIAL ********** //
 //Creo una interfaz de estado inicial con sus propiedades
-export const initialState: GlobalState = { 
+export const initialState: GlobalState = {
     countries: [],
     state: [],
     cities: [],
     backupHouses: [],
     allHouses: [],
-    loading: false, 
+    loading: false,
     userProfile: {
         id: '',
         name: '',
@@ -24,7 +24,7 @@ export const initialState: GlobalState = {
         verified: '',
         verificationCode: '',
         favoriteshouses: []
-    } 
+    }
  }
 
 
@@ -42,23 +42,23 @@ export const countriesReducer = createReducer(
     }),
 
     on(loadHouses, (state, { allHouses }) => {
-        return { 
-            ...state, 
-            loading: false, 
+        return {
+            ...state,
+            loading: false,
             backupHouses: allHouses,
             allHouses: allHouses }
     }),
 
     on(loadProfile, (state, {userProfile}) => {
-        return { ...state, 
-            loading: false, 
+        return { ...state,
+            loading: false,
             userProfile: userProfile
         }
     }),
 
     on(addFavoriteHouse, (state, {payload} ) => {
-        return { 
-        ...state, 
+        return {
+        ...state,
         userProfile: {
             ...state.userProfile!,
             favoriteshouses: [...state.userProfile!.favoriteshouses!, payload]
@@ -67,7 +67,7 @@ export const countriesReducer = createReducer(
     }),
 
     on(deleteFavoriteHouse, (state, payload) => {
-        return { 
+        return {
             ...state,
             userProfile: {
                 ...state.userProfile!,
@@ -77,8 +77,8 @@ export const countriesReducer = createReducer(
     }),
 
     on(changeVerifiedStatusProfile, (state, {payload} ) => {
-        return { 
-        ...state, 
+        return {
+        ...state,
         userProfile: {
             ...state.userProfile!,
             verified: payload
@@ -88,7 +88,6 @@ export const countriesReducer = createReducer(
 
     on (handleFilters, (state, payload) => {
         let superFilter = state.backupHouses
-        console.log(payload.payload)
 
         const {minPrice, maxPrice, allowPets, wifi, selectedCountry} = payload.payload
 

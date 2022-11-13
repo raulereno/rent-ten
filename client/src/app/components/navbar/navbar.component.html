@@ -1,29 +1,29 @@
 <mat-toolbar color="secundary" class="mat-elevation-z4">
-    <span style="margin-left: 2%">
-        <a routerLink="/home">
-            <img src="../../assets/logo.png" alt="Logo" width="80" class="d-inline-block align-text-top">
-        </a>
-    </span>
-
-    <div class="spacer"></div>
-    <a style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button
-        routerLink="/createhouse">Become a Host</a>
-
-    <a mat-button routerLink="/home">Home</a>
-    <a mat-button routerLink="/about">About</a>
-
-    <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
-        aria-label="Sing Up">
-        <mat-icon>account_circle</mat-icon>
+  <span style="margin-left: 2%">
+    <a routerLink="/home">
+      <img src="../../assets/logo.png" alt="Logo" width="80" class="d-inline-block align-text-top">
     </a>
+  </span>
 
-    <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
+  <div class="spacer"></div>
+  <a style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button routerLink="/createhouse">Become
+    a Host</a>
 
-    <div *ngIf="(auth.isAuthenticated$ | async) === true">
-        <a mat-button routerLink="/profile">
-            <mat-icon>account_circle</mat-icon>
-        </a>
-        <button mat-button (click)="logout()">Sign out</button>
-    </div>
+  <a mat-button routerLink="/home">Home</a>
+  <a mat-button routerLink="/about">About</a>
+
+  <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
+    aria-label="Sing Up">
+    <mat-icon>account_circle</mat-icon>
+  </a>
+
+  <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
+
+  <div *ngIf="(auth.isAuthenticated$ | async) === true" class="profile">
+    <a mat-button routerLink="/profile">
+      <img src={{profileImg}} alt="">
+    </a>
+    <button mat-button (click)="logout()">Sign out</button>
+  </div>
 
 </mat-toolbar>

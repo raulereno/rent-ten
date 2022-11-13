@@ -30,11 +30,10 @@
     <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)" style="max-height: 45px; max-width: 20%;" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-lg">
         <option selected value="">Select a country</option>
 
-        <option *ngFor="let house of backupHouses$ | async" value="{{house.country}}">{{house.country}}</option>
+        <option *ngFor="let country of countriesInDB" value="{{country}}">{{country}}</option>
 
         <!-- <option *ngFor="let house of handleSelectCountries(backupHouses$ | async)" value="{{house.country}}">{{house.country}}</option> -->
     </select>
-
 
 </div>
 
