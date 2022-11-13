@@ -7,9 +7,11 @@ import { House } from '../../models/House';
 import { Store } from '@ngrx/store';
 import { loadCountries, loadedCountries, loadHouses, loadProfile, addFavoriteHouse, handleFilters } from 'src/app/redux/actions/location.actions';
 import { Observable, pipe } from 'rxjs';
-import { selectorListCountries, selectorListHouses, selectorListLoading, selectorListProfile, selectorListBackup } from 'src/app/redux/selectors/selectors';
+import { selectorListCountries, selectorListHouses, selectorListLoading, selectorListProfile, selectorListBackup, selectorListCities } from 'src/app/redux/selectors/selectors';
 import { PageEvent } from '@angular/material/paginator';
 import { userProfile } from 'src/app/models/UserProfile';
+
+
 
 @Component({
   selector: 'app-home',
@@ -25,12 +27,14 @@ export class HomeComponent implements OnInit {
   allHouses$: Observable<any> = new Observable()
   userProfile$: Observable<any> = new Observable()
   backupHouses$: Observable<any> = new Observable()
+  city$: Observable<any> = new Observable();
 
   public countries: Country[] | undefined;
   public cities: City[] | undefined;
   public allHouses: House[]
   public userProfile: userProfile;
-  public backupHouses: House[]
+  public backupHouses: House[];
+  public city: string[]
 
   // ****** CONSTRUCTOR ******* //
 
@@ -60,6 +64,7 @@ export class HomeComponent implements OnInit {
   allowpets: boolean;
   wifi: boolean;
   selectedCountry: string;
+  selectedCity: string;
 
   // --- ON INIT ---
 
@@ -70,6 +75,7 @@ export class HomeComponent implements OnInit {
     this.allHouses$ = this.store.select(selectorListHouses)
     this.userProfile$ = this.store.select(selectorListProfile)
     this.backupHouses$ = this.store.select(selectorListBackup)
+    this.city$ = this.store.select(selectorListCities)
 
     this.store.dispatch(loadCountries())
 
@@ -113,9 +119,9 @@ export class HomeComponent implements OnInit {
   getCountries() {
     this.dataSvc.getCountries()
       .subscribe((response: Country[]) => {
-        console.log('_______', response)
+        // console.log('_______', response)
 
-        console.log(response.map(elemt => elemt.name))
+        // console.log(response.map(elemt => elemt.name))
         this.store.dispatch(loadedCountries(
           { countries: response }
         ))
@@ -160,6 +166,9 @@ export class HomeComponent implements OnInit {
   handleCountry(country: string) {
     this.selectedCountry = country
     this.handleFilters()
+    let nombrecualquier = this.allHouses?.filter((elemten) => elemten.country === country)
+    this.city = nombrecualquier?.map(elemt => elemt.city)
+
   }
 
   handleFilters() {
@@ -169,33 +178,21 @@ export class HomeComponent implements OnInit {
         maxPrice: this.maxPrice,
         allowPets: this.allowpets,
         wifi: this.wifi,
-        selectedCountry: this.selectedCountry
+        selectedCountry: this.selectedCountry,
+        selectedCity: this.selectedCity
       }
     }))
     this.page_number = 0
   }
 
+  handleCity(city: string) {
+    console.log("Console City: ", city)
+    this.selectedCity = city
+    console.log("city", city)
+    this.handleFilters()
+    // let nombrecualquier = this.allHouses?.filter((elemten) => elemten.city === city)
 
-
-  onChange(event: any) {
-    let eventContry = event;
-    console.log("Evento de Contry :", eventContry);
-    let filterCountry = this.allHouses.filter((elemnt) => elemnt.country === eventContry);
-    let filterCities = filterCountry.map(elemt => elemt.city)
-
-
-    let dataArr = new Set(filterCities);
-    let result = [...dataArr];
-
-    // console.log("Resultado: ", result)
-
-    // this.city$ = result
-
-
-    // console.log("Filtro Array ", filterCountry)
-    // console.log("Filtro Id", filterCountry.map(elemt => elemt.id))
-    // console.log("Filtro City", filterCountry.map(elemt => elemt.city))
-    // console.log("Filtro City V2:", filterCities)
-
+    // console.log("Nombre cualquiera: ", nombrecualquier)
   }
+
 }

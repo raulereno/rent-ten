@@ -22,6 +22,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { environment as env } from 'src/environments/environment';
 
@@ -45,7 +49,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HouseComponent } from './components/home/house/house.component';
 //Enviroment
 import { environment } from '../environments/environment'
+import { MDCGridList } from '@material/grid-list';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { environment as env } from 'src/environments/environment';
+
+
+
+
 
 
 
@@ -58,8 +68,8 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'about', component: AboutComponent },
       { path: 'createhouse', component: CreateHouseComponent },
-      { path:  'profile',component:ProfileComponent },
-      { path: 'housedetail/:id', component: HousedetailComponent},
+      { path: 'profile', component: ProfileComponent },
+      { path: 'housedetail/:id', component: HousedetailComponent },
       { path: "**", redirectTo: 'home' },
     ]
   }
@@ -106,6 +116,11 @@ const routes: Routes = [
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatCheckboxModule,
+    MatCardModule,
+    MatListModule,
+    IvyCarouselModule,
+    MatGridListModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent],
