@@ -49,7 +49,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HouseComponent } from './components/home/house/house.component';
 //Enviroment
 import { environment } from '../environments/environment'
-import { MDCGridList } from '@material/grid-list';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { environment as env } from 'src/environments/environment';
 
