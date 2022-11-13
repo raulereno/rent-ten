@@ -24,35 +24,20 @@
       <mat-icon matPrefix>dolar_symbol</mat-icon>
     </mat-form-field>
 
-    <select
-      [(ngModel)]="selectedCountry"
-      (change)="handleCountry(selectedCountry)"
-      style="max-height: 38px; max-width: 20%"
-      class="form-select form-select-sm"
-      aria-label="Ejemplo de .form-select-lg"
-      appearance="outline"
-    >
-      <option selected value="">Select a country</option>
-      <option *ngFor="let country of countriesInDB" value="{{ country }}">
-        {{ country }}
-      </option>
-    </select>
+    <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
+    style="max-height: 38px; max-width: 20%;" class="form-select form-select-sm"
+    aria-label="Ejemplo de .form-select-lg" appearance="outline">
+    <option selected value="">Select a country</option>
+    <option *ngFor="let country of countriesInDB" value="{{country}}">{{country}}</option>
+</select>
 
-    <select
-      *ngIf="selectedCountry?.length"
-      name="ciudades"
-      [(ngModel)]="selectedCity"
-      id=""
-      style="max-height: 38px; max-width: 20%"
-      aria-label="Ejemplo de .form-select-lg"
-      class="form-select form-select-sm"
-      appearance="outline"
-      (change)="handleCity(selectedCity)"
-    >
-      <option *ngFor="let ciudades of city" [ngValue]="ciudades">
-        {{ ciudades }}
-      </option>
-    </select>
+<select *ngIf="selectedCountry?.length" name="ciudades" [(ngModel)]="selectedCity" id=""
+    style="max-height: 38px; max-width: 20%;" aria-label="Ejemplo de .form-select-lg"
+    class="form-select form-select-sm" appearance="outline" (change)="handleCity(selectedCity)">
+    <option *ngFor="let ciudades of city" [ngValue]="ciudades">
+        {{ciudades}}
+    </option>
+</select>
   </div>
 
     <div class="bodydiv">
