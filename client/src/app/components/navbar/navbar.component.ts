@@ -27,6 +27,9 @@ export class NavbarComponent implements OnInit {
 
   userProfile$: Observable<any> = new Observable()
 
+  darkmode:boolean=false;
+
+
   ngOnInit(): void {
     this.auth.user$.subscribe(res=>{
       const mail = res?.email
@@ -43,6 +46,12 @@ export class NavbarComponent implements OnInit {
     // // })
 
   }
+
+  darkMode() : void{
+    this.darkmode = !this.darkmode
+    console.log(this.darkmode);
+  }
+
 
   loginWithRedirect = async ():Promise<void> => {
     this.auth.loginWithRedirect({authorizationParams: {redirect_uri: window.location.origin}})

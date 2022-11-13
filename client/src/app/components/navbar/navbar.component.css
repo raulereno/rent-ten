@@ -7,3 +7,54 @@
   border-radius: 100% ;
   border: 2px grey solid;
 }
+.switch{
+  background-color: #343d5b;
+  border-radius: 1000px;
+  border: none;
+  cursor: pointer;
+  width: 3.8rem;
+  outline: none;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 30px;
+  transition: .8s all;
+}
+.switch::after{
+  content: "";
+  display: block;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background-color: #f1f1f1;
+  top: 0;
+  left: 0;
+  right: unset;
+  border-radius: 100px;
+  transition: .3s ease all;
+  box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+}
+.switch.active {
+  background-color: orange;
+
+}
+.switch.active::after{
+  right: 0;
+  left: unset;
+}
+.switch span{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  display: block;
+  background: none;
+  color: #fff;
+}
+.switch svg{
+  width: 1rem;
+}
+
+.dark{
+  background-color: rgba(0, 0, 0, 0.585);
+  transition: all 1s;
+}
