@@ -46,13 +46,7 @@ export class HomeComponent implements OnInit {
     public http: DataServiceService,
     public auth: AuthService,
     private store: Store<any>,
-  ) {
-
-  }
-
-  getContries(): void {
-    this.dataSvc.getCountries().subscribe(countries => this.countries = countries)
-  }
+  ) {}
 
   profileJson: any;
   dbProfile: any = {}
@@ -85,7 +79,6 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(loadCountries())
 
     this.getCountries()
-    this.getContries();
     this.loadProfile();
     this.loadHouses()
 
