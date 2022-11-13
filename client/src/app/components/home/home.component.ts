@@ -1,3 +1,4 @@
+import { HelperService } from './../../services/helper.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
 
 import { Country, City } from '../../models/location.model';
@@ -46,13 +47,9 @@ export class HomeComponent implements OnInit {
     public http: DataServiceService,
     public auth: AuthService,
     private store: Store<any>,
-  ) {
+    private _helper: HelperService,
+  ) {}
 
-  }
-
-  getContries(): void {
-    this.dataSvc.getCountries().subscribe(countries => this.countries = countries)
-  }
 
   profileJson: any;
   dbProfile: any = {}
@@ -70,6 +67,7 @@ export class HomeComponent implements OnInit {
   selectedCountry: string;
   selectedCity: string;
 
+  darkmode:boolean;
   // --- ON INIT ---
 
   ngOnInit(): void {
@@ -84,9 +82,9 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(loadCountries())
 
     this.getCountries()
-    this.getContries();
     this.loadProfile();
     this.loadHouses()
+    this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
 
   }
 
@@ -96,15 +94,13 @@ export class HomeComponent implements OnInit {
     console.log()
   }
 
-
-  // --- ON INIT ----
-
   loadHouses(): void {
     this.http.getHouses().subscribe((res) => {
       this.store.dispatch(loadHouses({ allHouses: res }))
       this.allHouses$.subscribe(res => {
         this.allHouses = res;
-        this.countriesInDB= this.allHouses.map(e=>e.country).sort();
+        let set = new Set(this.allHouses.map(e=>e.country).sort())
+        this.countriesInDB= [...set];
       })
     })
   }
@@ -116,7 +112,6 @@ export class HomeComponent implements OnInit {
         this.store.dispatch(loadProfile({ userProfile: res }));
 
         this.userProfile$.subscribe(res => {
-          console.log(res);
           this.userProfile = res
           this.dbProfile = res
         })
@@ -171,13 +166,27 @@ export class HomeComponent implements OnInit {
   }
 
   handleCountry(country: string) {
+    if(country === "all"){
+      this.selectedCountry="";
+      this.selectedCity=""
+      this.handleFilters();
+      return
+    }
     this.selectedCountry = country
-    this.handleFilters()
+    this.handleFilters();
     let nombrecualquier = this.allHouses?.filter((elemten) => elemten.country === country)
     this.city = nombrecualquier?.map(elemt => elemt.city)
 
   }
+  handleCity(city: string) {
+    console.log("Console City: ", city)
+    this.selectedCity = city
+    console.log("city", city)
+    this.handleFilters()
+    // let nombrecualquier = this.allHouses?.filter((elemten) => elemten.city === city)
 
+    // console.log("Nombre cualquiera: ", nombrecualquier)
+  }
   handleFilters() {
     this.store.dispatch(handleFilters({
       payload: {
@@ -192,14 +201,6 @@ export class HomeComponent implements OnInit {
     this.paginator.firstPage()
   }
 
-  handleCity(city: string) {
-    console.log("Console City: ", city)
-    this.selectedCity = city
-    console.log("city", city)
-    this.handleFilters()
-    // let nombrecualquier = this.allHouses?.filter((elemten) => elemten.city === city)
 
-    // console.log("Nombre cualquiera: ", nombrecualquier)
-  }
 
 }

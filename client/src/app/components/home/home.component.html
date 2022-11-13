@@ -1,12 +1,12 @@
 <br>
 <mat-card>
-    <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size"
+    <mat-paginator [ngClass]="darkmode ? 'paginado darkmodePaginado':'paginado'" [length]="allHouses.length" [pageSize]="page_size"
         [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
 </mat-card>
 
 
 
-<mat-card-content class="cardFilter">
+<mat-card-content [ngClass]="darkmode ? 'cardFilter darkmodeFilter':'cardFilter'" class="cardFilter">
 
     <div class="container">
 
@@ -40,7 +40,7 @@
         <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
             style="max-height: 38px; max-width: 20%;" class="form-select form-select-sm"
             aria-label="Ejemplo de .form-select-lg" appearance="outline">
-            <option selected value="">Select a country</option>
+            <option selected value="all">Select a country</option>
             <option *ngFor="let country of countriesInDB" value="{{country}}">{{country}}</option>
         </select>
 
@@ -54,15 +54,6 @@
     </div>
 </mat-card-content>
 
-
-
-
-<hr />
-<div class="container">
-    <app-house class="card_house" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
-        [house]="house" [dbProfile]="dbProfile">
-    </app-house>
-</div>
 
 <mat-card-content>
     <div class="container">

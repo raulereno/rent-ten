@@ -54,7 +54,7 @@
   width: 1rem;
 }
 
-.dark{
+.darkmodeNav{
   background-color: rgba(0, 0, 0, 0.585);
   transition: all 1s;
 }

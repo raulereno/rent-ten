@@ -14,7 +14,6 @@ div {
 .card_house:hover {
   transform: scale(1.05);
   background-color: rgba(42, 42, 42, 0.443);
-
 }
 
 .paginado {
@@ -36,9 +35,14 @@ div {
 .cardFilter {
   margin-top: 1%;
 }
+.darkmodeFilter, .darkmodePaginado{
+  background-color: rgba(0, 0, 0, 0.525);
+  transition: all 1s;
+}
 
 mat-form-field.mat-form-field {
   font-size: 10px;
   margin-left: 1%;
   margin-right: 1%;
 }
+

@@ -40,6 +40,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
 
+    this.userProfile$.subscribe(profile=>{
+      this.userProfile = profile;
+    });
+
     this.auth.user$.subscribe(profile => {
       this.profileJson = profile;
       console.log(this.profileJson);
@@ -82,24 +86,22 @@ export class ProfileComponent implements OnInit {
     })
 
   }
-  onFileSelected(event:any){
+  onFileSelected(event:any):void{
     const data = new FormData();
     data.set('file', event.path[0].files[0]);
     data.set('upload_preset', 'h4e9cy2g');
     data.set('cloud_name', 'dbgpp8nla');
 
     this._uploadImg.uploadImage(data).subscribe(res=>{
-      this.userProfile$.subscribe(profile=>{
-        this.http.updateProfilePicture(res.secure_url,profile.id,profile.sub);
+        this.http.updateProfilePicture(res.secure_url,this.userProfile.id,this.userProfile.sub);
 
-        //TODO: RAUL -DANGER aca se produce un bucle de llamadas- arreglando
+        this.userProfile= {...this.userProfile,picture:res.secure_url};
 
-        // this.http.getUser(profile.mail).subscribe(res=>{
-        //   this.store.dispatch(loadProfile({ userProfile: res }));
-        // });
+        // TODO: RAUL -DANGER aca se produce un bucle de llamadas- arreglando
+        this.store.dispatch(loadProfile({ userProfile: this.userProfile }));
 
-      })
-    })
+
+    });
   }
 }
 

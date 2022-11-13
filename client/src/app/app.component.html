@@ -1,2 +1,4 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div [ngClass]="darkmode ? 'darkmode': ''">
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
+</div>
