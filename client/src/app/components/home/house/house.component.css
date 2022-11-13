@@ -1,14 +1,15 @@
 .housecard{
     width: 250px;
-    height: fit-content;
+    height: 400px;
     transition: all 0.3s;
     animation: fadein 2s;
+    border-radius: 15px 15px 15px 15px;
 }
 
-.card:hover {
-    transform: scale(1.05);
-    background-color: rgba(42, 42, 42, 0.443);
-  }
+.housecard:hover .image{
+    transition: 0.5s;
+    opacity:70%;
+}
 
 .updiv{
     display:flex;
@@ -26,12 +27,14 @@
     position: relative;
     top: 45%;
     left: 4%;
+    z-index: +1;
 }
 
 .image{
     height: 200px;
     width: 250px;
     border-radius: 15px 15px 0px 15px;
+    transition: 0.5s;
 }
 
 #rightarrow{
@@ -64,9 +67,6 @@ width: 12%;
 
     font-size: 25px;
     font-weight: 100;
-    color: #ffc107;
-    border: 1px solid #ffc107;
-    border-color: #ffc107;
     border-radius: 0px 0px 20px 20px;
     
     margin-top: -9px;
@@ -96,6 +96,12 @@ width: 12%;
     background-color: #dc3545;
 }
 
+.botdiv{
+    display:flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
 .info{
     font-weight: 100;
     color: gray;
@@ -108,10 +114,3 @@ width: 12%;
     margin-top: 10px;
     margin-left: 5px;
 }
-
-.botdiv{
-    display:flex;
-    flex-direction: column;
-    margin-left: 20px;
-}
-

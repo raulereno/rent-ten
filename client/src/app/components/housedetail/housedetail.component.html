@@ -1,10 +1,33 @@
-<div>
-    <mat-card-actions>
-        <button routerLink="/home" type="button" class="btn btn-secondary btn-lg">Back</button>
-    </mat-card-actions>
-
+<div class="wrapper">
+    <div class="topdiv">
+        <button class="button" routerLink="/home">🡠</button>
+        <img class="mainimg" src="{{house.picture[3]}}" alt="Pic1">
+        
+        <div class="sidediv">
+            <div class="rtopdiv">
+                <img class="sideimg" src="{{house.picture[1]}}" alt="Pic1">
+                <img id="upcornerimg" class="sideimg" src="{{house.picture[1]}}" alt="Pic3">
+            </div>
+            <div class="rbotdiv">
+                <img class="sideimg" src="{{house.picture[1]}}" alt="Pic4">
+                <img id="botcornerimg" class="sideimg" src="{{house.picture[1]}}" alt="Pic5">
+            </div>
+        </div>
+    </div>
 </div>
-<mat-grid-list cols="2" rowHeight="2:1" style="background-color: white">
+<div class="body">
+    <h3 class="location">{{house.country}}, {{house.city}}</h3>
+    <p class="info">{{house.rooms}} room/s</p>
+    <p class="info">{{house.bathrooms}} bathroom/s</p>
+    <h3 class="info">
+        <div *ngIf="house.allowpets as value; else elseBlock">Pets: ✓</div>
+        <ng-template #elseBlock>Pets: ✕</ng-template>
+    </h3>
+    <h3 class="info">Occupants: {{house.maxpeople}} </h3>
+    <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
+</div>
+
+<!-- <mat-grid-list cols="2" rowHeight="2:1" style="background-color: white">
     <mat-grid-tile>
         <div class="gridUno">
             <div>
@@ -109,4 +132,4 @@
     </mat-grid-tile>
     <mat-grid-tile>
     </mat-grid-tile>
-</mat-grid-list>
+</mat-grid-list> -->

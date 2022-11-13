@@ -1,6 +1,6 @@
 <div class="housecard">
             <div class="updiv">
-                <mat-card-actions>
+                <mat-card-actions class="margin">
                     <mat-icon id="leftarrow" class="carrouselbutton" (click)="paginationBack()">navigate_before</mat-icon>
                         <a routerLink="/housedetail/{{house.id}}">
                             <img class="image" [src]="giveMePhoto()" />
@@ -21,8 +21,8 @@
             </div>
 
             <div class="botdiv">
-                <h3 class="info">{{house.rooms}} rooms</h3>
-                <h3 class="info">{{house.bathrooms}} bathrooms</h3>
+                <h3 class="info">{{house.rooms}} room/s</h3>
+                <h3 class="info">{{house.bathrooms}} bathroom/s</h3>
                 <h3 class="info">
                     <div *ngIf="house.allowpets as value; else elseBlock">Pets: ✓</div>
                     <ng-template #elseBlock>Pets: ✕</ng-template>
@@ -31,3 +31,7 @@
             </div>
             <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
 </div>
+
+<footer class="footer">
+
+</footer>
