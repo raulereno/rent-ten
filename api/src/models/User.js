@@ -17,13 +17,14 @@ module.exports = (sequelize) => {
       },
 
       picture: {
-        type:DataTypes.TEXT,
+        type: DataTypes.TEXT,
         allowNull: true,
+        defaultValue: "https://www.softzone.es/app/uploads/2018/04/guest.png",
       },
-      
+
       sub: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
 
       lastname: {
@@ -42,15 +43,15 @@ module.exports = (sequelize) => {
       },
 
       authorized: {
-        type: DataTypes.ENUM('all', 'view', 'not', 'unsubscribed'),
+        type: DataTypes.ENUM("all", "view", "not", "unsubscribed"),
         allowNull: false,
-        defaultValue: 'all'
+        defaultValue: "all",
       },
 
       verified: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 'not_verified',
+        defaultValue: "not_verified",
       },
 
       verificationCode: {
@@ -69,7 +70,6 @@ module.exports = (sequelize) => {
         allowNull: true,
         defaultValue: [],
       },
-      
     },
 
     {
