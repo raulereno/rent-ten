@@ -72,7 +72,6 @@ router.post("/createhouse", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 router.post("/makeabook", async (req, res) => {
 
   const {newReserve, houseId} = req.body
@@ -92,8 +91,6 @@ router.post("/makeabook", async (req, res) => {
   }
 })
 
-=======
->>>>>>> 42555d989d1ac2a53d61dc3b2a7eda98245d5007
 // --- PUT METHODS ---
 
 router.put("/edithouse/:id", async (req, res) => {
@@ -152,11 +149,9 @@ router.delete("/deletehouse", async (req, res) => {
 // --- EXTRA TO FULL DB ---
 
 router.post("/fulldb", async (req, res) => {
+
   try {
-<<<<<<< HEAD
     let testuser = await User.create({mail: "user403@gmail.com", sub: 'sadasfasfj'})
-=======
->>>>>>> 42555d989d1ac2a53d61dc3b2a7eda98245d5007
     extraHouses(50).forEach(async (house) => {
       try {
         let finder = await House.findOne({ where: house });
@@ -170,7 +165,7 @@ router.post("/fulldb", async (req, res) => {
           await review.setHouse(newHouse.id)
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     });
 

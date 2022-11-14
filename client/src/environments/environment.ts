@@ -11,7 +11,6 @@ export const environment = {
     domain,
     clientId,
     redirectUri: window.location.origin
-  },
-  baseUrl: "http://localhost:3001"
+  }
 };
-
+ 

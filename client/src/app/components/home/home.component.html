@@ -1,7 +1,4 @@
-<div class="flexdiv">
-    <div class="topdiv">
-        <button (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button" class="btn btn-primary btn-sm">Allow Pets</button>
-        <button (click)="handleCheckboxP(true)" *ngIf="allowpets === undefined || allowpets === false" type="button" class="btn btn-secondary btn-sm">Allow Pets</button>
+<div class="container">
 
     <button style="margin-right: 2%" (click)="handleOrder('')" *ngIf="order === 'min'" type="button"
         class="btn btn-primary btn-sm">Min</button>
@@ -36,43 +33,33 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Max price</mat-label>
-      <input
-        type="number"
-        matInput
-        placeholder="USD"
-        [(ngModel)]="maxPrice"
-        (input)="handlePriceMax($event)"
-      />
-      <mat-icon matPrefix>dolar_symbol</mat-icon>
+        <mat-label>Max price</mat-label>
+        <input type="number" matInput placeholder="USD" [(ngModel)]="maxPrice" (input)="handlePriceMax($event)">
+        <mat-icon matPrefix>dolar_symbol</mat-icon>
     </mat-form-field>
 
-    <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
-    style="max-height: 38px; max-width: 20%;" class="form-select form-select-sm"
-    aria-label="Ejemplo de .form-select-lg" appearance="outline">
-    <option selected value="">Select a country</option>
-    <option *ngFor="let country of backupHouses" value="{{country}}">{{country}}</option>
-</select>
 
-<select *ngIf="selectedCountry?.length" name="ciudades" [(ngModel)]="selectedCity" id=""
-    style="max-height: 38px; max-width: 20%;" aria-label="Ejemplo de .form-select-lg"
-    class="form-select form-select-sm" appearance="outline" (change)="handleCity(selectedCity)">
-    <option *ngFor="let ciudades of city" [ngValue]="ciudades">
-        {{ciudades}}
-    </option>
-</select>  </div>
+    <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)" style="max-height: 45px; max-width: 20%;" class="form-select form-select-sm" aria-label="Ejemplo de .form-select-lg">
+        <option selected value="">Select a country</option>
 
-    <div class="bodydiv">
-        <mat-paginator class="paginado"
-        [length]="allHouses.length"
-        [pageSize]="page_size"
+        <option *ngFor="let house of backupHouses$ | async" value="{{house.country}}">{{house.country}}</option>
+
+        <!-- <option *ngFor="let house of handleSelectCountries(backupHouses$ | async)" value="{{house.country}}">{{house.country}}</option> -->
+    </select>
+
+</div>
+
+    <mat-paginator class="paginado" 
+        [length]="allHouses.length" 
+        [pageSize]="page_size" 
         [pageSizeOptions]="page_size_options"
-        (page)="handlePage($event)"
-        showFirstLastButtons=""
-        ></mat-paginator>
+        (page)="handlePage($event)" showFirstLastButtons="">
+    </mat-paginator>
 
-        <div class="grid">
-            <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house" [dbProfile]="dbProfile"></app-house>
-        </div>
-    </div>
+
+<hr />
+<div class="container">
+    <app-house class="card_house" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
+        [house]="house" [dbProfile]="dbProfile">
+    </app-house>
 </div>

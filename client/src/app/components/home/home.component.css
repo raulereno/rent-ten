@@ -1,13 +1,14 @@
-@keyframes fadein {
-  from { opacity: 0; }
-  to { opacity: 1; }
+div {
+    display: flex;
+    flex-wrap: wrap;
 }
+.card_house{
+  background-color: rgba(128, 128, 128, 0.403);
+  margin: 0.5rem;
+  padding: 0.7rem 0.3rem 0.3rem 0.3rem ;
+  border-radius: 5px;
+  transition: all 0.3s;
 
-.topdiv{
-display: flex;
-justify-content: space-evenly;
-margin: 20px;
-height: 70px;
 }
 .card_house:hover{
   transform: scale(1.03);
@@ -15,37 +16,23 @@ height: 70px;
 }
 
 .paginado{
-  align-self: center;}
-
-.flexdiv{
-  display:flex;
-  flex-direction: column;
-}
-
-.bodydiv{
-  width: 100%;
-  height: fit-content;
-}
-
-.grid{
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 290px 290px 290px 290px 290px;
-}
-
-.cardsrender{
-  margin-left: 30px;
-  margin-top: 30px;
-  width: 80%;
-}
-.darkmodeFilter, .darkmodePaginado{
-  background-color: rgba(0, 0, 0, 0.525);
-  transition: all 1s;
-}
-
-.paginado {
+  align-self: center;
   display: flex;
   justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.184);
   width: 100%;
+}
+
+.container {
+  margin-top: 1%;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+mat-form-field.mat-form-field {
+  font-size: 10px;
+  margin-left: 1%;
+  margin-right: 1%;
 }

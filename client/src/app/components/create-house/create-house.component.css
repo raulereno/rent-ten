@@ -1,0 +1,14 @@
+.isCoverPhoto {
+    border: 4px solid rgb(0, 0, 55);
+
+}
+.labelCoverPhoto{
+    color: rgba(0, 0, 0, 0.814);
+}
+.form_creation{
+  background-color: grey;
+  padding: 0.5rem;
+}
+.form_creation input{
+  width: 3rem;
+}
