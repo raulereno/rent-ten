@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { NewHouse } from './../components/create-house/create-house.component';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -15,13 +16,13 @@ export class DataServiceService {
 
   getUser(mail: string): Observable<any> {
     return this.http.get<any>(
-      `http://localhost:3001/users/getuser?mail=${mail}`
+      `${environment.baseUrl}/users/getuser?mail=${mail}`
     );
   }
   //saque el picture
   updateUser(mail: string,picture:string, sub: string) {
     if (mail &&picture && sub) {
-      this.http.post<any>('http://localhost:3001/users', { mail: mail,picture:picture, sub: sub }).subscribe({
+      this.http.post<any>(`${environment.baseUrl}/users`, { mail: mail,picture:picture, sub: sub }).subscribe({
         error: error => {
           console.error('There was an error!', error);
         }
@@ -30,7 +31,7 @@ export class DataServiceService {
   }
   updateProfilePicture(url:string,userID:string,authID:string){
     if(url&&userID){
-      this.http.patch(`http://localhost:3001/users/changepicture/${userID}`,{newPicture:url, authID:authID}).subscribe({
+      this.http.patch(`${environment.baseUrl}/users/changepicture/${userID}`,{newPicture:url, authID:authID}).subscribe({
         error:error=>{
           console.error('There was an error!',error);
         }
@@ -39,7 +40,7 @@ export class DataServiceService {
   }
 
   verifyAccount(mail: string) {
-    return this.http.post(`http://localhost:3001/users/requirecode/${mail}`, mail).subscribe({
+    return this.http.post(`${environment.baseUrl}/users/requirecode/${mail}`, mail).subscribe({
       error: error => {
         console.log(error);
       }
@@ -47,19 +48,19 @@ export class DataServiceService {
   }
 
   sendVerificationCode(mail: string, code: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:3001/users/verifymail/${mail}?code=${code}`)
+    return this.http.get<any>(`${environment.baseUrl}/users/verifymail/${mail}?code=${code}`)
   }
 
   getHouses(): Observable<any> {
-    return this.http.get<any>(`http://localhost:3001/houses`);
+    return this.http.get<any>(`${environment.baseUrl}/houses`);
   }
 
   getHouse(id: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:3001/houses/${id}`)
+    return this.http.get<any>(`${environment.baseUrl}/houses/${id}`)
   }
 
   setFavorite(houseId: string, userId: string) {
-    this.http.put<any>(`http://localhost:3001/users/addfavoritehouse`, { houseId: houseId, userId: userId }).subscribe({
+    this.http.put<any>(`${environment.baseUrl}/addfavoritehouse`, { houseId: houseId, userId: userId }).subscribe({
       error: error => {
         console.log(error)
       }
@@ -67,7 +68,7 @@ export class DataServiceService {
   }
 
   deleteFavorite(houseId: string, userId: string) {
-    this.http.put<any>(`http://localhost:3001/users/deletefavoritehouse`, { houseId: houseId, userId: userId }).subscribe({
+    this.http.put<any>(`${environment.baseUrl}/users/deletefavoritehouse`, { houseId: houseId, userId: userId }).subscribe({
       error: error => {
         console.log(error)
       }
@@ -75,7 +76,7 @@ export class DataServiceService {
   }
 
   createHouse(house: NewHouse, email: string) {
-    this.http.post(`http://localhost:3001/houses/createhouse?userMail=${email}`, house).subscribe({
+    this.http.post(`${environment.baseUrl}/houses/createhouse?userMail=${email}`, house).subscribe({
       error: error => {
         console.log(error);
       }
