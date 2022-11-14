@@ -28,7 +28,7 @@
     style="max-height: 38px; max-width: 20%;" class="form-select form-select-sm"
     aria-label="Ejemplo de .form-select-lg" appearance="outline">
     <option selected value="">Select a country</option>
-    <option *ngFor="let country of countriesInDB" value="{{country}}">{{country}}</option>
+    <option *ngFor="let country of backupHouses" value="{{country}}">{{country}}</option>
 </select>
 
 <select *ngIf="selectedCountry?.length" name="ciudades" [(ngModel)]="selectedCity" id=""
