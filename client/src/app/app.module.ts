@@ -51,6 +51,7 @@ import { HouseComponent } from './components/home/house/house.component';
 import { environment } from '../environments/environment';
 import { DialogBodyComponent } from './components/create-house/dialog-body/dialog-body.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReviewsComponent } from './components/housedetail/reviews/reviews.component';
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -88,6 +89,7 @@ const routes: Routes = [
     HousedetailComponent,
     PaginatePipe,
     DialogBodyComponent,
+    ReviewsComponent,
 
   ],
   imports: [

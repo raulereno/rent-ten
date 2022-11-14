@@ -1,3 +1,4 @@
+import { HelperService } from './../../services/helper.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
@@ -18,38 +19,50 @@ export class NavbarComponent implements OnInit {
     public auth: AuthService,
     public http: DataServiceService,
     private _store:Store<any>,
-    @Inject(DOCUMENT) private doc: Document) { }
+    @Inject(DOCUMENT) private doc: Document,
+    private _helper:HelperService
+    ) { }
 
   profileJson: any;
   dbProfile: any = {}
   isLogged: boolean;
-  profileImg: string;
+  userProfile: any;
 
   userProfile$: Observable<any> = new Observable()
 
-  darkmode:boolean=false;
-
+  darkmode:boolean;
 
   ngOnInit(): void {
     this.auth.user$.subscribe(res=>{
       const mail = res?.email
       if(mail !== undefined){
         this.http.getUser(mail).subscribe(res=>{
-          this.profileImg=res.picture
+          this.userProfile=res
         })
       }
     });
     //TODO: RAUL -DANGER aca se produce un bucle de llamadas- arreglando
-    // this.userProfile$ = this._store.select(selectorListProfile)
-    // // this.userProfile$.subscribe(res=>{
-    // //   this.profileImg=res.picture
-    // // })
+    this.userProfile$ = this._store.select(selectorListProfile);
+    this.userProfile$.subscribe(res=>{
+      this.userProfile=res
+    });
+
+    this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
+
+  }
+  validateUser():void{
+    if(!this.userProfile.id){
+    if(confirm('You need login for post your place')){
+        this.auth.loginWithRedirect()
+      }
+    }
 
   }
 
+
   darkMode() : void{
-    this.darkmode = !this.darkmode
-    console.log(this.darkmode);
+     this.darkmode = !this.darkmode;
+     //this._helper.changeMode(this.darkmode)
   }
 
 
@@ -63,5 +76,11 @@ export class NavbarComponent implements OnInit {
 
   showInfo(): void {
   }
+
+  fullDatabase(): void {
+    this.http.fullDatabase()
+    this.ngOnInit()
+  }
+
 
 }
