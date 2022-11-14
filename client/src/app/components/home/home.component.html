@@ -54,15 +54,7 @@
     </div>
 </mat-card-content>
 
-
-
-
 <hr />
-<div class="container">
-    <app-house class="card_house" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
-        [house]="house" [dbProfile]="dbProfile">
-    </app-house>
-</div>
 
 <mat-card-content>
     <div class="container">

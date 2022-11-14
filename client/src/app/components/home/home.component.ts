@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Country, City } from '../../models/location.model';
 import { LocationService } from '../../services/location.service';
@@ -23,7 +23,7 @@ import { userProfile } from 'src/app/models/UserProfile';
 
 export class HomeComponent implements OnInit {
 
-  @ViewChild(MatPaginator, {static:false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   loading$: Observable<any> = new Observable();
   countries$: Observable<any> = new Observable()
@@ -50,10 +50,6 @@ export class HomeComponent implements OnInit {
 
   }
 
-  getContries(): void {
-    this.dataSvc.getCountries().subscribe(countries => this.countries = countries)
-  }
-
   profileJson: any;
   dbProfile: any = {}
 
@@ -61,7 +57,7 @@ export class HomeComponent implements OnInit {
   page_number: number = 1
   page_size_options = [5, 10, 20]
   filterHouses: House[] = []
-  countriesInDB:string[];
+  countriesInDB: string[];
 
   minPrice: number;
   maxPrice: number;
@@ -84,7 +80,6 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(loadCountries())
 
     this.getCountries()
-    this.getContries();
     this.loadProfile();
     this.loadHouses()
 
@@ -103,8 +98,10 @@ export class HomeComponent implements OnInit {
     this.http.getHouses().subscribe((res) => {
       this.store.dispatch(loadHouses({ allHouses: res }))
       this.allHouses$.subscribe(res => {
+        console.log("Console Res: ", res)
         this.allHouses = res;
-        this.countriesInDB= this.allHouses.map(e=>e.country).sort();
+        let set = new Set(this.allHouses.map(e => e.country).sort());
+        this.countriesInDB = [...set]
       })
     })
   }
