@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
   profileJson: any;
   dbProfile: any = {}
   isLogged: boolean;
-  profileImg: string;
+  userProfile: any;
 
   userProfile$: Observable<any> = new Observable()
 
@@ -37,19 +37,28 @@ export class NavbarComponent implements OnInit {
       const mail = res?.email
       if(mail !== undefined){
         this.http.getUser(mail).subscribe(res=>{
-          this.profileImg=res.picture
+          this.userProfile=res
         })
       }
     });
     //TODO: RAUL -DANGER aca se produce un bucle de llamadas- arreglando
     this.userProfile$ = this._store.select(selectorListProfile);
     this.userProfile$.subscribe(res=>{
-      this.profileImg=res.picture
+      this.userProfile=res
     });
 
     this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
 
   }
+  validateUser():void{
+    if(!this.userProfile.id){
+    if(confirm('You need login for post your place')){
+        this.auth.loginWithRedirect()
+      }
+    }
+
+  }
+
 
   darkMode() : void{
      this.darkmode = !this.darkmode;
@@ -67,5 +76,11 @@ export class NavbarComponent implements OnInit {
 
   showInfo(): void {
   }
+
+  fullDatabase(): void {
+    this.http.fullDatabase()
+    this.ngOnInit()
+  }
+
 
 }

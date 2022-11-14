@@ -71,6 +71,16 @@ export class HouseComponent implements OnInit {
   paginationBack() {
     if (this.indexPhoto !== 0) { this.indexPhoto-- }
   }
+  
+  getRating() {
+
+    let random_num = [...Array(Math.floor(Math.random() * 5)).keys()]
+    const stars = '★'
+    const emptystars = "&#x2605";
+    let array = random_num.map(() => stars)
+    let random = array.join("")
+    return random
+  }
 
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 

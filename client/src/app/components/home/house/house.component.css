@@ -15,12 +15,15 @@
     display:flex;
     margin-bottom: -15px;
 }
-
+.updiv:hover .carrouselbutton{
+  background-color: white;
+}
 .carrouselbutton{
     display: flex;
     cursor: pointer;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.176);
     border-radius: 15px;
+    transition: .3 all;
 }
 
 #leftarrow{
@@ -68,7 +71,7 @@ width: 12%;
     font-size: 25px;
     font-weight: 100;
     border-radius: 0px 0px 20px 20px;
-    
+
     margin-top: -9px;
     cursor: pointer;
     transition: 0.25s;

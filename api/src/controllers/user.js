@@ -23,25 +23,9 @@ const createUser = async (data) => {
   }
 
   if (!finder) {
-    await User.create(data);
-  }
+  await User.create(data)}
 
   return createUser;
 };
 
-const updateProfilePicture = async (userID, newPicture, authID) => {
-  console.log(userID);
-  console.log(newPicture);
-  console.log(authID);
-  const finder = await User.findOne({ where: { id: userID } });
-  await finder.update({ picture: newPicture });
-  // axios
-  //   .patch(`https://YOUR_DOMAIN/api/v2/users/${authID}`, {
-  //     data: { user_metada: { picture: newPicture } },
-  //   })
-  //   .then((res) => {
-  //     console.log(res);
-  //   });
-};
-
-module.exports = { getUser, createUser, updateProfilePicture };
+module.exports = { getUser, createUser };
