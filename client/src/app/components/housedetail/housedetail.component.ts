@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { House } from '../../models/House';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -14,11 +14,17 @@ import { Location } from '@angular/common';
 })
 export class HousedetailComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, public http: DataServiceService, private fb: FormBuilder, private location: Location) { }
+  constructor(private route: ActivatedRoute, 
+    public http: DataServiceService, 
+    private fb: FormBuilder, 
+    private location: Location,
+    private router : Router) { }
 
   paramsId: string | null
   house: House
   form: FormGroup
+  booking: boolean = false
+  pagado: boolean; 
 
   indexPhoto: number = 0
 
@@ -48,6 +54,35 @@ export class HousedetailComponent implements OnInit {
   giveMePhoto() {
     return this.house.picture[this.indexPhoto]
   }
+
+  formatDate(date:string) {
+    let split = date.split("/")
+    let formatDate = split[2] + "-" + split[1] + "-" + split[0] 
+    return formatDate
+  }
+
+  reserveHouse(): void {
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };    
+    let startDate = this.formatDate(this.form.value.daterange.start.toLocaleDateString("en-GB", options))
+    let endDate = this.formatDate(this.form.value.daterange.end.toLocaleDateString("en-GB", options))
+    
+    console.log(startDate)
+
+    let newReserve = {
+      start: startDate,
+      end: endDate,
+      reservedBy: 'falta agregar userId'
+    }
+    console.log(newReserve)
+    if (this.pagado) {this.http.makeABook(this.house.id, newReserve)
+      alert("Congrats! We sent you a email with the specifications of your reservation")
+      this.router.navigate(['home']); }
+  }
+
+    pagar(): void {
+    this.pagado = !this.pagado
+  }
+
 
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 

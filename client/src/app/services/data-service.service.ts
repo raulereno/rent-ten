@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
+import { Booking } from '../models/Booking';
 
 @Injectable({
   providedIn: 'root',
@@ -82,4 +83,28 @@ export class DataServiceService {
       }
     })
   }
+
+  getHouseReviews(houseId: string): Observable<any> {
+    return this.http.get<any>(
+      `http://localhost:3001/reviews/${houseId}`
+    );
+  }
+
+  fullDatabase() {
+    this.http.post(`http://localhost:3001/houses/fulldb`, {}).subscribe({
+      error: error => {
+        console.log(error);
+      }
+    })
+  }
+
+  makeABook(houseId: string, newReserve: Booking) {
+    this.http.post(`http://localhost:3001/houses/makeabook`, {houseId, newReserve}).subscribe({
+      error: error => {
+        console.log(error);
+      }
+    })
+  }
+
+
 }

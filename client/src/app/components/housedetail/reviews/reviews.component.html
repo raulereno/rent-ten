@@ -1,0 +1,19 @@
+
+<div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="house.Reviews && !writingReview">
+    <hr />
+    <h2>Reviews:</h2>
+    <hr />
+    <ng-container *ngIf="!writingReview">
+        <div *ngFor="let review of house.Reviews">
+            <span  style="font-size: 15px;">{{review.userEmail}} / 
+                <span style="color:grey; font-size: 10px;">{{returnDate(review.createdAt)}}</span>
+                wrote: </span>
+            <br/>
+            
+            <p>{{review.opinion}}</p>
+        </div>
+        <hr />
+    </ng-container>
+    <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
+class="btn btn-outline-warning">You were there? Write a review!</button>
+</div>

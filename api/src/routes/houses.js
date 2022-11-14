@@ -1,12 +1,12 @@
 const { Router } = require("express");
 const { House, User, Review } = require("../db");
-const { extraHouses } = require("../../extra-db/extra-db");
+const { extraHouses, getReview } = require("../../extra-db/extra-db");
 
 const router = Router();
 
 // --- GET METHODS ---
 router.get("/", async (req, res) => {
-  const allHouses = await House.findAll({ include: User });
+  const allHouses = await House.findAll({ include: [User, Review] });
   res.status(200).json(allHouses);
 });
 
@@ -15,7 +15,7 @@ router.get("/:id", async (req, res) => {
   console.log(id);
 
   try {
-    const house = await House.findByPk(id, { include: User });
+    const house = await House.findByPk(id, { include: [User, Review]});
     console.log(house);
     res.status(200).json(house);
   } catch (error) {
@@ -72,6 +72,25 @@ router.post("/createhouse", async (req, res) => {
   }
 });
 
+router.post("/makeabook", async (req, res) => {
+
+  const {newReserve, houseId} = req.body
+
+  try {
+    const house = await House.findByPk(houseId);
+
+    if (!house.bookings) {await house.update({bookings: [newReserve]})
+    } else {
+      await house.update({bookings: [...house.bookings, newReserve]})
+    }
+
+    res.status(200).json(house)
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 // --- PUT METHODS ---
 
 router.put("/edithouse/:id", async (req, res) => {
@@ -87,6 +106,7 @@ router.put("/edithouse/:id", async (req, res) => {
     allowpets,
     wifi,
     type,
+    bookings,
   } = req.body;
 
   try {
@@ -129,15 +149,23 @@ router.delete("/deletehouse", async (req, res) => {
 // --- EXTRA TO FULL DB ---
 
 router.post("/fulldb", async (req, res) => {
+
   try {
+    let testuser = await User.create({mail: "user403@gmail.com", sub: 'sadasfasfj'})
     extraHouses(50).forEach(async (house) => {
       try {
         let finder = await House.findOne({ where: house });
+        const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
+        req.body;
         if (!finder) {
-          await House.create(house);
+
+          let newHouse = await House.create(house);
+          let review = await Review.create(getReview())
+          await review.setUser(testuser.id)
+          await review.setHouse(newHouse.id)
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     });
 
