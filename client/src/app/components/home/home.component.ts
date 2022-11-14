@@ -50,7 +50,6 @@ export class HomeComponent implements OnInit {
     private _helper: HelperService,
   ) {}
 
-
   profileJson: any;
   dbProfile: any = {}
 
