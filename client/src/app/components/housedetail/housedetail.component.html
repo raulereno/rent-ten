@@ -1,45 +1,69 @@
-<button routerLink="/home" type="button" class="btn btn-secondary btn-sm">Home</button>
-<div class='container'>
-    <form [formGroup]="form">
-        <mat-form-field>
+<button (click)="goBack()" type="button" class="btn btn-secondary btn-sm">Home</button>
 
-            <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
-                <input matStartDate placeholder="start date" formControlName="start">
-                <input matEndDate placeholder="end date" formControlName="end">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
+<div class="container, row">
 
-        </mat-form-field>
-    </form>
-    <div *ngIf="house.bookings">
-        <h2>&#x26A0; This house has bookings on this dates:</h2>
+    <div class="col">
+        <img style="max-width: 270px" class="img-thumbnail" src={{house.picture[0]}} />
+        <ul>
+            <li>{{house.id}}</li>
+            <li>{{house.price}} USD</li>
+            <li>Country: {{house.country}}</li>
+            <li>City: {{house.city}}</li>
+            <li>Rooms: {{house.rooms}}</li>
+            <li>Bathrooms: {{house.bathrooms}}</li>
+            <li>Maxpeople: {{house.maxpeople}}</li>
+            <li>Allowpets: {{house.allowpets}}</li>
+        </ul>
+
+    </div>
+
+    <div class="col">
         <div>
-            <ul>
-                <li *ngFor="let book of house.bookings">
-                    &#x2714; From: {{book.start}} &#x27A4; To: {{book.end}}
-                </li>
-            </ul>
-        </div>
-    </div>
+            <div *ngIf="house.bookings">
+                <h4>&#x26A0; This house has bookings on this dates:</h4>
+                <ul>
+                    <li *ngFor="let book of house.bookings">
+                        &#x2714; From: {{book.start}} &#x27A4; To: {{book.end}}
+                    </li>
+                </ul>
+            </div>
 
-</div>
+            <div *ngIf="!house.bookings">
+                <h3>&#x263A; This house is all year available</h3>
+            </div>
 
-<div class="container">
-    <div class="row align-items-start">
-        <div class="col">
-            <img style="max-width: 270px" class="img-thumbnail" src={{house.picture[0]}} />
-            <ul>
-                <li>{{house.id}}</li>
-                <li>{{house.price}} USD</li>
-                <li>Country: {{house.country}}</li>
-                <li>City: {{house.city}}</li>
-                <li>Rooms: {{house.rooms}}</li>
-                <li>Bathrooms: {{house.bathrooms}}</li>
-                <li>Maxpeople: {{house.maxpeople}}</li>
-                <li>Allowpets: {{house.allowpets}}</li>
-            </ul>
-            <button type="button" class="btn btn-outline-info">Book this house</button>
+            <div>
+                <H2>Make a reserve:</H2>
+                <form [formGroup]="form">
+                    <mat-form-field>
+
+                        <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays"
+                            formGroupName="daterange">
+                            <input matStartDate placeholder="start date" formControlName="start">
+                            <input matEndDate placeholder="end date" formControlName="end">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+
+                    </mat-form-field>
+                </form>
+
+                <button *ngIf="form.value.daterange.start && this.form.value.daterange.end" type="button"
+                    (click)="reserveHouse()" class="btn btn-outline-info">Reserve now</button>
+                <button *ngIf="!(form.value.daterange.start && this.form.value.daterange.end)" disabled type="button" class="btn btn-outline-info">Pick a date and pay</button>
+
+
+                <button style="margin-left: 2%" *ngIf="pagado" (click)="pagar()" type="button"
+                    class="btn btn-outline-success active" data-toggle="button" aria-pressed="true"
+                    autocomplete="off">PAGADO</button>
+                <button style="margin-left: 2%" *ngIf="!pagado" (click)="pagar()" type="button"
+                    class="btn btn-outline-success" data-toggle="button" aria-pressed="false"
+                    autocomplete="off">PAGAR</button>
+
+            </div>
         </div>
+
     </div>
+<div class="row">
+    <app-reviews></app-reviews>
 </div>

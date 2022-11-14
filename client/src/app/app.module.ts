@@ -44,7 +44,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HouseComponent } from './components/home/house/house.component';
 //Enviroment
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+import { ReviewsComponent } from './components/housedetail/reviews/reviews.component'
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -77,6 +78,7 @@ const routes: Routes = [
     HouseComponent,
     HousedetailComponent,
     PaginatePipe,
+    ReviewsComponent,
   ],
   imports: [
     BrowserModule,

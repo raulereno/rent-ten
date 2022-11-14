@@ -13,8 +13,8 @@ div {
 .card_house:hover{
   transform: scale(1.03);
   background-color: rgba(42, 42, 42, 0.443);
-
 }
+
 .paginado{
   align-self: center;
   display: flex;

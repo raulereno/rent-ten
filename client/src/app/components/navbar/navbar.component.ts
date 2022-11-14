@@ -31,4 +31,10 @@ export class NavbarComponent implements OnInit {
   showInfo(): void {
   }
 
+  fullDatabase(): void {
+    console.log('asdasd')
+    this.http.fullDatabase()
+    this.ngOnInit()
+  }
+
 }

@@ -1,10 +1,22 @@
 <div class="container">
 
+    <button style="margin-right: 2%" (click)="handleOrder('')" *ngIf="order === 'min'" type="button"
+        class="btn btn-primary btn-sm">Min</button>
+    <button style="margin-right: 2%" (click)="handleOrder('min')" *ngIf="order !== 'min'" type="button"
+        class="btn btn-secondary btn-sm">Min</button>
+
+
+    <button style="margin-right: 2%" (click)="handleOrder('')" *ngIf="order === 'max'" type="button"
+        class="btn btn-primary btn-sm">Max</button>
+    <button style="margin-right: 2%" (click)="handleOrder('max')" *ngIf="order !== 'max' || order === undefined" type="button"
+        class="btn btn-secondary btn-sm">Max</button>
+
+
     <button style="margin-right: 2%" (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
         class="btn btn-primary btn-sm">Allow Pets</button>
     <button style="margin-right: 2%" (click)="handleCheckboxP(true)"
-        *ngIf="allowpets === undefined || allowpets === false" type="button" class="btn btn-secondary btn-sm">Allow
-        Pets</button>
+        *ngIf="allowpets === undefined || allowpets === false" type="button" class="btn btn-secondary btn-sm">AllowPets</button>
+
 
     <button style="margin-left: 2%" (click)="handleCheckboxW(false)" *ngIf="wifi === true" type="button"
         class="btn btn-primary btn-sm">With Wi-Fi</button>
@@ -13,7 +25,7 @@
 
 </div>
 <div class="container">
-
+    
     <mat-form-field appearance="outline">
         <mat-label>Min price</mat-label>
         <input type="number" matInput placeholder="USD" [(ngModel)]="minPrice" (input)="handlePriceMin($event)">
@@ -35,12 +47,15 @@
         <!-- <option *ngFor="let house of handleSelectCountries(backupHouses$ | async)" value="{{house.country}}">{{house.country}}</option> -->
     </select>
 
-
 </div>
 
+    <mat-paginator class="paginado" 
+        [length]="allHouses.length" 
+        [pageSize]="page_size" 
+        [pageSizeOptions]="page_size_options"
+        (page)="handlePage($event)" showFirstLastButtons="">
+    </mat-paginator>
 
-<mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
-    (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
 
 <hr />
 <div class="container">

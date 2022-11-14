@@ -1,0 +1,48 @@
+<!-- <div style="display: flex"> -->
+
+
+
+<div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="house.Reviews && !writingReview">
+    <hr />
+    <h2>Reviews:</h2>
+    <hr />
+    <ng-container *ngIf="!writingReview">
+        <div *ngFor="let review of house.Reviews">
+            <h5>• {{review.userEmail}} wrote: </h5>
+            <h5 style="color:grey">{{returnDate(review.createdAt)}}</h5>
+            <p>{{review.opinion}}</p>
+        </div>
+        <hr />
+    </ng-container>
+    <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
+class="btn btn-outline-warning">You were there? Write a review!</button>
+</div>
+
+
+
+<!-- <div style="margin-left: 10%; margin-right: 10%" class='row'>
+    <button disabled style="max-width: 200px; justify-content: center;" (click)="writeReview()" type="button"
+    class="btn btn-outline-warning">You were there? Write a review!</button>
+    <form>
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Tell us about your experience</mat-label>
+                <input (input)="handleOpinion($event)" [(ngModel)]="opinion" matInput
+                    placeholder="A short description">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Rate this place</mat-label>
+                <mat-select>
+                    <mat-option value="one">1</mat-option>
+                    <mat-option value="two">2</mat-option>
+                    <mat-option value="two">3</mat-option>
+                    <mat-option value="two">4</mat-option>
+                    <mat-option value="two">5</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
+    </form>
+</div> -->
