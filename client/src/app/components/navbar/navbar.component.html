@@ -7,18 +7,6 @@
     </span>
 
     <div class="spacer"></div>
-    <a style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button routerLink="/createhouse">Become
-      a Host</a>
-
-    <a mat-button routerLink="/home">Home</a>
-    <a mat-button routerLink="/about">About</a>
-
-    <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
-      aria-label="Sing Up">
-      <mat-icon>account_circle</mat-icon>
-    </a>
-
-    <div class="spacer"></div>
     <a *ngIf="!userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button >Become
     a Host</a>
     <a *ngIf="userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button routerLink="/createhouse" >Become
