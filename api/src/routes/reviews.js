@@ -1,11 +1,12 @@
 const { Router } = require("express");
+const { House, User, Review } = require("../db");
 const { addReview, getReviews } = require("../controllers/reviews");
 const router = Router();
 
 router.get("/", async (req, res) => {
   const { houseId } = req.body;
   try {
-    const allReviews = await getReviews(houseId);
+    const allReviews = await Review.findAll();
     res.status(200).json(allReviews);
   } catch (error) {
     res.status(400).json(error.message);
@@ -14,12 +15,13 @@ router.get("/", async (req, res) => {
 
 
 
-router.get('/:houseId', async (req, res) => {
+router.get('/:id', async (req, res) => {
 
-    const houseId = req.params.houseId
+    const { id } = req.params;
 
     try {
-        const houseReviews = await Review.findAll({ where: { HouseId: houseId } })
+        const houseReviews = await Review.findAll({ where: { HouseId: id } })
+        console.log('asd')
         res.status(200).json(houseReviews)
 
     } catch (error) {
@@ -28,10 +30,11 @@ router.get('/:houseId', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { opinion, rating, userId, houseId } = req.body
+    const { opinion, rating, userId, houseId, userEmail } = req.body
 
     try {
-        const newReview = await Review.create({ opinion, rating })
+        if (!opinion || !rating || !userId || !houseId || !userEmail) res.status(400).json({msg: "Missing some field: opinion, rating, userId, houseId, and userEmail are required."})
+        const newReview = await Review.create({ opinion, rating, userEmail })
         await newReview.setUser(userId)
         await newReview.setHouse(houseId)
         res.status(200).json(newReview)
