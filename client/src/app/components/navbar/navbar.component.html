@@ -6,7 +6,9 @@
   </span>
 
   <div class="spacer"></div>
-  <a style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button routerLink="/createhouse">Become
+  <a *ngIf="!userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button >Become
+    a Host</a>
+  <a *ngIf="userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button routerLink="/createhouse" >Become
     a Host</a>
 
   <a mat-button routerLink="/home">Home</a>
@@ -21,7 +23,7 @@
 
   <div *ngIf="(auth.isAuthenticated$ | async) === true" class="profile">
     <a mat-button routerLink="/profile">
-      <img src={{profileImg}} alt="">
+      <img src={{userProfile.picture}} alt="">
     </a>
     <button mat-button (click)="logout()">Sign out</button>
   </div>

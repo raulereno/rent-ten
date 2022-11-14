@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   public cities: City[] | undefined;
   public allHouses: House[]
   public userProfile: userProfile;
-  public backupHouses: House[];
+  public backupHouses: string[];
   public city: string[]
 
   // ****** CONSTRUCTOR ******* //
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
       this.allHouses$.subscribe(res => {
         this.allHouses = res;
         let set = new Set(this.allHouses.map(e=>e.country).sort())
-        this.countriesInDB= [...set];
+        this.backupHouses= [...set];
       })
     })
   }
@@ -175,8 +175,7 @@ export class HomeComponent implements OnInit {
     this.selectedCountry = country
     this.handleFilters();
     let nombrecualquier = this.allHouses?.filter((elemten) => elemten.country === country)
-    this.city = nombrecualquier?.map(elemt => elemt.city)
-
+    this.city = nombrecualquier?.map(elemt => elemt.city);
   }
   handleCity(city: string) {
     console.log("Console City: ", city)
