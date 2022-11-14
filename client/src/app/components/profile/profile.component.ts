@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit {
       this.profileJson = profile;
       console.log(this.profileJson);
       this.http.getUser(this.profileJson.email).subscribe(res =>{
+        this.dbProfile= res
         this.store.dispatch(loadProfile({userProfile:res}))
       });
 
@@ -71,7 +72,8 @@ export class ProfileComponent implements OnInit {
   }
 
   verifyAccount(): void {
-    this.dbProfile.verified = 'pending'
+
+    //this.dbProfile.verified = 'pending'
     this.store.dispatch(changeVerifiedStatusProfile({payload: 'pending'}))
     this.http.verifyAccount(this.dbProfile.mail)
   }

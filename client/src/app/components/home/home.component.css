@@ -6,8 +6,11 @@
 .topdiv{
 display: flex;
 justify-content: space-evenly;
-margin: 20px;
-height: 70px;
+margin-top: 20px;
+margin-bottom: 30px;
+margin-left: 20%;
+margin-right: 20%;
+height: 30px;
 }
 
 .flexdiv{

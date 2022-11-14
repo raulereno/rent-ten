@@ -12,6 +12,7 @@ import { Observable, pipe } from 'rxjs';
 import { selectorListCountries, selectorListHouses, selectorListLoading, selectorListProfile, selectorListBackup, selectorListCities } from 'src/app/redux/selectors/selectors';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { userProfile } from 'src/app/models/UserProfile';
+import { handleOrder } from 'src/app/redux/actions/location.actions';
 
 
 
@@ -37,7 +38,7 @@ export class HomeComponent implements OnInit {
   public cities: City[] | undefined;
   public allHouses: House[]
   public userProfile: userProfile;
-  public backupHouses: House[];
+  public backupHouses: string[];
   public city: string[]
 
   // ****** CONSTRUCTOR ******* //
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit {
   profileJson: any;
   dbProfile: any = {}
 
-  page_size: number = 5
+  page_size: number = 20
   page_number: number = 1
   page_size_options = [5, 10, 20]
   filterHouses: House[] = []
@@ -100,7 +101,7 @@ export class HomeComponent implements OnInit {
       this.allHouses$.subscribe(res => {
         this.allHouses = res;
         let set = new Set(this.allHouses.map(e=>e.country).sort())
-        this.countriesInDB= [...set];
+        this.backupHouses= [...set];
       })
     })
   }
@@ -147,6 +148,7 @@ export class HomeComponent implements OnInit {
     this.minPrice = event.target.value
     console.log(this.minPrice, this.maxPrice, this.allowpets, this.wifi)
     this.handleFilters()
+
   }
 
   handlePriceMax(event: any) {
@@ -166,17 +168,16 @@ export class HomeComponent implements OnInit {
   }
 
   handleCountry(country: string) {
-    if(country === "all"){
-      this.selectedCountry="";
-      this.selectedCity=""
-      this.handleFilters();
-      return
-    }
+    // if(country === "all"){
+    //   this.selectedCountry="";
+    //   this.selectedCity=""
+    //   this.handleFilters();
+    //   return
+    // }
     this.selectedCountry = country
     this.handleFilters();
     let nombrecualquier = this.allHouses?.filter((elemten) => elemten.country === country)
-    this.city = nombrecualquier?.map(elemt => elemt.city)
-
+    this.city = nombrecualquier?.map(elemt => elemt.city);
   }
   
   handleCity(city: string) {
@@ -203,6 +204,7 @@ export class HomeComponent implements OnInit {
         selectedCity: this.selectedCity
       }
     }))
+    
     this.paginator.firstPage()
   }
 
