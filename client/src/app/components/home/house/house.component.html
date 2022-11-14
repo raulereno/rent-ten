@@ -1,0 +1,43 @@
+<div class="housecard">
+    <div class="updiv">
+        <mat-card-actions class="margin">
+            <mat-icon id="leftarrow" class="carrouselbutton" (click)="paginationBack()">navigate_before</mat-icon>
+            <a routerLink="/housedetail/{{house.id}}">
+                <img class="image" [src]="giveMePhoto()" />
+            </a>
+            <mat-icon id="rightarrow" class="carrouselbutton" (click)="paginationForward()">navigate_next</mat-icon>
+        </mat-card-actions>
+    </div>
+
+    <div class="firstdiv">
+        <div class="namediv">
+            <h2 class="name">★ ★ ★<br/>{{house.country}}, {{house.city}}</h2>
+        </div>
+
+        <div class="favdiv">
+            <button id="addfav" class="favourites" *ngIf="checkIsFavorite(house.id) === false"
+                (click)="setFavorite(house.id, dbProfile.id)">+</button>
+            <button id="removefav" class="favourites" *ngIf="checkIsFavorite(house.id) === true"
+                (click)="deleteFavorite(house.id, dbProfile.id)">-</button>
+        </div>
+    </div>
+
+    <div class="botdiv">
+        <h3 class="info">{{house.rooms}} room/s</h3>
+        <h3 class="info">{{house.bathrooms}} bathroom/s</h3>
+        <h3 class="info">
+            <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span style="color: green">✓</span></span>
+            <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
+            <span style="margin-left: 5%"><span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span
+                        style="color: green">✓</span></span>
+                <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
+            </span>
+        </h3>
+        <h3 class="info">Occupants: {{house.maxpeople}} </h3>
+    </div>
+    <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
+</div>
+
+<footer class="footer">
+
+</footer>

@@ -13,12 +13,22 @@ module.exports = (sequelize) => {
 
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+      },
+
+      picture: {
+        type:DataTypes.TEXT,
+        allowNull: true,
+      },
+      
+      sub: {
+        type: DataTypes.STRING,
+        allowNull: false
       },
 
       lastname: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
 
       mail: {
@@ -28,7 +38,24 @@ module.exports = (sequelize) => {
 
       country: {
         type: DataTypes.STRING,
+        allowNull: true,
+      },
+
+      authorized: {
+        type: DataTypes.ENUM('all', 'view', 'not', 'unsubscribed'),
         allowNull: false,
+        defaultValue: 'all'
+      },
+
+      verified: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'not_verified',
+      },
+
+      verificationCode: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
 
       admin: {
@@ -42,6 +69,7 @@ module.exports = (sequelize) => {
         allowNull: true,
         defaultValue: [],
       },
+      
     },
 
     {
