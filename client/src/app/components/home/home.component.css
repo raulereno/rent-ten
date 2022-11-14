@@ -31,6 +31,10 @@ height: 70px;
   margin-top: 30px;
   width: 80%;
 }
+.darkmodeFilter, .darkmodePaginado{
+  background-color: rgba(0, 0, 0, 0.525);
+  transition: all 1s;
+}
 
 .paginado {
   display: flex;
