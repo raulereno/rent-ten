@@ -1,5 +1,11 @@
 <div class="flexdiv">
     <div class="topdiv">
+        <button (click)="handleOrder('')" *ngIf="order === 'min'" type="button" class="btn btn-primary btn-sm">Min</button>
+        <button (click)="handleOrder('min')" *ngIf="order !== 'min'" type="button" class="btn btn-secondary btn-sm">Min</button>
+
+        <button (click)="handleOrder('')" *ngIf="order === 'max'" type="button" class="btn btn-primary btn-sm">Max</button>
+        <button (click)="handleOrder('max')" *ngIf="order !== 'max' || order === undefined" type="button" class="btn btn-secondary btn-sm">Max</button>
+
         <button (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button" class="btn btn-primary btn-sm">Allow Pets</button>
         <button (click)="handleCheckboxP(true)" *ngIf="allowpets === undefined || allowpets === false" type="button" class="btn btn-secondary btn-sm">Allow Pets</button>
 

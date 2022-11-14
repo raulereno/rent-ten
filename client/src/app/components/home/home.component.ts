@@ -178,12 +178,14 @@ export class HomeComponent implements OnInit {
     this.city = nombrecualquier?.map(elemt => elemt.city)
 
   }
+  
   handleCity(city: string) {
     console.log("Console City: ", city)
     this.selectedCity = city
     console.log("city", city)
     this.handleFilters()
     // let nombrecualquier = this.allHouses?.filter((elemten) => elemten.city === city)
+  }
 
   handleOrder(order: string) {
     this.order = order;
@@ -204,6 +206,5 @@ export class HomeComponent implements OnInit {
     this.paginator.firstPage()
   }
 
-
-
 }
+
