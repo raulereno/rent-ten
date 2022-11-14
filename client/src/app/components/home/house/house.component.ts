@@ -28,19 +28,18 @@ export class HouseComponent implements OnInit {
 
   profileJson: any;
   allHouses: House[] = []
-  indexPhoto:number = 0
+  indexPhoto: number = 0
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
   }
 
   setFavorite(houseId: string, userId: string): void {
-    
-    if (!userId) {    
+    if (!userId) {
       this.auth.loginWithRedirect();
     } else {
       this.http.setFavorite(houseId, userId)
-      this.store.dispatch(addFavoriteHouse({payload: houseId}))
+      this.store.dispatch(addFavoriteHouse({ payload: houseId }))
     }
   }
 
@@ -78,7 +77,7 @@ export class HouseComponent implements OnInit {
 
   deleteFavorite(houseId: string, userId: string): void {
     this.http.deleteFavorite(houseId, userId)
-    this.store.dispatch(deleteFavoriteHouse({payload: houseId}))
+    this.store.dispatch(deleteFavoriteHouse({ payload: houseId }))
   }
 
 
@@ -99,11 +98,13 @@ export class HouseComponent implements OnInit {
   }
 
   paginationForward() {
-    if (this.indexPhoto !== (this.house.picture.length- 1) ){ this.indexPhoto++ }
+    if (this.indexPhoto !== (this.house.picture.length - 1)) { this.indexPhoto++ }
   }
 
   paginationBack() {
-    if (this.indexPhoto !== 0 ){ this.indexPhoto-- }
+    if (this.indexPhoto !== 0) { this.indexPhoto-- }
   }
+
+  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
 }

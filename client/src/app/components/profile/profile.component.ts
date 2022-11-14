@@ -1,3 +1,4 @@
+import { UploadImgService } from 'src/app/services/upload-img.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { DataServiceService } from 'src/app/services/data-service.service';
@@ -7,7 +8,7 @@ import { catchError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
-import { changeVerifiedStatusProfile } from 'src/app/redux/actions/location.actions';
+import { changeVerifiedStatusProfile, loadProfile } from 'src/app/redux/actions/location.actions';
 
 @Component({
   selector: 'app-profile',
@@ -19,29 +20,37 @@ import { changeVerifiedStatusProfile } from 'src/app/redux/actions/location.acti
 export class ProfileComponent implements OnInit {
 
   dbProfile: userProfile;
-  allHouses: House[] = []
-  favoritesHouses: House[] = []
-  profileJson: any
-  error:any
-
-  userProfile$: Observable<any> = new Observable()
+  allHouses: House[] = [];
+  favoritesHouses: House[] = [];
+  profileJson: any;
+  error:any;
+  files: File[] = [];
+  userProfile$: Observable<any> = new Observable();
   userProfile: userProfile;
+  favoritesHouses$: Observable<any> = new Observable();
+  profileImg:string;
 
-  favoritesHouses$: Observable<any> = new Observable()
-
-  constructor(public auth: AuthService, private http: DataServiceService, private store: Store<any>,) {
-
-    this.userProfile$ = this.store.select(selectorListProfile)
-   
+  constructor(public auth: AuthService,
+    private http: DataServiceService,
+    private store: Store<any>,
+    private _uploadImg: UploadImgService) {
    }
 
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
 
+    this.userProfile$.subscribe(profile=>{
+      this.userProfile = profile;
+    });
+
     this.auth.user$.subscribe(profile => {
       this.profileJson = profile;
-      this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data);
+      console.log(this.profileJson);
+      this.http.getUser(this.profileJson.email).subscribe(res =>{
+        this.store.dispatch(loadProfile({userProfile:res}))
+      });
+
       this.http.getHouses().subscribe(data => {
         this.allHouses = data;
         this.favoritesHouses = this.allHouses.filter((house: House) => this.dbProfile.favoriteshouses!.some((h: string) => h == house.id))
@@ -75,9 +84,24 @@ export class ProfileComponent implements OnInit {
       this.dbProfile.verified = 'verified'
       this.store.dispatch(changeVerifiedStatusProfile({payload: 'verified'}))
     })
-    
+
   }
+  onFileSelected(event:any):void{
+    const data = new FormData();
+    data.set('file', event.path[0].files[0]);
+    data.set('upload_preset', 'h4e9cy2g');
+    data.set('cloud_name', 'dbgpp8nla');
+
+    this._uploadImg.uploadImage(data).subscribe(res=>{
+        this.http.updateProfilePicture(res.secure_url,this.userProfile.id,this.userProfile.sub);
+
+        this.userProfile= {...this.userProfile,picture:res.secure_url};
+
+        // TODO: RAUL -DANGER aca se produce un bucle de llamadas- arreglando
+        this.store.dispatch(loadProfile({ userProfile: this.userProfile }));
 
 
+    });
+  }
 }
 

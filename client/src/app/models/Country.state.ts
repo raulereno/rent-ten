@@ -4,8 +4,8 @@ import { userProfile } from "./UserProfile";
 export interface GlobalState {
     loading?: boolean;
     countries?: ReadonlyArray<Country>;
-    state?:ReadonlyArray<State>
-    cities?:ReadonlyArray<City>
+    state?: ReadonlyArray<State>
+    cities?: ReadonlyArray<City>
     userProfile?: userProfile
     allHouses?: ReadonlyArray<House>;
     backupHouses?: ReadonlyArray<House>
