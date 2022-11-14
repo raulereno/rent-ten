@@ -46,7 +46,6 @@ export class ProfileComponent implements OnInit {
 
     this.auth.user$.subscribe(profile => {
       this.profileJson = profile;
-      console.log(this.profileJson);
       this.http.getUser(this.profileJson.email).subscribe(res =>{
         this.dbProfile= res
         this.store.dispatch(loadProfile({userProfile:res}))
