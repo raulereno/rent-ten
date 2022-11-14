@@ -51,8 +51,8 @@ export class NavbarComponent implements OnInit {
 
   }
   validateUser():void{
+    if(!this.userProfile.id){
     if(confirm('You need login for post your place')){
-      if(!this.userProfile.id){
         this.auth.loginWithRedirect()
       }
     }
@@ -76,5 +76,11 @@ export class NavbarComponent implements OnInit {
 
   showInfo(): void {
   }
+
+  fullDatabase(): void {
+    this.http.fullDatabase()
+    this.ngOnInit()
+  }
+
 
 }
