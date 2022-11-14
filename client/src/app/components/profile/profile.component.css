@@ -1,5 +1,12 @@
 .edit svg{
   width: 2rem;
+  fill: rgba(0, 0, 0, 0.604);
+}
+.edit svg:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+  fill: rgb(0, 0, 0);
+
 }
 .pencil{
   background-color: black;
