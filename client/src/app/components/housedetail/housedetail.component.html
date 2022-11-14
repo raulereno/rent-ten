@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <button (click)="goBack()" type="button" class="btn btn-secondary btn-sm">Home</button>
 
 <div class="container, row">
@@ -67,3 +68,140 @@
 <div class="row">
     <app-reviews></app-reviews>
 </div>
+=======
+<div class="wrapper">
+    <div class="topdiv">
+        <button class="button" routerLink="/home">🡠</button>
+        <img class="mainimg" src="{{house.picture[3]}}" alt="Pic1">
+        
+        <div class="sidediv">
+            <div class="rtopdiv">
+                <img class="sideimg" src="{{house.picture[1]}}" alt="Pic1">
+                <img id="upcornerimg" class="sideimg" src="{{house.picture[1]}}" alt="Pic3">
+            </div>
+            <div class="rbotdiv">
+                <img class="sideimg" src="{{house.picture[1]}}" alt="Pic4">
+                <img id="botcornerimg" class="sideimg" src="{{house.picture[1]}}" alt="Pic5">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="body">
+    <h3 class="location">{{house.country}}, {{house.city}}</h3>
+    <p class="info">{{house.rooms}} room/s</p>
+    <p class="info">{{house.bathrooms}} bathroom/s</p>
+    <h3 class="info">
+        <div *ngIf="house.allowpets as value; else elseBlock">Pets: ✓</div>
+        <ng-template #elseBlock>Pets: ✕</ng-template>
+    </h3>
+    <h3 class="info">Occupants: {{house.maxpeople}} </h3>
+    <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
+</div>
+
+<!-- <mat-grid-list cols="2" rowHeight="2:1" style="background-color: white">
+    <mat-grid-tile>
+        <div class="gridUno">
+            <div>
+                <ngb-carousel *ngIf="house.picture.length">
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper">
+                            <img src={{house.picture[0]}} alt="Random first slide" />
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper">
+                            <img src={{house.picture[1]}} alt="Random second slide" />
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>Second slide label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper">
+                            <img src={{house.picture[3]}} alt="Random third slide" />
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>Third slide label</h3>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        </div>
+                    </ng-template>
+                </ngb-carousel>
+            </div>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class='containerGritDos'>
+            <div>
+                <mat-card-content>
+                    <mat-card-title>{{house.id}}</mat-card-title>
+                    <br>
+                    <mat-card-content>Located: {{house.country}}, {{house.city}}</mat-card-content>
+                    <br>
+                    <mat-card-content>It has: {{house.rooms}} Rooms | {{house.bathrooms}} Bathrooms
+                    </mat-card-content>
+                    <br>
+                    <div *ngIf="house.allowpets as value; else elseBlock">Pet friendly: Yes</div>
+                    <ng-template #elseBlock>Pet friendly: Not</ng-template>
+                    <br>
+                    <mat-card-content>Maxpeople: {{house.maxpeople}}</mat-card-content>
+                    <br>
+                    <h3>{{house.price}} USD</h3>
+                    <br>
+                    <br>
+                    <br>
+                </mat-card-content>
+            </div>
+
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="gridFechas">
+            <div>
+                <h1>Arrival</h1>
+            </div>
+
+            <div>
+                <mat-card>
+                    <div>
+                        <div>
+                            <form [formGroup]="form">
+                                <mat-form-field>
+                                    <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays"
+                                        formGroupName="daterange">
+                                        <input matStartDate placeholder="start date" formControlName="start">
+                                        <input matEndDate placeholder="end date" formControlName="end">
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                </mat-form-field>
+                            </form>
+                            <div *ngIf="house.bookings">
+                                <h3>&#x26A0; This house has bookings on this dates:</h3>
+                                <div>
+                                    <ul>
+                                        <li *ngFor="let book of house.bookings">
+                                            &#x2714; From: {{book.start}} &#x27A4; To: {{book.end}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+            <br>
+            <br>
+            <div>
+                <button type="button" class="btn btn-outline-info">Book this house</button>
+            </div>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+    </mat-grid-tile>
+</mat-grid-list> -->
+>>>>>>> 42555d989d1ac2a53d61dc3b2a7eda98245d5007

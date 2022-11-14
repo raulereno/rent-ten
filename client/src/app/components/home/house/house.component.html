@@ -1,27 +1,37 @@
-<div class="container">
-    <div class="row align-items-start">
-        <div class="col">
-            <a style="font-size: 30px; cursor: pointer" (click)="paginationBack()">&#x3c;</a>
-            <a routerLink="/housedetail/{{house.id}}">
-                <img style="max-width: 270px; max-height: 270; background-size: cover;" class="img-thumbnail" [src]="giveMePhoto()" />
-            </a>
-            <a style="font-size: 30px; cursor: pointer" (click)="paginationForward()">&#x3e;</a>
-            <ul>
-                <!-- <li>{{house.id}}</li> -->
-                <h3>{{house.price}} USD</h3>
-                <li>Country: {{house.country}}</li>
-                <li>City: {{house.city}}</li>
-                <li>Rooms: {{house.rooms}}</li>
-                <li>Bathrooms: {{house.bathrooms}}</li>
-                <li>Maxpeople: {{house.maxpeople}}</li>
-                <li>Allowpets: {{house.allowpets}}</li>
-                <li>Wifi: {{house.wifi}}</li>
-                <button *ngIf="checkIsFavorite(house.id) === false" class="btn btn-outline-warning"
-                    (click)="setFavorite(house.id, dbProfile.id)">Add to favorites</button>
-                <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
-                    (click)="deleteFavorite(house.id, dbProfile.id)">Delete from favorites</button>
-            </ul>
+<div class="housecard">
+            <div class="updiv">
+                <mat-card-actions class="margin">
+                    <mat-icon id="leftarrow" class="carrouselbutton" (click)="paginationBack()">navigate_before</mat-icon>
+                        <a routerLink="/housedetail/{{house.id}}">
+                            <img class="image" [src]="giveMePhoto()" />
+                        </a>
+                    <mat-icon id="rightarrow" class="carrouselbutton" (click)="paginationForward()">navigate_next</mat-icon>
+                </mat-card-actions>
+            </div>
 
-        </div>
-    </div>
+            <div class="firstdiv">
+                <div class="namediv">
+                    <h2 class="name">{{house.country}}, {{house.city}}</h2>
+                </div>
+
+                <div class="favdiv">
+                    <button id="addfav" class="favourites" *ngIf="checkIsFavorite(house.id) === false" (click)="setFavorite(house.id, dbProfile.id)">+</button>
+                    <button id="removefav" class="favourites" *ngIf="checkIsFavorite(house.id) === true" (click)="deleteFavorite(house.id, dbProfile.id)">-</button>
+                </div>
+            </div>
+
+            <div class="botdiv">
+                <h3 class="info">{{house.rooms}} room/s</h3>
+                <h3 class="info">{{house.bathrooms}} bathroom/s</h3>
+                <h3 class="info">
+                    <div *ngIf="house.allowpets as value; else elseBlock">Pets: ✓</div>
+                    <ng-template #elseBlock>Pets: ✕</ng-template>
+                </h3>
+                <h3 class="info">Occupants: {{house.maxpeople}} </h3>
+            </div>
+            <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
 </div>
+
+<footer class="footer">
+
+</footer>

@@ -5,6 +5,7 @@ import { House } from '../../models/House';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-housedetail',
   templateUrl: './housedetail.component.html',
@@ -22,6 +23,9 @@ export class HousedetailComponent implements OnInit {
   form: FormGroup
   booking: boolean = false
   pagado: boolean; 
+
+  indexPhoto: number = 0
+
 
   ngOnInit(): void {
     this.paramsId = this.route.snapshot.paramMap.get('id')
@@ -74,4 +78,11 @@ export class HousedetailComponent implements OnInit {
   pagar(): void {
     this.pagado = !this.pagado
   }
+  giveMePhoto() {
+    return this.house.picture[this.indexPhoto]
+  }
+
+  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+
+
 }
