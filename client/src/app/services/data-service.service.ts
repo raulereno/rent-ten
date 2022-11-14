@@ -60,7 +60,7 @@ export class DataServiceService {
   }
 
   setFavorite(houseId: string, userId: string) {
-    this.http.put<any>(`${environment.baseUrl}/addfavoritehouse`, { houseId: houseId, userId: userId }).subscribe({
+    this.http.put<any>(`${environment.baseUrl}/users/addfavoritehouse`, { houseId: houseId, userId: userId }).subscribe({
       error: error => {
         console.log(error)
       }
