@@ -20,9 +20,17 @@
         <h3 class="location">{{house.country}}, {{house.city}}</h3>
         <p class="info">{{house.rooms}} room/s</p>
         <p class="info">{{house.bathrooms}} bathroom/s</p>
-        <h3 class="info">
+        <!-- <h3 class="info">
             <div *ngIf="house.allowpets as value; else elseBlock">Pets: ✓</div>
             <ng-template #elseBlock>Pets: ✕</ng-template>
+        </h3> -->
+        <h3 class="info">
+            <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span style="color: green">✓</span></span>
+            <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
+            <span style="margin-left: 5%"><span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span
+                        style="color: green">✓</span></span>
+                <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
+            </span>
         </h3>
         <h3 class="info">Occupants: {{house.maxpeople}} </h3>
         <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
