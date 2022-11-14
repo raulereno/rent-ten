@@ -4,11 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
 
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class DataServiceService {
   constructor(private http: HttpClient) { }
+
 
   postId = '';
 
@@ -54,14 +57,16 @@ export class DataServiceService {
         console.log(error)
       }
     })
+    
   }
 
   deleteFavorite(houseId: string, userId: string) {
+    if(confirm('Are you sure you want to delete it?')){
     this.http.put<any>(`http://localhost:3001/users/deletefavoritehouse`, { houseId: houseId, userId: userId }).subscribe({
       error: error => {
         console.log(error)
       }
-    })
+    })}
   }
 
   createHouse(house: NewHouse, email: string) {
@@ -71,4 +76,6 @@ export class DataServiceService {
       }
     })
   }
+
+
 }

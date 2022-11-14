@@ -31,7 +31,7 @@
         <option selected value="">Select a country</option>
 
         <option *ngFor="let house of backupHouses$ | async" value="{{house.country}}">{{house.country}}</option>
-
+        
         <!-- <option *ngFor="let house of handleSelectCountries(backupHouses$ | async)" value="{{house.country}}">{{house.country}}</option> -->
     </select>
 
@@ -39,13 +39,16 @@
 </div>
 
 
+
+ 
 <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
     (page)="handlePage($event)" showFirstLastButtons=""></mat-paginator>
-
+ 
 <hr />
 <div class="container">
     <app-house class="card_house" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
         [house]="house" [dbProfile]="dbProfile">
+    
     </app-house>
 </div>
 

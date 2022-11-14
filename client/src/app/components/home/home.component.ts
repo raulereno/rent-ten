@@ -12,6 +12,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { userProfile } from 'src/app/models/UserProfile';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox'
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,12 +27,14 @@ export class HomeComponent implements OnInit {
   allHouses$: Observable<any> = new Observable()
   userProfile$: Observable<any> = new Observable()
   backupHouses$: Observable<any> = new Observable()
+  
 
   public countries: Country[] | undefined;
   public cities: City[] | undefined;
   public allHouses: House[]
   public userProfile: userProfile;
   public backupHouses: House[]
+ 
 
   // ****** CONSTRUCTOR ******* //
 
@@ -40,6 +43,8 @@ export class HomeComponent implements OnInit {
     public http: DataServiceService,
     public auth: AuthService,
     private store: Store<any>,
+   
+    
   ) {
 
   }
@@ -78,6 +83,8 @@ export class HomeComponent implements OnInit {
     this.getContries();
     this.loadProfile();
     this.loadHouses()
+
+    
 
   }
 
@@ -135,29 +142,35 @@ export class HomeComponent implements OnInit {
   handlePriceMin(event: any) {
     this.minPrice = event.target.value
     console.log(this.minPrice, this.maxPrice, this.allowpets, this.wifi)
-    this.handleFilters()
+    this.handleFilters();
+    
   }
 
   handlePriceMax(event: any) {
-    this.maxPrice = event.target.value
-    this.handleFilters()
+    this.maxPrice = event.target.value;
+    this.handleFilters();
+   
 
   }
 
   handleCheckboxP(pets: boolean): void {
-    this.allowpets = pets
-    this.handleFilters()
+    this.allowpets = pets;
+    this.handleFilters();
+    
   }
 
   handleCheckboxW(wifi: boolean): void {
-    this.wifi = wifi
-    this.handleFilters()
+    this.wifi = wifi;
+    this.handleFilters();
+    
   }
 
   handleCountry(country: string) {
-    this.selectedCountry = country
-    this.handleFilters()
-  }
+    this.selectedCountry = country;
+    this.handleFilters();
+    
+      
+     }
 
   handleFilters() {
     this.store.dispatch(handleFilters({
@@ -169,6 +182,9 @@ export class HomeComponent implements OnInit {
         selectedCountry: this.selectedCountry
       }
     }))
-    this.page_number = 0
+    this.page_number = 0;
   }
+
+  
+  
 }

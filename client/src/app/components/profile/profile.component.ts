@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
   constructor(public auth: AuthService, private http: DataServiceService, private store: Store<any>,) {
 
     this.userProfile$ = this.store.select(selectorListProfile)
+   
    }
 
 
@@ -76,5 +77,7 @@ export class ProfileComponent implements OnInit {
     })
     
   }
+
+
 }
 

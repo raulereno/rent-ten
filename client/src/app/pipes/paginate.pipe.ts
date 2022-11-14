@@ -16,4 +16,8 @@ export class PaginatePipe implements PipeTransform {
     return array.slice(page_number * page_size, (page_number+1)*page_size)
   }
 
+ 
+  
+  
+
 }

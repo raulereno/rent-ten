@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { addFavoriteHouse, deleteFavoriteHouse } from 'src/app/redux/actions/location.actions';
 import { Store } from '@ngrx/store';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class HouseComponent implements OnInit {
   userProfile$: Observable<any> = new Observable()
   public userProfile: userProfile;
 
-  constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>,) { }
+  constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>, private localStorageSvc:LocalStorageService) { }
 
   profileJson: any;
   allHouses: House[] = []
@@ -34,13 +35,46 @@ export class HouseComponent implements OnInit {
   }
 
   setFavorite(houseId: string, userId: string): void {
-    if (!userId) {
-        this.auth.loginWithRedirect();
+    
+    if (!userId) {    
+      this.auth.loginWithRedirect();
     } else {
       this.http.setFavorite(houseId, userId)
       this.store.dispatch(addFavoriteHouse({payload: houseId}))
     }
   }
+
+  /* setFavoriteVisitor(favorites: House){
+    let favoritesHouses: House[] = [];
+     if(localStorage.getItem('favorite')===null){
+      favoritesHouses.push(favorites)
+      // this.store.dispatch(addFavoriteHouse({payload: houseId}))
+      localStorage.setItem('favorite', JSON.stringify(favorites));
+     } else {
+      favoritesHouses = JSON.parse(localStorage.getItem('favorite')!);
+     favoritesHouses.push(favorites)
+    //   // this.store.dispatch(addFavoriteHouse({payload: houseId}))
+    localStorage.setItem('favorite', JSON.stringify(favorites))}
+    console.log(favoritesHouses)} */
+  
+
+  /* setFavoriteVisitor2(houseId: string): void {
+    let favoritesHouses:any = [];
+    // if(localStorage.getItem('favorite')===null){
+      // favoritesHouses.push(houseId)
+      // this.store.dispatch(addFavoriteHouse({payload: houseId}))
+      localStorage.setItem('favorite', JSON.stringify(houseId));
+    // } else {
+    //   favoritesHouses = JSON.parse(localStorage.getItem('favorite')!);
+    // //  favoritesHouses.push(houseId)
+    //   // this.store.dispatch(addFavoriteHouse({payload: houseId}))
+    // localStorage.setItem('favorite', JSON.stringify(houseId))}
+  } */
+
+  toggleFavorite(houseId:string):void{
+    this.localStorageSvc.addToFavorite(houseId)
+  }
+
 
   deleteFavorite(houseId: string, userId: string): void {
     this.http.deleteFavorite(houseId, userId)

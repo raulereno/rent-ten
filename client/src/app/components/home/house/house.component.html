@@ -8,6 +8,12 @@
             <a style="font-size: 30px; cursor: pointer" (click)="paginationForward()">&#x3e;</a>
             <ul>
                 <!-- <li>{{house.id}}</li> -->
+                <div>
+                    <button (click)="toggleFavorite(house.id)">
+                        favorites
+                        </button>
+                    </div>
+                    
                 <h3>{{house.price}} USD</h3>
                 <li>Country: {{house.country}}</li>
                 <li>City: {{house.city}}</li>
@@ -20,6 +26,7 @@
                     (click)="setFavorite(house.id, dbProfile.id)">Add to favorites</button>
                 <button *ngIf="checkIsFavorite(house.id) === true" class="btn btn-outline-danger"
                     (click)="deleteFavorite(house.id, dbProfile.id)">Delete from favorites</button>
+                    
             </ul>
 
         </div>

@@ -36,6 +36,7 @@ import { CloudinaryModule } from '@cloudinary/ng';
 //DROP-ZONE
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PaginatePipe } from './pipes/paginate.pipe';
+
 //NGRX
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -44,7 +45,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HouseComponent } from './components/home/house/house.component';
 //Enviroment
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -63,6 +65,7 @@ const routes: Routes = [
       { path: 'createhouse', component: CreateHouseComponent },
       { path:  'profile',component:ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent},
+      { path: "**", redirectTo: 'home' },
     ]
   }
 ];
@@ -79,6 +82,8 @@ const routes: Routes = [
     HouseComponent,
     HousedetailComponent,
     PaginatePipe,
+    
+   
   ],
   imports: [
     BrowserModule,

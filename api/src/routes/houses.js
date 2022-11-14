@@ -131,7 +131,6 @@ router.delete("/deletehouse", async (req, res) => {
 
 router.post("/fulldb", async (req, res) => {
 
-
   try {
     extraHouses(100).forEach(async (house) => {
       try {
@@ -144,7 +143,7 @@ router.post("/fulldb", async (req, res) => {
       }
     });
 
-    res.status(200).json({ msg: "Base de datos creada" });
+    res.status(100).json({ msg: "Base de datos creada" });
   } catch (error) {
     res.status(400).json(error);
   }
