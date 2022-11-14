@@ -4,6 +4,7 @@
     transition: all 0.3s;
     animation: fadein 2s;
     border-radius: 15px 15px 15px 15px;
+    margin-bottom: 2rem;
 }
 
 .housecard:hover .image{
