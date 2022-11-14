@@ -1,0 +1,247 @@
+.isCoverPhoto {
+  border: 4px solid rgb(0, 0, 55);
+
+}
+
+.labelCoverPhoto {
+  color: rgba(0, 0, 0, 0.814);
+}
+
+.container_form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgba(128, 128, 128, 0.14);
+  height: 150vh;
+  // background-image: url('https://www.wallpaperup.com/uploads/wallpapers/2017/04/24/1087078/a7b33135b987d8e76c27fe9cd9a5e725-700.jpg');
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+
+  .container_become {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    .becomeHost {
+      align-self: center;
+      justify-self: center;
+      font-size: 3rem;
+      border-bottom: 2px solid black;
+      padding-bottom: 1rem;
+    }
+  }
+
+  .form_creation {
+
+    padding: 0.5rem;
+    width: 50% !important;
+    height: 100vh;
+    align-self: center;
+    .container_type {
+      display: flex;
+      flex-direction: column;
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+
+      label {
+        align-self: center;
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      select {
+        width: 15rem;
+        height: 2rem;
+        align-self: center;
+        background-color: rgba(0, 0, 0, 0.18);
+        border-radius: 3px;
+        option{
+          font-size: 1.3rem;
+        }
+      }
+    }
+    .container_price{
+      margin: 2rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      label{
+        font-size: 1.3rem;
+        margin-right: 1rem;
+      }
+      input{
+        width: 3rem;
+        height: 2rem;
+        font-size: 1.1rem;
+        margin-right: 0.5rem;
+      }
+      span{
+        font-size: 1rem;
+      }
+
+    }
+    .container_services{
+      display: flex;
+      justify-content: center;
+      justify-content: space-evenly;
+      margin-bottom: 2rem;
+      div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        span{
+          font-size: 1.2rem;
+
+        }
+        .switch {
+          margin-top: 0.5rem;
+          position: relative;
+          display: inline-block;
+          width: 60px;
+          height: 34px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        /* The slider */
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 26px;
+          width: 26px;
+          left: 4px;
+          bottom: 4px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        input:checked + .slider {
+          background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+          border-radius: 34px;
+        }
+
+        .slider.round:before {
+          border-radius: 50%;
+        }
+      }
+    }
+    .container_location{
+      display: flex;
+      justify-content: center;
+      justify-content: space-around;
+        div{
+          display: flex;
+          flex-direction: column;
+          label{
+            font-size: 1.3rem;
+            align-self: center;
+            margin: 0.5rem 0;
+          }
+          select{
+            width: 12rem;
+            height: 2.5rem;
+            option{
+              font-size: 1.3rem;
+            }
+          }
+        }
+    }
+    .container_roomsAndGuest {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      .roomsAndGuest{
+        display: flex;
+        flex-direction: column;
+        label{
+          font-size: 1rem;
+          font-weight: bold;
+        }
+        div{
+          align-self: center;
+        }
+      }
+    }
+    .submit{
+      margin-top: 0.5rem;
+      width: 9rem;
+      padding: 0.8rem;
+      font-size: 1.2rem;
+      background-color: rgb(67, 67, 67);
+      align-self: flex-end;
+      border-radius: 3px;
+    }
+
+
+
+    button svg {
+      transition: all 0.1s;
+      fill: rgba(0, 0, 0, 0.79);
+    }
+
+    .disabled svg {
+      fill: rgba(0, 0, 0, 0.573);
+    }
+
+    .disabled svg:hover {
+      fill: rgba(0, 0, 0, 0.79);
+      transform: scale(1);
+      cursor: not-allowed;
+    }
+
+    button svg:hover {
+      transform: scale(1.05);
+      fill: rgb(0, 0, 0);
+    }
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    input {
+      width: 3rem;
+    }
+
+    button {
+      border: 0;
+      background-color: rgba(128, 128, 128, 0);
+    }
+
+  }
+}

@@ -2,22 +2,24 @@
 <div class="container">
     <div class="topdiv">
 
-        <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;" (click)="handleCheckboxP(false)" *ngIf="allowpets === true"
-            type="button" class="btn btn-primary btn-sm"><span class="material-icons">pets</span>
+        <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+            (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
+            class="btn btn-primary btn-sm"><span class="material-icons">pets</span>
         </button>
 
-        <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;" (click)="handleCheckboxP(true)"
-            *ngIf="allowpets === undefined || allowpets === false" type="button" class="btn btn-secondary btn-sm"><span
-                class="material-icons">pets</span>
+        <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+            (click)="handleCheckboxP(true)" *ngIf="allowpets === undefined || allowpets === false" type="button"
+            class="btn btn-secondary btn-sm"><span class="material-icons">pets</span>
         </button>
 
-        <button title="With wifi." style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;" (click)="handleCheckboxW(false)"
-            *ngIf="wifi === true" type="button" class="btn btn-primary btn-sm"><span class="material-icons">wifi</span>
-
-        </button>
-        <button title="With wifi" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;" (click)="handleCheckboxW(true)"
-            *ngIf="wifi === undefined || wifi === false" type="button" class="btn btn-secondary btn-sm"><span
+        <button title="With wifi." style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+            (click)="handleCheckboxW(false)" *ngIf="wifi === true" type="button" class="btn btn-primary btn-sm"><span
                 class="material-icons">wifi</span>
+
+        </button>
+        <button title="With wifi" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+            (click)="handleCheckboxW(true)" *ngIf="wifi === undefined || wifi === false" type="button"
+            class="btn btn-secondary btn-sm"><span class="material-icons">wifi</span>
 
         </button>
 
@@ -47,8 +49,9 @@
 
         </select>
 
-        <select [(ngModel)]='order' (change)="handleOrder(order)" style="max-height: 38px; max-width: 20%; margin-top: 0.5%"
-            class="form-select form-select-sm" aria-label="Ejemplo de .form-select-lg" appearance="outline">
+        <select aria-placeholder="Order by" [(ngModel)]='order' (change)="handleOrder(order)"
+            style="max-height: 40px; max-width: 20%; margin-top: 0.5%" class="form-select form-select-sm"
+            appearance="outline">
             <mat-label>Order by</mat-label>
             <option selected value="">Order by</option>
             <option value="min">Cheapest first</option>
@@ -73,5 +76,6 @@
             <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
                 [house]="house" [dbProfile]="dbProfile"></app-house>
         </div>
+
     </div>
 </div>

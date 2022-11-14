@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
   wifi: boolean;
   selectedCountry: string;
   selectedCity: string;
-  order: string;
+  order: string
 
   darkmode:boolean;
   // --- ON INIT ---
@@ -148,6 +148,7 @@ export class HomeComponent implements OnInit {
     this.minPrice = event.target.value
     console.log(this.minPrice, this.maxPrice, this.allowpets, this.wifi)
     this.handleFilters()
+
   }
 
   handlePriceMax(event: any) {
@@ -206,6 +207,7 @@ export class HomeComponent implements OnInit {
         selectedCity: this.selectedCity
       }
     }))
+    
     this.paginator.firstPage()
   }
 
