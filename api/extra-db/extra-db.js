@@ -29,14 +29,12 @@ const newHouse = () => {
     type: houseTypes[Math.floor(Math.random() * houseTypes.length)],
     price: getRandomArbitrary(50,501),
     address: adresses[Math.floor(Math.random() * adresses.length)] + ' ' + Math.floor(Math.random() * 500),
-    bookings: [...Array(getRandomArbitrary(2,5)).keys()].map(() => randomDate())}
+    scores: [],
+    bookings: [...Array(getRandomArbitrary(2,5)).keys()].map(() => randomDate())
+    }
 } 
 
-const extraHouses = (n) => {
-    return [...Array(n).keys()].map(() => newHouse())
-}
-
-const getReview = () => {
+const newReview = () => {
     return {
         opinion: opinions[Math.floor(Math.random() * opinions.length)],
         rating: Math.floor(Math.random() * 4) + 1,
@@ -44,7 +42,15 @@ const getReview = () => {
         }
 }
 
+const extraHouses = (n) => {
+    return [...Array(n).keys()].map(() => newHouse())
+}
+
+const extraReviews = (n) => {
+    return [...Array(n).keys()].map(() => newReview())
+}
+
 // let extraHouses = [...Array(50).keys()].map(() => newHouse())
 
-module.exports = {extraHouses, getReview}
+module.exports = {extraHouses, extraReviews}
 
