@@ -42,10 +42,12 @@ export class ProfileComponent implements OnInit {
 
     this.userProfile$.subscribe(profile=>{
       this.userProfile = profile;
+
     });
 
     this.auth.user$.subscribe(profile => {
       this.profileJson = profile;
+
       this.http.getUser(this.profileJson.email).subscribe(res =>{
         this.dbProfile= res
         this.store.dispatch(loadProfile({userProfile:res}))

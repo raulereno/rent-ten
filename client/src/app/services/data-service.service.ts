@@ -21,9 +21,9 @@ export class DataServiceService {
     );
   }
   //saque el picture
-  updateUser(mail: string,picture:string, sub: string) {
-    if (mail &&picture && sub) {
-      this.http.post<any>(`${environment.baseUrl}/users`, { mail: mail,picture:picture, sub: sub }).subscribe({
+  updateUser(mail: string, sub: string) {
+    if (mail && sub) {
+      this.http.post<any>(`${environment.baseUrl}/users`, { mail: mail, sub: sub }).subscribe({
         error: error => {
           console.error('There was an error!', error);
         }
