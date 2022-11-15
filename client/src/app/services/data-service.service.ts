@@ -106,5 +106,19 @@ export class DataServiceService {
     })
   }
 
+  postNewReview(opinion:string, rating: number, userId:string, houseId:string, userEmail:string): Observable<any> {
+    return this.http.post<any>(`http://localhost:3001/reviews`, {opinion, rating, userId, houseId, userEmail})
+    // .subscribe({
+    //   error: error => {
+    //     console.log(error);
+    //   }
+    // })
 
+  }
+
+  // getUser(mail: string): Observable<any> {
+  //   return this.http.get<any>(
+  //     `${environment.baseUrl}/users/getuser?mail=${mail}`
+  //   );
+  // }
 }
