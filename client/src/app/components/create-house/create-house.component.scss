@@ -9,20 +9,27 @@
 
 .container_form {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  background-color: rgba(128, 128, 128, 0.609);
-  height: 120vh;
-  .container_become {
-    width: 50%;
-    height: 100vh;
-    display: flex;
+  background-color: rgba(128, 128, 128, 0.14);
+  height: 150vh;
+  // background-image: url('https://www.wallpaperup.com/uploads/wallpapers/2017/04/24/1087078/a7b33135b987d8e76c27fe9cd9a5e725-700.jpg');
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
 
+  .container_become {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    align-self: center;
+    justify-content: center;
     .becomeHost {
       align-self: center;
       justify-self: center;
-      font-size: 5rem;
+      font-size: 3rem;
       border-bottom: 2px solid black;
-      padding-bottom: 2.2rem;
+      padding-bottom: 1rem;
     }
   }
 
@@ -31,7 +38,7 @@
     padding: 0.5rem;
     width: 50% !important;
     height: 100vh;
-
+    align-self: center;
     .container_type {
       display: flex;
       flex-direction: column;
@@ -233,7 +240,7 @@
 
     button {
       border: 0;
-      background-color: #b2b2b2;
+      background-color: rgba(128, 128, 128, 0);
     }
 
   }

@@ -11,7 +11,7 @@
 
     <div class="firstdiv">
         <div class="namediv">
-            <h2 class="name">★ ★ ★<br/>{{house.country}}, {{house.city}}</h2>
+            <h2 class="name"><ngb-rating [max]="5" [(rate)]=starRating [readonly]="true"></ngb-rating><br/>{{house.country}}, {{house.city}}</h2>
         </div>
 
         <div class="favdiv">

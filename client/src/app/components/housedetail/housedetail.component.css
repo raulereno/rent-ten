@@ -90,7 +90,7 @@ margin-top: 5rem;
 }
 
 .price{
-    position: absolute;
+    position: flex;
     color: rgb(23, 59, 3);
     font-size: 30px;
     font-weight: 400;

@@ -4,6 +4,7 @@
     transition: all 0.3s;
     animation: fadein 2s;
     border-radius: 15px 15px 15px 15px;
+    margin-bottom: 2rem;
 }
 
 .housecard:hover .image{
@@ -116,4 +117,9 @@ width: 12%;
     font-weight: 400;
     margin-top: 10px;
     margin-left: 5px;
+}
+
+ngb-rating {
+    color: #b39601;
+    font-size: 20px;
 }
