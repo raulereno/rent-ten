@@ -37,7 +37,7 @@ const newHouse = () => {
 const newReview = () => {
     return {
         opinion: opinions[Math.floor(Math.random() * opinions.length)],
-        rating: Math.floor(Math.random() * 5) + 1,
+        rating: Math.floor(Math.random() * 4) + 1,
         userEmail: "User" + Math.floor(Math.random() * 535) + "@mail.com",
         }
 }

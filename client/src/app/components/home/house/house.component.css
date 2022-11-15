@@ -118,3 +118,8 @@ width: 12%;
     margin-top: 10px;
     margin-left: 5px;
 }
+
+ngb-rating {
+    color: #b39601;
+    font-size: 20px;
+}
