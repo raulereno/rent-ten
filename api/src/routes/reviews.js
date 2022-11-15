@@ -34,10 +34,11 @@ router.post('/', async (req, res) => {
 
     try {
         if (!opinion || !rating || !userId || !houseId || !userEmail) res.status(400).json({ msg: "Missing some field: opinion, rating, userId, houseId, and userEmail are required." })
+        const house_ref = await House.findByPk(houseId)
         const newReview = await Review.create({ opinion, rating, userEmail })
         await newReview.setUser(userId)
         await newReview.setHouse(houseId)
-        await House.update({ scores: [...scores, rating] })
+        await house_ref.update({ scores: house_ref.scores.concat(rating)})
         res.status(200).json(newReview)
 
     } catch (error) {

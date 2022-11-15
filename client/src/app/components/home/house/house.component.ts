@@ -30,11 +30,12 @@ export class HouseComponent implements OnInit {
   allHouses: House[] = []
   indexPhoto: number = 0
   starRating: number
-  n:number = 0
+  n:number
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
     this.userProfile$.subscribe(() => {
+      this.n = 0
       this.house.scores.forEach((score) => this.n = this.n + score)
       this.starRating = this.n / this.house.scores.length
    }) 
