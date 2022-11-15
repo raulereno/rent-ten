@@ -77,6 +77,11 @@ module.exports = (sequelize) => {
     bookings: {
         type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: true
+    },
+
+    scores: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      allowNull: true
     }
 
     },

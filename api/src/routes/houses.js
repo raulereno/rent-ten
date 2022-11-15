@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { House, User, Review } = require("../db");
-const { extraHouses, getReview } = require("../../extra-db/extra-db");
+const { extraHouses, extraReviews } = require("../../extra-db/extra-db");
 
 const router = Router();
 
@@ -155,14 +155,19 @@ router.post("/fulldb", async (req, res) => {
     extraHouses(50).forEach(async (house) => {
       try {
         let finder = await House.findOne({ where: house });
-        const { city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
+        const { scores, city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
         req.body;
-        if (!finder) {
 
+        if (!finder) {
           let newHouse = await House.create(house);
-          let review = await Review.create(getReview())
-          await review.setUser(testuser.id)
-          await review.setHouse(newHouse.id)
+
+          extraReviews(Math.floor(Math.random() * 8) + 1).forEach(async (newReview) => {
+            let review = await Review.create(newReview)
+            await review.setUser(testuser.id)
+            await review.setHouse(newHouse.id)
+            await newHouse.update({ scores: [...newHouse.scores, newReview.rating] })
+          }) 
+
         }
       } catch (error) {
         console.log(error)
@@ -175,3 +180,33 @@ router.post("/fulldb", async (req, res) => {
   }
 });
 module.exports = router;
+
+
+// extraReviews(5).forEach(async (review) => )
+
+
+
+//   try {
+//     let testuser = await User.create({mail: "user403@gmail.com", sub: 'sadasfasfj'})
+//     extraHouses(50).forEach(async (house) => {
+//       try {
+//         let finder = await House.findOne({ where: house });
+//         const { scores, city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
+//         req.body;
+//         if (!finder) {
+
+//           let newHouse = await House.create(house);
+//           let review = await Review.create(getReview())
+//           await review.setUser(testuser.id)
+//           await review.setHouse(newHouse.id)
+//         }
+//       } catch (error) {
+//         console.log(error)
+//       }
+//     });
+
+//     res.status(200).json({ msg: "Base de datos creada" });
+//   } catch (error) {
+//     res.status(400).json(error);
+//   }
+// });

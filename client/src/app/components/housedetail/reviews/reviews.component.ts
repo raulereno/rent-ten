@@ -25,7 +25,7 @@ export class ReviewsComponent implements OnInit {
   ngOnInit(): void {
     this.paramsId = this.route.snapshot.paramMap.get('id')
     this.paramsId && this.http.getHouse(this.paramsId).subscribe(
-      data => this.house = data
+      data => { this.house = data}
       )
   }
 

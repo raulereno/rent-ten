@@ -4,13 +4,13 @@ const { addReview, getReviews } = require("../controllers/reviews");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { houseId } = req.body;
-  try {
-    const allReviews = await Review.findAll();
-    res.status(200).json(allReviews);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
+    const { houseId } = req.body;
+    try {
+        const allReviews = await Review.findAll();
+        res.status(200).json(allReviews);
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
 });
 
 
@@ -33,10 +33,11 @@ router.post('/', async (req, res) => {
     const { opinion, rating, userId, houseId, userEmail } = req.body
 
     try {
-        if (!opinion || !rating || !userId || !houseId || !userEmail) res.status(400).json({msg: "Missing some field: opinion, rating, userId, houseId, and userEmail are required."})
+        if (!opinion || !rating || !userId || !houseId || !userEmail) res.status(400).json({ msg: "Missing some field: opinion, rating, userId, houseId, and userEmail are required." })
         const newReview = await Review.create({ opinion, rating, userEmail })
         await newReview.setUser(userId)
         await newReview.setHouse(houseId)
+        await House.update({ scores: [...scores, rating] })
         res.status(200).json(newReview)
 
     } catch (error) {

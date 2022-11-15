@@ -9,7 +9,7 @@
                 <span style="color:grey; font-size: 10px;">{{returnDate(review.createdAt)}}</span>
                 wrote: </span>
             <br/>
-            
+            <ngb-rating [max]="5" [(rate)]="review.rating" [readonly]="true"></ngb-rating>
             <p>{{review.opinion}}</p>
         </div>
         <hr />

@@ -13,4 +13,5 @@ export interface House {
     price: number;
     wifi: boolean;
     bookings: any[];
+    scores: number[];
 }
