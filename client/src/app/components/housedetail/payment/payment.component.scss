@@ -1,0 +1,19 @@
+.container_payment {
+  display: flex;
+
+  .payment {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+  .houseInfo {
+    width: 50%;
+    img{
+      width: 20rem;
+    }
+  }
+
+}
+
+
+
