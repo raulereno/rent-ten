@@ -1,56 +1,81 @@
-<div class="flexdiv">
+<!-- <div  class="flexdiv"> -->
+<div class="container">
     <div class="topdiv">
-        <button (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button" class="btn btn-primary btn-sm">Allow Pets</button>
-        <button (click)="handleCheckboxP(true)" *ngIf="allowpets === undefined || allowpets === false" type="button" class="btn btn-secondary btn-sm">Allow Pets</button>
 
-        <button (click)="handleCheckboxW(false)" *ngIf="wifi === true" type="button" class="btn btn-primary btn-sm">With Wi-Fi</button>
-        <button (click)="handleCheckboxW(true)" *ngIf="wifi === undefined || wifi === false" type="button" class="btn btn-secondary btn-sm">With Wi-Fi</button>
+        <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+            (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
+            class="btn btn-primary btn-sm"><span class="material-icons">pets</span>
+        </button>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Min price</mat-label>
-            <input type="number" matInput placeholder="USD" [(ngModel)]="minPrice" (input)="handlePriceMin($event)"/>
-            <mat-icon matPrefix>dolar_symbol</mat-icon>
-        </mat-form-field>
+        <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+            (click)="handleCheckboxP(true)" *ngIf="allowpets === undefined || allowpets === false" type="button"
+            class="btn btn-secondary btn-sm"><span class="material-icons">pets</span>
+        </button>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Max price</mat-label>
-      <input
-        type="number"
-        matInput
-        placeholder="USD"
-        [(ngModel)]="maxPrice"
-        (input)="handlePriceMax($event)"
-      />
-      <mat-icon matPrefix>dolar_symbol</mat-icon>
-    </mat-form-field>
+        <button title="With wifi." style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+            (click)="handleCheckboxW(false)" *ngIf="wifi === true" type="button" class="btn btn-primary btn-sm"><span
+                class="material-icons">wifi</span>
 
-    <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
-    style="max-height: 38px; max-width: 20%;" class="form-select form-select-sm"
-    aria-label="Ejemplo de .form-select-lg" appearance="outline">
-    <option selected value="">Select a country</option>
-    <option *ngFor="let country of countriesInDB" value="{{country}}">{{country}}</option>
-</select>
+        </button>
+        <button title="With wifi" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+            (click)="handleCheckboxW(true)" *ngIf="wifi === undefined || wifi === false" type="button"
+            class="btn btn-secondary btn-sm"><span class="material-icons">wifi</span>
 
-<select *ngIf="selectedCountry?.length" name="ciudades" [(ngModel)]="selectedCity" id=""
-    style="max-height: 38px; max-width: 20%;" aria-label="Ejemplo de .form-select-lg"
-    class="form-select form-select-sm" appearance="outline" (change)="handleCity(selectedCity)">
-    <option *ngFor="let ciudades of city" [ngValue]="ciudades">
-        {{ciudades}}
-    </option>
-</select>
-  </div>
+        </button>
+
+        <div style="font-size: 10px; ">
+            <mat-form-field style="max-width: 150px; max-height: 20px;" appearance="outline">
+                <mat-label>Min price</mat-label>
+                <input type="number" matInput placeholder="USD" [(ngModel)]="minPrice" (input)="handlePriceMin($event)">
+                <mat-icon matPrefix>dolar_symbol</mat-icon>
+            </mat-form-field>
+
+
+            <mat-form-field style="max-width: 150px;" appearance="outline">
+                <mat-label>Max price</mat-label>
+                <input type="number" matInput placeholder="USD" [(ngModel)]="maxPrice" (input)="handlePriceMax($event)">
+                <mat-icon matPrefix>dolar_symbol</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <!-- <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)" -->
+        <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
+            style="max-height: 38px; max-width: 20%; margin-top: 0.5%" class="form-select form-select-sm"
+            aria-label="Ejemplo de .form-select-lg" appearance="outline" (click)="handleCountryClick()">
+            <mat-label>Selected Country</mat-label>
+            <option selected value="">Select a country</option>
+            <!-- <option *ngFor="let country of backupHouses" value="{{country}}">{{country}}</option> -->
+            <option *ngFor="let country of backupHouses">{{country}}</option>
+
+        </select>
+
+        <select aria-placeholder="Order by" [(ngModel)]='order' (change)="handleOrder(order)"
+            style="max-height: 40px; max-width: 20%; margin-top: 0.5%" class="form-select form-select-sm"
+            appearance="outline">
+            <mat-label>Order by</mat-label>
+            <option selected value="">Order by</option>
+            <option value="min">Cheapest first</option>
+            <option value="max">Most expensive</option>
+        </select>
+
+        <select *ngIf="selectedCountry?.length" name="ciudades" [(ngModel)]="selectedCity" id=""
+            style="max-height: 38px; max-width: 20%;" aria-label="Ejemplo de .form-select-lg"
+            class="form-select form-select-sm" appearance="outline" (change)="handleCity(selectedCity)">
+            <option *ngFor="let ciudades of city" [ngValue]="ciudades">
+                {{ciudades}}
+            </option>
+        </select>
+    </div>
 
     <div class="bodydiv">
-        <mat-paginator class="paginado"
-        [length]="allHouses.length"
-        [pageSize]="page_size"
-        [pageSizeOptions]="page_size_options"
-        (page)="handlePage($event)"
-        showFirstLastButtons=""
-        ></mat-paginator>
+        <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size"
+            [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
+        </mat-paginator>
 
         <div class="grid">
-            <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house" [dbProfile]="dbProfile"></app-house>
+            <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
+                [house]="house" [dbProfile]="dbProfile"></app-house>
         </div>
+
     </div>
 </div>

@@ -1,3 +1,4 @@
+import { Booking } from './Booking';
 import { City, Country, State } from "src/app/models/location.model";
 import { House } from "./House";
 import { userProfile } from "./UserProfile";
@@ -9,5 +10,5 @@ export interface GlobalState {
     userProfile?: userProfile
     allHouses?: ReadonlyArray<House>;
     backupHouses?: ReadonlyArray<House>
-
+    paymentInfo?: Booking//TODO:
 }

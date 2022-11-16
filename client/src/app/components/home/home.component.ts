@@ -1,5 +1,5 @@
 import { HelperService } from './../../services/helper.service';
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Country, City } from '../../models/location.model';
 import { LocationService } from '../../services/location.service';
@@ -13,6 +13,7 @@ import { selectorListCountries, selectorListHouses, selectorListLoading, selecto
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { userProfile } from 'src/app/models/UserProfile';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox'
+import { handleOrder } from 'src/app/redux/actions/location.actions';
 
 
 
@@ -25,7 +26,7 @@ import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox'
 
 export class HomeComponent implements OnInit {
 
-  @ViewChild(MatPaginator, {static:false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   loading$: Observable<any> = new Observable();
   countries$: Observable<any> = new Observable()
@@ -52,7 +53,7 @@ export class HomeComponent implements OnInit {
    
     
     private _helper: HelperService,
-  ) {}
+  ) { }
 
   profileJson: any;
   dbProfile: any = {}
@@ -61,7 +62,7 @@ export class HomeComponent implements OnInit {
   page_number: number = 1
   page_size_options = [5, 10, 20]
   filterHouses: House[] = []
-  countriesInDB:string[];
+  countriesInDB: string[];
 
   minPrice: number;
   maxPrice: number;
@@ -69,8 +70,9 @@ export class HomeComponent implements OnInit {
   wifi: boolean;
   selectedCountry: string;
   selectedCity: string;
+  order: string
 
-  darkmode:boolean;
+  darkmode: boolean;
   // --- ON INIT ---
 
   ngOnInit(): void {
@@ -87,8 +89,7 @@ export class HomeComponent implements OnInit {
     this.getCountries()
     this.loadProfile();
     this.loadHouses()
-
-        this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
+    this._helper.customDarkMode.subscribe((active: boolean) => this.darkmode = active)
 
 
   }
@@ -103,26 +104,27 @@ export class HomeComponent implements OnInit {
     this.http.getHouses().subscribe((res) => {
       this.store.dispatch(loadHouses({ allHouses: res }))
       this.allHouses$.subscribe(res => {
+        // console.log("Console Res: ", res)
         this.allHouses = res;
-        let set = new Set(this.allHouses.map(e=>e.country).sort())
-        this.backupHouses= [...set];
+        let set = new Set(this.allHouses.map(e => e.country).sort())
+        this.backupHouses = [...set];
       })
     })
   }
 
   loadProfile(): void {
     this.auth.user$.subscribe(profile => {
-      this.profileJson = profile;
+      this.profileJson = profile
       this.http.getUser(this.profileJson.email).subscribe(res => {
         this.store.dispatch(loadProfile({ userProfile: res }));
-
         this.userProfile$.subscribe(res => {
           this.userProfile = res
           this.dbProfile = res
         })
-      })
-      this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
+      });
+      this.http.updateUser(this.profileJson.email, this.profileJson.sub);
     })
+
   }
 
   getCountries() {
@@ -139,7 +141,6 @@ export class HomeComponent implements OnInit {
   // --- PAGINATION ----
 
   handlePage(e: PageEvent) {
-    console.log(e);
     this.page_size = e.pageSize
     this.page_number = e.pageIndex + 1
   }
@@ -150,9 +151,8 @@ export class HomeComponent implements OnInit {
 
   handlePriceMin(event: any) {
     this.minPrice = event.target.value
-    console.log(this.minPrice, this.maxPrice, this.allowpets, this.wifi)
-    this.handleFilters();
-    
+    this.handleFilters()
+
   }
 
   handlePriceMax(event: any) {
@@ -175,17 +175,23 @@ export class HomeComponent implements OnInit {
   }
 
   handleCountry(country: string) {
-    if(country === "all"){
-      this.selectedCountry="";
-      this.selectedCity=""
-      this.handleFilters();
-      return
-    }
-    this.selectedCountry = country;
+    // if(country === "all"){
+    //   this.selectedCountry="";
+    //   this.selectedCity=""
+    //   this.handleFilters();
+    //   return
+    // }
+
+    this.selectedCountry = country
+
+    console.log("Las contry: ", country)
+
     this.handleFilters();
     let nombrecualquier = this.allHouses?.filter((elemten) => elemten.country === country)
+
     this.city = nombrecualquier?.map(elemt => elemt.city);
   }
+
   handleCity(city: string) {
     console.log("Console City: ", city)
     this.selectedCity = city
@@ -197,6 +203,13 @@ export class HomeComponent implements OnInit {
 
     // console.log("Nombre cualquiera: ", nombrecualquier)
   }
+
+  handleOrder(order: string) {
+    console.log(order)
+    this.order = order
+    this.store.dispatch(handleOrder({ payload: order }))
+  }
+
   handleFilters() {
     this.store.dispatch(handleFilters({
       payload: {
@@ -208,12 +221,16 @@ export class HomeComponent implements OnInit {
         selectedCity: this.selectedCity
       }
     }))
-    this.paginator.firstPage();
+
+
+    this.paginator.firstPage()
+    //this.store.dispatch(handleOrder({payload: this.order}))
   }
 
-  
-  
-
-
+  handleCountryClick() {
+    console.log("hiciste click")
+    selectedCountry: this.loadHouses()
+    this.selectedCity = ""
+  }
 
 }

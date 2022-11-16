@@ -1,4 +1,4 @@
-const { countries, photos, booleans, houseTypes, adresses, cities } = require('./data')
+const { countries, photos, booleans, houseTypes, adresses, cities, opinions } = require('./data')
 
 function getRandomArbitrary(max, min) {
     return Math.floor(Math.random() * (max - min) + min)
@@ -29,14 +29,28 @@ const newHouse = () => {
     type: houseTypes[Math.floor(Math.random() * houseTypes.length)],
     price: getRandomArbitrary(50,501),
     address: adresses[Math.floor(Math.random() * adresses.length)] + ' ' + Math.floor(Math.random() * 500),
-    bookings: [...Array(getRandomArbitrary(2,5)).keys()].map(() => randomDate())}
+    scores: [],
+    bookings: [...Array(getRandomArbitrary(2,5)).keys()].map(() => randomDate())
+    }
 } 
+
+const newReview = () => {
+    return {
+        opinion: opinions[Math.floor(Math.random() * opinions.length)],
+        rating: Math.floor(Math.random() * 4) + 1,
+        userEmail: "User" + Math.floor(Math.random() * 535) + "@mail.com",
+        }
+}
 
 const extraHouses = (n) => {
     return [...Array(n).keys()].map(() => newHouse())
 }
 
+const extraReviews = (n) => {
+    return [...Array(n).keys()].map(() => newReview())
+}
+
 // let extraHouses = [...Array(50).keys()].map(() => newHouse())
 
-module.exports = {extraHouses}
+module.exports = {extraHouses, extraReviews}
 

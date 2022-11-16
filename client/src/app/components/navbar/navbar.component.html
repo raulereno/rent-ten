@@ -6,8 +6,6 @@
       </a>
     </span>
 
-   
-
     <div class="spacer"></div>
     <a *ngIf="!userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button >Become
     a Host</a>
@@ -26,7 +24,8 @@
 
   <div *ngIf="(auth.isAuthenticated$ | async) === true" class="profile">
     <a mat-button routerLink="/profile">
-      <img src={{userProfile.picture}} alt="">
+      <img *ngIf="userProfile.picture" src="{{userProfile.picture}}" alt="">
+      <!-- <mat-icon #elseBlock>account_circle</mat-icon> -->
     </a>
     <button mat-button (click)="logout()">Sign out</button>
   </div>

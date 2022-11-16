@@ -4,6 +4,7 @@
     transition: all 0.3s;
     animation: fadein 2s;
     border-radius: 15px 15px 15px 15px;
+    margin-bottom: 2rem;
 }
 
 .housecard:hover .image{
@@ -15,12 +16,15 @@
     display:flex;
     margin-bottom: -15px;
 }
-
+.updiv:hover .carrouselbutton{
+  background-color: white;
+}
 .carrouselbutton{
     display: flex;
     cursor: pointer;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.176);
     border-radius: 15px;
+    transition: .3 all;
 }
 
 #leftarrow{
@@ -68,7 +72,7 @@ width: 12%;
     font-size: 25px;
     font-weight: 100;
     border-radius: 0px 0px 20px 20px;
-    
+
     margin-top: -9px;
     cursor: pointer;
     transition: 0.25s;
@@ -113,4 +117,9 @@ width: 12%;
     font-weight: 400;
     margin-top: 10px;
     margin-left: 5px;
+}
+
+ngb-rating {
+    color: #b39601;
+    font-size: 20px;
 }
