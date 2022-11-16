@@ -120,8 +120,6 @@ export const countriesReducer = createReducer(
 
         if (selectedCountry) {
             superFilter = superFilter?.filter((house: any) => house.country === selectedCountry)
-            console.log(superFilter);
-
         }
 
         if (selectedCity) {
@@ -134,7 +132,7 @@ export const countriesReducer = createReducer(
         }
     }),
 
-    on (handleOrder, (state, payload) => {
+    on(handleOrder, (state, payload) => {
 
         let auxHouses = [...state.allHouses!];
 

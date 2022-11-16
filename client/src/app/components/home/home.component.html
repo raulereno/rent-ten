@@ -41,7 +41,7 @@
         <!-- <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)" -->
         <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
             style="max-height: 38px; max-width: 20%; margin-top: 0.5%" class="form-select form-select-sm"
-            aria-label="Ejemplo de .form-select-lg" appearance="outline">
+            aria-label="Ejemplo de .form-select-lg" appearance="outline" (click)="handleCountryClick()">
             <mat-label>Selected Country</mat-label>
             <option selected value="">Select a country</option>
             <!-- <option *ngFor="let country of backupHouses" value="{{country}}">{{country}}</option> -->
@@ -58,13 +58,13 @@
             <option value="max">Most expensive</option>
         </select>
 
-        <!-- <select *ngIf="selectedCountry?.length" name="ciudades" [(ngModel)]="selectedCity" id=""
+        <select *ngIf="selectedCountry?.length" name="ciudades" [(ngModel)]="selectedCity" id=""
             style="max-height: 38px; max-width: 20%;" aria-label="Ejemplo de .form-select-lg"
             class="form-select form-select-sm" appearance="outline" (change)="handleCity(selectedCity)">
             <option *ngFor="let ciudades of city" [ngValue]="ciudades">
                 {{ciudades}}
             </option>
-        </select> -->
+        </select>
     </div>
 
     <div class="bodydiv">
