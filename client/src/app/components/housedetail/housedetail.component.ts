@@ -1,3 +1,5 @@
+import { loadPayment } from './../../redux/actions/location.actions';
+import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
@@ -17,12 +19,14 @@ import { userProfile } from 'src/app/models/UserProfile';
 export class HousedetailComponent implements OnInit {
 
 
-  constructor(private route: ActivatedRoute, 
-    public http: DataServiceService, 
-    private fb: FormBuilder, 
+  constructor(private route: ActivatedRoute,
+    public http: DataServiceService,
+    private fb: FormBuilder,
     private location: Location,
     private router : Router,
-    public auth: AuthService) { }
+    public auth: AuthService,
+    private _store:Store<any>,
+    ) { }
 
   userProfile: userProfile
   profileJson: any
@@ -39,8 +43,8 @@ export class HousedetailComponent implements OnInit {
     this.paramsId = this.route.snapshot.paramMap.get('id')
     this.paramsId && this.http.getHouse(this.paramsId).subscribe(data => this.house = data)
 
-    this.auth.user$.subscribe((res)=> { 
-      this.profileJson = res 
+    this.auth.user$.subscribe((res)=> {
+      this.profileJson = res
       this.http.getUser(this.profileJson.email).subscribe((res) => this.userProfile = res)
     })
 
@@ -49,7 +53,12 @@ export class HousedetailComponent implements OnInit {
         start: new FormControl(),
         end: new FormControl()
       })
-    })
+    });
+    
+  }
+
+  showInfo(){
+    console.log(this.form.value.guests.number);
   }
 
   unavailableDays = (calendarDate: Date): boolean => {
@@ -68,12 +77,12 @@ export class HousedetailComponent implements OnInit {
 
   formatDate(date:string) {
     let split = date.split("/")
-    let formatDate = split[2] + "-" + split[1] + "-" + split[0] 
+    let formatDate = split[2] + "-" + split[1] + "-" + split[0]
     return formatDate
   }
 
   reserveHouse(): void {
-    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };    
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     let startDate = this.formatDate(this.form.value.daterange.start.toLocaleDateString("en-GB", options))
     let endDate = this.formatDate(this.form.value.daterange.end.toLocaleDateString("en-GB", options))
     let newReserve = {start: startDate, end: endDate, reservedBy: this.userProfile.id}
@@ -83,8 +92,10 @@ export class HousedetailComponent implements OnInit {
       this.house.bookings = [...this.house.bookings, newReserve]
       alert("We sent you a email with the specifications of your reservation")
     }
+
+    this._store.dispatch(loadPayment({payload:{ userId: this.userProfile.id , start:startDate,end:endDate,totalPay:this.house.price,houseId:this.house.id  }}))
   }
-  
+
     pagar(): void {
     this.pagado = !this.pagado
   }
