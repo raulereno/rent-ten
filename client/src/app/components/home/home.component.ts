@@ -13,6 +13,7 @@ import { selectorListCountries, selectorListHouses, selectorListLoading, selecto
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { userProfile } from 'src/app/models/UserProfile';
 import { handleOrder } from 'src/app/redux/actions/location.actions';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -49,6 +50,7 @@ export class HomeComponent implements OnInit {
     public auth: AuthService,
     private store: Store<any>,
     private _helper: HelperService,
+    private modalService: NgbModal
   ) { }
 
   profileJson: any;
@@ -221,6 +223,12 @@ export class HomeComponent implements OnInit {
     console.log("hiciste click")
     selectedCountry: this.loadHouses()
     this.selectedCity = ""
+  }
+
+  openFilterModal(filters: any) {
+
+    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title' })
+
   }
 
 }
