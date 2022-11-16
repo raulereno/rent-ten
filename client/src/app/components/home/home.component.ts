@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit {
     this.http.getHouses().subscribe((res) => {
       this.store.dispatch(loadHouses({ allHouses: res }))
       this.allHouses$.subscribe(res => {
-        console.log("Console Res: ", res)
+        // console.log("Console Res: ", res)
         this.allHouses = res;
         let set = new Set(this.allHouses.map(e => e.country).sort())
         this.backupHouses = [...set];
@@ -175,9 +175,14 @@ export class HomeComponent implements OnInit {
     //   this.handleFilters();
     //   return
     // }
+
     this.selectedCountry = country
+
+    console.log("Las contry: ", country)
+
     this.handleFilters();
     let nombrecualquier = this.allHouses?.filter((elemten) => elemten.country === country)
+
     this.city = nombrecualquier?.map(elemt => elemt.city);
   }
 
@@ -212,6 +217,10 @@ export class HomeComponent implements OnInit {
     this.paginator.firstPage()
   }
 
-
+  handleCountryClick() {
+    console.log("hiciste click")
+    selectedCountry: this.loadHouses()
+    this.selectedCity = ""
+  }
 
 }
