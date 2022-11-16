@@ -25,14 +25,16 @@ export const initialState: GlobalState = {
         verificationCode: '',
         favoriteshouses: []
     },
-    paymentInfo:{
-      userId: '',
-      start: "",
-      end: "",
-      people: 0,
-      totalPay: 0,
-      houseId: ""
-    }
+    paymentInfo:[]
+
+    // {
+    //   userId: '',
+    //   start: "",
+    //   end: "",
+    //   people: 0,
+    //   totalPay: 0,
+    //   houseId: ""
+    // }
 }
 
 
@@ -156,7 +158,7 @@ export const countriesReducer = createReducer(
     on(loadPayment, (state,payload) => {
       return{
         ...state,
-        paymentInfo:payload.payload
+        paymentInfo:[...state.paymentInfo!, payload.payload]
       }
     })
 

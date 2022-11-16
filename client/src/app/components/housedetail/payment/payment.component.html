@@ -1,1 +1,23 @@
-<p>payment works!</p>
+<div>
+  <div style="display: flex; flex-direction: column;">
+    <h2>Request to book</h2>
+    <h3>Your trip</h3>
+    <p>Dates <span>{{paymentInfo.start}} - {{paymentInfo.end}} </span></p>
+     <p>Guests: <span>{{0}}</span></p> <!-- TODO: hacer esto del lado del house detail -->
+    <hr>
+    <h3>Choose how to pay</h3>
+    <p>Aca hay que poner como se pagaria</p>
+
+    <hr>
+    <h3>Pay with</h3>
+    <div id="cardPaymentBrick_container"></div>
+  </div>
+</div>
+
+
+
+
+<p>{{paymentInfo| json}}</p>
+
+<hr>
+<p>{{house|json}}</p>

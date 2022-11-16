@@ -71,7 +71,7 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
       { path : 'place/payment',component:PaymentComponent},
-      { path: "**", redirectTo: 'home' },
+      // { path: "**", redirectTo: 'home' },
     ]
   }
 ];
