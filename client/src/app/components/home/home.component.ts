@@ -1,5 +1,5 @@
 import { HelperService } from './../../services/helper.service';
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Country, City } from '../../models/location.model';
 import { LocationService } from '../../services/location.service';
@@ -12,7 +12,7 @@ import { Observable, pipe } from 'rxjs';
 import { selectorListCountries, selectorListHouses, selectorListLoading, selectorListProfile, selectorListBackup, selectorListCities } from 'src/app/redux/selectors/selectors';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { userProfile } from 'src/app/models/UserProfile';
-import { handleOrder } from 'src/app/redux/actions/location.actions';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -25,7 +25,7 @@ import { handleOrder } from 'src/app/redux/actions/location.actions';
 
 export class HomeComponent implements OnInit {
 
-  @ViewChild(MatPaginator, {static:false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   loading$: Observable<any> = new Observable();
   countries$: Observable<any> = new Observable()
@@ -49,7 +49,8 @@ export class HomeComponent implements OnInit {
     public auth: AuthService,
     private store: Store<any>,
     private _helper: HelperService,
-  ) {}
+    private modalService: NgbModal
+  ) { }
 
   profileJson: any;
   dbProfile: any = {}
@@ -58,7 +59,7 @@ export class HomeComponent implements OnInit {
   page_number: number = 1
   page_size_options = [5, 10, 20]
   filterHouses: House[] = []
-  countriesInDB:string[];
+  countriesInDB: string[];
 
   minPrice: number;
   maxPrice: number;
@@ -68,7 +69,7 @@ export class HomeComponent implements OnInit {
   selectedCity: string;
   order: string;
 
-  darkmode:boolean;
+  darkmode: boolean;
   // --- ON INIT ---
 
   ngOnInit(): void {
@@ -85,7 +86,7 @@ export class HomeComponent implements OnInit {
     this.getCountries()
     this.loadProfile();
     this.loadHouses()
-    this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
+    this._helper.customDarkMode.subscribe((active: boolean) => this.darkmode = active)
 
   }
 
@@ -99,26 +100,27 @@ export class HomeComponent implements OnInit {
     this.http.getHouses().subscribe((res) => {
       this.store.dispatch(loadHouses({ allHouses: res }))
       this.allHouses$.subscribe(res => {
+        // console.log("Console Res: ", res)
         this.allHouses = res;
-        let set = new Set(this.allHouses.map(e=>e.country).sort())
-        this.backupHouses= [...set];
+        let set = new Set(this.allHouses.map(e => e.country).sort())
+        this.backupHouses = [...set];
       })
     })
   }
 
   loadProfile(): void {
     this.auth.user$.subscribe(profile => {
-      this.profileJson = profile;
+      this.profileJson = profile
       this.http.getUser(this.profileJson.email).subscribe(res => {
         this.store.dispatch(loadProfile({ userProfile: res }));
-
         this.userProfile$.subscribe(res => {
           this.userProfile = res
           this.dbProfile = res
         })
-      })
-      this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
+      });
+      this.http.updateUser(this.profileJson.email, this.profileJson.sub);
     })
+
   }
 
   getCountries() {
@@ -172,9 +174,14 @@ export class HomeComponent implements OnInit {
     //   this.handleFilters();
     //   return
     // }
+
     this.selectedCountry = country
+
+    console.log("Las contry: ", country)
+
     this.handleFilters();
     let nombrecualquier = this.allHouses?.filter((elemten) => elemten.country === country)
+
     this.city = nombrecualquier?.map(elemt => elemt.city);
   }
 
@@ -184,6 +191,7 @@ export class HomeComponent implements OnInit {
     console.log("city", city)
     this.handleFilters()
     // let nombrecualquier = this.allHouses?.filter((elemten) => elemten.city === city)
+  }
 
   handleOrder(order: string) {
     this.order = order;
@@ -201,11 +209,22 @@ export class HomeComponent implements OnInit {
         selectedCity: this.selectedCity
       }
     }))
-    
+
+
     this.paginator.firstPage()
-    this.store.dispatch(handleOrder({payload: this.order}))
+    //this.store.dispatch(handleOrder({payload: this.order}))
   }
 
+  handleCountryClick() {
+    console.log("hiciste click")
+    selectedCountry: this.loadHouses()
+    this.selectedCity = ""
+  }
 
+  openFilterModal(filters: any) {
+
+    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title' })
+
+  }
 
 }

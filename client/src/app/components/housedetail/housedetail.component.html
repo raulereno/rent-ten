@@ -56,8 +56,15 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
 
+
             </mat-form-field>
+            <select name="" id="" formControlName="number">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
         </form>
+        <button (click)="showInfo()"></button>
 
         <button [disabled]="!pagado" *ngIf="form.value.daterange.start && this.form.value.daterange.end" type="button"
             (click)="reserveHouse()" class="btn btn-outline-info">Reserve now</button>
