@@ -58,7 +58,7 @@ export const CREATORS: About[] = [
     id: 6,
     name: 'Ariana',
     lastName: 'Amaya Natel',
-    image: '',
+    image: 'https://res.cloudinary.com/dbgpp8nla/image/upload/v1668562036/vctyo5yh6vkikudbsbhz.jpg',
     info: 'FullStack Developer',
     gitHub: 'https://github.com/AriiJackson',
     linkIn: 'https://www.linkedin.com/in/ariana-virginia-amaya-natel/'
