@@ -43,36 +43,21 @@ export class HouseComponent implements OnInit {
     }
   }
 
-  /* setFavoriteVisitor(favorites: House){
-    let favoritesHouses: House[] = [];
-     if(localStorage.getItem('favorite')===null){
-      favoritesHouses.push(favorites)
-      // this.store.dispatch(addFavoriteHouse({payload: houseId}))
-      localStorage.setItem('favorite', JSON.stringify(favorites));
-     } else {
-      favoritesHouses = JSON.parse(localStorage.getItem('favorite')!);
-     favoritesHouses.push(favorites)
-    //   // this.store.dispatch(addFavoriteHouse({payload: houseId}))
-    localStorage.setItem('favorite', JSON.stringify(favorites))}
-    console.log(favoritesHouses)} */
-  
 
-  /* setFavoriteVisitor2(houseId: string): void {
-    let favoritesHouses:any = [];
-    // if(localStorage.getItem('favorite')===null){
-      // favoritesHouses.push(houseId)
-      // this.store.dispatch(addFavoriteHouse({payload: houseId}))
-      localStorage.setItem('favorite', JSON.stringify(houseId));
-    // } else {
-    //   favoritesHouses = JSON.parse(localStorage.getItem('favorite')!);
-    // //  favoritesHouses.push(houseId)
-    //   // this.store.dispatch(addFavoriteHouse({payload: houseId}))
-    // localStorage.setItem('favorite', JSON.stringify(houseId))}
-  } */
 
+  // -----------------------------DIANA---------------
   toggleFavorite(houseId:string):void{
     this.localStorageSvc.addToFavorite(houseId)
   }
+
+  toggledeleteFavorite(houseId:string):void{
+    this.localStorageSvc.removeFavorite(houseId)
+  }
+
+
+// -----------------------------
+
+
 
 
   deleteFavorite(houseId: string, userId: string): void {

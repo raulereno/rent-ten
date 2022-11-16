@@ -19,7 +19,8 @@
             <button id="removefav" class="favourites" *ngIf="checkIsFavorite(house.id) === true" (click)="deleteFavorite(house.id, dbProfile.id)">-</button>
         </div>
     </div>
-
+    <button (click)="toggleFavorite(house.id)">like</button>
+    <button (click)="toggledeleteFavorite(house.id)">delete</button>
     <div class="botdiv">
         <h3 class="info">{{house.rooms}} room/s</h3>
         <h3 class="info">{{house.bathrooms}} bathroom/s</h3>
