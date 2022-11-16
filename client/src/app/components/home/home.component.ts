@@ -191,6 +191,7 @@ export class HomeComponent implements OnInit {
     console.log("city", city)
     this.handleFilters()
     // let nombrecualquier = this.allHouses?.filter((elemten) => elemten.city === city)
+  }
 
   handleOrder(order: string) {
     this.order = order;
