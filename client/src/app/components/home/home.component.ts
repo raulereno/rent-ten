@@ -136,7 +136,6 @@ export class HomeComponent implements OnInit {
   // --- PAGINATION ----
 
   handlePage(e: PageEvent) {
-    console.log(e);
     this.page_size = e.pageSize
     this.page_number = e.pageIndex + 1
   }
@@ -147,7 +146,6 @@ export class HomeComponent implements OnInit {
 
   handlePriceMin(event: any) {
     this.minPrice = event.target.value
-    console.log(this.minPrice, this.maxPrice, this.allowpets, this.wifi)
     this.handleFilters()
 
   }
@@ -215,6 +213,7 @@ export class HomeComponent implements OnInit {
     }))
 
     this.paginator.firstPage()
+    this.store.dispatch(handleOrder({payload: this.order}))
   }
 
   handleCountryClick() {

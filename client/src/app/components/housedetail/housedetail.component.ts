@@ -5,6 +5,8 @@ import { House } from '../../models/House';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
+import { AuthService } from '@auth0/auth0-angular';
+import { userProfile } from 'src/app/models/UserProfile';
 
 @Component({
   selector: 'app-housedetail',
@@ -14,17 +16,21 @@ import { Location } from '@angular/common';
 })
 export class HousedetailComponent implements OnInit {
 
+
   constructor(private route: ActivatedRoute, 
     public http: DataServiceService, 
     private fb: FormBuilder, 
     private location: Location,
-    private router : Router) { }
+    private router : Router,
+    public auth: AuthService) { }
 
+  userProfile: userProfile
+  profileJson: any
   paramsId: string | null
   house: House
   form: FormGroup
   booking: boolean = false
-  pagado: boolean; 
+  pagado: boolean;
 
   indexPhoto: number = 0
 
@@ -32,6 +38,11 @@ export class HousedetailComponent implements OnInit {
   ngOnInit(): void {
     this.paramsId = this.route.snapshot.paramMap.get('id')
     this.paramsId && this.http.getHouse(this.paramsId).subscribe(data => this.house = data)
+
+    this.auth.user$.subscribe((res)=> { 
+      this.profileJson = res 
+      this.http.getUser(this.profileJson.email).subscribe((res) => this.userProfile = res)
+    })
 
     this.form = this.fb.group({
       daterange: new FormGroup({
@@ -65,20 +76,15 @@ export class HousedetailComponent implements OnInit {
     var options = { year: 'numeric', month: '2-digit', day: '2-digit' };    
     let startDate = this.formatDate(this.form.value.daterange.start.toLocaleDateString("en-GB", options))
     let endDate = this.formatDate(this.form.value.daterange.end.toLocaleDateString("en-GB", options))
-    
-    console.log(startDate)
+    let newReserve = {start: startDate, end: endDate, reservedBy: this.userProfile.id}
 
-    let newReserve = {
-      start: startDate,
-      end: endDate,
-      reservedBy: 'falta agregar userId'
+    if (this.pagado) {
+      this.http.makeABook(this.house.id, newReserve)
+      this.house.bookings = [...this.house.bookings, newReserve]
+      alert("We sent you a email with the specifications of your reservation")
     }
-    console.log(newReserve)
-    if (this.pagado) {this.http.makeABook(this.house.id, newReserve)
-      alert("Congrats! We sent you a email with the specifications of your reservation")
-      this.router.navigate(['home']); }
   }
-
+  
     pagar(): void {
     this.pagado = !this.pagado
   }
