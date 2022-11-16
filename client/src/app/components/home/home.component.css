@@ -1,40 +1,47 @@
 @keyframes fadein {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-.topdiv{
-display: flex;
-justify-content: space-evenly;
-margin-top: 20px;
-margin-bottom: 30px;
-margin-left: 20%;
-margin-right: 20%;
-height: 30px;
+.topdiv {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: 20%;
+  margin-right: 20%;
+  height: 30px;
 }
 
-.flexdiv{
-  display:flex;
+.flexdiv {
+  display: flex;
   flex-direction: column;
 }
 
-.bodydiv{
+.bodydiv {
   width: 100%;
   height: fit-content;
 }
 
-.grid{
+.grid {
   display: grid;
   justify-content: center;
   grid-template-columns: 290px 290px 290px 290px 290px;
 }
 
-.cardsrender{
+.cardsrender {
   margin-left: 30px;
   margin-top: 30px;
   width: 80%;
 }
-.darkmodeFilter, .darkmodePaginado{
+
+.darkmodeFilter,
+.darkmodePaginado {
   background-color: rgba(0, 0, 0, 0.525);
   transition: all 1s;
 }

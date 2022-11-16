@@ -17,13 +17,15 @@ module.exports = (sequelize) => {
       },
 
       picture: {
-        type:DataTypes.TEXT,
+        type: DataTypes.TEXT,
         allowNull: true,
+        defaultValue:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX8f7VOnz8lNzJYkzplysK2YOloLjzJoT8LA&usqp=CAU",
       },
-      
+
       sub: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
 
       lastname: {
@@ -42,15 +44,15 @@ module.exports = (sequelize) => {
       },
 
       authorized: {
-        type: DataTypes.ENUM('all', 'view', 'not', 'unsubscribed'),
+        type: DataTypes.ENUM("all", "view", "not", "unsubscribed"),
         allowNull: false,
-        defaultValue: 'all'
+        defaultValue: "all",
       },
 
       verified: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 'not_verified',
+        defaultValue: "not_verified",
       },
 
       verificationCode: {
@@ -69,7 +71,6 @@ module.exports = (sequelize) => {
         allowNull: true,
         defaultValue: [],
       },
-      
     },
 
     {

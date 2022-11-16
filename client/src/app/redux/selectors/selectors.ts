@@ -8,10 +8,11 @@ export const selectorItemsAllHouses = (state: AppState) => state.globalState;
 export const selectorItemsUserProfile = (state: AppState) => state.globalState;
 export const selectorListBackupHouses = (state: AppState) => state.globalState;
 export const selectorItemsCities = (state: AppState) => state.globalState;
+export const selectorItemsPayment = (state: AppState) => state.globalState;
 
 export const selectorListCountries = createSelector(
     selectorItemsCountries,
-    (state: GlobalState) => state.countries
+    (state: GlobalState) => [...[state.countries], state.countries]
 )
 
 export const selectorListLoading = createSelector(
@@ -37,4 +38,9 @@ export const selectorListBackup = createSelector(
 export const selectorListCities = createSelector(
     selectorItemsCities,
     (state: GlobalState) => state.cities
+)
+
+export const selectorPayment = createSelector(
+  selectorItemsPayment,
+  (state:GlobalState)=> state.paymentInfo
 )
