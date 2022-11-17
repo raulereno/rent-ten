@@ -72,6 +72,7 @@ export class HomeComponent implements OnInit {
   // --- ON INIT ---
 
   ngOnInit(): void {
+    this._helper.customDarkMode.subscribe((active: boolean) => this.darkmode = active)
 
     this.loading$ = this.store.select(selectorListLoading);
     this.countries$ = this.store.select(selectorListCountries);
@@ -85,15 +86,12 @@ export class HomeComponent implements OnInit {
     this.getCountries()
     this.loadProfile();
     this.loadHouses()
-    this._helper.customDarkMode.subscribe((active: boolean) => this.darkmode = active)
 
   }
 
   // --- LOCAL FUNCTIONS ----
 
-  showInfo() {
-    console.log()
-  }
+
 
   loadHouses(): void {
     this.http.getHouses().subscribe((res) => {
