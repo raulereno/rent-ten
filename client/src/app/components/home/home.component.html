@@ -2,45 +2,8 @@
 <div class="container">
     <div class="topdiv">
 
-        <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
-            (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
-            class="btn btn-primary btn-sm"><span class="material-icons">pets</span>
-        </button>
-
-        <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
-            (click)="handleCheckboxP(true)" *ngIf="allowpets === undefined || allowpets === false" type="button"
-            class="btn btn-secondary btn-sm"><span class="material-icons">pets</span>
-        </button>
-
-        <button title="With wifi." style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
-            (click)="handleCheckboxW(false)" *ngIf="wifi === true" type="button" class="btn btn-primary btn-sm"><span
-                class="material-icons">wifi</span>
-
-        </button>
-        <button title="With wifi" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
-            (click)="handleCheckboxW(true)" *ngIf="wifi === undefined || wifi === false" type="button"
-            class="btn btn-secondary btn-sm"><span class="material-icons">wifi</span>
-
-        </button>
-
-        <div style="font-size: 10px; ">
-            <mat-form-field style="max-width: 150px; max-height: 20px;" appearance="outline">
-                <mat-label>Min price</mat-label>
-                <input type="number" matInput placeholder="USD" [(ngModel)]="minPrice" (input)="handlePriceMin($event)">
-                <mat-icon matPrefix>dolar_symbol</mat-icon>
-            </mat-form-field>
-
-
-            <mat-form-field style="max-width: 150px;" appearance="outline">
-                <mat-label>Max price</mat-label>
-                <input type="number" matInput placeholder="USD" [(ngModel)]="maxPrice" (input)="handlePriceMax($event)">
-                <mat-icon matPrefix>dolar_symbol</mat-icon>
-            </mat-form-field>
-        </div>
-
-        <!-- <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)" -->
-        <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
-            style="max-height: 38px; max-width: 20%; margin-top: 0.5%" class="form-select form-select-sm"
+        <select name="selectedCountry" [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
+            style="max-height: 100%; max-width: 30%; margin-top: 0.5%" class="form-select form-select-sm"
             aria-label="Ejemplo de .form-select-lg" appearance="outline" (click)="handleCountryClick()">
             <mat-label>Selected Country</mat-label>
             <option selected value="">Select a country</option>
@@ -49,33 +12,130 @@
 
         </select>
 
-        <select aria-placeholder="Order by" [(ngModel)]='order' (change)="handleOrder(order)"
-            style="max-height: 40px; max-width: 20%; margin-top: 0.5%" class="form-select form-select-sm"
-            appearance="outline">
-            <mat-label>Order by</mat-label>
-            <option selected value="">Order by</option>
-            <option value="min">Cheapest first</option>
-            <option value="max">Most expensive</option>
-        </select>
-
         <select *ngIf="selectedCountry?.length" name="ciudades" [(ngModel)]="selectedCity" id=""
-            style="max-height: 38px; max-width: 20%;" aria-label="Ejemplo de .form-select-lg"
+            style="max-height: 100%; max-width: 30%;" aria-label="Ejemplo de .form-select-lg"
             class="form-select form-select-sm" appearance="outline" (change)="handleCity(selectedCity)">
             <option *ngFor="let ciudades of city" [ngValue]="ciudades">
                 {{ciudades}}
             </option>
         </select>
+
     </div>
 
-    <div class="bodydiv">
-        <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size"
-            [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
-        </mat-paginator>
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-item-center">
+            <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size"
+                [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
+            </mat-paginator>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button style="max-height: 10%; max-width: 20%;">
+                <span class="row" type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)">
+                    <mat-icon>filter_list</mat-icon><span>More Filters</span>
+                </span>
+            </button>
 
-        <div class="grid">
-            <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
-                [house]="house" [dbProfile]="dbProfile"></app-house>
         </div>
-
     </div>
+
+    <div>
+        <div class="bodydiv">
+            <div class="grid">
+                <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
+                    [house]="house" [dbProfile]="dbProfile"></app-house>
+            </div>
+
+        </div>
+    </div>
+
+
 </div>
+
+<ng-template #filters let-modal>
+    <div class="modal-header">
+        Filters
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-2">
+
+                <ng-container>
+
+                    <div class="modalmb-2">
+                        <div class="modal-header d-flex justify-content-between align-item-center">
+                            Price range
+                        </div>
+
+                        <div class="modal-body">
+                            <div style="font-size: 10px; ">
+                                <mat-form-field style="max-width: 150px; max-height: 20px;" appearance="outline">
+                                    <mat-label>Min price</mat-label>
+                                    <input name="minPrice" type="number" matInput placeholder="USD"
+                                        [(ngModel)]="minPrice" (input)="handlePriceMin($event)">
+                                    <mat-icon matPrefix>dolar_symbol</mat-icon>
+                                </mat-form-field>
+
+
+                                <mat-form-field style="max-width: 150px;" appearance="outline">
+                                    <mat-label>Max price</mat-label>
+                                    <input name="maxPrice" type="number" matInput placeholder="USD"
+                                        [(ngModel)]="maxPrice" (input)="handlePriceMax($event)">
+                                    <mat-icon matPrefix>dolar_symbol</mat-icon>
+                                </mat-form-field>
+
+                                <select aria-placeholder="Order by" [(ngModel)]='order' (change)="handleOrder(order)"
+                                    style="max-height: 20%; max-width: 40%; margin-top: 0.5%"
+                                    class="form-select form-select-sm" appearance="outline">
+                                    <mat-label>Order by</mat-label>
+                                    <option selected value="">Order by</option>
+                                    <option value="min">Cheapest first</option>
+                                    <option value="max">Most expensive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer"></div>
+                    </div>
+
+                    <div class="modalmb-2">
+                        <div class="modal-header d-flex justify-content-between align-item-center">
+                            Services
+                        </div>
+                        <div class="modal-body">
+
+                            <button title="Allow pets" name="allowpets"
+                                style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+                                (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
+                                class="btn btn-primary btn-sm"><span class="material-icons">pets</span>
+                            </button>
+                            <button title="Allow pets"
+                                style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+                                (click)="handleCheckboxP(true)" *ngIf="allowpets === undefined || allowpets === false"
+                                type="button" class="btn btn-secondary btn-sm"><span class="material-icons">pets</span>
+                            </button>
+
+                            <button title="With wifi." name="wifi"
+                                style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+                                (click)="handleCheckboxW(false)" *ngIf="wifi === true" type="button"
+                                class="btn btn-primary btn-sm"><span class="material-icons">wifi</span>
+
+                            </button>
+                            <button title="With wifi"
+                                style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+                                (click)="handleCheckboxW(true)" *ngIf="wifi === undefined || wifi === false"
+                                type="button" class="btn btn-secondary btn-sm"><span class="material-icons">wifi</span>
+
+                            </button>
+
+                        </div>
+                        <div class="modal-footer"></div>
+                    </div>
+
+                </ng-container>
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="clearFilters('clearfilt')">Clear filters</button>
+    </div>
+</ng-template>
