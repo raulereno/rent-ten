@@ -11,7 +11,7 @@ export const selectorItemsCities = (state: AppState) => state.globalState;
 
 export const selectorListCountries = createSelector(
     selectorItemsCountries,
-    (state: GlobalState) => [...[state.countries], state.countries]
+    (state: GlobalState) => state.countries
 )
 
 export const selectorListLoading = createSelector(

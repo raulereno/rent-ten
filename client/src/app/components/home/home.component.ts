@@ -62,8 +62,8 @@ export class HomeComponent implements OnInit {
   filterHouses: House[] = []
   countriesInDB: string[];
 
-  minPrice: number;
-  maxPrice: number;
+  minPrice: number | null;
+  maxPrice: number | null;
   allowpets: boolean;
   wifi: boolean;
   selectedCountry: string;
@@ -229,5 +229,19 @@ export class HomeComponent implements OnInit {
     this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title' })
 
   }
+
+  clearFilters(clearfilt: any) {
+
+    console.log("Limpiando Filtros")
+
+    this.minPrice = null
+    this.maxPrice = null
+    this.allowpets = false
+    this.wifi = false
+    this.selectedCountry = "";
+    selectedCountry: this.loadHouses()
+
+  }
+
 
 }
