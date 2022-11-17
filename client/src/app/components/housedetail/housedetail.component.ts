@@ -10,12 +10,11 @@ import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
 
-
-const  generateRandomString = () => {
-  let result= Math.random().toString(36).substring(0,12);
+const generateRandomString = () => {
+  let result = Math.random().toString(36).substring(0, 12);
 
   return result;
-}
+};
 
 @Component({
   selector: 'app-housedetail',
@@ -65,8 +64,6 @@ export class HousedetailComponent implements OnInit {
     });
   }
 
-
-
   unavailableDays = (calendarDate: Date): boolean => {
     if (!this.house.bookings) return true;
     return !this.house.bookings.some(
@@ -107,15 +104,15 @@ export class HousedetailComponent implements OnInit {
 
     // if (this.pagado) {
     // } las tres lineas siguientes iban en este condicional
-      this.http.makeABook(this.house.id, newReserve);
-      this.house.bookings = [...this.house.bookings, newReserve];
-      alert('We sent you a email with the specifications of your reservation');
+    this.http.makeABook(this.house.id, newReserve);
+    this.house.bookings = [...this.house.bookings, newReserve];
+    alert('We sent you a email with the specifications of your reservation');
 
-    let paymentCode= generateRandomString() //
+    let paymentCode = generateRandomString(); //
     this._store.dispatch(
       loadPayment({
         payload: {
-          paymentId:paymentCode,
+          paymentId: paymentCode,
           userId: this.userProfile.id,
           start: startDate,
           end: endDate,
@@ -125,11 +122,17 @@ export class HousedetailComponent implements OnInit {
       })
     );
     //?paymentcode=${paymentCode}&houseId=${this.house.id}`
-    this.router.navigate(
-      ["/place/payment"],
-      {queryParams:
-        {paymentcode:paymentCode,houseId:this.house.id}
-    })
+
+    this.router.navigate(['/place/payment'], {
+      queryParams: { paymentcode: paymentCode, houseId: this.house.id },
+    });
+
+    // this.router.navigate(
+
+    //   ["/place/payment"],
+    //   {queryParams:
+    //     {paymentcode:paymentCode,houseId:this.house.id}
+    // })
   }
 
   // pagar(): void {

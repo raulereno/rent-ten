@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { selectorPayment } from 'src/app/redux/selectors/selectors';
 import { Observable } from 'rxjs';
 import { House } from 'src/app/models/House';
+import { Location } from '@angular/common';
+var mercadopago = require('./')
 //No funciona bien
 // declare var MercadoPago: any;
 // declare global {
@@ -21,7 +23,7 @@ import { House } from 'src/app/models/House';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit {
-  constructor(private store: Store<any>, private route: ActivatedRoute) {}
+  constructor(private store: Store<any>, private route: ActivatedRoute, private location:Location) {}
 
   paymentInfo$: Observable<any> = new Observable();
   paymentInfo: Booking;
@@ -30,9 +32,11 @@ export class PaymentComponent implements OnInit {
   house: House;
 
   payState:any;
+  reload:boolean=true
 
 
   ngOnInit(): void {
+    this.initMp()
     // this.loadMp();
     this.paymentInfo$ = this.store.select(selectorPayment);
     this.house$ = this.store.select(selectorListHouses);
@@ -45,10 +49,16 @@ export class PaymentComponent implements OnInit {
 
         this.house$.subscribe((res) => {
           this.house = res.filter((e: House) => e.id === query['houseId'])[0];
+
         });
       });
     });
+  }
+  initMp(){
 
+  }
+  reloadPage(){
+    window.location.reload()
   }
   showInfo(){
     console.log(this.payState);

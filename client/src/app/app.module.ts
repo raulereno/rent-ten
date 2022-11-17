@@ -52,6 +52,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment as env } from 'src/environments/environment';
+import { ContainerMPComponent } from './components/housedetail/payment/container-mp/container-mp.component';
 
 
 
@@ -91,6 +92,7 @@ const routes: Routes = [
     DialogBodyComponent,
     ReviewsComponent,
     PaymentComponent,
+    ContainerMPComponent,
 
   ],
   imports: [

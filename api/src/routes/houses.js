@@ -148,7 +148,7 @@ router.delete("/deletehouse", async (req, res) => {
     console.log(error);
   }
 });
-//paymen
+//payment
 router.post("/process_payment", (req, res) => {
   console.log("BODY DE LA LLAMADA", req.body);
 
