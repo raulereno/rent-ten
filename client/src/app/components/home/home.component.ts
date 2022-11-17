@@ -111,17 +111,17 @@ export class HomeComponent implements OnInit {
 
   loadProfile(): void {
     this.auth.user$.subscribe(profile => {
-      this.profileJson = profile;
+      this.profileJson = profile
       this.http.getUser(this.profileJson.email).subscribe(res => {
         this.store.dispatch(loadProfile({ userProfile: res }));
-
         this.userProfile$.subscribe(res => {
           this.userProfile = res
           this.dbProfile = res
         })
-      })
-      this.http.updateUser(this.profileJson.email, this.profileJson.picture, this.profileJson.sub)
+      });
+      this.http.updateUser(this.profileJson.email, this.profileJson.sub);
     })
+
   }
 
   getCountries() {
@@ -214,8 +214,9 @@ export class HomeComponent implements OnInit {
       }
     }))
 
+
     this.paginator.firstPage()
-    // this.store.dispatch(handleOrder({payload: this.order}))
+    //this.store.dispatch(handleOrder({payload: this.order}))
   }
 
   handleCountryClick() {
