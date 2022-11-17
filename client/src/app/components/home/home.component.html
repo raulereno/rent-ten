@@ -1,6 +1,10 @@
 <!-- <div  class="flexdiv"> -->
 <div class="container">
-    <div class="topdiv">
+    <div [ngClass]="
+    darkmode
+      ? 'topdiv mat-app-background darkmode'
+      : 'topdiv mat-app-background'
+  ">
 
         <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
             (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
@@ -68,7 +72,7 @@
     </div>
 
     <div class="bodydiv">
-        <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size"
+        <mat-paginator [ngClass]="darkmode? 'paginado mat-app-background darkmode':'mat-app-background paginado'" [length]="allHouses.length" [pageSize]="page_size"
             [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
         </mat-paginator>
 

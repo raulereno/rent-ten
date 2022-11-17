@@ -11,6 +11,7 @@ export class ContainerMPComponent implements OnInit {
 
   ngOnInit(): void {
     window.location.reload()
+    
   }
 
 }

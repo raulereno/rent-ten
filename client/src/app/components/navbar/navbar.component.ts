@@ -62,7 +62,7 @@ export class NavbarComponent implements OnInit {
 
   darkMode() : void{
      this.darkmode = !this.darkmode;
-     //this._helper.changeMode(this.darkmode)
+     this._helper.changeMode(this.darkmode)
   }
 
 

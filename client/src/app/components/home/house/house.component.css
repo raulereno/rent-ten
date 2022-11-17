@@ -6,6 +6,19 @@
     border-radius: 15px 15px 15px 15px;
     margin-bottom: 2rem;
 }
+.darkmode{
+  background-color: #303030;
+  color: white;
+  transition: all 1s;
+}
+.darkmode .price{
+  color: white;
+}
+.darkmode .info{
+  font-weight: 100;
+    color: white;
+    margin: -4px;
+}
 
 .housecard:hover .image{
     transition: 0.5s;
@@ -33,6 +46,9 @@
     left: 4%;
     z-index: +1;
 }
+.darkmode #leftarrow{
+  color: black;
+}
 
 .image{
     height: 200px;
@@ -45,6 +61,9 @@
     position: relative;
     bottom: 45%;
     left: 86%;
+}
+.darkmode #rightarrow{
+  color: black;
 }
 
 .firstdiv{

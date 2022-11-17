@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { addFavoriteHouse, deleteFavoriteHouse } from 'src/app/redux/actions/location.actions';
 import { Store } from '@ngrx/store';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
+import { HelperService } from 'src/app/services/helper.service';
 
 
 @Component({
@@ -24,13 +25,20 @@ export class HouseComponent implements OnInit {
   public userProfile: userProfile;
 
 
-  constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>,) { }
+  constructor(
+    public http: DataServiceService,
+    public auth: AuthService,
+    private router: Router,
+    private store: Store<any>,
+    private _helper:HelperService
+    ) { }
 
   profileJson: any;
-  allHouses: House[] = []
-  indexPhoto: number = 0
-  starRating: number
-  n:number
+  allHouses: House[] = [];
+  indexPhoto: number = 0;
+  starRating: number;
+  n:number;
+  darkmode:boolean;
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
@@ -38,9 +46,10 @@ export class HouseComponent implements OnInit {
       this.n = 0
       this.house.scores.forEach((score) => this.n = this.n + score)
       this.starRating = this.n / this.house.scores.length
-   }) 
+   })
+   this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
   }
-  
+
   setFavorite(houseId: string, userId: string): void {
     if (!userId) {
       this.auth.loginWithRedirect();
@@ -79,7 +88,7 @@ export class HouseComponent implements OnInit {
   paginationBack() {
     if (this.indexPhoto !== 0) { this.indexPhoto-- }
   }
-  
+
   getRating() {
 
     let random_num = [...Array(Math.floor(Math.random() * 5)).keys()]
