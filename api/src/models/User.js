@@ -19,7 +19,8 @@ module.exports = (sequelize) => {
       picture: {
         type: DataTypes.TEXT,
         allowNull: true,
-        defaultValue: "https://www.softzone.es/app/uploads/2018/04/guest.png",
+        defaultValue:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX8f7VOnz8lNzJYkzplysK2YOloLjzJoT8LA&usqp=CAU",
       },
 
       sub: {

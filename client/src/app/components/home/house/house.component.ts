@@ -23,16 +23,24 @@ export class HouseComponent implements OnInit {
   userProfile$: Observable<any> = new Observable()
   public userProfile: userProfile;
 
+
   constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>,) { }
 
   profileJson: any;
   allHouses: House[] = []
   indexPhoto: number = 0
+  starRating: number
+  n:number
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
+    this.userProfile$.subscribe(() => {
+      this.n = 0
+      this.house.scores.forEach((score) => this.n = this.n + score)
+      this.starRating = this.n / this.house.scores.length
+   }) 
   }
-
+  
   setFavorite(houseId: string, userId: string): void {
     if (!userId) {
       this.auth.loginWithRedirect();
@@ -57,7 +65,7 @@ export class HouseComponent implements OnInit {
   }
 
   showInfo() {
-    console.log(this.userProfile$)
+    console.log(this.n)
   }
 
   giveMePhoto() {
@@ -70,6 +78,16 @@ export class HouseComponent implements OnInit {
 
   paginationBack() {
     if (this.indexPhoto !== 0) { this.indexPhoto-- }
+  }
+  
+  getRating() {
+
+    let random_num = [...Array(Math.floor(Math.random() * 5)).keys()]
+    const stars = '★'
+    const emptystars = "&#x2605";
+    let array = random_num.map(() => stars)
+    let random = array.join("")
+    return random
   }
 
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);

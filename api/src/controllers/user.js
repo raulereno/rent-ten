@@ -28,11 +28,7 @@ const createUser = async (data) => {
 
   return createUser;
 };
-
 const updateProfilePicture = async (userID, newPicture, authID) => {
-  console.log(userID);
-  console.log(newPicture);
-  console.log(authID);
   const finder = await User.findOne({ where: { id: userID } });
   await finder.update({ picture: newPicture });
   // axios
