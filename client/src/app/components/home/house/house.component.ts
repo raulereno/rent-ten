@@ -43,43 +43,30 @@ export class HouseComponent implements OnInit {
   
   setFavorite(houseId: string, userId: string): void {
     if (!userId) {
-      this.auth.loginWithRedirect();
+        this.toggleFavorite(houseId)
     } else {
       this.http.setFavorite(houseId, userId)
       this.store.dispatch(addFavoriteHouse({ payload: houseId }))
     }
   }
 
-
-
-  // -----------------------------DIANA---------------
   toggleFavorite(houseId:string):void{
     this.localStorageSvc.addToFavorite(houseId)
+    
   }
-
-  toggledeleteFavorite(houseId:string):void{
-    this.localStorageSvc.removeFavorite(houseId)
-  }
-
-
-// -----------------------------
-
-
-
 
   deleteFavorite(houseId: string, userId: string): void {
     this.http.deleteFavorite(houseId, userId)
     this.store.dispatch(deleteFavoriteHouse({ payload: houseId }))
   }
 
-
   checkIsFavorite(houseId: string) {
     if (this.dbProfile.favoriteshouses) {
       return this.dbProfile.favoriteshouses.some((h: any) => h == houseId)
     } else {
       return false
-    }
-  }
+    }} 
+  
 
   showInfo() {
     console.log(this.n)
