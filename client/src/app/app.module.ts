@@ -42,6 +42,7 @@ import { CloudinaryModule } from '@cloudinary/ng';
 //DROP-ZONE
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PaginatePipe } from './pipes/paginate.pipe';
+
 //NGRX
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -118,6 +119,7 @@ const routes: Routes = [
     MatDialogModule,
     MatInputModule,
     MatPaginatorModule,
+    MatCheckboxModule,
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatCheckboxModule,

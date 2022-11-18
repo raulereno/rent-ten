@@ -174,11 +174,14 @@ router.post("/fulldb", async (req, res) => {
       }
     });
 
-    res.status(200).json({ msg: "Base de datos creada" });
+    res.status(100).json({ msg: "Base de datos creada" });
   } catch (error) {
     res.status(400).json(error);
   }
 });
+
+
+
 module.exports = router;
 
 

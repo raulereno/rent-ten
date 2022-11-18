@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { addFavoriteHouse, deleteFavoriteHouse } from 'src/app/redux/actions/location.actions';
 import { Store } from '@ngrx/store';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 
 @Component({
@@ -23,8 +24,7 @@ export class HouseComponent implements OnInit {
   userProfile$: Observable<any> = new Observable()
   public userProfile: userProfile;
 
-
-  constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>,) { }
+  constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>, private localStorageSvc:LocalStorageService) { }
 
   profileJson: any;
   allHouses: House[] = []
@@ -43,11 +43,16 @@ export class HouseComponent implements OnInit {
   
   setFavorite(houseId: string, userId: string): void {
     if (!userId) {
-      this.auth.loginWithRedirect();
+        this.toggleFavorite(houseId)
     } else {
       this.http.setFavorite(houseId, userId)
       this.store.dispatch(addFavoriteHouse({ payload: houseId }))
     }
+  }
+
+  toggleFavorite(houseId:string):void{
+    this.localStorageSvc.addToFavorite(houseId)
+    
   }
 
   deleteFavorite(houseId: string, userId: string): void {
@@ -55,14 +60,13 @@ export class HouseComponent implements OnInit {
     this.store.dispatch(deleteFavoriteHouse({ payload: houseId }))
   }
 
-
   checkIsFavorite(houseId: string) {
     if (this.dbProfile.favoriteshouses) {
       return this.dbProfile.favoriteshouses.some((h: any) => h == houseId)
     } else {
       return false
-    }
-  }
+    }} 
+  
 
   showInfo() {
     console.log(this.n)
