@@ -12,7 +12,9 @@ import { Observable, pipe } from 'rxjs';
 import { selectorListCountries, selectorListHouses, selectorListLoading, selectorListProfile, selectorListBackup, selectorListCities } from 'src/app/redux/selectors/selectors';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { userProfile } from 'src/app/models/UserProfile';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox'
 import { handleOrder } from 'src/app/redux/actions/location.actions';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -40,6 +42,7 @@ export class HomeComponent implements OnInit {
   public userProfile: userProfile;
   public backupHouses: string[];
   public city: string[]
+ 
 
   // ****** CONSTRUCTOR ******* //
 
@@ -48,7 +51,10 @@ export class HomeComponent implements OnInit {
     public http: DataServiceService,
     public auth: AuthService,
     private store: Store<any>,
+   
+    
     private _helper: HelperService,
+    private modalService: NgbModal
   ) { }
 
   profileJson: any;
@@ -60,8 +66,8 @@ export class HomeComponent implements OnInit {
   filterHouses: House[] = []
   countriesInDB: string[];
 
-  minPrice: number;
-  maxPrice: number;
+  minPrice: number | null;
+  maxPrice: number | null;
   allowpets: boolean;
   wifi: boolean;
   selectedCountry: string;
@@ -86,6 +92,7 @@ export class HomeComponent implements OnInit {
     this.getCountries()
     this.loadProfile();
     this.loadHouses()
+
 
   }
 
@@ -149,19 +156,22 @@ export class HomeComponent implements OnInit {
   }
 
   handlePriceMax(event: any) {
-    this.maxPrice = event.target.value
-    this.handleFilters()
+    this.maxPrice = event.target.value;
+    this.handleFilters();
+   
 
   }
 
   handleCheckboxP(pets: boolean): void {
-    this.allowpets = pets
-    this.handleFilters()
+    this.allowpets = pets;
+    this.handleFilters();
+    
   }
 
   handleCheckboxW(wifi: boolean): void {
-    this.wifi = wifi
-    this.handleFilters()
+    this.wifi = wifi;
+    this.handleFilters();
+    
   }
 
   handleCountry(country: string) {
@@ -186,8 +196,10 @@ export class HomeComponent implements OnInit {
     console.log("Console City: ", city)
     this.selectedCity = city
     console.log("city", city)
-    this.handleFilters()
-    // let nombrecualquier = this.allHouses?.filter((elemten) => elemten.city === city)
+    this.handleFilters();
+    
+      
+       // let nombrecualquier = this.allHouses?.filter((elemten) => elemten.city === city)
 
     // console.log("Nombre cualquiera: ", nombrecualquier)
   }
@@ -220,5 +232,25 @@ export class HomeComponent implements OnInit {
     selectedCountry: this.loadHouses()
     this.selectedCity = ""
   }
+
+  openFilterModal(filters: any) {
+
+    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title' })
+
+  }
+
+  clearFilters(clearfilt: any) {
+
+    console.log("Limpiando Filtros")
+
+    this.minPrice = null
+    this.maxPrice = null
+    this.allowpets = false
+    this.wifi = false
+    this.selectedCountry = "";
+    selectedCountry: this.loadHouses()
+
+  }
+
 
 }

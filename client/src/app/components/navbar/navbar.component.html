@@ -48,5 +48,46 @@
         </svg>
       </span>
     </button>
-  </mat-toolbar>
+
+
+
+
+
+   <!-- <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="favoritesHouses.length">  -->
+    <!-- <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
+        class="btn btn-outline-warning">You were there? Write a review!</button> -->
+
+    <ng-template #favorites let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">My Favorites</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+
+                    <ng-container>
+                            <div *ngFor="let favorite of favoritesHouses">
+
+                            <img class="image" [src]="" />
+                            <a routerLink="/housedetail/{{favorite.id}}"><img src={{favorite.picture[0]}} style="height: 70px;width: 70px; border-radius: 5px;"/></a>
+                            <p style="font-size: 15px;">{{favorite.id}}</p>
+                            <br />
+                            <span>{{favorite.type}}</span>
+                            <button type="button" class="btn-close" aria-label="Close" (click)="removeFavoriteLS(favorite.id)"></button>
+                         </div>
+                    </ng-container>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+              </div>
+            </ng-template>
+
+            <button (click)="openModalFav(favorites)">My favorites</button>
+          </mat-toolbar>
+    <!-- *ngIf="!userProfile" -->
+    <!-- class="btn btn-lg btn-outline-primary"
+    *ngIf="!isLogged" -->
 </div>
