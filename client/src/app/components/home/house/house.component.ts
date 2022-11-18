@@ -37,7 +37,7 @@ export class HouseComponent implements OnInit {
     this.userProfile$.subscribe(() => {
       this.n = 0
       this.house.scores.forEach((score) => this.n = this.n + score)
-      this.starRating = this.n / this.house.scores.length
+      this.starRating = Math.ceil(this.n / this.house.scores.length)
    }) 
   }
   

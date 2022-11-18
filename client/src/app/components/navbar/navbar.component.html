@@ -20,7 +20,7 @@
       <mat-icon>account_circle</mat-icon>
     </a>
 
-    <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
+    <button mat-button (click)="fullDatabase()">fill database</button>
 
   <div *ngIf="(auth.isAuthenticated$ | async) === true" class="profile">
     <a mat-button routerLink="/profile">

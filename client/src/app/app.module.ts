@@ -52,6 +52,8 @@ import { environment } from '../environments/environment';
 import { DialogBodyComponent } from './components/create-house/dialog-body/dialog-body.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReviewsComponent } from './components/housedetail/reviews/reviews.component';
+import { AlternativehomeComponent } from './components/home/alternativehome/alternativehome.component';
+import { StatusComponent } from './components/housedetail/status/status.component';
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -71,6 +73,7 @@ const routes: Routes = [
       { path: 'createhouse', component: CreateHouseComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
+      { path: 'housedetail/mercadopago/:id', component: StatusComponent },
       { path: "**", redirectTo: 'home' },
     ]
   }
@@ -90,6 +93,8 @@ const routes: Routes = [
     PaginatePipe,
     DialogBodyComponent,
     ReviewsComponent,
+    AlternativehomeComponent,
+    StatusComponent,
 
   ],
   imports: [

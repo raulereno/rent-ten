@@ -17,11 +17,11 @@ import { userProfile } from 'src/app/models/UserProfile';
 export class HousedetailComponent implements OnInit {
 
 
-  constructor(private route: ActivatedRoute, 
-    public http: DataServiceService, 
-    private fb: FormBuilder, 
+  constructor(private route: ActivatedRoute,
+    public http: DataServiceService,
+    private fb: FormBuilder,
     private location: Location,
-    private router : Router,
+    private router: Router,
     public auth: AuthService) { }
 
   userProfile: userProfile
@@ -31,7 +31,6 @@ export class HousedetailComponent implements OnInit {
   form: FormGroup
   booking: boolean = false
   pagado: boolean;
-
   indexPhoto: number = 0
 
 
@@ -39,8 +38,8 @@ export class HousedetailComponent implements OnInit {
     this.paramsId = this.route.snapshot.paramMap.get('id')
     this.paramsId && this.http.getHouse(this.paramsId).subscribe(data => this.house = data)
 
-    this.auth.user$.subscribe((res)=> { 
-      this.profileJson = res 
+    this.auth.user$.subscribe((res) => {
+      this.profileJson = res
       this.http.getUser(this.profileJson.email).subscribe((res) => this.userProfile = res)
     })
 
@@ -66,17 +65,17 @@ export class HousedetailComponent implements OnInit {
     return this.house.picture[this.indexPhoto]
   }
 
-  formatDate(date:string) {
+  formatDate(date: string) {
     let split = date.split("/")
-    let formatDate = split[2] + "-" + split[1] + "-" + split[0] 
+    let formatDate = split[2] + "-" + split[1] + "-" + split[0]
     return formatDate
   }
 
   reserveHouse(): void {
-    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };    
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     let startDate = this.formatDate(this.form.value.daterange.start.toLocaleDateString("en-GB", options))
     let endDate = this.formatDate(this.form.value.daterange.end.toLocaleDateString("en-GB", options))
-    let newReserve = {start: startDate, end: endDate, reservedBy: this.userProfile.id}
+    let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id }
 
     if (this.pagado) {
       this.http.makeABook(this.house.id, newReserve)
@@ -84,12 +83,44 @@ export class HousedetailComponent implements OnInit {
       alert("We sent you a email with the specifications of your reservation")
     }
   }
-  
-    pagar(): void {
-    this.pagado = !this.pagado
+
+  getPreferenceId() {
+
+    const item = {
+      title: `Booking for house with ID ${this.house.id}`,
+      price: this.house.price,
+      quantity: 1,
+    }
+
+    this.http.getPaymentLink(item).subscribe(res => 
+      {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js';
+      script.setAttribute('data-preference-id', res.id);
+      const form = document.getElementById('payment-form');
+      form?.appendChild(script);
+      }
+    )
+
+  }
+
+  getPaymentLink() {
+
+    const item = {
+      title: `Booking for house with ID ${this.house.id}`,
+      price: this.house.price,
+      quantity: 1
+    }
+    
+    this.http.getPaymentLink(item).subscribe(res => 
+      window.open(`${res.init_point}`, '_blank'))
+
+    this.reserveHouse()
   }
 
 
+    
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
 

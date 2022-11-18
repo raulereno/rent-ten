@@ -1,4 +1,5 @@
 <!-- <div  class="flexdiv"> -->
+
 <div class="container">
     <div class="topdiv">
 
@@ -66,16 +67,23 @@
             </option>
         </select> -->
     </div>
+    
+    <ng-container *ngIf="minPrice || maxPrice || allowpets || wifi || selectedCountry || selectedCity || order">
+        <div class="bodydiv">
+            <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size"
+                [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
+            </mat-paginator>
 
-    <div class="bodydiv">
-        <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size"
-            [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
-        </mat-paginator>
+            <div class="grid">
+                <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
+                    [house]="house" [dbProfile]="dbProfile"></app-house>
+            </div>
 
-        <div class="grid">
-            <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
-                [house]="house" [dbProfile]="dbProfile"></app-house>
         </div>
-
-    </div>
+    </ng-container>
 </div>
+
+
+<app-alternativehome
+    *ngIf="!minPrice && !maxPrice && !allowpets && !wifi && !selectedCountry && !selectedCity && !order">
+</app-alternativehome>

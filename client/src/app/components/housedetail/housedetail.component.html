@@ -59,19 +59,21 @@
             </mat-form-field>
         </form>
 
-        <button [disabled]="!pagado" *ngIf="form.value.daterange.start && this.form.value.daterange.end" type="button"
-            (click)="reserveHouse()" class="btn btn-outline-info">Reserve now</button>
-        <button *ngIf="!(form.value.daterange.start && this.form.value.daterange.end)" disabled type="button"
-            class="btn btn-outline-info">Pick a date and pay</button>
+        <!-- <button [disabled]="!pagado" *ngIf="form.value.daterange.start && this.form.value.daterange.end" type="button"
+            (click)="reserveHouse()" class="btn btn-outline-info">Reserve now</button> -->
+        <!-- <button *ngIf="!(form.value.daterange.start && this.form.value.daterange.end)" disabled type="button"
+            class="btn btn-outline-info">Pick a date and pay</button> -->
 
+        <div><button style="margin-left: 2%" (click)="getPaymentLink()" type="button" class="btn btn-outline-success"
+                data-toggle="button" aria-pressed="false" autocomplete="off">Reserve now</button>
 
-        <button style="margin-left: 2%" *ngIf="pagado" (click)="pagar()" type="button"
-            class="btn btn-outline-success active" data-toggle="button" aria-pressed="true"
-            autocomplete="off">PAGADO</button>
-        <button style="margin-left: 2%" *ngIf="!pagado" (click)="pagar()" type="button" class="btn btn-outline-success"
-            data-toggle="button" aria-pressed="false" autocomplete="off">PAGAR</button>
+            <form id=payment-form method="GET"></form>
+        </div>
 
+        <!-- <app-mercadopago [house]="house"></app-mercadopago> -->
     </div>
+
+
 
     <div *ngIf="house.bookings">
         <h4>&#x26A0; This house has bookings on this dates:</h4>
@@ -85,5 +87,4 @@
     <div *ngIf="!house.bookings">
         <h3>&#x263A; This house is all year available</h3>
     </div>
-
 </div>

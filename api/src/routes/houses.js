@@ -15,9 +15,30 @@ router.get("/:id", async (req, res) => {
   console.log(id);
 
   try {
-    const house = await House.findByPk(id, { include: [User, Review]});
+    const house = await House.findByPk(id, { include: [User, Review] });
     console.log(house);
     res.status(200).json(house);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/order/:order", async (req, res) => {
+  const { order } = req.params
+
+  try {
+    let allHouses = await House.findAll({ include: [User, Review] })
+
+    if (order === "byqualityprice") {
+      await allHouses.sort(function (a, b) { return a.price_quality_relation - b.price_quality_relation })
+    }
+
+    if (order === "rating") {
+      await allHouses.sort(function (a, b) { return b.rating - a.rating })
+    }
+
+    res.status(200).json(allHouses)
+
   } catch (error) {
     console.log(error);
   }
@@ -74,14 +95,15 @@ router.post("/createhouse", async (req, res) => {
 
 router.post("/makeabook", async (req, res) => {
 
-  const {newReserve, houseId} = req.body
+  const { newReserve, houseId } = req.body
 
   try {
     const house = await House.findByPk(houseId);
 
-    if (!house.bookings) {await house.update({bookings: [newReserve]})
+    if (!house.bookings) {
+      await house.update({ bookings: [newReserve] })
     } else {
-      await house.update({bookings: [...house.bookings, newReserve]})
+      await house.update({ bookings: [...house.bookings, newReserve] })
     }
 
     res.status(200).json(house)
@@ -151,12 +173,12 @@ router.delete("/deletehouse", async (req, res) => {
 router.post("/fulldb", async (req, res) => {
 
   try {
-    let testuser = await User.create({mail: "user403@gmail.com", sub: 'sadasfasfj'})
+    let testuser = await User.create({ mail: "user403@gmail.com", sub: 'sadasfasfj' })
     extraHouses(50).forEach(async (house) => {
       try {
         let finder = await House.findOne({ where: house });
         const { scores, city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
-        req.body;
+          req.body;
 
         if (!finder) {
           let newHouse = await House.create(house);
@@ -166,7 +188,7 @@ router.post("/fulldb", async (req, res) => {
             await review.setUser(testuser.id)
             await review.setHouse(newHouse.id)
             await newHouse.update({ scores: [...newHouse.scores, newReview.rating] })
-          }) 
+          })
 
         }
       } catch (error) {
