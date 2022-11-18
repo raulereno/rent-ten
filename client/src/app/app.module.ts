@@ -43,6 +43,7 @@ import { CloudinaryModule } from '@cloudinary/ng';
 //DROP-ZONE
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PaginatePipe } from './pipes/paginate.pipe';
+
 //NGRX
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -53,6 +54,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment as env } from 'src/environments/environment';
+import { ContainerMPComponent } from './components/housedetail/payment/container-mp/container-mp.component';
 
 
 
@@ -92,6 +94,7 @@ const routes: Routes = [
     DialogBodyComponent,
     ReviewsComponent,
     PaymentComponent,
+    ContainerMPComponent,
 
   ],
   imports: [
@@ -119,6 +122,7 @@ const routes: Routes = [
     MatDialogModule,
     MatInputModule,
     MatPaginatorModule,
+    MatCheckboxModule,
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatCheckboxModule,

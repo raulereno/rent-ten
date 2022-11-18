@@ -25,14 +25,16 @@ export const initialState: GlobalState = {
         verificationCode: '',
         favoriteshouses: []
     },
-    paymentInfo:{
-      userId: '',
-      start: "",
-      end: "",
-      people: 0,
-      totalPay: 0,
-      houseId: ""
-    }
+    paymentInfo:[]
+
+    // {
+    //   userId: '',
+    //   start: "",
+    //   end: "",
+    //   people: 0,
+    //   totalPay: 0,
+    //   houseId: ""
+    // }
 }
 
 
@@ -98,7 +100,6 @@ export const countriesReducer = createReducer(
 
     on(handleFilters, (state, payload) => {
         let superFilter = state.backupHouses
-        console.log(payload.payload)
 
         const { minPrice, maxPrice, allowPets, wifi, selectedCountry, selectedCity } = payload.payload
 
@@ -156,7 +157,7 @@ export const countriesReducer = createReducer(
     on(loadPayment, (state,payload) => {
       return{
         ...state,
-        paymentInfo:payload.payload
+        paymentInfo:[...state.paymentInfo!, payload.payload]
       }
     })
 

@@ -1,8 +1,12 @@
 <!-- <div  class="flexdiv"> -->
 <div class="container">
-    <div class="topdiv">
+    <div [ngClass]="
+    darkmode
+      ? 'topdiv mat-app-background darkmode'
+      : 'topdiv mat-app-background'
+  ">
 
-        <select [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
+        <select name="selectedCountry" [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
             style="max-height: 100%; max-width: 30%; margin-top: 0.5%" class="form-select form-select-sm"
             aria-label="Ejemplo de .form-select-lg" appearance="outline" (click)="handleCountryClick()">
             <mat-label>Selected Country</mat-label>
@@ -24,7 +28,7 @@
 
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-item-center">
-            <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size"
+            <mat-paginator [ngClass]="darkmode? 'paginado mat-app-background darkmode':'mat-app-background paginado'" [length]="allHouses.length" [pageSize]="page_size"
                 [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
             </mat-paginator>
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -50,6 +54,7 @@
 
 </div>
 
+
 <ng-template #filters let-modal>
     <div class="modal-header">
         Filters
@@ -70,16 +75,16 @@
                             <div style="font-size: 10px; ">
                                 <mat-form-field style="max-width: 150px; max-height: 20px;" appearance="outline">
                                     <mat-label>Min price</mat-label>
-                                    <input type="number" matInput placeholder="USD" [(ngModel)]="minPrice"
-                                        (input)="handlePriceMin($event)">
+                                    <input name="minPrice" type="number" matInput placeholder="USD"
+                                        [(ngModel)]="minPrice" (input)="handlePriceMin($event)">
                                     <mat-icon matPrefix>dolar_symbol</mat-icon>
                                 </mat-form-field>
 
 
                                 <mat-form-field style="max-width: 150px;" appearance="outline">
                                     <mat-label>Max price</mat-label>
-                                    <input type="number" matInput placeholder="USD" [(ngModel)]="maxPrice"
-                                        (input)="handlePriceMax($event)">
+                                    <input name="maxPrice" type="number" matInput placeholder="USD"
+                                        [(ngModel)]="maxPrice" (input)="handlePriceMax($event)">
                                     <mat-icon matPrefix>dolar_symbol</mat-icon>
                                 </mat-form-field>
 
@@ -102,7 +107,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <button title="Allow pets"
+                            <button title="Allow pets" name="allowpets"
                                 style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
                                 (click)="handleCheckboxP(false)" *ngIf="allowpets === true" type="button"
                                 class="btn btn-primary btn-sm"><span class="material-icons">pets</span>
@@ -113,7 +118,7 @@
                                 type="button" class="btn btn-secondary btn-sm"><span class="material-icons">pets</span>
                             </button>
 
-                            <button title="With wifi."
+                            <button title="With wifi." name="wifi"
                                 style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
                                 (click)="handleCheckboxW(false)" *ngIf="wifi === true" type="button"
                                 class="btn btn-primary btn-sm"><span class="material-icons">wifi</span>
@@ -136,7 +141,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Post</button>
+        <button type="button" class="btn btn-outline-dark" (click)="clearFilters('clearfilt')">Clear filters</button>
     </div>
 </ng-template>
 <footer class="footer">Footer TEST</footer>
