@@ -10,5 +10,5 @@ export interface GlobalState {
     userProfile?: userProfile
     allHouses?: ReadonlyArray<House>;
     backupHouses?: ReadonlyArray<House>
-    paymentInfo?: Booking//TODO:
+    paymentInfo?: ReadonlyArray<Booking>//TODO:
 }

@@ -1,6 +1,10 @@
 <!-- <div  class="flexdiv"> -->
 <div class="container">
-    <div class="topdiv">
+    <div [ngClass]="
+    darkmode
+      ? 'topdiv mat-app-background darkmode'
+      : 'topdiv mat-app-background'
+  ">
 
         <select name="selectedCountry" [(ngModel)]='selectedCountry' (change)="handleCountry(selectedCountry)"
             style="max-height: 100%; max-width: 30%; margin-top: 0.5%" class="form-select form-select-sm"
@@ -24,7 +28,7 @@
 
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-item-center">
-            <mat-paginator class="paginado" [length]="allHouses.length" [pageSize]="page_size"
+            <mat-paginator [ngClass]="darkmode? 'paginado mat-app-background darkmode':'mat-app-background paginado'" [length]="allHouses.length" [pageSize]="page_size"
                 [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
             </mat-paginator>
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -40,7 +44,7 @@
     <div>
         <div class="bodydiv">
             <div class="grid">
-                <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
+                <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
                     [house]="house" [dbProfile]="dbProfile"></app-house>
             </div>
 
@@ -49,6 +53,7 @@
 
 
 </div>
+
 
 <ng-template #filters let-modal>
     <div class="modal-header">
@@ -139,3 +144,4 @@
         <button type="button" class="btn btn-outline-dark" (click)="clearFilters('clearfilt')">Clear filters</button>
     </div>
 </ng-template>
+<footer class="footer">Footer TEST</footer>

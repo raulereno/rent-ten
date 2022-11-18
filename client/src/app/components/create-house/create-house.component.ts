@@ -93,7 +93,7 @@ export class CreateHouseComponent implements OnInit {
   }
 
   onSelect(event: any) {
-    // console.log(event.addedFiles[0].name);
+
     if (this.files.some((e) => e.name === event.addedFiles[0].name)) {
       return;
     }
@@ -104,16 +104,13 @@ export class CreateHouseComponent implements OnInit {
   searchStates(country: string) {
     this._locationService.getState(country).subscribe((response) => {
       this.states$ = response.data.states;
-      console.log(this.states$);
     });
   }
   searchCities(state: string) {
-    console.log(this.newHouse);
     this._locationService
       .getCities(this.newHouse.country, state)
       .subscribe((response) => {
         this.cities$ = response.data;
-        console.log(this.cities$);
       });
   }
 
@@ -122,10 +119,7 @@ export class CreateHouseComponent implements OnInit {
   }
 
   onSubmit(create: NgForm) {
-
-    console.log(create);
     this.onUpload(create);
-
   }
 
   onUpload(create: NgForm) {
@@ -155,14 +149,8 @@ export class CreateHouseComponent implements OnInit {
     return JSON.stringify(this.newHouse);
   }
 
-  showInfo() {
-    console.log(this.files);
-  }
-
   handlePrice(price:number){
-    console.log(price);
     if(price <= 0){
-      console.log("ENTRAAAAA");
       this.newHouse.price = 0
     }
 

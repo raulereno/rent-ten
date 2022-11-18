@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GalleryModule } from  'ng-gallery';
 //COMPONENTES
 import { AppComponent } from './app.component';
 import { HouseComponent } from './components/home/house/house.component';
@@ -53,6 +54,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment as env } from 'src/environments/environment';
+import { ContainerMPComponent } from './components/housedetail/payment/container-mp/container-mp.component';
 
 
 
@@ -92,6 +94,7 @@ const routes: Routes = [
     DialogBodyComponent,
     ReviewsComponent,
     PaymentComponent,
+    ContainerMPComponent,
 
   ],
   imports: [
@@ -127,7 +130,8 @@ const routes: Routes = [
     MatListModule,
     IvyCarouselModule,
     MatGridListModule,
-    NgbModule
+    NgbModule,
+    GalleryModule
   ],
   providers: [],
   bootstrap: [AppComponent],
