@@ -125,4 +125,3 @@ export class DataServiceService {
   //     `${environment.baseUrl}/users/getuser?mail=${mail}`
   //   );
   // }
-}

@@ -18,7 +18,6 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ReviewsComponent } from './components/housedetail/reviews/reviews.component';
 import { DialogBodyComponent } from './components/create-house/dialog-body/dialog-body.component';
-import { PaymentComponent } from './components/housedetail/payment/payment.component';
 import { environment as env } from 'src/environments/environment';
 //MATERIAL
 import { MatToolbarModule } from '@angular/material/toolbar';

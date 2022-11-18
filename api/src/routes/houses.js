@@ -20,7 +20,6 @@ router.get("/:id", async (req, res) => {
 
   try {
     const house = await House.findByPk(id, { include: [User, Review] });
-    const house = await House.findByPk(id, { include: [User, Review] });
     console.log(house);
     res.status(200).json(house);
   } catch (error) {

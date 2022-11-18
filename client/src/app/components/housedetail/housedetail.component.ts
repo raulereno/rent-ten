@@ -92,11 +92,11 @@ export class HousedetailComponent implements OnInit {
     let endDate = this.formatDate(this.form.value.daterange.end.toLocaleDateString("en-GB", options))
     let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id }
 
-    if (this.pagado) {
+    
       this.http.makeABook(this.house.id, newReserve)
       this.house.bookings = [...this.house.bookings, newReserve]
       alert("We sent you a email with the specifications of your reservation")
-    }
+    
   }
 
   getPreferenceId() {
