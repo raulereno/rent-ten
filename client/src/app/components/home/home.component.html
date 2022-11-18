@@ -40,7 +40,7 @@
     <div>
         <div class="bodydiv">
             <div class="grid">
-                <app-house class="housesdiv" *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
+                <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
                     [house]="house" [dbProfile]="dbProfile"></app-house>
             </div>
 
@@ -139,4 +139,4 @@
         <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Post</button>
     </div>
 </ng-template>
-<p>Prueba</p>
+<footer class="footer">Footer TEST</footer>

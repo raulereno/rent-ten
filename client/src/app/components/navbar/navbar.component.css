@@ -1,12 +1,38 @@
-.spacer {
-    flex: 1 1 auto;
+.wrapper{
+  display: flex;
+  align-items: center;
+  height: 3.5rem;
 }
+
+.leftdiv{
+  display: flex;
+  justify-content: space-between;
+  width: 65%;
+}
+
+.logo{
+  width: 4rem;
+  margin-left: 1rem;
+}
+
+.host{
+  margin-left: 5rem;
+}
+
+.rightdiv{
+  display: flex;
+  justify-content: flex-end;
+  width: 35%;
+}
+
 .profile img{
-  width: 2rem;
-  height: 2rem;
-  border-radius: 100% ;
-  border: 2px grey solid;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
+
 .switch{
   background-color: #343d5b;
   border-radius: 1000px;
@@ -20,6 +46,7 @@
   height: 30px;
   transition: .8s all;
 }
+
 .switch::after{
   content: "";
   display: block;
@@ -34,14 +61,16 @@
   transition: .3s ease all;
   box-shadow: 0 0 2px rgba(0, 0, 0, .2);
 }
+
 .switch.active {
   background-color: orange;
-
 }
+
 .switch.active::after{
   right: 0;
   left: unset;
 }
+
 .switch span{
   width: 30px;
   height: 30px;

@@ -11,11 +11,11 @@
 .topdiv {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 20px;
-  margin-bottom: 30px;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
   margin-left: 20%;
   margin-right: 20%;
-  height: 30px;
+  height: 1.5rem;
 }
 
 .flexdiv {
@@ -28,15 +28,15 @@
   height: fit-content;
 }
 
-.grid {
+.grid{
   display: grid;
   justify-content: center;
-  grid-template-columns: 290px 290px 290px 290px 290px;
+  grid-template-columns: repeat(5, 14.5rem);
 }
 
 .cardsrender {
-  margin-left: 30px;
-  margin-top: 30px;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
   width: 80%;
 }
 
@@ -51,4 +51,12 @@
   justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.184);
   width: 100%;
+}
+
+.footer{
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
 }

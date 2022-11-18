@@ -9,6 +9,7 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
+import GalleryModule from 'ng-gallery';
 
 @Component({
   selector: 'app-housedetail',
