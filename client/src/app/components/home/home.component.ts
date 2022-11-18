@@ -13,7 +13,6 @@ import { selectorListCountries, selectorListHouses, selectorListLoading, selecto
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { userProfile } from 'src/app/models/UserProfile';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox'
-import { handleOrder } from 'src/app/redux/actions/location.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
