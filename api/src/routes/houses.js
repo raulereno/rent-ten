@@ -1,6 +1,10 @@
 const { Router } = require("express");
 const { House, User, Review } = require("../db");
 const { extraHouses, extraReviews } = require("../../extra-db/extra-db");
+var mercadopago = require("mercadopago");
+mercadopago.configurations.setAccessToken(
+  "TEST-2830502347743015-111509-be7c4ad96f1ef7ac33cea5b0e3f8876d-244311163"
+);
 
 const router = Router();
 
@@ -15,6 +19,7 @@ router.get("/:id", async (req, res) => {
   console.log(id);
 
   try {
+    const house = await House.findByPk(id, { include: [User, Review] });
     const house = await House.findByPk(id, { include: [User, Review] });
     console.log(house);
     res.status(200).json(house);
@@ -106,12 +111,11 @@ router.post("/makeabook", async (req, res) => {
       await house.update({ bookings: [...house.bookings, newReserve] })
     }
 
-    res.status(200).json(house)
-
+    res.status(200).json(house);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
 
 // --- PUT METHODS ---
 
@@ -167,11 +171,25 @@ router.delete("/deletehouse", async (req, res) => {
     console.log(error);
   }
 });
+//payment
+router.post("/process_payment", (req, res) => {
+  console.log("BODY DE LA LLAMADA", req.body);
+
+  mercadopago.payment
+    .save(req.body)
+    .then(function (response) {
+      const { status, status_detail, id } = response.body;
+      console.log(status, status_detail, id);
+      res.status(response.status).json({ status, status_detail, id });
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+});
 
 // --- EXTRA TO FULL DB ---
 
 router.post("/fulldb", async (req, res) => {
-
   try {
     let testuser = await User.create({ mail: "user403@gmail.com", sub: 'sadasfasfj' })
     extraHouses(50).forEach(async (house) => {
@@ -192,21 +210,21 @@ router.post("/fulldb", async (req, res) => {
 
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     });
 
-    res.status(200).json({ msg: "Base de datos creada" });
+    res.status(100).json({ msg: "Base de datos creada" });
   } catch (error) {
     res.status(400).json(error);
   }
 });
+
+
+
 module.exports = router;
 
-
 // extraReviews(5).forEach(async (review) => )
-
-
 
 //   try {
 //     let testuser = await User.create({mail: "user403@gmail.com", sub: 'sadasfasfj'})

@@ -12,6 +12,7 @@ import { Booking } from '../models/Booking';
 export class DataServiceService {
   constructor(private http: HttpClient) { }
 
+
   postId = '';
 
 
@@ -21,9 +22,9 @@ export class DataServiceService {
     );
   }
   //saque el picture
-  updateUser(mail: string,picture:string, sub: string) {
-    if (mail &&picture && sub) {
-      this.http.post<any>(`${environment.baseUrl}/users`, { mail: mail,picture:picture, sub: sub }).subscribe({
+  updateUser(mail: string, sub: string) {
+    if (mail && sub) {
+      this.http.post<any>(`${environment.baseUrl}/users`, { mail: mail, sub: sub }).subscribe({
         error: error => {
           console.error('There was an error!', error);
         }
@@ -66,6 +67,7 @@ export class DataServiceService {
         console.log(error)
       }
     })
+    
   }
 
   deleteFavorite(houseId: string, userId: string) {
@@ -73,8 +75,8 @@ export class DataServiceService {
       error: error => {
         console.log(error)
       }
-    })
-  }
+    })}
+  
 
   createHouse(house: NewHouse, email: string) {
     this.http.post(`${environment.baseUrl}/houses/createhouse?userMail=${email}`, house).subscribe({
@@ -117,4 +119,10 @@ export class DataServiceService {
   getPaymentLink(item: any): Observable<any> {
     return this.http.post<any>(`http://localhost:3001/mercadopago/payment`, item)
   }
+}
+  // getUser(mail: string): Observable<any> {
+  //   return this.http.get<any>(
+  //     `${environment.baseUrl}/users/getuser?mail=${mail}`
+  //   );
+  // }
 }
