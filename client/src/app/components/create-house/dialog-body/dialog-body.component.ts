@@ -21,7 +21,6 @@ export class DialogBodyComponent implements OnInit {
   create:boolean=false;
 
   waiter(){
-    console.log(this.data);
     setTimeout(() => {
       this.create =true
     }, 5500);

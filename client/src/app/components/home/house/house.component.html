@@ -1,4 +1,8 @@
-<div class="housecard">
+<div [ngClass]="
+darkmode
+  ? 'housecard mat-app-background darkmode'
+  : 'housecard mat-app-background '
+">
     <div class="updiv">
         <mat-card-actions class="margin">
             <mat-icon id="leftarrow" class="carrouselbutton" (click)="paginationBack()">navigate_before</mat-icon>
@@ -21,6 +25,10 @@
                 (click)="deleteFavorite(house.id, dbProfile.id)">-</button>
         </div>
     </div>
+
+    <!-- <button (click)="toggleFavorite(house.id)">like</button> -->
+    <!-- <button (click)="toggledeleteFavorite(house.id)">delete</button> -->
+
 
     <div class="botdiv">
         <h3 class="info">{{house.rooms}} room/s</h3>
