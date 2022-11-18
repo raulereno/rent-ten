@@ -1,36 +1,77 @@
-<div class="Wrapper">
-  <mat-toolbar color="secundary" class="" [ngClass]="darkmode ? 'mat-elevation-z4 dark' : 'mat-elevation-z4'">
-    <span style="margin-left: 2%">
-      <a routerLink="/home">
-        <img src="../../assets/logo.png" alt="Logo" width="80" class="d-inline-block align-text-top">
-      </a>
-    </span>
+<div class="wrapper" [ngClass]="darkmode ? 'mat-elevation-z4 dark' : 'mat-elevation-z4'">
+  <a routerLink="/home">
+    <img class="logo" src="../../assets/logo.png" alt="Logo">
+  </a>
+  <div class="leftdiv">
 
-    <div class="spacer"></div>
-    <a *ngIf="!userProfile.id" (click)="validateUser()"
-      style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button>Become
-      a Host</a>
-    <a *ngIf="userProfile.id" (click)="validateUser()"
-      style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button routerLink="/createhouse">Become
-      a Host</a>
+    <div class="host">
+      <a *ngIf="!userProfile.id" (click)="validateUser()"
+        style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button>Become
+        a Host</a>
+      <a *ngIf="userProfile.id" (click)="validateUser()"
+        style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button
+        routerLink="/createhouse">Become
+        a Host</a>
+    </div>
+  </div>
 
+  <!-- <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="favoritesHouses.length">  -->
+  <!-- <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
+  class="btn btn-outline-warning">You were there? Write a review!</button> -->
+
+  <ng-template #favorites let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">My Favorites</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="mb-3">
+
+          <ng-container>
+            <div *ngFor="let favorite of favoritesHouses">
+
+              <img class="image" [src]="" />
+              <a routerLink="/housedetail/{{favorite.id}}"><img src={{favorite.picture[0]}}
+                  style="height: 70px;width: 70px; border-radius: 5px;" /></a>
+              <p style="font-size: 15px;">{{favorite.id}}</p>
+              <br />
+              <span>{{favorite.type}}</span>
+              <button type="button" class="btn-close" aria-label="Close"
+                (click)="removeFavoriteLS(favorite.id)"></button>
+            </div>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    </div>
+  </ng-template>
+
+  <button (click)="openModalFav(favorites)">My favorites</button>
+  <!-- *ngIf="!userProfile" -->
+  <!-- class="btn btn-lg btn-outline-primary"
+*ngIf="!isLogged" -->
+  <div class="rightdiv">
     <a mat-button routerLink="/home">Home</a>
     <a mat-button routerLink="/about">About</a>
 
     <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
       aria-label="Sing Up">
-      <mat-icon>account_circle</mat-icon>
+      <mat-icon class="profilebutton">account_circle</mat-icon>
     </a>
 
     <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
 
     <div *ngIf="(auth.isAuthenticated$ | async) === true" class="profile">
       <a mat-button routerLink="/profile">
-        <img *ngIf="userProfile.picture" src="{{userProfile.picture}}" alt="">
+        <img *ngIf="userProfile.picture" src={{userProfile.picture}} alt="">
         <!-- <mat-icon #elseBlock>account_circle</mat-icon> -->
       </a>
       <button mat-button (click)="logout()">Sign out</button>
     </div>
+
     <button class="switch" id="switch" [ngClass]=" darkmode ? 'switch active' : 'switch'" (click)="darkMode();">
       <span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -45,3 +86,5 @@
         </svg>
       </span>
     </button>
+  </div>
+</div>

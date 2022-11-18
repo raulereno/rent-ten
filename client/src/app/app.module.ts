@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GalleryModule } from  'ng-gallery';
 //COMPONENTES
 import { AppComponent } from './app.component';
 import { HouseComponent } from './components/home/house/house.component';
@@ -42,6 +43,7 @@ import { CloudinaryModule } from '@cloudinary/ng';
 //DROP-ZONE
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PaginatePipe } from './pipes/paginate.pipe';
+
 //NGRX
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -52,6 +54,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment as env } from 'src/environments/environment';
+import { ContainerMPComponent } from './components/housedetail/payment/container-mp/container-mp.component';
 
 
 
@@ -91,6 +94,7 @@ const routes: Routes = [
     DialogBodyComponent,
     ReviewsComponent,
     PaymentComponent,
+    ContainerMPComponent,
 
   ],
   imports: [
@@ -118,6 +122,7 @@ const routes: Routes = [
     MatDialogModule,
     MatInputModule,
     MatPaginatorModule,
+    MatCheckboxModule,
     StoreModule.forRoot(ROOT_REDUCERS),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatCheckboxModule,
@@ -125,7 +130,8 @@ const routes: Routes = [
     MatListModule,
     IvyCarouselModule,
     MatGridListModule,
-    NgbModule
+    NgbModule,
+    GalleryModule
   ],
   providers: [],
   bootstrap: [AppComponent],

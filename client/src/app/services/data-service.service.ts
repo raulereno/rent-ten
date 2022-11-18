@@ -12,6 +12,7 @@ import { Booking } from '../models/Booking';
 export class DataServiceService {
   constructor(private http: HttpClient) { }
 
+
   postId = '';
 
 
@@ -66,6 +67,7 @@ export class DataServiceService {
         console.log(error)
       }
     })
+    
   }
 
   deleteFavorite(houseId: string, userId: string) {
@@ -73,8 +75,8 @@ export class DataServiceService {
       error: error => {
         console.log(error)
       }
-    })
-  }
+    })}
+  
 
   createHouse(house: NewHouse, email: string) {
     this.http.post(`${environment.baseUrl}/houses/createhouse?userMail=${email}`, house).subscribe({
@@ -120,5 +122,5 @@ export class DataServiceService {
   //   return this.http.get<any>(
   //     `${environment.baseUrl}/users/getuser?mail=${mail}`
   //   );
-  // }
+  // 
 }

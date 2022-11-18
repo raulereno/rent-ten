@@ -1,4 +1,5 @@
 <div class="wrapper">
+    <gallery></gallery>
     <div class="topdiv">
         <button class="button" routerLink="/home">🡠</button>
         <img class="mainimg" src="{{house.picture[3]}}" alt="Pic1">
@@ -58,25 +59,21 @@
 
 
             </mat-form-field>
-            <select name="" id="" formControlName="number">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
+
         </form>
-        <button (click)="showInfo()"></button>
 
-        <button [disabled]="!pagado" *ngIf="form.value.daterange.start && this.form.value.daterange.end" type="button"
+        <button  *ngIf="form.value.daterange.start && this.form.value.daterange.end" type="button"
             (click)="reserveHouse()" class="btn btn-outline-info">Reserve now</button>
-        <button *ngIf="!(form.value.daterange.start && this.form.value.daterange.end)" disabled type="button"
-            class="btn btn-outline-info">Pick a date and pay</button>
+
+        <!-- <button *ngIf="!(form.value.daterange.start && this.form.value.daterange.end)" disabled type="button"
+            class="btn btn-outline-info">Pick a date and pay</button> -->
 
 
-        <button style="margin-left: 2%" *ngIf="pagado" (click)="pagar()" type="button"
+        <!-- <button style="margin-left: 2%" *ngIf="pagado" (click)="pagar()" type="button"
             class="btn btn-outline-success active" data-toggle="button" aria-pressed="true"
             autocomplete="off">PAGADO</button>
         <button style="margin-left: 2%" *ngIf="!pagado" (click)="pagar()" type="button" class="btn btn-outline-success"
-            data-toggle="button" aria-pressed="false" autocomplete="off">PAGAR</button>
+            data-toggle="button" aria-pressed="false" autocomplete="off">PAGAR</button> -->
 
     </div>
 
