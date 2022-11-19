@@ -14,5 +14,7 @@ export interface House {
     wifi: boolean;
     bookings: any[];
     scores: number[];
-    Reviews: any[]
+    Reviews?: any[];
+    rating?: number;
+    price_quality_relation: number;
 }
