@@ -58,10 +58,6 @@ import { StatusComponent } from './components/housedetail/status/status.componen
 
 
 
-
-
-
-
 const routes: Routes = [
   {
     path: '',

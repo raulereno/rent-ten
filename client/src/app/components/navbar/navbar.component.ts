@@ -28,14 +28,14 @@ export class NavbarComponent implements OnInit {
     private _store:Store<any>,
     @Inject(DOCUMENT) private doc: Document,
     private _helper:HelperService,
-    
+
     private localStorageSvc:LocalStorageService,
     private modalService: NgbModal
     ) { }
 
   profileJson: any;
   dbProfile: any = {}
-  isLogged: boolean;
+  isLogged: boolean=true;
   userProfile: any;
 
   allHouses: House[] = [];
@@ -51,26 +51,28 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.auth.user$.subscribe(res=>{
       const mail = res?.email
+      if(res === null) this.isLogged=false
       if(mail !== undefined){
         this.http.getUser(mail).subscribe(res=>{
           this.userProfile=res
         })
       }})
 
-     
+
   this.allHouses$ = this._store.select(selectorListHouses)
-        
+
   this.allHouses$.subscribe(res=>{
   let favorites =this.localStorageSvc.getFavoritesHouses()
   this.favoritesHouses = res.filter((house: House) => favorites.some((h: string) => h === house.id))
-     }) 
-          
-          
+     })
+
+
     ;
     //TODO: RAUL -DANGER aca se produce un bucle de llamadas- arreglando
     this.userProfile$ = this._store.select(selectorListProfile);
     this.userProfile$.subscribe(res=>{
-      this.isLogged=true
+
+
       this.userProfile=res
     });
 
@@ -101,15 +103,15 @@ export class NavbarComponent implements OnInit {
 
   showInfo(): void {
   }
- 
+
   getFavoriteLS():void{
-    this.favorites=this.localStorageSvc.getFavoritesHouses()  
+    this.favorites=this.localStorageSvc.getFavoritesHouses()
   }
 
   removeFavoriteLS(id:string): void {
     this.localStorageSvc.removeFavorite(id)
     this.ngOnInit()
-    
+
   }
   openModalFav(favorites: any) {
     this.ngOnInit()
