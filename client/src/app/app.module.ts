@@ -18,8 +18,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ReviewsComponent } from './components/housedetail/reviews/reviews.component';
 import { DialogBodyComponent } from './components/create-house/dialog-body/dialog-body.component';
-import { PaymentComponent } from './components/housedetail/payment/payment.component';
-
+import { environment as env } from 'src/environments/environment';
 //MATERIAL
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -53,8 +52,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 //Enviroment
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { environment as env } from 'src/environments/environment';
-import { ContainerMPComponent } from './components/housedetail/payment/container-mp/container-mp.component';
+import { AlternativehomeComponent } from './components/home/alternativehome/alternativehome.component';
+import { StatusComponent } from './components/housedetail/status/status.component';
+// import { environment as env } from 'src/environments/environment';
 
 
 
@@ -73,7 +73,7 @@ const routes: Routes = [
       { path: 'createhouse', component: CreateHouseComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
-      { path : 'place/payment',component:PaymentComponent},
+      { path: 'housedetail/mercadopago/:id', component: StatusComponent },
       { path: "**", redirectTo: 'home' },
     ]
   }
@@ -93,8 +93,8 @@ const routes: Routes = [
     PaginatePipe,
     DialogBodyComponent,
     ReviewsComponent,
-    PaymentComponent,
-    ContainerMPComponent,
+    AlternativehomeComponent,
+    StatusComponent,
 
   ],
   imports: [

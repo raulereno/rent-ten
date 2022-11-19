@@ -1,4 +1,3 @@
-<!-- <div  class="flexdiv"> -->
 <div class="container">
     <div [ngClass]="
     darkmode
@@ -28,8 +27,9 @@
 
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-item-center">
-            <mat-paginator [ngClass]="darkmode? 'paginado mat-app-background darkmode':'mat-app-background paginado'" [length]="allHouses.length" [pageSize]="page_size"
-                [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
+            <mat-paginator [ngClass]="darkmode? 'paginado mat-app-background darkmode':'mat-app-background paginado'"
+                [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+                (page)="handlePage($event)" showFirstLastButtons="">
             </mat-paginator>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <button style="max-height: 10%; max-width: 20%;">
@@ -41,16 +41,21 @@
         </div>
     </div>
 
-    <div>
-        <div class="bodydiv">
-            <div class="grid">
-                <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
-                    [house]="house" [dbProfile]="dbProfile"></app-house>
+    <ng-container *ngIf="minPrice || maxPrice || allowpets || wifi || selectedCountry || selectedCity || order">
+        <div>
+            <div class="bodydiv">
+                <div class="grid">
+                    <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number"
+                        [house]="house" [dbProfile]="dbProfile"></app-house>
+                </div>
+
             </div>
-
         </div>
-    </div>
+    </ng-container>
 
+    <app-alternativehome
+        *ngIf="!minPrice && !maxPrice && !allowpets && !wifi && !selectedCountry && !selectedCity && !order">
+    </app-alternativehome>
 
 </div>
 
