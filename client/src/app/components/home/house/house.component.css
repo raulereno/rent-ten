@@ -1,153 +1,199 @@
-.housecard{
-    width: 12.5rem;
-    height: 20rem;
-    transition: all 0.3s;
-    animation: fadein 2s;
-    border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
-    margin-bottom: 2rem;
+.housecard {
+  width: 12.5rem;
+  height: 20rem;
+  transition: all 0.3s;
+  animation: fadein 2s;
+  border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
+
+  height: 100%;
 }
-.darkmode{
+
+.darkmode {
   background-color: #303030;
   color: white;
-  transition: all 1s;
+  /* transition: all 1s; */
 }
-.darkmode .price{
+
+.darkmode .price {
   color: white;
 }
-.darkmode .info{
+
+.darkmode .info {
   font-weight: 100;
-    color: white;
-    margin: -4px;
+  color: white;
+  margin: -4px;
 }
 
-.housecard:hover .image{
-    transition: 0.5s;
-    opacity:70%;
+.housecard:hover .image {
+  transition: 0.5s;
+  opacity: 70%;
 }
 
-.updiv{
-    display:flex;
-    margin-bottom: -0.75rem;
+.updiv {
+  display: flex;
+  margin-bottom: -0.75rem;
 }
-.updiv:hover .carrouselbutton{
+
+.updiv:hover .carrouselbutton {
   background-color: white;
 }
-.carrouselbutton{
-    display: flex;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.176);
-    border-radius: 0.75rem;
-    transition: .3 all;
+
+.carrouselbutton {
+  display: flex;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.176);
+  border-radius: 0.75rem;
+  transition: .3 all;
 }
 
-#leftarrow{
-    position: relative;
-    top: 45%;
-    left: 4%;
-    z-index: +1;
+#leftarrow {
+  position: relative;
+  top: 45%;
+  left: 4%;
+  z-index: +1;
 }
-.darkmode #leftarrow{
+
+.darkmode #leftarrow {
   color: black;
 }
 
-.image{
-    height: 10rem;
-    width: 12.5rem;
-    border-radius:  0.75rem 0.75rem 0rem 0.75rem;
-    transition: 0.5s;
+.image {
+  height: 10rem;
+  width: 12.5rem;
+  border-radius: 0.75rem 0.75rem 0rem 0.75rem;
+  transition: 0.5s;
 }
 
-#rightarrow{
-    position: relative;
-    bottom: 45%;
-    left: 86%;
+#rightarrow {
+  position: relative;
+  bottom: 45%;
+  left: 86%;
 }
-.darkmode #rightarrow{
+
+.darkmode #rightarrow {
   color: black;
 }
 
-.firstdiv{
-    display: flex;
-    margin-bottom: -0.5rem;
+.firstdiv {
+  display: flex;
+  margin-bottom: -0.5rem;
 }
 
-.namediv{
-width: 88%;
-margin-left: 0.25rem;
+.namediv {
+  width: 88%;
+  margin-left: 0.25rem;
 }
 
-.name{
-    font-size: 0.9rem;
+.name {
+  font-size: 0.9rem;
 }
 
-.favdiv{
-width: 12%;
-margin-top: -0.45rem;
+.favdiv {
+  width: 12%;
+  margin-top: -0.72rem;
 }
 
-.favourites{
-    height: 1.8rem;
-    width: 1.5rem;
+.favourites {
+  height: 1.8rem;
+  width: 1.5rem;
 
-    font-size: 0.8rem;
-    font-weight: 100;
-    border-top: none;
-    border-radius: 0rem 0rem 1rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 100;
+  border-top: none;
+  border-radius: 0rem 0rem 1rem 1rem;
 
-    cursor: pointer;
-    transition: 0.25s;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
-#addfav{
-    transition: 0.25;
-    color: #ffc107;
-    border: 1px solid #ffc107;
-    border-top: none;
-    border-color: #ffc107;
-    background-color: none;
+#addfav {
+  transition: .25s;
+  color: #ffc107;
+  border: 1px solid #ffc107;
+  border-top: none;
+  border-color: #ffc107;
+  background-color: none;
+
 }
 
-#addfav:hover{
-    transition: 0.25s;
-    height: 2.5rem;
-    color: white;
-    background-color: #ffc107;
+
+#addfav svg {
+  animation: dislike 0.5s 1;
+}
+#addfav:hover {
+  transition: 0.25s;
+  height: 2.5rem;
+  color: white;
+  background-color: #ffc107;
 }
 
-#removefav{
-    transition: 0.25s;
-    height: 2.5rem;
-    color: white;
-    border:none;
-    background-color: #ffc107;
+#removefav {
+  transition: 0.25s;
+  height: 2.5rem;
+  color: white;
+  border: none;
+  background-color: #ffc107;
+  transition: .5s all;
 }
 
-#removefav:hover{
-    transition: 0.25s;
-    color: white;
-    background-color: #dc3545;
+#removefav svg {
+  animation: like 0.5s 1;
 }
 
-.botdiv{
-    display:flex;
-    flex-direction: column;
-    margin-left: 1rem;
+#removefav:hover {
+  transition: 0.25s;
+  color: white;
+  background-color: #dc3545;
 }
 
-.info{
-    font-weight: 100;
-    color: gray;
-    margin: -0.2rem;
+@keyframes like {
+  0% {
+    transform: scale(1);
+  }
+
+  90% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+@keyframes dislike {
+  0% {
+    transform: scale(1.1);
+  }
+
+  90% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
-.price{
-    color: rgb(23, 59, 3);
-    font-weight: 400;
-    margin-top: 0.5rem;
-    margin-left: 0.25rem;
+
+.botdiv {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+}
+
+.info {
+  font-weight: 100;
+  color: gray;
+  margin: -0.2rem;
+}
+
+.price {
+  color: rgb(23, 59, 3);
+  font-weight: 400;
+  margin-top: 0.5rem;
+  margin-left: 0.25rem;
 }
 
 ngb-rating {
-    color: #b39601;
-    font-size: 1rem;
+  color: #b39601;
+  font-size: 1rem;
 }

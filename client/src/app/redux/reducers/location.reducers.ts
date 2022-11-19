@@ -100,7 +100,7 @@ export const countriesReducer = createReducer(
 
     on(handleFilters, (state, payload) => {
         let superFilter = state.backupHouses
-
+        console.log(payload);
         const { minPrice, maxPrice, allowPets, wifi, selectedCountry, selectedCity } = payload.payload
 
         if (minPrice) {
