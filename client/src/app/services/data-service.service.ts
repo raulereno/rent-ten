@@ -12,6 +12,7 @@ import { Booking } from '../models/Booking';
 export class DataServiceService {
   constructor(private http: HttpClient) { }
 
+
   postId = '';
 
 
@@ -21,9 +22,9 @@ export class DataServiceService {
     );
   }
   //saque el picture
-  updateUser(mail: string,picture:string, sub: string) {
-    if (mail &&picture && sub) {
-      this.http.post<any>(`${environment.baseUrl}/users`, { mail: mail,picture:picture, sub: sub }).subscribe({
+  updateUser(mail: string, sub: string) {
+    if (mail && sub) {
+      this.http.post<any>(`${environment.baseUrl}/users`, { mail: mail, sub: sub }).subscribe({
         error: error => {
           console.error('There was an error!', error);
         }
@@ -66,6 +67,7 @@ export class DataServiceService {
         console.log(error)
       }
     })
+    
   }
 
   deleteFavorite(houseId: string, userId: string) {
@@ -73,8 +75,8 @@ export class DataServiceService {
       error: error => {
         console.log(error)
       }
-    })
-  }
+    })}
+  
 
   createHouse(house: NewHouse, email: string) {
     this.http.post(`${environment.baseUrl}/houses/createhouse?userMail=${email}`, house).subscribe({
@@ -98,8 +100,8 @@ export class DataServiceService {
     })
   }
 
-  makeABook(houseId: string, newReserve: Booking) {
-    this.http.post(`http://localhost:3001/houses/makeabook`, {houseId, newReserve}).subscribe({
+  makeABook(houseId: string, newReserve: Booking, userId: string) {
+    this.http.post(`http://localhost:3001/bookings`, {houseId, newReserve, userId}).subscribe({
       error: error => {
         console.log(error);
       }
@@ -108,17 +110,22 @@ export class DataServiceService {
 
   postNewReview(opinion:string, rating: number, userId:string, houseId:string, userEmail:string): Observable<any> {
     return this.http.post<any>(`http://localhost:3001/reviews`, {opinion, rating, userId, houseId, userEmail})
-    // .subscribe({
-    //   error: error => {
-    //     console.log(error);
-    //   }
-    // })
-
   }
 
-  // getUser(mail: string): Observable<any> {
-  //   return this.http.get<any>(
-  //     `${environment.baseUrl}/users/getuser?mail=${mail}`
-  //   );
-  // }
+  getHouses_withOrder(order:string): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/houses/order/${order}`);
+  }
+
+  getPaymentLink(item: any): Observable<any> {
+    return this.http.post<any>(`http://localhost:3001/mercadopago/payment`, item)
+  }
+
+  updateBookingStatus(houseId: string, code: string, status:string) {
+    this.http.put<any>(`${environment.baseUrl}/bookings/checkstatus`, { houseId: houseId, code: code, status: status }).subscribe({
+      error: error => {
+        console.log(error)
+      }
+    })}
+
+
 }

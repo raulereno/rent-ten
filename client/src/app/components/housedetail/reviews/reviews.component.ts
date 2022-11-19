@@ -1,14 +1,11 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { userProfile } from 'src/app/models/UserProfile';
 import { AuthService } from '@auth0/auth0-angular';
-import { loadHouses } from 'src/app/redux/actions/location.actions';
-import { Observable } from 'rxjs';
-import { House } from 'src/app/models/House';
-
+import { Booking } from 'src/app/models/Booking';
 
 @Component({
   selector: 'app-reviews',
@@ -16,7 +13,8 @@ import { House } from 'src/app/models/House';
   styleUrls: ['./reviews.component.css']
 })
 export class ReviewsComponent implements OnInit {
-  
+
+
   userProfile: userProfile
   profileJson: any
 
@@ -25,33 +23,39 @@ export class ReviewsComponent implements OnInit {
   opinion: string
   rating: number
   errors: string;
+  ableToPostReview: boolean = false
 
   newReviewInput: string = ''
   newRatingInput: number
 
-  constructor(public http: DataServiceService,  private store: Store<any>, private route: ActivatedRoute, private modalService: NgbModal, public auth: AuthService, private router : Router) { }
+  constructor(public http: DataServiceService, private store: Store<any>, private route: ActivatedRoute, private modalService: NgbModal, public auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.auth.user$.subscribe((res)=> { 
-      this.profileJson = res 
+    if (this.auth.isAuthenticated$) {
+      
+      this.auth.user$.subscribe((res) => {
+      this.profileJson = res
       this.http.getUser(this.profileJson.email).subscribe((res) => this.userProfile = res)
     })
-
+  }
     this.paramsId = this.route.snapshot.paramMap.get('id')
     this.paramsId && this.http.getHouse(this.paramsId).subscribe(
-      data => { this.house = data}
-      )
+      data => { 
+        this.house = data;
+        this.ableToPostReview = this.house.Bookings.some((booking:Booking) => booking.UserId === this.userProfile.id)
+      }
+    )
   }
 
   showInfo() {
     console.log(this.house)
   }
 
-  returnDate(date:string) {
+  returnDate(date: string) {
     return new Date(date).toString().split('GMT', 1)
   }
 
-  handleOpinion(event: any){
+  handleOpinion(event: any) {
     this.opinion = event.target.value
   }
 
@@ -61,12 +65,20 @@ export class ReviewsComponent implements OnInit {
   }
 
   openModal(content: any) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
-	}
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+  }
 
   openLetReviewModal(content: any) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
-	}
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }) 
+  }
+
+  userWasOnPlace() {
+
+  if (this.house.Bookings.find((booking:Booking) => booking.UserId === this.userProfile.id)) {
+    this.ableToPostReview = true
+  }
+
+  }
 
   getRating(e: number) {
     this.newRatingInput = e
@@ -77,12 +89,15 @@ export class ReviewsComponent implements OnInit {
   }
 
   postNewReview() {
-    if (!this.profileJson.sub) {this.errors = 'Login before let a review for this house!'; return}
-    if (this.newReviewInput.length < 10) {this.errors = 'Review must have more than 10 characters.'; return}
-    if (!this.newRatingInput) {this.errors = 'Please select a valoration.'; return}
+    this.errors = ''
+    if (!this.profileJson.sub) { this.errors = 'Login before let a review for this house!'; return }
+    if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
+    if (!this.newRatingInput) { this.errors = 'Please select a valoration.'; return }
     this.http.postNewReview(this.newReviewInput, this.newRatingInput, this.userProfile.id, this.house.id, this.userProfile.mail)
-      .subscribe((res) => {this.house.Reviews = [...this.house.Reviews, res]})
+      .subscribe((res) => { this.house.Reviews = [...this.house.Reviews, res] })
+    document.getElementById('closeModalButton')!.click();
     alert('Thank you for your time!')
+
   }
 
 }

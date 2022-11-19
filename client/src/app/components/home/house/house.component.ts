@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { addFavoriteHouse, deleteFavoriteHouse } from 'src/app/redux/actions/location.actions';
 import { Store } from '@ngrx/store';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 
 @Component({
@@ -23,31 +25,44 @@ export class HouseComponent implements OnInit {
   userProfile$: Observable<any> = new Observable()
   public userProfile: userProfile;
 
-
-  constructor(public http: DataServiceService, public auth: AuthService, private router: Router, private store: Store<any>,) { }
+  constructor(
+    public http: DataServiceService,
+    public auth: AuthService,
+    private router: Router,
+    private store: Store<any>,
+    private localStorageSvc:LocalStorageService,
+    private _helper:HelperService,
+    ) { }
 
   profileJson: any;
-  allHouses: House[] = []
-  indexPhoto: number = 0
-  starRating: number
-  n:number
+  allHouses: House[] = [];
+  indexPhoto: number = 0;
+  starRating: number;
+  n:number;
+  darkmode:boolean;
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
     this.userProfile$.subscribe(() => {
       this.n = 0
       this.house.scores.forEach((score) => this.n = this.n + score)
-      this.starRating = this.n / this.house.scores.length
-   }) 
+      this.starRating = Math.ceil(this.n / this.house.scores.length)
+   })
+   this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
   }
-  
+
   setFavorite(houseId: string, userId: string): void {
     if (!userId) {
-      this.auth.loginWithRedirect();
+        this.toggleFavorite(houseId)
     } else {
       this.http.setFavorite(houseId, userId)
       this.store.dispatch(addFavoriteHouse({ payload: houseId }))
     }
+  }
+
+  toggleFavorite(houseId:string):void{
+    this.localStorageSvc.addToFavorite(houseId)
+
   }
 
   deleteFavorite(houseId: string, userId: string): void {
@@ -55,14 +70,13 @@ export class HouseComponent implements OnInit {
     this.store.dispatch(deleteFavoriteHouse({ payload: houseId }))
   }
 
-
   checkIsFavorite(houseId: string) {
     if (this.dbProfile.favoriteshouses) {
       return this.dbProfile.favoriteshouses.some((h: any) => h == houseId)
     } else {
       return false
-    }
-  }
+    }}
+
 
   showInfo() {
     console.log(this.n)
@@ -79,7 +93,7 @@ export class HouseComponent implements OnInit {
   paginationBack() {
     if (this.indexPhoto !== 0) { this.indexPhoto-- }
   }
-  
+
   getRating() {
 
     let random_num = [...Array(Math.floor(Math.random() * 5)).keys()]

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { GlobalState } from 'src/app/models/Country.state';
-import { loadData, loadedCountries, addFavoriteHouse, deleteFavoriteHouse, loadProfile, loadHouses, handleFilters, changeVerifiedStatusProfile, handleOrder } from '../actions/location.actions';
+import { loadData, loadedCountries, addFavoriteHouse, deleteFavoriteHouse, loadProfile, loadHouses, handleFilters, changeVerifiedStatusProfile, handleOrder, loadPayment } from '../actions/location.actions';
 
 // *********** ESTADO INICIAL ********** //
 //Creo una interfaz de estado inicial con sus propiedades
@@ -24,7 +24,17 @@ export const initialState: GlobalState = {
         verified: '',
         verificationCode: '',
         favoriteshouses: []
-    }
+    },
+    paymentInfo:[]
+
+    // {
+    //   userId: '',
+    //   start: "",
+    //   end: "",
+    //   people: 0,
+    //   totalPay: 0,
+    //   houseId: ""
+    // }
 }
 
 
@@ -90,7 +100,6 @@ export const countriesReducer = createReducer(
 
     on(handleFilters, (state, payload) => {
         let superFilter = state.backupHouses
-        console.log(payload.payload)
 
         const { minPrice, maxPrice, allowPets, wifi, selectedCountry, selectedCity } = payload.payload
 
@@ -112,8 +121,6 @@ export const countriesReducer = createReducer(
 
         if (selectedCountry) {
             superFilter = superFilter?.filter((house: any) => house.country === selectedCountry)
-            console.log(superFilter);
-
         }
 
         if (selectedCity) {
@@ -126,7 +133,7 @@ export const countriesReducer = createReducer(
         }
     }),
 
-    on (handleOrder, (state, payload) => {
+    on(handleOrder, (state, payload) => {
 
         let auxHouses = [...state.allHouses!];
 
@@ -147,5 +154,11 @@ export const countriesReducer = createReducer(
             allHouses: auxHouses
         }
     }),
+    on(loadPayment, (state,payload) => {
+      return{
+        ...state,
+        paymentInfo:[...state.paymentInfo!, payload.payload]
+      }
+    })
 
 );
