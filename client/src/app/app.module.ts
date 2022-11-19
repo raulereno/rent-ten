@@ -58,10 +58,6 @@ import { ContainerMPComponent } from './components/housedetail/payment/container
 
 
 
-
-
-
-
 const routes: Routes = [
   {
     path: '',
