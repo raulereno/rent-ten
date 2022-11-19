@@ -23,25 +23,24 @@ const generateRandomString = () => {
   styleUrls: ['./housedetail.component.css'],
 })
 export class HousedetailComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
+
+
+  constructor(private route: ActivatedRoute,
     public http: DataServiceService,
     private fb: FormBuilder,
     private location: Location,
     private router: Router,
-    public auth: AuthService,
-    private _store: Store<any>
-  ) {}
+    public auth: AuthService) { }
 
-  userProfile: userProfile;
-  profileJson: any;
-  paramsId: string | null;
-  house: House;
-  form: FormGroup;
-  booking: boolean = false;
-  // pagado: boolean;
+  userProfile: userProfile
+  profileJson: any
+  paramsId: string | null
+  house: House
+  form: FormGroup
+  booking: boolean = false
+  pagado: boolean;
+  indexPhoto: number = 0
 
-  indexPhoto: number = 0;
 
   ngOnInit(): void {
     this.paramsId = this.route.snapshot.paramMap.get('id');
@@ -51,11 +50,9 @@ export class HousedetailComponent implements OnInit {
         .subscribe((data) => (this.house = data));
 
     this.auth.user$.subscribe((res) => {
-      this.profileJson = res;
-      this.http
-        .getUser(this.profileJson.email)
-        .subscribe((res) => (this.userProfile = res));
-    });
+      this.profileJson = res
+      this.http.getUser(this.profileJson.email).subscribe((res) => this.userProfile = res)
+    })
 
     this.form = this.fb.group({
       daterange: new FormGroup({
@@ -84,61 +81,60 @@ export class HousedetailComponent implements OnInit {
   }
 
   formatDate(date: string) {
-    let split = date.split('/');
-    let formatDate = split[2] + '-' + split[1] + '-' + split[0];
-    return formatDate;
+    let split = date.split("/")
+    let formatDate = split[2] + "-" + split[1] + "-" + split[0]
+    return formatDate
   }
 
   reserveHouse(): void {
     var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    let startDate = this.formatDate(
-      this.form.value.daterange.start.toLocaleDateString('en-GB', options)
-    );
-    let endDate = this.formatDate(
-      this.form.value.daterange.end.toLocaleDateString('en-GB', options)
-    );
-    let newReserve = {
-      start: startDate,
-      end: endDate,
-      reservedBy: this.userProfile.id,
-    };
+    let startDate = this.formatDate(this.form.value.daterange.start.toLocaleDateString("en-GB", options))
+    let endDate = this.formatDate(this.form.value.daterange.end.toLocaleDateString("en-GB", options))
+    let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id }
 
-    // if (this.pagado) {
-    // } las tres lineas siguientes iban en este condicional
-    this.http.makeABook(this.house.id, newReserve);
-    this.house.bookings = [...this.house.bookings, newReserve];
-    alert('We sent you a email with the specifications of your reservation');
-
-    let paymentCode = generateRandomString(); //
-    this._store.dispatch(
-      loadPayment({
-        payload: {
-          paymentId: paymentCode,
-          userId: this.userProfile.id,
-          start: startDate,
-          end: endDate,
-          totalPay: this.house.price,
-          houseId: this.house.id,
-        },
-      })
-    );
-    //?paymentcode=${paymentCode}&houseId=${this.house.id}`
-
-    this.router.navigate(['/place/payment'], {
-      queryParams: { paymentcode: paymentCode, houseId: this.house.id },
-    });
-
-    // this.router.navigate(
-
-    //   ["/place/payment"],
-    //   {queryParams:
-    //     {paymentcode:paymentCode,houseId:this.house.id}
-    // })
+    
+      this.http.makeABook(this.house.id, newReserve)
+      this.house.bookings = [...this.house.bookings, newReserve]
+      alert("We sent you a email with the specifications of your reservation")
+    
   }
 
-  // pagar(): void {
-  //   this.pagado = !this.pagado;
-  // }
+  getPreferenceId() {
 
+    const item = {
+      title: `Booking for house with ID ${this.house.id}`,
+      price: this.house.price,
+      quantity: 1,
+    }
+
+    this.http.getPaymentLink(item).subscribe(res => 
+      {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js';
+      script.setAttribute('data-preference-id', res.id);
+      const form = document.getElementById('payment-form');
+      form?.appendChild(script);
+      }
+    )
+
+  }
+
+  getPaymentLink() {
+
+    const item = {
+      title: `Booking for house with ID ${this.house.id}`,
+      price: this.house.price,
+      quantity: 1
+    }
+    
+    this.http.getPaymentLink(item).subscribe(res => 
+      window.open(`${res.init_point}`, '_blank'))
+
+    this.reserveHouse()
+  }
+
+
+    
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 }

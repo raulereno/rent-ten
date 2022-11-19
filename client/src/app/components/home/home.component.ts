@@ -209,6 +209,8 @@ export class HomeComponent implements OnInit {
     );
     this.paginator.firstPage();
 
+    this.paginator.firstPage()
+    // this.store.dispatch(handleOrder({payload: this.order}))
     //this.store.dispatch(handleOrder({payload: this.order}))
   }
 
