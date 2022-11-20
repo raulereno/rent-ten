@@ -1,6 +1,10 @@
 const { Router } = require("express");
 const { House, User, Review } = require("../db");
 const { extraHouses, extraReviews } = require("../../extra-db/extra-db");
+var mercadopago = require("mercadopago");
+mercadopago.configurations.setAccessToken(
+  "TEST-2830502347743015-111509-be7c4ad96f1ef7ac33cea5b0e3f8876d-244311163"
+);
 
 const router = Router();
 
@@ -15,9 +19,30 @@ router.get("/:id", async (req, res) => {
   console.log(id);
 
   try {
-    const house = await House.findByPk(id, { include: [User, Review]});
+    const house = await House.findByPk(id, { include: [User, Review] });
     console.log(house);
     res.status(200).json(house);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/order/:order", async (req, res) => {
+  const { order } = req.params
+
+  try {
+    let allHouses = await House.findAll({ include: [User, Review] })
+
+    if (order === "byqualityprice") {
+      await allHouses.sort(function (a, b) { return a.price_quality_relation - b.price_quality_relation })
+    }
+
+    if (order === "rating") {
+      await allHouses.sort(function (a, b) { return b.rating - a.rating })
+    }
+
+    res.status(200).json(allHouses)
+
   } catch (error) {
     console.log(error);
   }
@@ -74,22 +99,22 @@ router.post("/createhouse", async (req, res) => {
 
 router.post("/makeabook", async (req, res) => {
 
-  const {newReserve, houseId} = req.body
+  const { newReserve, houseId } = req.body
 
   try {
     const house = await House.findByPk(houseId);
 
-    if (!house.bookings) {await house.update({bookings: [newReserve]})
+    if (!house.bookings) {
+      await house.update({ bookings: [newReserve] })
     } else {
-      await house.update({bookings: [...house.bookings, newReserve]})
+      await house.update({ bookings: [...house.bookings, newReserve] })
     }
 
-    res.status(200).json(house)
-
+    res.status(200).json(house);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
 
 // --- PUT METHODS ---
 
@@ -145,18 +170,32 @@ router.delete("/deletehouse", async (req, res) => {
     console.log(error);
   }
 });
+//payment
+router.post("/process_payment", (req, res) => {
+  console.log("BODY DE LA LLAMADA", req.body);
+
+  mercadopago.payment
+    .save(req.body)
+    .then(function (response) {
+      const { status, status_detail, id } = response.body;
+      console.log(status, status_detail, id);
+      res.status(response.status).json({ status, status_detail, id });
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+});
 
 // --- EXTRA TO FULL DB ---
 
 router.post("/fulldb", async (req, res) => {
-
   try {
-    let testuser = await User.create({mail: "user403@gmail.com", sub: 'sadasfasfj'})
+    let testuser = await User.create({ mail: "user403@gmail.com", sub: 'sadasfasfj' })
     extraHouses(50).forEach(async (house) => {
       try {
         let finder = await House.findOne({ where: house });
         const { scores, city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
-        req.body;
+          req.body;
 
         if (!finder) {
           let newHouse = await House.create(house);
@@ -166,11 +205,11 @@ router.post("/fulldb", async (req, res) => {
             await review.setUser(testuser.id)
             await review.setHouse(newHouse.id)
             await newHouse.update({ scores: [...newHouse.scores, newReview.rating] })
-          }) 
+          })
 
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     });
 
@@ -184,10 +223,7 @@ router.post("/fulldb", async (req, res) => {
 
 module.exports = router;
 
-
 // extraReviews(5).forEach(async (review) => )
-
-
 
 //   try {
 //     let testuser = await User.create({mail: "user403@gmail.com", sub: 'sadasfasfj'})

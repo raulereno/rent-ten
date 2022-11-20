@@ -1,4 +1,5 @@
 export interface Booking {
+    paymentId?:string,
     userId?: string;
     start: string;
     end: string;
