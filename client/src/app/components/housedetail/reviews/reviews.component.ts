@@ -94,7 +94,7 @@ export class ReviewsComponent implements OnInit {
 
   postNewReview() {
     this.errors = ''
-    if (!this.profileJson.sub) { this.errors = 'Login before let a review for this house!'; return }
+    if (!this.userProfile.id) { this.errors = 'Login before let a review for this house!'; return }
     if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
     if (!this.newRatingInput) { this.errors = 'Please select a valoration.'; return }
     this.http.postNewReview(this.newReviewInput, this.newRatingInput, this.userProfile.id, this.house.id, this.userProfile.mail)
