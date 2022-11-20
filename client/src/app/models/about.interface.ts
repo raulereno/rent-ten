@@ -49,10 +49,10 @@ export const CREATORS: About[] = [
     id: 5,
     name: 'Leandro',
     lastName: 'De Filippis',
-    image: '',
+    image: 'https://avatars.githubusercontent.com/u/76658911?v=4',
     info: 'Full Stack Web Developer',
     gitHub: 'https://github.com/leandefilippis',
-    linkIn: 'https://www.linkedin.com/in/lean-de-filippis-33ab60202/'
+    linkIn: 'https://www.linkedin.com/in/leandrodefilippis/'
   },
   {
     id: 6,
