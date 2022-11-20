@@ -273,3 +273,4 @@ export class HomeComponent implements OnInit {
     this.show_div=!this.show_div
   }
 }
+
