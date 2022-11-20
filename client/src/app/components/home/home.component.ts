@@ -74,6 +74,8 @@ export class HomeComponent implements OnInit {
   selectedCity: string;
   order: string
 
+  maxPeople: number | null
+
   darkmode: boolean;
   // --- ON INIT ---
 
@@ -164,6 +166,13 @@ export class HomeComponent implements OnInit {
 
   }
 
+  handlePeopleMax(event: any) {
+    this.maxPeople = event.target.value;
+    this.handleFilters();
+   
+
+  }
+
   handleCheckboxP(pets: boolean): void {
     this.allowpets = pets;
     this.handleFilters();
@@ -217,6 +226,7 @@ export class HomeComponent implements OnInit {
       payload: {
         minPrice: this.minPrice,
         maxPrice: this.maxPrice,
+        maxPeople: this.maxPeople,
         allowPets: this.allowpets,
         wifi: this.wifi,
         selectedCountry: this.selectedCountry,

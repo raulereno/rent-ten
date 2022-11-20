@@ -15,6 +15,8 @@
         <select *ngIf="selectedCountry?.length" name="ciudades" [(ngModel)]="selectedCity" id=""
             style="max-height: 100%; max-width: 30%;" aria-label="Ejemplo de .form-select-lg"
             class="form-select form-select-sm" appearance="outline" (change)="handleCity(selectedCity)">
+            <mat-label>Selected City</mat-label>
+            <option selected value="">Select a city</option>
             <option *ngFor="let ciudades of city" [ngValue]="ciudades">
                 {{ciudades}}
             </option>
@@ -82,6 +84,19 @@
                                         [(ngModel)]="maxPrice" (input)="handlePriceMax($event)">
                                     <mat-icon matPrefix>dolar_symbol</mat-icon>
                                 </mat-form-field>
+
+                                <mat-form-field style="max-width: 150px;" appearance="outline">
+                                    <mat-label>Max people</mat-label>
+                                    <input name="maxPeople" type="number" matInput placeholder="Max people"
+                                        [(ngModel)]="maxPeople" (input)="handlePeopleMax($event)">
+                                    <mat-icon matPrefix></mat-icon>
+                                </mat-form-field>
+
+
+
+
+
+
 
                                 <select aria-placeholder="Order by" [(ngModel)]='order' (change)="handleOrder(order)"
                                     style="max-height: 20%; max-width: 40%; margin-top: 0.5%"
