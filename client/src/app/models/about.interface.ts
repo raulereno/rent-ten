@@ -13,7 +13,7 @@ export const CREATORS: About[] = [
     id: 1,
     name: 'Ezequiel',
     lastName: 'Castioni',
-    image: '',
+    image: 'https://res.cloudinary.com/dbgpp8nla/image/upload/v1668902580/fz0t1blvbqtawh67ultd.jpg',
     info: 'Full Stack Web Developer',
     gitHub: 'https://github.com/Zkcast',
     linkIn: 'https://www.linkedin.com/in/ezequiel-guido-castioni-448996243/'
@@ -59,7 +59,7 @@ export const CREATORS: About[] = [
     name: 'Ariana',
     lastName: 'Amaya Natel',
     image: 'https://res.cloudinary.com/dbgpp8nla/image/upload/v1668898884/eipeywxilye3soog2nne.jpg',
-    info: 'FullStack Developer',
+    info: 'Full Stack Web Developer',
     gitHub: 'https://github.com/AriiJackson',
     linkIn: 'https://www.linkedin.com/in/ariana-virginia-amaya-natel/'
   },
