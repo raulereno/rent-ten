@@ -11,6 +11,8 @@ import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { changeVerifiedStatusProfile, loadProfile } from 'src/app/redux/actions/location.actions';
 import { Review } from 'src/app/models/Review';
 import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -39,7 +41,8 @@ export class ProfileComponent implements OnInit {
   constructor(public auth: AuthService,
     private http: DataServiceService,
     private store: Store<any>,
-    private _uploadImg: UploadImgService) {
+    private _uploadImg: UploadImgService,
+    private localStorageSvc: LocalStorageService,) {
   }
 
 
@@ -61,7 +64,9 @@ export class ProfileComponent implements OnInit {
 
       this.http.getHouses().subscribe(data => {
         this.allHouses = data;
-        this.favoritesHouses = this.allHouses.filter((house: House) => this.dbProfile.favoriteshouses!.some((h: string) => h == house.id));
+        let favoritesLS = this.localStorageSvc.getFavoritesHouses()
+        this.favoritesHouses = this.allHouses.filter((house: House) => (this.dbProfile.favoriteshouses!.concat(favoritesLS)).some((h: string) => h == house.id))
+        console.log('ver array favorites', this.dbProfile.favoriteshouses)
       }
       );
     });

@@ -1,4 +1,4 @@
-<div class="wrapper" [ngClass]="darkmode ? 'mat-elevation-z4 dark' : 'mat-elevation-z4'">
+<div class="wrapper" [ngClass]="darkmode ? 'mat-elevation-z4 darkmode' : 'mat-elevation-z4'">
   <a routerLink="/home">
     <img class="logo" src="../../assets/logo.png" alt="Logo">
   </a>
@@ -48,12 +48,8 @@
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
     </div>
   </ng-template>
-
-  <button (click)="openModalFav(favorites)">My favorites</button>
-  <!-- *ngIf="!userProfile" -->
-  <!-- class="btn btn-lg btn-outline-primary"
-*ngIf="!isLogged" -->
   <div class="rightdiv">
+    <button (click)="openModalFav(favorites)" *ngIf="!isLogged" class="myFavorites">My favorites</button>
     <a mat-button routerLink="/home">Home</a>
     <a mat-button routerLink="/about">About</a>
 

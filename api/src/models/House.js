@@ -82,6 +82,36 @@ module.exports = (sequelize) => {
     scores: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true
+    },
+
+    rating: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        if (this.scores) {
+          let sum = 0;
+          this.scores.forEach(n => sum += n)
+          return  Math.ceil(sum / this.scores.length)
+        } else {
+          return 1
+        }
+       
+      },
+      set(value) {
+        throw new Error('Do not try to set the `rating` value, its a virtual DataType!');
+      },
+      allowNull: true,
+      defaultValue: 1
+    },
+
+    price_quality_relation: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return Math.ceil(this.price / this.rating)
+      },
+      set(value) {
+        throw new Error('Do not try to set the `rating` value, its a virtual DataType!');
+      },
+      allowNull: true
     }
 
     },
