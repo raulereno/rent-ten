@@ -1,10 +1,9 @@
 <div class="container">
 
-  <div [ngClass]="darkmode? 'card mb-4 paginadoYfiltros darkmode':'card mb-4 paginadoYfiltros'" >
+  <div [ngClass]="darkmode? 'card mb-4 paginadoYfiltros darkmode':'card mb-4 paginadoYfiltros'">
     <div class="card-header d-flex justify-content-between align-item-center">
-      <mat-paginator class="mat-app-background paginado"
-        [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
-        (page)="handlePage($event)" showFirstLastButtons="">
+      <mat-paginator class="mat-app-background paginado" [length]="allHouses.length" [pageSize]="page_size"
+        [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
       </mat-paginator>
       &nbsp;&nbsp;&nbsp;&nbsp;
       <button class="buttonFilter">
@@ -16,7 +15,8 @@
     </div>
   </div>
 
-  <div *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order">
+  <div
+    *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order">
     <div class="bodydiv">
       <div class="grid">
         <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
@@ -31,14 +31,14 @@
     <button type="button" class="btn btn-outline-dark" (click)="clearFilters()">Clear filters</button>
   </div>
   <app-alternativehome
-        *ngIf="!filterForm.value.minPrice && !filterForm.value.maxPrice && !filterForm.value.allowpets && !filterForm.value.wifi && !filterForm.value.country && !selectedCity && !filterForm.value.order">
-    </app-alternativehome>
+    *ngIf="!filterForm.value.minPrice && !filterForm.value.maxPrice && !filterForm.value.allowpets && !filterForm.value.wifi && !filterForm.value.country && !selectedCity && !filterForm.value.order">
+  </app-alternativehome>
 
 </div>
 <footer class="footer">Footer TEST</footer>
 
 
-<ng-template #filters let-modal >
+<ng-template #filters let-modal>
   <div [ngClass]="darkmode? 'container-modal darkmodeModal':'container-modal'">
     <div class="modal-header d-flex align-items-center">
       <h3 style="margin: 0; font-size: 1.5rem;">Filters</h3>
@@ -138,5 +138,3 @@
     {{filterForm.value|json}}
   </div>
 </ng-template>
-
-

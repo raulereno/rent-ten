@@ -23,7 +23,8 @@ router.get("/", async (req, res) => {
 router.get("/getuser", async (req, res) => {
   const { mail } = req.query;
   try {
-    const finder = await User.findOne({ where: { mail: mail } });
+    // const finder = await User.findOne({ where: { mail: mail } });
+    const finder = await User.findOne({ where: { mail: mail }, include: [Review, House] });
     res.status(200).json(finder);
   } catch (error) {
     console.log(error);
