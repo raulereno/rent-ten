@@ -6,6 +6,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { userProfile } from 'src/app/models/UserProfile';
 import { AuthService } from '@auth0/auth0-angular';
 import { Booking } from 'src/app/models/Booking';
+import { Observable } from 'rxjs';
+import { House } from 'src/app/models/House';
+import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 
 @Component({
   selector: 'app-reviews',
@@ -14,8 +17,9 @@ import { Booking } from 'src/app/models/Booking';
 })
 export class ReviewsComponent implements OnInit {
 
-
-  userProfile: userProfile
+  userProfile$: Observable<any> = new Observable();
+  userProfile: userProfile;
+  
   profileJson: any
 
   paramsId: string | null
@@ -31,24 +35,24 @@ export class ReviewsComponent implements OnInit {
   constructor(public http: DataServiceService, private store: Store<any>, private route: ActivatedRoute, private modalService: NgbModal, public auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    if (this.auth.isAuthenticated$) {
-      
-      this.auth.user$.subscribe((res) => {
-      this.profileJson = res
-      this.http.getUser(this.profileJson.email).subscribe((res) => this.userProfile = res)
-    })
-  }
-    this.paramsId = this.route.snapshot.paramMap.get('id')
-    this.paramsId && this.http.getHouse(this.paramsId).subscribe(
-      data => { 
-        this.house = data;
-        this.ableToPostReview = this.house.Bookings.some((booking:Booking) => booking.UserId === this.userProfile.id)
-      }
-    )
+
+      this.userProfile$ = this.store.select(selectorListProfile)
+      this.userProfile$.subscribe(profile => {
+        this.userProfile = profile;
+      });
+
+      this.paramsId = this.route.snapshot.paramMap.get('id')
+      this.paramsId && this.http.getHouse(this.paramsId).subscribe(
+        data => {
+          this.house = data;
+          this.ableToPostReview = this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)
+        }
+      )
+
   }
 
   showInfo() {
-    console.log(this.house)
+
   }
 
   returnDate(date: string) {
@@ -69,14 +73,14 @@ export class ReviewsComponent implements OnInit {
   }
 
   openLetReviewModal(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }) 
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
   }
 
   userWasOnPlace() {
 
-  if (this.house.Bookings.find((booking:Booking) => booking.UserId === this.userProfile.id)) {
-    this.ableToPostReview = true
-  }
+    if (this.house.Bookings.find((booking: Booking) => booking.UserId === this.userProfile.id)) {
+      this.ableToPostReview = true
+    }
 
   }
 
