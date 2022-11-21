@@ -93,7 +93,7 @@ export class DataServiceService {
   }
 
   fullDatabase() {
-    this.http.post(`http://localhost:3001/houses/fulldb`, {}).subscribe({
+    this.http.post(`${environment.baseUrl}/houses/fulldb`, {}).subscribe({
       error: error => {
         console.log(error);
       }
@@ -101,7 +101,7 @@ export class DataServiceService {
   }
 
   makeABook(houseId: string, newReserve: Booking, userId: string) {
-    this.http.post(`http://localhost:3001/bookings`, {houseId, newReserve, userId}).subscribe({
+    this.http.post(`${environment.baseUrl}/bookings`, {houseId, newReserve, userId}).subscribe({
       error: error => {
         console.log(error);
       }
@@ -109,7 +109,7 @@ export class DataServiceService {
   }
 
   postNewReview(opinion:string, rating: number, userId:string, houseId:string, userEmail:string): Observable<any> {
-    return this.http.post<any>(`http://localhost:3001/reviews`, {opinion, rating, userId, houseId, userEmail})
+    return this.http.post<any>(`${environment.baseUrl}/reviews`, {opinion, rating, userId, houseId, userEmail})
   }
 
   getHouses_withOrder(order:string): Observable<any> {
@@ -117,7 +117,7 @@ export class DataServiceService {
   }
 
   getPaymentLink(item: any): Observable<any> {
-    return this.http.post<any>(`http://localhost:3001/mercadopago/payment`, item)
+    return this.http.post<any>(`${environment.baseUrl}/mercadopago/payment`, item)
   }
 
   updateBookingStatus(houseId: string, code: string, status:string) {
