@@ -111,8 +111,8 @@ export class NavbarComponent implements OnInit {
   removeFavoriteLS(id:string): void {
     this.localStorageSvc.removeFavorite(id)
     this.ngOnInit()
-
   }
+  
   openModalFav(favorites: any) {
     this.ngOnInit()
 		this.modalService.open(favorites, { ariaLabelledBy: 'modal-basic-title' })

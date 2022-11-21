@@ -62,8 +62,8 @@ export class HouseComponent implements OnInit {
 
   toggleFavorite(houseId:string):void{
     this.localStorageSvc.addToFavorite(houseId)
-
   }
+  
 
   deleteFavorite(houseId: string, userId: string): void {
     this.http.deleteFavorite(houseId, userId)
