@@ -1,6 +1,4 @@
-import { loadPayment } from './../../redux/actions/location.actions';
-import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { House } from '../../models/House';
@@ -9,7 +7,6 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
-import GalleryModule from 'ng-gallery';
 
 const generateRandomString = () => {
   let result = Math.random().toString(36).substring(0, 12);
@@ -25,16 +22,16 @@ const generateRandomString = () => {
 export class HousedetailComponent implements OnInit {
 
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     public http: DataServiceService,
     private fb: FormBuilder,
     private location: Location,
-    private router: Router,
     public auth: AuthService) { }
 
   userProfile: userProfile
   profileJson: any
-  paramsId: string | null
+  paramsId: string;
   house: House
   form: FormGroup
   booking: boolean = false
@@ -43,11 +40,13 @@ export class HousedetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.paramsId = this.route.snapshot.paramMap.get('id');
-    this.paramsId &&
+    this.route.params.subscribe(params=>{
+      this.paramsId= params["id"];
       this.http
         .getHouse(this.paramsId)
         .subscribe((data) => (this.house = data));
+    });
+
 
     this.auth.user$.subscribe((res) => {
       this.profileJson = res
@@ -61,6 +60,7 @@ export class HousedetailComponent implements OnInit {
       }),
     });
   }
+
 
   unavailableDays = (calendarDate: Date): boolean => {
     if (!this.house.bookings) return true;
@@ -92,11 +92,11 @@ export class HousedetailComponent implements OnInit {
     let endDate = this.formatDate(this.form.value.daterange.end.toLocaleDateString("en-GB", options))
     let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id }
 
-    
+
       this.http.makeABook(this.house.id, newReserve)
       this.house.bookings = [...this.house.bookings, newReserve]
       alert("We sent you a email with the specifications of your reservation")
-    
+
   }
 
   getPreferenceId() {
@@ -107,7 +107,7 @@ export class HousedetailComponent implements OnInit {
       quantity: 1,
     }
 
-    this.http.getPaymentLink(item).subscribe(res => 
+    this.http.getPaymentLink(item).subscribe(res =>
       {
       const script = document.createElement('script');
       script.type = 'text/javascript';
@@ -127,14 +127,14 @@ export class HousedetailComponent implements OnInit {
       price: this.house.price,
       quantity: 1
     }
-    
-    this.http.getPaymentLink(item).subscribe(res => 
+
+    this.http.getPaymentLink(item).subscribe(res =>
       window.open(`${res.init_point}`, '_blank'))
 
     this.reserveHouse()
   }
 
 
-    
+
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 }
