@@ -28,7 +28,6 @@ export class HousedetailComponent implements OnInit {
   house: House
   profileJson: any
   paramsId: string;
-  house: House
   form: FormGroup
   booking: boolean = false
   pagado: boolean;
@@ -109,9 +108,17 @@ export class HousedetailComponent implements OnInit {
     // let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id, code: transactionCode }
 
 
-      this.http.makeABook(this.house.id, newReserve)
-      this.house.bookings = [...this.house.bookings, newReserve]
-      alert("We sent you a email with the specifications of your reservation")
+    const newReserve = {
+      start: this.formatDate(start.toLocaleDateString("en-GB", options)),
+      end: this.formatDate(end.toLocaleDateString("en-GB", options)),
+      reservedBy: this.userProfile.id,
+      code: transactionCode
+    }
+
+    this.paymentstatus = 'loading'
+    this.http.makeABook(this.house.id, newReserve, this.userProfile.id)
+    this.getPreferenceId(transactionCode)
+    }
 
   }
 

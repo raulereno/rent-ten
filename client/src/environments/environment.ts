@@ -1,8 +1,8 @@
 
 import packageInfo from '../../auth_config.json'
 
-let domain = packageInfo.domain
-let clientId = packageInfo.clientId
+let domain = packageInfo.local.domain
+let clientId = packageInfo.local.clientId
 
 
 export const environment = {
