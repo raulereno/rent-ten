@@ -15,9 +15,9 @@
     </div>
   </div>
 
-  <div
-    *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order">
-    <div class="bodydiv">
+  <!-- <div *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order"> -->
+    <div>
+      <div class="bodydiv">
       <div class="grid">
         <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
           [dbProfile]="dbProfile" class="grid-content"></app-house>
@@ -30,9 +30,9 @@
     <h3 style="font-size: 3rem;">There is no house with those requirements</h3>
     <button type="button" class="btn btn-outline-dark" (click)="clearFilters()">Clear filters</button>
   </div>
-  <app-alternativehome
+  <!-- <app-alternativehome
     *ngIf="!filterForm.value.minPrice && !filterForm.value.maxPrice && !filterForm.value.allowpets && !filterForm.value.wifi && !filterForm.value.country && !selectedCity && !filterForm.value.order">
-  </app-alternativehome>
+  </app-alternativehome> -->
 
 </div>
 <footer class="footer">Footer TEST</footer>

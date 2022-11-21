@@ -9,6 +9,7 @@ import { Booking } from 'src/app/models/Booking';
 import { Observable } from 'rxjs';
 import { House } from 'src/app/models/House';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
+import { loadProfile } from 'src/app/redux/actions/location.actions';
 
 @Component({
   selector: 'app-reviews',
@@ -19,7 +20,7 @@ export class ReviewsComponent implements OnInit {
 
   userProfile$: Observable<any> = new Observable();
   userProfile: userProfile;
-  
+
   profileJson: any
 
   paramsId: string | null
@@ -28,6 +29,7 @@ export class ReviewsComponent implements OnInit {
   rating: number
   errors: string;
   ableToPostReview: boolean = false
+  ableToPostReview$: Observable<boolean> = new Observable();
 
   newReviewInput: string = ''
   newRatingInput: number
@@ -36,24 +38,54 @@ export class ReviewsComponent implements OnInit {
 
   ngOnInit(): void {
 
-      this.userProfile$ = this.store.select(selectorListProfile)
-      this.userProfile$.subscribe(profile => {
-        this.userProfile = profile;
+    this.userProfile$ = this.store.select(selectorListProfile)
+
+    this.loadProfile()
+
+    this.auth.user$.subscribe(profile => {
+      this.profileJson = profile;
+      this.http.getUser(this.profileJson.email).subscribe(res => {
+        this.store.dispatch(loadProfile({ userProfile: res }))
+        this.userProfile = res
+        this.ableToPostReview = this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)
       });
+    })
 
-      this.paramsId = this.route.snapshot.paramMap.get('id')
-      this.paramsId && this.http.getHouse(this.paramsId).subscribe(
-        data => {
-          this.house = data;
-          this.ableToPostReview = this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)
-        }
-      )
+    this.paramsId = this.route.snapshot.paramMap.get('id')
+    this.paramsId && this.http.getHouse(this.paramsId).subscribe(
+      data => {
+        this.house = data;
+        this.userProfile$.subscribe((res) => {
+          this.loadProfile()
+        })
+
+      }
+
+    )
 
   }
 
-  showInfo() {
+  loadProfile() {
+
+    this.userProfile$.subscribe(profile => {
+      if (profile.length === 0) {
+        this.auth.user$.subscribe(profile => {
+          this.profileJson = profile;
+          this.http.getUser(this.profileJson.email).subscribe(res => {
+            this.store.dispatch(loadProfile({ userProfile: res }))
+            this.userProfile = res
+            this.ableToPostReview = this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)
+          });
+        })
+      } else {
+        this.userProfile = profile
+        this.ableToPostReview = this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)
+
+      }
+    });
 
   }
+
 
   returnDate(date: string) {
     return new Date(date).toString().split('GMT', 1)
@@ -73,15 +105,10 @@ export class ReviewsComponent implements OnInit {
   }
 
   openLetReviewModal(content: any) {
+    console.log(this.house.Booking)
+    console.log(this.userProfile)
+    if (!this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)) { alert('You can only post reviews of places you have been to') }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
-  }
-
-  userWasOnPlace() {
-
-    if (this.house.Bookings.find((booking: Booking) => booking.UserId === this.userProfile.id)) {
-      this.ableToPostReview = true
-    }
-
   }
 
   getRating(e: number) {
@@ -94,6 +121,7 @@ export class ReviewsComponent implements OnInit {
 
   postNewReview() {
     this.errors = ''
+
     if (!this.userProfile.id) { this.errors = 'Login before let a review for this house!'; return }
     if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
     if (!this.newRatingInput) { this.errors = 'Please select a valoration.'; return }
