@@ -115,7 +115,7 @@ export class NavbarComponent implements OnInit {
   }
   openModalFav(favorites: any) {
     this.ngOnInit()
-		this.modalService.open(favorites, { ariaLabelledBy: 'modal-basic-title' })
+		this.modalService.open(favorites, { ariaLabelledBy: 'modal-basic-title', size:"lg"})
 	}
 
   fullDatabase(): void {

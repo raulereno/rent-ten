@@ -1,7 +1,7 @@
 .wrapper{
   display: flex;
   align-items: center;
-  height: 3.5rem;
+  height: 5rem;
 }
 
 .leftdiv{
@@ -11,8 +11,14 @@
 }
 
 .logo{
-  width: 4rem;
-  margin-left: 1rem;
+  width: 5rem;
+  margin-left: 1.75rem;
+  transition: all 0.2s;
+}
+
+.logo:hover{
+  transition: all 0.2s;
+  transform: scale(110%);
 }
 
 .host{
@@ -114,4 +120,124 @@
 }
 .myFavorites:hover{
   color: blue;
+}
+
+.myfavourites{
+  height: 2rem;
+  width: 6rem;
+  transition: all .2s;
+  border: 1px solid rgba(0, 0, 0, 0.368);
+  border-radius: 5px;
+}
+
+.myfavourites:hover{
+  transform: scale(1.05);
+}
+
+.favmodal{
+  width: 50rem;
+  border-top-left-radius: var(--bs-modal-inner-border-radius);
+  border-top-right-radius: var(--bs-modal-inner-border-radius);
+  border-bottom-left-radius: var(--bs-modal-inner-border-radius);
+  border-bottom-right-radius: var(--bs-modal-inner-border-radius);
+  transition: all 0.2s;
+}
+
+.favoriteshead{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 5rem;
+  margin-bottom: 1rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.headtitle{
+  font-size: 30px;
+  margin-top: 1rem;
+}
+
+.ptitle{
+  margin-top: -0.5rem;
+}
+
+.modalbutton{
+  height: 30px;
+  width: 35px;
+  color: #000;
+  background: none;
+  border: 0;
+  font-size: 20px;
+}
+
+#closemodal{
+  position: absolute;
+  top: 0.7rem;
+  left: 94%;
+}
+
+#removefav{
+  position: fixed;
+  margin-top: 0.3rem;
+  margin-left: 16.3rem;
+  font-size: 0.75rem;
+  color:red;
+}
+
+.favoritesbody{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.grid{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 50% 50%;
+}
+
+.house{
+  display: flex;
+  height: 6rem;
+  width: 18rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  border-radius: 1rem 1rem 1rem 1rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+.houseinfo{
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(90deg, rgba(129, 129, 129, 0.156), white);
+  height: 6rem;
+  padding-left: 0.7rem;
+  padding-top: 0.7rem;
+}
+
+.image{
+  height: 6rem;
+  width: 8rem;
+  border-radius: 1rem 0rem 0rem 1rem;
+  margin-bottom: -1.5rem;
+  object-fit: cover;
+}
+
+.type{
+  font-size: 20px;
+  font-weight: 900;
+  color: rgb(43, 43, 43);
+}
+
+.location{
+  font-size: 0.7rem;
+  margin-top: -2rem;
+}
+
+.price {
+  color: rgb(23, 59, 3);
+  font-size: 17px;
+  font-weight: 400;
+  margin-top: 0.2rem;
 }

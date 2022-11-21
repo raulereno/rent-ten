@@ -225,7 +225,7 @@ export class HomeComponent implements OnInit {
   }
 
   openFilterModal(filters: any) {
-    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title',size:'lg' });
+    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title'});
   }
 
   clearFilters() {

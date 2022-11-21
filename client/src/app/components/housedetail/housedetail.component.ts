@@ -1,6 +1,6 @@
 import { loadPayment } from './../../redux/actions/location.actions';
 import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { House } from '../../models/House';
@@ -9,7 +9,8 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
-import GalleryModule from 'ng-gallery';
+import { Observable } from 'rxjs';
+import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 
 const generateRandomString = () => {
   let result = Math.random().toString(36).substring(0, 12);
@@ -24,35 +25,49 @@ const generateRandomString = () => {
 })
 export class HousedetailComponent implements OnInit {
 
+  @Input() house: House;
+  @Input() dbProfile: userProfile
+
+  userProfile$: Observable<any> = new Observable()
 
   constructor(private route: ActivatedRoute,
     public http: DataServiceService,
     private fb: FormBuilder,
     private location: Location,
     private router: Router,
+    private store: Store<any>,
     public auth: AuthService) { }
 
   userProfile: userProfile
   profileJson: any
-  paramsId: string | null
-  house: House
+  paramsId: string
   form: FormGroup
   booking: boolean = false
   pagado: boolean;
   indexPhoto: number = 0
+  starRating: number;
+  n:number;
 
 
   ngOnInit(): void {
-    this.paramsId = this.route.snapshot.paramMap.get('id');
-    this.paramsId &&
+    this.route.params.subscribe(params=>{
+      this.paramsId= params["id"];
       this.http
         .getHouse(this.paramsId)
         .subscribe((data) => (this.house = data));
+    });
 
     this.auth.user$.subscribe((res) => {
       this.profileJson = res
       this.http.getUser(this.profileJson.email).subscribe((res) => this.userProfile = res)
     })
+
+    this.userProfile$ = this.store.select(selectorListProfile)
+    this.userProfile$.subscribe(() => {
+      this.n = 0
+      this.house.scores.forEach((score) => this.n = this.n + score)
+      this.starRating = Math.ceil(this.n / this.house.scores.length)
+   })
 
     this.form = this.fb.group({
       daterange: new FormGroup({
@@ -134,7 +149,15 @@ export class HousedetailComponent implements OnInit {
     this.reserveHouse()
   }
 
+  getRating() {
 
+    let random_num = [...Array(Math.floor(Math.random() * 5)).keys()]
+    const stars = '★'
+    const emptystars = "&#x2605";
+    let array = random_num.map(() => stars)
+    let random = array.join("")
+    return random
+  }
     
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 }
