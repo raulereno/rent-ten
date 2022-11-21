@@ -224,6 +224,11 @@
   object-fit: cover;
 }
 
+.image:hover{
+  transition: 0.5s;
+  opacity:70%;
+}
+
 .type{
   font-size: 20px;
   font-weight: 900;
