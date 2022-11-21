@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "hammerjs": "^2.0.8",
+    "lodash": "^4.17.21",
+    "ngx-gallery": "^5.10.0",
+    "ngx-image-gallery": "^2.0.5"
+  }
+}

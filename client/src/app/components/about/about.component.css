@@ -1,4 +1,4 @@
-h1 {
+h1, h4 {
   text-align: center;
 }
 
@@ -13,4 +13,5 @@ ul {
 img {
   width: 250px;
   height: 250px;
+  border-radius: 100%;
 }

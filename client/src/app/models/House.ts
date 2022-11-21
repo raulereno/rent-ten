@@ -1,3 +1,5 @@
+import { Booking } from "./Booking";
+
 export interface House {
     Users?: any[];
     allowpets: boolean;
@@ -12,5 +14,9 @@ export interface House {
     type: string;
     price: number;
     wifi: boolean;
-    bookings: any[];
+    Bookings: Booking[];
+    scores: number[];
+    Reviews?: any[];
+    rating?: number;
+    price_quality_relation: number;
 }

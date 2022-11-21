@@ -1,3 +1,5 @@
+import { House } from "./House";
+
 export interface userProfile {
         id: string;
         name: string;
@@ -11,4 +13,7 @@ export interface userProfile {
         verified: string;
         verificationCode: string;
         favoriteshouses?: string[];
+        Reviews?: any[];
+        Houses?: House[]
+
 }
