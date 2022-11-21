@@ -26,9 +26,9 @@ class PaymentService {
         },
       },
       back_urls: {
-        failure: `localhost:4200/housedetail/mercadopago/failure/${req.body.houseId}/${req.body.code}`,
-        pending: `localhost:4200/housedetail/mercadopago/pending/${req.body.houseId}/${req.body.code}`,
-        success: `localhost:4200/housedetail/mercadopago/success/${req.body.houseId}/${req.body.code}`,
+        failure: `https://rent-ten.vercel.app/housedetail/mercadopago/failure/${req.body.houseId}/${req.body.code}`,
+        pending: `https://rent-ten.vercel.app/housedetail/pending/${req.body.houseId}/${req.body.code}`,
+        success: `https://rent-ten.vercel.app/housedetail/success/${req.body.houseId}/${req.body.code}`,
       },
       notification_url: "http://www.localhost:3001/mercadopago/notification",
       external_reference: "MP0001",
