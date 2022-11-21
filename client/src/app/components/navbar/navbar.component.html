@@ -1,6 +1,9 @@
 <div class="wrapper" [ngClass]="darkmode ? 'mat-elevation-z4 dark' : 'mat-elevation-z4'">
-  <a routerLink="/home">
+  <a *ngIf="!darkmode" routerLink="/home">
     <img class="logo" src="../../assets/logo.png" alt="Logo">
+  </a>
+  <a *ngIf="darkmode" routerLink="/home">
+    <img class="logo" src="../../assets/logo_white.png" alt="Logo">
   </a>
   <div class="leftdiv">
 
