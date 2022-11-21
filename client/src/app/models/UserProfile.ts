@@ -15,4 +15,5 @@ export interface userProfile {
         favoriteshouses?: string[];
         Reviews?: any[];
         Houses?: House[]
+
 }

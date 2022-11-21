@@ -9,14 +9,7 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
-import { Observable } from 'rxjs';
-import { selectorListProfile } from 'src/app/redux/selectors/selectors';
-
-const generateRandomString = () => {
-  let result = Math.random().toString(36).substring(0, 12);
-
-  return result;
-};
+import GalleryModule from 'ng-gallery';
 
 @Component({
   selector: 'app-housedetail',
@@ -45,8 +38,7 @@ export class HousedetailComponent implements OnInit {
   booking: boolean = false
   pagado: boolean;
   indexPhoto: number = 0
-  starRating: number;
-  n:number;
+  paymentstatus: string;
 
 
   ngOnInit(): void {
@@ -78,12 +70,12 @@ export class HousedetailComponent implements OnInit {
   }
 
   unavailableDays = (calendarDate: Date): boolean => {
-    if (!this.house.bookings) return true;
-    return !this.house.bookings.some(
+    if (!this.house.Bookings) return true;
+    return !this.house.Bookings.some(
       (d: Booking) =>
         calendarDate > new Date(d.start) &&
         calendarDate <=
-          new Date(new Date(d.end).getTime() + 24 * 60 * 60 * 1000)
+        new Date(new Date(d.end).getTime() + 24 * 60 * 60 * 1000)
     );
   };
 
@@ -101,36 +93,84 @@ export class HousedetailComponent implements OnInit {
     return formatDate
   }
 
-  reserveHouse(): void {
-    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    let startDate = this.formatDate(this.form.value.daterange.start.toLocaleDateString("en-GB", options))
-    let endDate = this.formatDate(this.form.value.daterange.end.toLocaleDateString("en-GB", options))
-    let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id }
-
-    
-      this.http.makeABook(this.house.id, newReserve)
-      this.house.bookings = [...this.house.bookings, newReserve]
-      alert("We sent you a email with the specifications of your reservation")
-    
+  checkItsOccuped(start: Date, end: Date) {
+    console.log(this.house.Bookings)
+    return this.house.Bookings.some(
+      (d: Booking) =>
+        start < new Date(d.start) &&
+        end >
+        new Date(new Date(d.end).getTime() + 24 * 60 * 60 * 1000)
+    )
   }
 
-  getPreferenceId() {
+  reserveHouse(): void {
+
+    let start = this.form.value.daterange.start
+    let end = this.form.value.daterange.end
+
+    if (!start || !end) { alert("Please select both dates"); return }
+    if (this.checkItsOccuped(start, end)) { alert('This place has bookings between your selected dates. Please make two bookings or change your dates'); return 
+  
+    } else {
+    let transactionCode = Math.random().toString(36).slice(4)
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    // let startDate = this.formatDate(start.toLocaleDateString("en-GB", options))
+    // let endDate = this.formatDate(end.toLocaleDateString("en-GB", options))
+    // let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id, code: transactionCode }
+
+    const newReserve = {
+      start: this.formatDate(start.toLocaleDateString("en-GB", options)),
+      end: this.formatDate(end.toLocaleDateString("en-GB", options)),
+      reservedBy: this.userProfile.id,
+      code: transactionCode
+    }
+
+    this.paymentstatus = 'loading'
+    this.http.makeABook(this.house.id, newReserve, this.userProfile.id)
+    this.getPreferenceId(transactionCode)
+    }
+
+  }
+
+
+  // getPaymentLink(transactionCode: string) {
+
+  //   const item = {
+  //     title: `Booking for house with ID ${this.house.id}`,
+  //     price: this.house.price,
+  //     quantity: 1,
+  //     email: this.userProfile.mail,
+  //     userId: this.userProfile.id,
+  //     houseId: this.house.id,
+  //     code: transactionCode
+  //   }
+
+  //   this.http.getPaymentLink(item).subscribe(res => 
+  //     window.open(`${res.init_point}`, '_blank'))
+
+  // }
+
+  getPreferenceId(transactionCode: string) {
 
     const item = {
       title: `Booking for house with ID ${this.house.id}`,
       price: this.house.price,
       quantity: 1,
+      email: this.userProfile.mail,
+      userId: this.userProfile.id,
+      houseId: this.house.id,
+      code: transactionCode
     }
 
-    this.http.getPaymentLink(item).subscribe(res => 
-      {
+    this.http.getPaymentLink(item).subscribe(res => {
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js';
       script.setAttribute('data-preference-id', res.id);
       const form = document.getElementById('payment-form');
       form?.appendChild(script);
-      }
+      this.paymentstatus = 'ready'
+    }
     )
 
   }
@@ -149,15 +189,5 @@ export class HousedetailComponent implements OnInit {
     this.reserveHouse()
   }
 
-  getRating() {
-
-    let random_num = [...Array(Math.floor(Math.random() * 5)).keys()]
-    const stars = '★'
-    const emptystars = "&#x2605";
-    let array = random_num.map(() => stars)
-    let random = array.join("")
-    return random
-  }
-    
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 }

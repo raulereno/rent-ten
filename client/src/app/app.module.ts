@@ -67,7 +67,7 @@ const routes: Routes = [
       { path: 'createhouse', component: CreateHouseComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
-      { path: 'housedetail/mercadopago/:id', component: StatusComponent },
+      { path: 'housedetail/mercadopago/:id/:houseId/:code', component: StatusComponent },
       { path: "**", redirectTo: 'home' },
     ]
   }

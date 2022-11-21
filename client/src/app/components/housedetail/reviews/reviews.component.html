@@ -35,7 +35,7 @@
 
     <ng-template #letReview let-modal>
         <div class="modal-header">
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            <button id="closeModalButton" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
             <form>
@@ -60,13 +60,13 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="postNewReview(); modal.close()">Post</button>
+            <button type="button" class="btn btn-outline-dark" (click)="postNewReview()">Post</button>
         </div>
     </ng-template>
 
 
     <button class="btn btn-lg btn-outline-primary" (click)="openModal(content)">See all reviews</button>
-    <button class="btn btn-lg btn-outline-primary" (click)="openLetReviewModal(letReview)">Post new review</button>
+    <button *ngIf="ableToPostReview" class="btn btn-lg btn-outline-primary" (click)="openLetReviewModal(letReview)">Post your experience!</button>
     <hr />
 
 </div>

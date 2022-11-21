@@ -30,6 +30,7 @@ import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { handleOrder } from 'src/app/redux/actions/location.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 
 const calculateFilter=(form:any):number=>{
@@ -88,7 +89,8 @@ export class HomeComponent implements OnInit {
     private store: Store<any>,
     private readonly fb: FormBuilder,
     private _helper: HelperService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private localStorageSvc: LocalStorageService
   ) { }
 
   filterForm!: FormGroup;
@@ -173,9 +175,18 @@ export class HomeComponent implements OnInit {
         this.userProfile$.subscribe((res) => {
           this.userProfile = res;
           this.dbProfile = res;
+
+          let favoritesLS = this.localStorageSvc.getFavoritesHouses()
+          favoritesLS?.forEach((houseId:string) => {
+            this.setFavorite(houseId, res.id)
+          })
+          localStorage.clear()
+          
         });
       });
+
       this.http.updateUser(this.profileJson.email, this.profileJson.sub);
+
     });
   }
 
@@ -272,5 +283,12 @@ export class HomeComponent implements OnInit {
   showDiv(){
     this.show_div=!this.show_div
   }
+
+  setFavorite(houseId: string, userId: string): void {
+    this.http.setFavorite(houseId, userId)
+    this.store.dispatch(addFavoriteHouse({ payload: houseId }))
+}
+
+
 }
 

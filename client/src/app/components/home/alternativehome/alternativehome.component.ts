@@ -48,14 +48,11 @@ export class AlternativehomeComponent implements OnInit {
     this.http.getHouses_withOrder('byqualityprice').subscribe(res => {
       this.housesSorted_byqualityprice = res.slice(0,15)
       this.slider_priceval = this.housesSorted_byqualityprice.slice(0,5)
-      console.log(this.housesSorted_byqualityprice)
     })
 
     this.http.getHouses_withOrder('rating').subscribe(res => {
       this.housesSorted_byRating = res.slice(0,15)
       this.slider_rating = this.housesSorted_byRating.slice(0,5)
-      console.log(this.housesSorted_byRating)
-      console.log(this.slider_rating)
     })
 
     this.userProfile$.subscribe(res => {

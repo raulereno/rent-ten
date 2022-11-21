@@ -1,10 +1,9 @@
 const axios = require("axios");
+const { MERCADOPAGO_TOKEN } = process.env;
 
 class PaymentService {
   async createPayment(req) {
-
     const url = "https://api.mercadopago.com/checkout/preferences";
-
     const body = {
       items: [
         {
@@ -13,25 +12,25 @@ class PaymentService {
           picture_url: "http://www.myapp.com/myimage.jpg",
           category_id: "category123",
           quantity: req.body.quantity,
-          unit_price: req.body.price
+          unit_price: req.body.price,
         }
       ],
 
       "payer": {
-        name: "Juan",
-        surname: "Lopez",
-        email: "mail@email.com",
+        name: "nombre de prueba",
+        surname: "apellido de prueba",
+        email: req.body.email,
         phone: {
-            area_code: "11",
-            Number: "4444-4444"
-        }
-    },
-      back_urls: {
-        failure: "localhost:4200/housedetail/mercadopago/failure",
-        pending: "localhost:4200/housedetail/mercadopago/pending",
-        success: "localhost:4200/housedetail/mercadopago/success"
+          area_code: "11",
+          Number: "4444-4444"
+        },
       },
-      notification_url:"http://www.localhost:3001/mercadopago/notification",
+      back_urls: {
+        failure: `localhost:4200/housedetail/mercadopago/failure/${req.body.houseId}/${req.body.code}`,
+        pending: `localhost:4200/housedetail/mercadopago/pending/${req.body.houseId}/${req.body.code}`,
+        success: `localhost:4200/housedetail/mercadopago/success/${req.body.houseId}/${req.body.code}`
+      },
+      notification_url: "http://www.localhost:3001/mercadopago/notification",
       external_reference: "MP0001",
       auto_return: "all",
     };
@@ -40,12 +39,17 @@ class PaymentService {
       headers: {
         "Content-Type": "application/json",
         // Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
-        Authorization: `Bearer APP_USR-1788256458828733-111623-c3752974fddc8b6ee0baa6eb9432daf4-1240989108`
+        // Authorization: `Bearer APP_USR-1788256458828733-111623-c3752974fddc8b6ee0baa6eb9432daf4-1240989108`
+        Authorization: MERCADOPAGO_TOKEN
+
       }
     });
 
     return payment.data;
   }
+
+
+
 
   async createSubscription() {
     const url = "https://api.mercadopago.com/preapproval";
