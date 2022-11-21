@@ -8,11 +8,11 @@
   }
 }
 
-.wrapper{
+.wrapper {
   display: flex;
 }
 
-.leftdiv{
+.leftdiv {
   display: flex;
   justify-content: center;
   margin-top: 3rem;
@@ -21,60 +21,63 @@
   min-width: 20%;
 }
 
-.infodiv{
+.infodiv {
   display: flex;
   flex-direction: column;
   margin-left: 1.5rem;
   margin-top: 1rem;
 }
 
-.text{
+.text {
   color: black;
 }
 
-.rightdiv{
+.rightdiv {
   display: flex;
   flex-direction: column;
   padding-left: 5rem;
   height: 100rem;
   max-width: 80%;
-};
+}
 
-#favdiv{
+;
+
+#favdiv {
   display: flex;
   flex-wrap: wrap;
 }
 
-.favdiv{
+.favdiv {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   min-width: 90%;
 }
 
-.edit svg{
+.edit svg {
   width: 2rem;
   fill: rgba(0, 0, 0, 0.604);
 }
-.edit svg:hover{
+
+.edit svg:hover {
   transform: scale(1.1);
   cursor: pointer;
   fill: rgb(0, 0, 0);
 }
 
-.pencil{
+.pencil {
   background-color: black;
   border: 0;
 }
 
-.profileImg{
+.profileImg {
   width: 12rem;
   height: 12rem;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.favouriteslist{
+.favouriteslist {
   height: 2rem;
   width: 15rem;
 
@@ -89,7 +92,7 @@
   background-image: linear-gradient(90deg, rgba(108, 142, 255, 0.3), white);
 }
 
-.housecard{
+.housecard {
   width: 250px;
   height: 400px;
   transition: all 0.3s;
@@ -99,42 +102,42 @@
   margin-right: 1rem;
 }
 
-.housecard:hover .image{
+.housecard:hover .image {
   transition: 0.5s;
-  opacity:70%;
+  opacity: 70%;
 }
 
-.updiv{
-  display:flex;
+.updiv {
+  display: flex;
 }
 
-.image{
+.image {
   height: 200px;
   width: 250px;
   border-radius: 15px 15px 0px 15px;
   transition: 0.5s;
 }
 
-.firstdiv{
+.firstdiv {
   display: flex;
   margin-top: 0.4rem;
 }
 
-.namediv{
-width: 88%;
-margin-left: 5px;
+.namediv {
+  width: 88%;
+  margin-left: 5px;
 }
 
-.name{
+.name {
   font-size: 18px;
 }
 
-.remove{
-width: 12%;
-margin-top: -0.4rem;
+.remove {
+  width: 12%;
+  margin-top: -0.4rem;
 }
 
-.favourites{
+.favourites {
   height: 1.8rem;
   width: 1.5rem;
 
@@ -147,35 +150,39 @@ margin-top: -0.4rem;
   transition: 0.25s;
 }
 
-#removefav{
+#removefav {
   transition: 0.25s;
   height: 2.5rem;
   color: white;
-  border:none;
+  border: none;
   background-color: #ffc107;
 }
 
-#removefav:hover{
+#removefav:hover {
   transition: 0.25s;
   color: white;
   background-color: #dc3545;
 }
 
-.botdiv{
-  display:flex;
+.botdiv {
+  display: flex;
   flex-direction: column;
   margin-left: 20px;
 }
 
-.info{
+.info {
   font-weight: 100;
   color: gray;
   margin: -4px;
 }
 
-.price{
+.price {
   color: rgb(23, 59, 3);
   font-weight: 400;
   margin-top: 10px;
   margin-left: 5px;
 }
+
+/* ::ng-deep .card.accordion-button {
+  min-width: 30rem !important;
+} */

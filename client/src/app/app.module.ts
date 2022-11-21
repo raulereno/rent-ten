@@ -50,11 +50,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 //Enviroment
 import { environment } from '../environments/environment';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlternativehomeComponent } from './components/home/alternativehome/alternativehome.component';
 import { StatusComponent } from './components/housedetail/status/status.component';
 // import { environment as env } from 'src/environments/environment';
-
 
 
 const routes: Routes = [
@@ -126,6 +125,7 @@ const routes: Routes = [
     IvyCarouselModule,
     MatGridListModule,
     NgbModule,
+    NgbAccordionModule
   ],
   providers: [],
   bootstrap: [AppComponent],

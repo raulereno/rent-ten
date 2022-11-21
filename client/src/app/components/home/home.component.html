@@ -2,11 +2,18 @@
 
   <div [ngClass]="darkmode? 'navigation darkmode':'navigation'" >
     <div class="filtersdiv">
+      <div class="order-options" [ngClass]="show_div? 'order-options showDiv': 'order-options'">
+        <button [ngClass]="filterForm.value.order === 'min' ? 'active':''" (click)="filterForm.get('order')?.setValue('min'); handleOrder()">Cheapest first</button>
+        <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"  (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
+      </div>
       <mat-paginator class="paginado"
         [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
         (page)="handlePage($event)" showFirstLastButtons="" *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order">
       </mat-paginator>
-      <button class="filters">
+      <button class="filters position-relative">
+        <span *ngIf="quantityFilter !== 0"  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{quantityFilter}}
+          </span>
         <span class="row" type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)">
           <mat-icon>filter_list</mat-icon>
           <span>Filters</span>
@@ -15,7 +22,8 @@
     </div>
   </div>
 
-  <div *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order">
+  <div
+    *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order">
     <div class="bodydiv">
       <div class="grid">
         <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
@@ -26,12 +34,12 @@
   </div>
 
   <div *ngIf="!allHouses.length">
-    <h3 style="font-size: 3rem;">There is no house with those requirements</h3>
+    <h3 style="font-size: 3rem;">There is no place with those requirements</h3>
     <button type="button" class="btn btn-outline-dark" (click)="clearFilters()">Clear filters</button>
   </div>
   <app-alternativehome
-        *ngIf="!filterForm.value.minPrice && !filterForm.value.maxPrice && !filterForm.value.allowpets && !filterForm.value.wifi && !filterForm.value.country && !selectedCity && !filterForm.value.order">
-    </app-alternativehome>
+    *ngIf="!filterForm.value.minPrice && !filterForm.value.maxPrice && !filterForm.value.allowpets && !filterForm.value.wifi && !filterForm.value.country && !selectedCity && !filterForm.value.order">
+  </app-alternativehome>
 
 </div>
 
@@ -85,7 +93,7 @@
                     <input name="maxPrice" type="number" matInput placeholder="USD" formControlName="maxPrice">
                     <mat-icon matPrefix>dolar_symbol</mat-icon>
                   </mat-form-field>
-                  <select aria-placeholder="Order by" (change)="handleOrder()"
+                  <select aria-placeholder="Order by" (change)="handleOrder();modal.dismiss('Cross click')"
                     style="max-height: 20%; max-width: 40%; margin-top: 0.5%" class="form-select form-select-sm"
                     appearance="outline" formControlName="order">
                     <mat-label>Order by</mat-label>
@@ -114,7 +122,7 @@
                 </button>
                 <button title="With wifi." name="wifi"
                   style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
-                  (click)="filterForm.get('wifi')?.setValue(false)" *ngIf="filterForm.value.wifi === true" type="button"
+                  (click)="filterForm.get('wifi')?.setValue(false);" *ngIf="filterForm.value.wifi === true" type="button"
                   class="btn btn-primary btn-sm"><span class="material-icons">wifi</span>
                 </button>
                 <button title="With wifi" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
@@ -133,7 +141,6 @@
       <button type="button" class="btn btn-outline-dark" (click)="applyFilter(); modal.dismiss('Cross click')">Apply
         filters</button>
     </div>
-    {{filterForm.value|json}}
   </div>
 </ng-template>
 <footer class="footer">Rent-Ten by Group-10</footer>
