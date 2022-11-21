@@ -100,8 +100,8 @@ export class DataServiceService {
     })
   }
 
-  makeABook(houseId: string, newReserve: Booking) {
-    this.http.post(`http://localhost:3001/houses/makeabook`, {houseId, newReserve}).subscribe({
+  makeABook(houseId: string, newReserve: Booking, userId: string) {
+    this.http.post(`http://localhost:3001/bookings`, {houseId, newReserve, userId}).subscribe({
       error: error => {
         console.log(error);
       }
@@ -119,9 +119,13 @@ export class DataServiceService {
   getPaymentLink(item: any): Observable<any> {
     return this.http.post<any>(`http://localhost:3001/mercadopago/payment`, item)
   }
+
+  updateBookingStatus(houseId: string, code: string, status:string) {
+    this.http.put<any>(`${environment.baseUrl}/bookings/checkstatus`, { houseId: houseId, code: code, status: status }).subscribe({
+      error: error => {
+        console.log(error)
+      }
+    })}
+
+
 }
-  // getUser(mail: string): Observable<any> {
-  //   return this.http.get<any>(
-  //     `${environment.baseUrl}/users/getuser?mail=${mail}`
-  //   );
-  // }

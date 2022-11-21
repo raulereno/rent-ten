@@ -79,6 +79,11 @@ module.exports = (sequelize) => {
         allowNull: true
     },
 
+    pending_bookings: {
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      allowNull: true
+    },
+
     scores: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true
@@ -121,26 +126,3 @@ module.exports = (sequelize) => {
     }
   );
 };
-
-// {
-//     id: number
-//     owner: object{}
-//     city: string
-//     country: string
-//     rooms: number;
-//     maxPeople: number;
-//     allowPets: boolean;
-//     bathrooms: number;
-//     wifi: boolean;
-//     type: ENUM ['departament', 'guest house', 'house', 'hotel']
-//     reviews: [{
-//                 id:
-//                 user:
-//                 review:
-//                 rating: }]
-//     reserved: [{
-//                 by: (id_user)
-//                 from: date
-//                 to: date
-//                 }];
-//     }

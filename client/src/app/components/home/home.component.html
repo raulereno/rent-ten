@@ -1,83 +1,74 @@
 <div class="container">
 
-  <div [ngClass]="darkmode? 'card mb-4 paginadoYfiltros darkmode':'card mb-4 paginadoYfiltros'">
-    <div class="card-header d-flex justify-content-between align-item-center">
-      <div class="container-order">
-        <!-- <button [ngClass]="filterForm.value.order.length? 'buttonOrder orderOn':'buttonOrder'" (click)="showDiv()">
-          <span class="row" type="button" color="raised" aria-label="Sing Up">
-            <mat-icon>reorder</mat-icon><span>Order</span>
-          </span>
-        </button> -->
-        <div class="order-options" [ngClass]="show_div? 'order-options showDiv': 'order-options'">
-          <button [ngClass]="filterForm.value.order === 'min' ? 'active':''" (click)="filterForm.get('order')?.setValue('min'); handleOrder()">Cheapest first</button>
-          <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"  (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
-        </div>
+  <div [ngClass]="darkmode? 'navigation darkmode':'navigation'" >
+    <div class="filtersdiv">
+      <div style="display:none" class="order-options" [ngClass]="show_div? 'order-options showDiv': 'order-options'">
+        <button [ngClass]="filterForm.value.order === 'min' ? 'active':''" (click)="filterForm.get('order')?.setValue('min'); handleOrder()">Cheapest first</button>
+        <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"  (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
       </div>
-      <mat-paginator class="mat-app-background paginado" [length]="allHouses.length" [pageSize]="page_size"
-        [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
+      <mat-paginator class="paginado"
+        [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+        (page)="handlePage($event)" showFirstLastButtons="">
       </mat-paginator>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <button class="position-relative buttonFilter">
+      <button class="filters position-relative">
         <span *ngIf="quantityFilter !== 0"  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
           {{quantityFilter}}
           </span>
-        <span class="row spanSVG" type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)">
-          <mat-icon>filter_list</mat-icon><span>Filters</span>
+        <span class="row" type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)">
+          <mat-icon>filter_list</mat-icon>
+          <span>Filters</span>
         </span>
       </button>
-
     </div>
   </div>
 
-  <div
-    *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order">
-    <div class="bodydiv">
+  <!-- <div *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order"> -->
+      <div class="bodydiv">
       <div class="grid">
         <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
           [dbProfile]="dbProfile" class="grid-content"></app-house>
       </div>
 
     </div>
-  </div>
 
   <div *ngIf="!allHouses.length">
     <h3 style="font-size: 3rem;">There is no place with those requirements</h3>
     <button type="button" class="btn btn-outline-dark" (click)="clearFilters()">Clear filters</button>
   </div>
-  <app-alternativehome
+  <!-- <app-alternativehome
     *ngIf="!filterForm.value.minPrice && !filterForm.value.maxPrice && !filterForm.value.allowpets && !filterForm.value.wifi && !filterForm.value.country && !selectedCity && !filterForm.value.order">
-  </app-alternativehome>
+  </app-alternativehome> -->
 
 </div>
-<footer class="footer">Footer TEST</footer>
 
-
-<ng-template #filters let-modal>
+<ng-template #filters let-modal >
   <div [ngClass]="darkmode? 'container-modal darkmodeModal':'container-modal'">
-    <div class="modal-header d-flex align-items-center">
-      <h3 style="margin: 0; font-size: 1.5rem;">Filters</h3>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <div class="filtershead">
+      <h4 class="headtitle">Filters</h4>
+      <button type="button" id="closemodal" class="modalbutton" aria-label="Close" (click)="modal.dismiss('Cross click')">✕</button>
     </div>
     <div class="modal-body">
       <form [formGroup]="filterForm" (ngSubmit)="handleFilters()">
         <div class="mb-2">
           <ng-container>
-            <div style="display: flex;">
+            <div>
               <div>
-                <mat-label>Select Country</mat-label>
-                <select name="selectedCountry" (change)="handleCountry();" style="max-height: 100%;  margin-top: 0.5%"
-                  class="form-select form-select-sm" aria-label="Ejemplo de .form-select-lg" appearance="outline"
-                  formControlName="country">
-                  <!-- <option *ngFor="let country of backupHouses" value="{{country}}">{{country}}</option> -->
-                  <option *ngFor="let country of backupHouses" [ngValue]="country">{{country}}</option>
-                </select>
+                <div class="sectiondiv">
+                  Location
+                </div>
+                  <div id="margin" class="selectdiv">
+                    <mat-label class="countries">Country:</mat-label>
+                      <select class="filter-select" name="selectedCountry" (change)="handleCountry()" aria-label="Ejemplo de .form-select-lg" appearance="outline" formControlName="country">
+                        <!-- <option *ngFor="let country of backupHouses" value="{{country}}">{{country}}</option> -->
+                        <option *ngFor="let country of backupHouses" [ngValue]="country">{{country}}</option>
+                      </select>
+                  </div>
               </div>
-              <div>
-                <mat-label *ngIf="filterForm.value.country.length">Selected City</mat-label>
-                <select *ngIf="filterForm.value.country.length" name="ciudades" style="max-height: 100%;"
-                  aria-label="Ejemplo de .form-select-lg" class="form-select form-select-sm" appearance="outline"
+              <div id="margin" class="selectdiv">
+                <mat-label>City:</mat-label>
+                <select name="ciudades"
+                  aria-label="Ejemplo de .form-select-lg" class="filter-select" appearance="outline"
                   (change)="handleCity($event)" formControlName="city">
-                  <option disabled selected></option>
                   <option *ngFor="let ciudades of city" [ngValue]="ciudades">
                     {{ciudades}}
                   </option>
@@ -85,8 +76,8 @@
               </div>
             </div>
             <div class="modalmb-2">
-              <div class="modal-header d-flex justify-content-between align-item-center">
-                Price range
+              <div id="margin" class="sectiondiv">
+                Price
               </div>
               <div class="modal-body">
                 <div style="font-size: 1rem; ">
@@ -104,7 +95,7 @@
                     style="max-height: 20%; max-width: 40%; margin-top: 0.5%" class="form-select form-select-sm"
                     appearance="outline" formControlName="order">
                     <mat-label>Order by</mat-label>
-                    <option selected disabled value="">Order by</option>
+                    <option hidden selected value="">Order by</option>
                     <option value="min">Cheapest first</option>
                     <option value="max">Most expensive</option>
                   </select>
@@ -113,7 +104,7 @@
             </div>
 
             <div class="modalmb-2">
-              <div class="modal-header d-flex justify-content-between align-item-center">
+              <div id="margin" class="sectiondiv">
                 Services
               </div>
               <div class="modal-body">
@@ -138,7 +129,6 @@
                   class="btn btn-secondary btn-sm"><span class="material-icons">wifi</span>
                 </button>
               </div>
-              <div class="modal-footer"></div>
             </div>
           </ng-container>
         </div>
@@ -151,3 +141,5 @@
     </div>
   </div>
 </ng-template>
+<footer [ngClass]="darkmode? 'footer mat-elevation-z4 darkmodeFooter':'mat-elevation-z4 footer'" >Rent-Ten by Group-10</footer>
+

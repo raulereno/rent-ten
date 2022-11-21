@@ -7,11 +7,13 @@ import { House } from '../../models/House';
 import { catchError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectorListProfile } from 'src/app/redux/selectors/selectors';
-import { changeVerifiedStatusProfile, loadProfile } from 'src/app/redux/actions/location.actions';
+import { selectorListBackup, selectorListProfile } from 'src/app/redux/selectors/selectors';
+import { addFavoriteHouse, changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
 import { Review } from 'src/app/models/Review';
 import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -24,6 +26,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 export class ProfileComponent implements OnInit {
 
+  allHouses$: Observable<any> = new Observable();
   dbProfile: userProfile;
   allHouses: House[] = [];
   favoritesHouses: House[] = [];
@@ -42,39 +45,70 @@ export class ProfileComponent implements OnInit {
     private http: DataServiceService,
     private store: Store<any>,
     private _uploadImg: UploadImgService,
-    private localStorageSvc: LocalStorageService,) {
+    private localStorageSvc: LocalStorageService,
+    private _router: Router,
+    ) {
   }
-
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
+    this.allHouses$ = this.store.select(selectorListBackup)
+    this.loadProfile()
+    this.loadHouses_n_favorites()
+  }
 
+
+
+  loadProfile() {
     this.userProfile$.subscribe(profile => {
-      this.userProfile = profile;
-
-    });
-
-    this.auth.user$.subscribe(profile => {
-      this.profileJson = profile;
-
-      this.http.getUser(this.profileJson.email).subscribe(res => {
-        this.dbProfile = res
-        this.store.dispatch(loadProfile({ userProfile: res }))
-      });
-
-      this.http.getHouses().subscribe(data => {
-        this.allHouses = data;
-        let favoritesLS = this.localStorageSvc.getFavoritesHouses()
-        this.favoritesHouses = this.allHouses.filter((house: House) => (this.dbProfile.favoriteshouses!.concat(favoritesLS)).some((h: string) => h == house.id))
-        console.log('ver array favorites', this.dbProfile.favoriteshouses)
+      if (profile.length === 0) {
+        this.auth.user$.subscribe(profile => {
+          this.profileJson = profile;
+          this.http.getUser(this.profileJson.email).subscribe(res => {
+            this.store.dispatch(loadProfile({ userProfile: res }))
+            this.userProfile = res
+          });
+        })
+      } else {
+        this.userProfile = profile
       }
-      );
     });
+
+  }
+
+  loadHouses_n_favorites() {
+    this.allHouses$.subscribe(houses => {
+      if (houses.length === 0) {
+        this.http.getHouses().subscribe(data => {
+          this.store.dispatch(loadHouses({ allHouses: data }));
+          this.allHouses = data;
+        })
+      } else {
+        this.allHouses = houses
+      }
+
+      // this.userProfile$.subscribe((res) => {
+      //   let favoritesLS = this.localStorageSvc.getFavoritesHouses()
+      //   this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.concat(favoritesLS).some((h: string) => h == house.id)))
+      //   favoritesLS.forEach((houseId:string) => {
+      //     this.setFavorite(houseId, res.id)
+      //   })
+      //   localStorage.clear()
+      // })
+
+      this.userProfile$.subscribe((res) => {
+        this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.some((h: string) => h == house.id)))
+      })
+
+
+    })
   }
 
   deleteFavorite(houseId: string, userId: string): void {
     this.http.deleteFavorite(houseId, userId)
     this.favoritesHouses = this.favoritesHouses.filter(house => house.id !== houseId)
+    this.localStorageSvc.removeFavorite(houseId)
+
 
   }
 
@@ -119,6 +153,14 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // setFavorite(houseId: string, userId: string): void {
+  //     this.http.setFavorite(houseId, userId)
+  //     this.store.dispatch(addFavoriteHouse({ payload: houseId }))
+  // }
+
+    goTo(id:string){
+         //this._router.navigate([`home/housedetail/${id}`])//TODO: Redireccionar casa creada a detail
+    }
 
 
 }

@@ -30,53 +30,63 @@ export class HouseComponent implements OnInit {
     public auth: AuthService,
     private router: Router,
     private store: Store<any>,
-    private localStorageSvc:LocalStorageService,
-    private _helper:HelperService,
-    ) { }
+    private localStorageSvc: LocalStorageService,
+    private _helper: HelperService,
+  ) { }
 
   profileJson: any;
   allHouses: House[] = [];
   indexPhoto: number = 0;
   starRating: number;
-  n:number;
-  darkmode:boolean;
+  n: number;
+  darkmode: boolean;
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile)
     this.userProfile$.subscribe(() => {
       this.n = 0
       this.house.scores.forEach((score) => this.n = this.n + score)
-      this.starRating = Math.ceil(this.n / this.house.scores.length)
-   })
-   this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
+      this.starRating = Math.ceil(this.n / this.house.scores?.length)
+    })
+    this._helper.customDarkMode.subscribe((active: boolean) => this.darkmode = active)
   }
 
   setFavorite(houseId: string, userId: string): void {
     if (!userId) {
-        this.toggleFavorite(houseId)
+      this.toggleFavorite(houseId)
     } else {
       this.http.setFavorite(houseId, userId)
       this.store.dispatch(addFavoriteHouse({ payload: houseId }))
     }
   }
 
-  toggleFavorite(houseId:string):void{
+  toggleFavorite(houseId: string): void {
+    let favoritesLS = this.localStorageSvc.getFavoritesHouses()
+    if (!favoritesLS.includes(houseId)) {
     this.localStorageSvc.addToFavorite(houseId)
-
+    this.dbProfile.favoriteshouses?.concat(houseId)
+  }
   }
 
   deleteFavorite(houseId: string, userId: string): void {
+
     this.http.deleteFavorite(houseId, userId)
     this.store.dispatch(deleteFavoriteHouse({ payload: houseId }))
+    this.localStorageSvc.removeFavorite(houseId)
+
   }
 
   checkIsFavorite(houseId: string) {
-    if (this.dbProfile.favoriteshouses) {
-      return this.dbProfile.favoriteshouses.some((h: any) => h == houseId)
+    let favoritesLS = this.localStorageSvc.getFavoritesHouses()
+    // let fh = this.dbProfile.favoriteshouses
+    if (this.dbProfile.id) {
+      return this.dbProfile.favoriteshouses!.some((h: any) => h == houseId)
+    } else if (favoritesLS?.length > 0) {
+      return favoritesLS.some((h: string) => h == houseId)
     } else {
       return false
-    }}
-
+    }
+  }
 
   showInfo() {
     console.log(this.n)
@@ -87,7 +97,7 @@ export class HouseComponent implements OnInit {
   }
 
   paginationForward() {
-    if (this.indexPhoto !== (this.house.picture.length - 1)) { this.indexPhoto++ }
+    if (this.indexPhoto !== (this.house.picture?.length - 1)) { this.indexPhoto++ }
   }
 
   paginationBack() {

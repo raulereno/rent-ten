@@ -1,9 +1,13 @@
 export interface Booking {
-    paymentId?:string,
-    userId?: string;
+    id?: string;
+    UserId?: string;
     start: string;
     end: string;
     people?: number;
     totalPay?: number;
-    houseId?: string;
+    HouseId?: string;
+    code: string;
+    createdAt?: string;
+    updatedAt?: string;
+    status?: string;
 }

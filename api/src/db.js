@@ -51,7 +51,7 @@ let sequelize =
     sequelize.models = Object.fromEntries(capsEntries);
 
 
-    const { House, User, Review } = sequelize.models;
+    const { House, User, Review, Booking } = sequelize.models;
 
 
     House.belongsToMany(User, {through: 'House_user', timestamps: false});
@@ -59,9 +59,15 @@ let sequelize =
 
     House.hasMany(Review);
     Review.belongsTo(House);
+    
+    House.hasMany(Booking);
+    Booking.belongsTo(House);
 
-    User.hasMany(Review)
-    Review.belongsTo(User)
+    User.hasMany(Review);
+    Review.belongsTo(User);
+
+    User.hasMany(Booking);
+    Booking.belongsTo(User);
 
     
     module.exports = {...sequelize.models, conn: sequelize, };

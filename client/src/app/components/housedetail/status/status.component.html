@@ -3,5 +3,5 @@
     <h1 *ngIf="paramsId === 'failure'">You transaction has <span style="color:rgb(189, 0, 0)">failed</span></h1>
     <h1 *ngIf="paramsId === 'pending'">You transaction is <span style="color:rgb(216, 141, 1)">pending..</span></h1>
     <h4>Check your e-mail for more details</h4>
-    <h4>You will be redirected to home...</h4>
+    <h4>You will be redirected to <a routerLink="/home">home</a> in {{seconds}} seconds...</h4>
 </div>

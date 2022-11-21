@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { loadPayment } from './../../redux/actions/location.actions';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { House } from '../../models/House';
@@ -7,12 +8,6 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
-
-const generateRandomString = () => {
-  let result = Math.random().toString(36).substring(0, 12);
-
-  return result;
-};
 
 @Component({
   selector: 'app-housedetail',
@@ -30,6 +25,7 @@ export class HousedetailComponent implements OnInit {
     public auth: AuthService) { }
 
   userProfile: userProfile
+  house: House
   profileJson: any
   paramsId: string;
   house: House
@@ -37,6 +33,7 @@ export class HousedetailComponent implements OnInit {
   booking: boolean = false
   pagado: boolean;
   indexPhoto: number = 0
+  paymentstatus: string;
 
 
   ngOnInit(): void {
@@ -63,12 +60,12 @@ export class HousedetailComponent implements OnInit {
 
 
   unavailableDays = (calendarDate: Date): boolean => {
-    if (!this.house.bookings) return true;
-    return !this.house.bookings.some(
+    if (!this.house.Bookings) return true;
+    return !this.house.Bookings.some(
       (d: Booking) =>
         calendarDate > new Date(d.start) &&
         calendarDate <=
-          new Date(new Date(d.end).getTime() + 24 * 60 * 60 * 1000)
+        new Date(new Date(d.end).getTime() + 24 * 60 * 60 * 1000)
     );
   };
 
@@ -86,11 +83,30 @@ export class HousedetailComponent implements OnInit {
     return formatDate
   }
 
+  checkItsOccuped(start: Date, end: Date) {
+    console.log(this.house.Bookings)
+    return this.house.Bookings.some(
+      (d: Booking) =>
+        start < new Date(d.start) &&
+        end >
+        new Date(new Date(d.end).getTime() + 24 * 60 * 60 * 1000)
+    )
+  }
+
   reserveHouse(): void {
+
+    let start = this.form.value.daterange.start
+    let end = this.form.value.daterange.end
+
+    if (!start || !end) { alert("Please select both dates"); return }
+    if (this.checkItsOccuped(start, end)) { alert('This place has bookings between your selected dates. Please make two bookings or change your dates'); return
+
+    } else {
+    let transactionCode = Math.random().toString(36).slice(4)
     var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    let startDate = this.formatDate(this.form.value.daterange.start.toLocaleDateString("en-GB", options))
-    let endDate = this.formatDate(this.form.value.daterange.end.toLocaleDateString("en-GB", options))
-    let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id }
+    // let startDate = this.formatDate(start.toLocaleDateString("en-GB", options))
+    // let endDate = this.formatDate(end.toLocaleDateString("en-GB", options))
+    // let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id, code: transactionCode }
 
 
       this.http.makeABook(this.house.id, newReserve)
@@ -99,12 +115,34 @@ export class HousedetailComponent implements OnInit {
 
   }
 
-  getPreferenceId() {
+
+  // getPaymentLink(transactionCode: string) {
+
+  //   const item = {
+  //     title: `Booking for house with ID ${this.house.id}`,
+  //     price: this.house.price,
+  //     quantity: 1,
+  //     email: this.userProfile.mail,
+  //     userId: this.userProfile.id,
+  //     houseId: this.house.id,
+  //     code: transactionCode
+  //   }
+
+  //   this.http.getPaymentLink(item).subscribe(res =>
+  //     window.open(`${res.init_point}`, '_blank'))
+
+  // }
+
+  getPreferenceId(transactionCode: string) {
 
     const item = {
       title: `Booking for house with ID ${this.house.id}`,
       price: this.house.price,
       quantity: 1,
+      email: this.userProfile.mail,
+      userId: this.userProfile.id,
+      houseId: this.house.id,
+      code: transactionCode
     }
 
     this.http.getPaymentLink(item).subscribe(res =>
@@ -115,7 +153,8 @@ export class HousedetailComponent implements OnInit {
       script.setAttribute('data-preference-id', res.id);
       const form = document.getElementById('payment-form');
       form?.appendChild(script);
-      }
+      this.paymentstatus = 'ready'
+    }
     )
 
   }
