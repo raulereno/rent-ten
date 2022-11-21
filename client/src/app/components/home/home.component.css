@@ -58,11 +58,11 @@
 }
 .buttonFilter{
   height: 3.6rem;
-
   transition: all .2s;
   border: 1px solid black;
   border-radius: 6px;
 }
+
 .buttonFilter:hover{
   transform: scale(1.05);
 }
@@ -131,3 +131,55 @@
         grid-template-columns: 20% 20% 20% 20% 20%;
       }
     }
+
+.container-order{
+  position: relative;
+}
+
+.container-order .order-options{
+  position: absolute;
+  background-color: white;
+  width: 15rem;
+  height:auto;
+  z-index:99;
+  display: none;
+  bottom: -3.1rem;
+  border: 1px solid rgba(128, 128, 128, 0.552);
+  border-radius: 5px;
+
+}
+.buttonOrder{
+  height: 3.6rem;
+
+  transition: all .2s;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+.buttonOrder:hover{
+  transform: scale(1.05);
+}
+.container-order .orderOn{
+  background-color: #30303074;
+}
+.container-order .showDiv{
+  display: block;
+  display: flex;
+  flex-direction: column;
+}
+.container-order .showDiv:hover{
+  display: block;
+  display: flex;
+  flex-direction: column;
+}
+.container-order .showDiv button{
+  border: 0;
+  font-size: 1.2rem;
+  background-color: white;
+}
+.container-order .showDiv .active{
+  background-color: rgba(128, 128, 128, 0.552);
+}
+.container-order .showDiv button:hover{
+  background-color: rgba(128, 128, 128, 0.552);
+}
+
