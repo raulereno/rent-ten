@@ -22,7 +22,7 @@ export const CREATORS: About[] = [
     id: 2,
     name: 'Raul',
     lastName: 'Ereño',
-    image: 'https://images-ext-1.discordapp.net/external/uILy34hP00QAwTPI_06s-nD7X_h7IKDyJxwqMXu3XcU/https/res.cloudinary.com/dbgpp8nla/image/upload/v1667957367/e66nv5aqom1e2bkmen0f.jpg?width=498&height=498',
+    image: 'https://res.cloudinary.com/dbgpp8nla/image/upload/v1668994557/wp0zrzaztkpc7nllihzh.jpg',
     info: 'Full Stack Web Developer',
     gitHub: 'https://github.com/raulereno',
     linkIn: 'https://www.linkedin.com/in/raulereno/'
