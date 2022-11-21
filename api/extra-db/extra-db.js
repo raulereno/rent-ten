@@ -30,8 +30,8 @@ const newHouse = () => {
     allowpets: booleans[Math.floor(Math.random() * 2)],
     wifi: booleans[Math.floor(Math.random() * 2)],
     type: houseTypes[Math.floor(Math.random() * houseTypes.length)],
-    // price: getRandomArbitrary(50,501),
-    price: 1,
+    price: getRandomArbitrary(50,501),
+    //price: 1,
     address: adresses[Math.floor(Math.random() * adresses.length)] + ' ' + Math.floor(Math.random() * 500),
     scores: [],
     // bookings: [...Array(getRandomArbitrary(2,5)).keys()].map(() => randomDate())
