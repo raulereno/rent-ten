@@ -2,13 +2,13 @@
 
   <div [ngClass]="darkmode? 'navigation darkmode':'navigation'" >
     <div class="filtersdiv">
-      <div class="order-options" [ngClass]="show_div? 'order-options showDiv': 'order-options'">
+      <div style="display:none" class="order-options" [ngClass]="show_div? 'order-options showDiv': 'order-options'">
         <button [ngClass]="filterForm.value.order === 'min' ? 'active':''" (click)="filterForm.get('order')?.setValue('min'); handleOrder()">Cheapest first</button>
         <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"  (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
       </div>
       <mat-paginator class="paginado"
         [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
-        (page)="handlePage($event)" showFirstLastButtons="" *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order">
+        (page)="handlePage($event)" showFirstLastButtons="">
       </mat-paginator>
       <button class="filters position-relative">
         <span *ngIf="quantityFilter !== 0"  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -23,7 +23,6 @@
   </div>
 
   <!-- <div *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order"> -->
-    <div>
       <div class="bodydiv">
       <div class="grid">
         <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
@@ -31,7 +30,6 @@
       </div>
 
     </div>
-  </div>
 
   <div *ngIf="!allHouses.length">
     <h3 style="font-size: 3rem;">There is no place with those requirements</h3>

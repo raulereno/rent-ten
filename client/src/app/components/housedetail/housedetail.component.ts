@@ -1,5 +1,4 @@
 import { loadPayment } from './../../redux/actions/location.actions';
-import { Store } from '@ngrx/store';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
@@ -9,7 +8,6 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
-import GalleryModule from 'ng-gallery';
 
 @Component({
   selector: 'app-housedetail',
@@ -17,21 +15,15 @@ import GalleryModule from 'ng-gallery';
   styleUrls: ['./housedetail.component.css'],
 })
 export class HousedetailComponent implements OnInit {
-
-  @Input() house: House;
-  @Input() dbProfile: userProfile
-
-  userProfile$: Observable<any> = new Observable()
-
   constructor(private route: ActivatedRoute,
     public http: DataServiceService,
     private fb: FormBuilder,
     private location: Location,
     private router: Router,
-    private store: Store<any>,
     public auth: AuthService) { }
 
   userProfile: userProfile
+  house: House
   profileJson: any
   paramsId: string
   form: FormGroup
@@ -53,13 +45,6 @@ export class HousedetailComponent implements OnInit {
       this.profileJson = res
       this.http.getUser(this.profileJson.email).subscribe((res) => this.userProfile = res)
     })
-
-    this.userProfile$ = this.store.select(selectorListProfile)
-    this.userProfile$.subscribe(() => {
-      this.n = 0
-      this.house.scores.forEach((score) => this.n = this.n + score)
-      this.starRating = Math.ceil(this.n / this.house.scores.length)
-   })
 
     this.form = this.fb.group({
       daterange: new FormGroup({
