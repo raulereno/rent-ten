@@ -46,7 +46,7 @@
             <ng-template ngbPanelContent>
                 <div class="card-body">
                     <div *ngFor="let hou of userProfile.Houses" class="card" style="width: 18rem;">
-                      <a (click)="goTo(hou.id)" >
+                      <a routerLink="/housedetail/{{hou.id}}" >
                         <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
                       </a>
 

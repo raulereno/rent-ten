@@ -53,6 +53,7 @@ import { environment } from '../environments/environment';
 import { NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlternativehomeComponent } from './components/home/alternativehome/alternativehome.component';
 import { StatusComponent } from './components/housedetail/status/status.component';
+import { ChatComponent } from './components/chat/chat.component';
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -68,6 +69,7 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
       { path: 'housedetail/mercadopago/:id/:houseId/:code', component: StatusComponent },
+      { path: 'chat',component:ChatComponent },
       { path: "**", redirectTo: 'home' },
     ]
   }
@@ -89,6 +91,7 @@ const routes: Routes = [
     ReviewsComponent,
     AlternativehomeComponent,
     StatusComponent,
+    ChatComponent,
 
   ],
   imports: [

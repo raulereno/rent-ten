@@ -159,7 +159,7 @@ export class ProfileComponent implements OnInit {
   // }
 
     goTo(id:string){
-         //this._router.navigate([`home/housedetail/${id}`])//TODO: Redireccionar casa creada a detail
+         this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail
     }
 
 

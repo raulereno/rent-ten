@@ -85,24 +85,25 @@
                     <mat-label>Min price</mat-label>
                     <input name="minPrice" type="number" matInput placeholder="USD" formControlName="minPrice">
                     <mat-icon matPrefix>dolar_symbol</mat-icon>
+
                   </mat-form-field>
                   <mat-form-field style="max-width: 150px;" appearance="outline">
                     <mat-label>Max price</mat-label>
                     <input name="maxPrice" type="number" matInput placeholder="USD" formControlName="maxPrice">
                     <mat-icon matPrefix>dolar_symbol</mat-icon>
                   </mat-form-field>
-                  <select aria-placeholder="Order by" (change)="handleOrder();modal.dismiss('Cross click')"
-                    style="max-height: 20%; max-width: 40%; margin-top: 0.5%" class="form-select form-select-sm"
-                    appearance="outline" formControlName="order">
-                    <mat-label>Order by</mat-label>
-                    <option hidden selected value="">Order by</option>
-                    <option value="min">Cheapest first</option>
-                    <option value="max">Most expensive</option>
-                  </select>
+                  <div *ngIf="filterForm.get('minPrice')?.errors?.['min'] || filterForm.get('maxPrice')?.errors?.['min']" class="alert alert-danger">No se permiten numero negativos en estos campos</div>
                 </div>
+                <select aria-placeholder="Order by" (change)="handleOrder();modal.dismiss('Cross click')"
+                  style="max-height: 20%; max-width: 40%; margin-top: 0.5%" class="form-select form-select-sm"
+                  appearance="outline" formControlName="order">
+                  <mat-label>Order by</mat-label>
+                  <option hidden selected value="">Order by</option>
+                  <option value="min">Cheapest first</option>
+                  <option value="max">Most expensive</option>
+                </select>
               </div>
             </div>
-
             <div class="modalmb-2">
               <div id="margin" class="sectiondiv">
                 Services
@@ -136,7 +137,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="clearFilters()">Clear filters</button>
-      <button type="button" class="btn btn-outline-dark" (click)="applyFilter(); modal.dismiss('Cross click')">Apply
+      <button [disabled]="filterForm.get('minPrice')?.errors || filterForm.get('maxPrice')?.errors" type="button" class="btn btn-outline-dark" (click)="applyFilter(); modal.dismiss('Cross click')">Apply
         filters</button>
     </div>
   </div>
