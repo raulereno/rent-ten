@@ -1,0 +1,146 @@
+<div class="container">
+
+  <div [ngClass]="darkmode? 'navigation darkmode':'navigation'" >
+    <div class="filtersdiv">
+      <div style="display:none" class="order-options" [ngClass]="show_div? 'order-options showDiv': 'order-options'">
+        <button [ngClass]="filterForm.value.order === 'min' ? 'active':''" (click)="filterForm.get('order')?.setValue('min'); handleOrder()">Cheapest first</button>
+        <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"  (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
+      </div>
+      <mat-paginator class="paginado"
+        [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+        (page)="handlePage($event)" showFirstLastButtons="">
+      </mat-paginator>
+      <button class="filters position-relative">
+        <span *ngIf="quantityFilter !== 0"  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{quantityFilter}}
+          </span>
+        <span class="row" type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)">
+          <mat-icon>filter_list</mat-icon>
+          <span>Filters</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order"> -->
+      <div class="bodydiv">
+      <div class="grid">
+        <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
+          [dbProfile]="dbProfile" class="grid-content"></app-house>
+      </div>
+
+    </div>
+
+  <div *ngIf="!allHouses.length">
+    <h3 style="font-size: 3rem;">There is no place with those requirements</h3>
+    <button type="button" class="btn btn-outline-dark" (click)="clearFilters()">Clear filters</button>
+  </div>
+  <!-- <app-alternativehome
+    *ngIf="!filterForm.value.minPrice && !filterForm.value.maxPrice && !filterForm.value.allowpets && !filterForm.value.wifi && !filterForm.value.country && !selectedCity && !filterForm.value.order">
+  </app-alternativehome> -->
+
+</div>
+
+<ng-template #filters let-modal >
+  <div [ngClass]="darkmode? 'container-modal darkmodeModal':'container-modal'">
+    <div class="filtershead">
+      <h4 class="headtitle">Filters</h4>
+      <button type="button" id="closemodal" class="modalbutton" aria-label="Close" (click)="modal.dismiss('Cross click')">✕</button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="filterForm" (ngSubmit)="handleFilters()">
+        <div class="mb-2">
+          <ng-container>
+            <div>
+              <div>
+                <div class="sectiondiv">
+                  Location
+                </div>
+                  <div id="margin" class="selectdiv">
+                    <mat-label class="countries">Country:</mat-label>
+                      <select class="filter-select" name="selectedCountry" (change)="handleCountry()" aria-label="Ejemplo de .form-select-lg" appearance="outline" formControlName="country">
+                        <!-- <option *ngFor="let country of backupHouses" value="{{country}}">{{country}}</option> -->
+                        <option *ngFor="let country of backupHouses" [ngValue]="country">{{country}}</option>
+                      </select>
+                  </div>
+              </div>
+              <div id="margin" class="selectdiv">
+                <mat-label>City:</mat-label>
+                <select name="ciudades"
+                  aria-label="Ejemplo de .form-select-lg" class="filter-select" appearance="outline"
+                  (change)="handleCity($event)" formControlName="city">
+                  <option *ngFor="let ciudades of city" [ngValue]="ciudades">
+                    {{ciudades}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="modalmb-2">
+              <div id="margin" class="sectiondiv">
+                Price
+              </div>
+              <div class="modal-body">
+                <div style="font-size: 1rem; ">
+                  <mat-form-field style="max-width: 150px; max-height: 20px;" appearance="outline">
+                    <mat-label>Min price</mat-label>
+                    <input name="minPrice" type="number" matInput placeholder="USD" formControlName="minPrice">
+                    <mat-icon matPrefix>dolar_symbol</mat-icon>
+
+                  </mat-form-field>
+                  <mat-form-field style="max-width: 150px;" appearance="outline">
+                    <mat-label>Max price</mat-label>
+                    <input name="maxPrice" type="number" matInput placeholder="USD" formControlName="maxPrice">
+                    <mat-icon matPrefix>dolar_symbol</mat-icon>
+                  </mat-form-field>
+                  <div *ngIf="filterForm.get('minPrice')?.errors?.['min'] || filterForm.get('maxPrice')?.errors?.['min']" class="alert alert-danger">No se permiten numero negativos en estos campos</div>
+                </div>
+                <select aria-placeholder="Order by" (change)="handleOrder();modal.dismiss('Cross click')"
+                  style="max-height: 20%; max-width: 40%; margin-top: 0.5%" class="form-select form-select-sm"
+                  appearance="outline" formControlName="order">
+                  <mat-label>Order by</mat-label>
+                  <option hidden selected value="">Order by</option>
+                  <option value="min">Cheapest first</option>
+                  <option value="max">Most expensive</option>
+                </select>
+              </div>
+            </div>
+            <div class="modalmb-2">
+              <div id="margin" class="sectiondiv">
+                Services
+              </div>
+              <div class="modal-body">
+                <button title="Allow pets" name="allowpets"
+                  style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+                  (click)="filterForm.get('allowPets')?.setValue(false)" *ngIf="filterForm.value.allowPets === true"
+                  type="button" class="btn btn-primary btn-sm"><span class="material-icons">pets</span>
+                </button>
+                <button title="Allow pets" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+                  (click)="filterForm.get('allowPets')?.setValue(true)"
+                  *ngIf="filterForm.value.allowPets === undefined || filterForm.value.allowPets === false" type="button"
+                  class="btn btn-secondary btn-sm"><span class="material-icons">pets</span>
+                </button>
+                <button title="With wifi." name="wifi"
+                  style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+                  (click)="filterForm.get('wifi')?.setValue(false);" *ngIf="filterForm.value.wifi === true" type="button"
+                  class="btn btn-primary btn-sm"><span class="material-icons">wifi</span>
+                </button>
+                <button title="With wifi" style="margin-left: 1%; margin-top: 0.5%; min-width: 35px; min-height: 35px;"
+                  (click)="filterForm.get('wifi')?.setValue(true)"
+                  *ngIf="filterForm.value.wifi === undefined || filterForm.value.wifi === false" type="button"
+                  class="btn btn-secondary btn-sm"><span class="material-icons">wifi</span>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="clearFilters()">Clear filters</button>
+      <button [disabled]="filterForm.get('minPrice')?.errors || filterForm.get('maxPrice')?.errors" type="button" class="btn btn-outline-dark" (click)="applyFilter(); modal.dismiss('Cross click')">Apply
+        filters</button>
+    </div>
+  </div>
+</ng-template>
+<footer [ngClass]="darkmode? 'footer mat-elevation-z4 darkmodeFooter':'mat-elevation-z4 footer'" >Rent-Ten by Group-10</footer>
+
