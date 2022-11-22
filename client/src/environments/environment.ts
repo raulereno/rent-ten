@@ -1,8 +1,9 @@
 
 import packageInfo from '../../auth_config.json'
 
-let domain = packageInfo.domain
-let clientId = packageInfo.clientId
+let domain = 'dev-p05tovuo7xrn30bk.us.auth0.com'
+
+let clientId = 'sonpZPamW7aCnVNH7eNXNXe63I21SpcF'
 
 
 export const environment = {
