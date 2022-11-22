@@ -12,6 +12,8 @@ import { addFavoriteHouse, changeVerifiedStatusProfile, loadHouses, loadProfile 
 import { Review } from 'src/app/models/Review';
 import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -43,7 +45,9 @@ export class ProfileComponent implements OnInit {
     private http: DataServiceService,
     private store: Store<any>,
     private _uploadImg: UploadImgService,
-    private localStorageSvc: LocalStorageService,) {
+    private localStorageSvc: LocalStorageService,
+    private _router: Router,
+    ) {
   }
 
   ngOnInit(): void {
@@ -91,7 +95,7 @@ export class ProfileComponent implements OnInit {
       //   })
       //   localStorage.clear()
       // })
-      
+
       this.userProfile$.subscribe((res) => {
         this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.some((h: string) => h == house.id)))
       })
@@ -154,6 +158,9 @@ export class ProfileComponent implements OnInit {
   //     this.store.dispatch(addFavoriteHouse({ payload: houseId }))
   // }
 
+    goTo(id:string){
+         //this._router.navigate([`home/housedetail/${id}`])//TODO: Redireccionar casa creada a detail
+    }
 
 
 }

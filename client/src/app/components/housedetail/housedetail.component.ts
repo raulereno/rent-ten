@@ -1,6 +1,5 @@
 import { loadPayment } from './../../redux/actions/location.actions';
-import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { House } from '../../models/House';
@@ -9,7 +8,6 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
-import GalleryModule from 'ng-gallery';
 
 @Component({
   selector: 'app-housedetail',
@@ -17,8 +15,6 @@ import GalleryModule from 'ng-gallery';
   styleUrls: ['./housedetail.component.css'],
 })
 export class HousedetailComponent implements OnInit {
-
-
   constructor(private route: ActivatedRoute,
     public http: DataServiceService,
     private fb: FormBuilder,
@@ -27,9 +23,9 @@ export class HousedetailComponent implements OnInit {
     public auth: AuthService) { }
 
   userProfile: userProfile
-  profileJson: any
-  paramsId: string | null
   house: House
+  profileJson: any
+  paramsId: string
   form: FormGroup
   booking: boolean = false
   pagado: boolean;
@@ -38,11 +34,12 @@ export class HousedetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.paramsId = this.route.snapshot.paramMap.get('id');
-    this.paramsId &&
+    this.route.params.subscribe(params=>{
+      this.paramsId= params["id"];
       this.http
         .getHouse(this.paramsId)
         .subscribe((data) => (this.house = data));
+    });
 
     this.auth.user$.subscribe((res) => {
       this.profileJson = res
@@ -161,6 +158,20 @@ export class HousedetailComponent implements OnInit {
     }
     )
 
+  }
+
+  getPaymentLink() {
+
+    const item = {
+      title: `Booking for house with ID ${this.house.id}`,
+      price: this.house.price,
+      quantity: 1
+    }
+    
+    this.http.getPaymentLink(item).subscribe(res => 
+      window.open(`${res.init_point}`, '_blank'))
+
+    this.reserveHouse()
   }
 
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
