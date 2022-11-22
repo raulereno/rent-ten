@@ -15,7 +15,7 @@
             </span>
             <!-- <button style="float:right" (click)="showProfileJson()">Console log Profile json & profile DB</button> -->
             <div class="infodiv">
-                <h2 class="text">{{user.email}}</h2>
+                <h2 class="text">{{user.name}} Leandro{{user.lastname}} De Filippis</h2>
                 <h3>{{user.mail}}</h3>
                 <h4 *ngIf="user.verified === 'verified'" style="color: green">&#x2714;Your email is verified</h4>
                 <h5 *ngIf="user.verified === 'not_verified'" style="color: red; font-weight: 400;">
@@ -46,10 +46,7 @@
             <ng-template ngbPanelContent>
                 <div class="card-body">
                     <div *ngFor="let hou of userProfile.Houses" class="card" style="width: 18rem;">
-                      <a routerLink="/housedetail/{{hou.id}}" >
                         <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
-                      </a>
-
                         <div class="card-body">
                             <p class="card-text">{{hou.country}}, {{hou.city}}</p>
                             <p class="info">{{hou.rooms}} room/s</p>
@@ -109,6 +106,7 @@
                             <h3 class="info">Occupants: {{house.maxpeople}} </h3>
                         </div>
                         <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
+                        <h2 class="name">{{house.country}}, {{house.city}}</h2>
                     </div>
 
                 </div>

@@ -1,0 +1,92 @@
+<div class="wrapper">
+    <gallery></gallery>
+    <div class="topdiv">
+        <button class="button" routerLink="/home">🡠</button>
+        <img class="mainimg" src="{{house.picture[3]}}" alt="Pic1">
+
+        <div class="sidediv">
+            <div class="rtopdiv">
+                <img class="sideimg" src="{{house.picture[1]}}" alt="Pic1">
+                <img id="upcornerimg" class="sideimg" src="{{house.picture[1]}}" alt="Pic3">
+            </div>
+            <div class="rbotdiv">
+                <img class="sideimg" src="{{house.picture[1]}}" alt="Pic4">
+                <img id="botcornerimg" class="sideimg" src="{{house.picture[1]}}" alt="Pic5">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="body">
+    <div class="col">
+        <h3 class="location">{{house.country}}, {{house.city}}</h3>
+        <p class="info">{{house.rooms}} room/s</p>
+        <p class="info">{{house.bathrooms}} bathroom/s</p>
+        <h3 class="info">
+            <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span style="color: green">✓</span></span>
+            <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
+            <span style="margin-left: 5%"><span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span
+                        style="color: green">✓</span></span>
+                <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
+            </span>
+        </h3>
+        <h3 class="info">Occupants: {{house.maxpeople}} </h3>
+        <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
+
+    </div>
+
+</div>
+<div style="width: 400px; margin-top: 10%; display:contents; align-items: center; justify-content: center;">
+
+    <app-reviews></app-reviews>
+
+</div>
+
+
+<div class='container' style="display: flex; margin-top: 5%; align-items: center; justify-content: center;">
+
+    <div style="min-width:300px; margin-right: 100px; margin-bottom: 5%;">
+        <hr />
+        <H2>Make a booking:</H2>
+        <form [formGroup]="form">
+            <mat-form-field>
+
+                <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
+                    <input matStartDate placeholder="start date" formControlName="start">
+                    <input matEndDate placeholder="end date" formControlName="end">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+
+
+            </mat-form-field>
+
+        </form>
+
+            <div> <button *ngIf="!(auth.isAuthenticated$ | async)" disabled style="margin-left: 2%" (click)="reserveHouse()" type="button"
+                class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Login to make a reserve</button>
+
+        <div> <button *ngIf="!paymentstatus && (auth.isAuthenticated$ | async) " style="margin-left: 2%" (click)="reserveHouse()" type="button"
+                class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Reserve
+                now</button>
+            <button *ngIf="paymentstatus == 'loading'" style="margin-left: 2%" disabled type="button"
+                class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
+                autocomplete="off">Loading...</button>
+            <form id="payment-form"></form>
+        </div>
+
+
+        <div *ngIf="house.Bookings.length > 0">
+            <br/>
+            <h4>&#x26A0; This house has bookings on this dates:</h4>
+            <ul>
+                <li *ngFor="let book of house.Bookings">
+                    &#x2714; From: {{book.start}} // To: {{book.end}}
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="house.Bookings.length === 0">
+            <h3>&#x263A; This house is all year available</h3>
+        </div>
+
+    </div>

@@ -1,0 +1,133 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+.container{
+  min-height: 79vh;
+}
+.flexdiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.bodydiv {
+  width: 100%;
+  height: fit-content;
+}
+
+.grid{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+.grid .grid-content{
+  justify-self: center;
+}
+
+.cardsrender {
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
+  width: 80%;
+}
+.paginadoYfiltros{
+  animation: fadein 5s;
+  border: 0;
+  margin-top: 2rem;
+
+}
+
+.card-header{
+  border: 0;
+  background-color: #FAFAFA;
+}
+
+
+.paginado {
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.184);
+  width: 100%;
+}
+.footer{
+  width: 100%;
+}
+.buttonFilter{
+  height: 3.6rem;
+
+  transition: all .2s;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+.buttonFilter:hover{
+  transform: scale(1.05);
+}
+.modal-footer button{
+  transition: .3s all;
+}
+.modal-footer button:hover{
+  transform: scale(1.03);
+}
+.footer{
+  margin-top: 1rem;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  position: absolute;
+  bottom: 0;
+  animation: fadein 8s;
+
+}
+/* Estilado para el dark mode */
+.darkmode{
+    background-color: #3030309a;
+    color: white;
+    transition: all .5s;
+  }
+  .darkmode .card-header{
+    border: 0;
+    background-color: #3030309a;
+    transition: all .7s;
+  }
+  .darkmode .buttonFilter{
+    background-color: #5252525d;
+    height: 3.6rem;
+    transition: all 0.2s;
+    color: white;
+    border: 1px solid rgb(78, 78, 78);
+  }
+  .darkmode .paginado{
+    background-color: #5252525d;
+    color: white;
+  }
+  .darkmode .paginado span span{
+    background-color: #7b7b7b5d;
+    color: white;
+  }
+  .darkmodeModal{
+    background-color: #303030;
+    color:white;
+  }
+  .darkmodeModal .modal-footer button{
+    background-color: #6e6e6e5d;
+    color: white;
+  }
+  .darkmodeModal .modal-footer button:hover{
+    background-color: #6e6e6eb9;
+    color: white;
+  }
+    /*Mediaqueries  */
+  @media only screen and (min-width: 1500px) {
+      .grid {
+        display: grid;
+        justify-content: center;
+        align-content: center;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+      }
+    }

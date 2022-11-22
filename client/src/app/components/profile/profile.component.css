@@ -1,0 +1,188 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.wrapper {
+  display: flex;
+}
+
+.leftdiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-left: 3rem;
+  height: 100rem;
+  min-width: 20%;
+}
+
+.infodiv {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.text {
+  color: black;
+}
+
+.rightdiv {
+  display: flex;
+  flex-direction: column;
+  padding-left: 5rem;
+  height: 100rem;
+  max-width: 80%;
+}
+
+;
+
+#favdiv {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.favdiv {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  min-width: 90%;
+}
+
+.edit svg {
+  width: 2rem;
+  fill: rgba(0, 0, 0, 0.604);
+}
+
+.edit svg:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  fill: rgb(0, 0, 0);
+}
+
+.pencil {
+  background-color: black;
+  border: 0;
+}
+
+.profileImg {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.favouriteslist {
+  height: 2rem;
+  width: 15rem;
+
+  font-size: 1.5rem;
+  font-family: "Judson";
+
+  position: relative;
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+
+  background-image: linear-gradient(90deg, rgba(108, 142, 255, 0.3), white);
+}
+
+.housecard {
+  width: 250px;
+  height: 400px;
+  transition: all 0.3s;
+  animation: fadein 2s;
+  border-radius: 15px 15px 15px 15px;
+  margin-bottom: 0.5rem;
+  margin-right: 1rem;
+}
+
+.housecard:hover .image {
+  transition: 0.5s;
+  opacity: 70%;
+}
+
+.updiv {
+  display: flex;
+}
+
+.image {
+  height: 200px;
+  width: 250px;
+  border-radius: 15px 15px 0px 15px;
+  transition: 0.5s;
+}
+
+.firstdiv {
+  display: flex;
+  margin-top: 0.4rem;
+}
+
+.namediv {
+  width: 88%;
+  margin-left: 5px;
+}
+
+.name {
+  font-size: 18px;
+}
+
+.remove {
+  width: 12%;
+  margin-top: -0.4rem;
+}
+
+.favourites {
+  height: 1.8rem;
+  width: 1.5rem;
+
+  font-size: 0.8rem;
+  font-weight: 100;
+  border-top: none;
+  border-radius: 0px 0px 20px 20px;
+
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+#removefav {
+  transition: 0.25s;
+  height: 2.5rem;
+  color: white;
+  border: none;
+  background-color: #ffc107;
+}
+
+#removefav:hover {
+  transition: 0.25s;
+  color: white;
+  background-color: #dc3545;
+}
+
+.botdiv {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.info {
+  font-weight: 100;
+  color: gray;
+  margin: -4px;
+}
+
+.price {
+  color: rgb(23, 59, 3);
+  font-weight: 400;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+/* ::ng-deep .card.accordion-button {
+  min-width: 30rem !important;
+} */
