@@ -50,6 +50,7 @@
   </ng-template>
   <div class="rightdiv">
     <button (click)="openModalFav(favorites)" *ngIf="!isLogged" class="myFavorites">My favorites</button>
+    <a *ngIf="!userProfile.adm" mat-button routerLink="/dashboard">Dashboard</a>
     <a mat-button routerLink="/home">Home</a>
     <a mat-button routerLink="/about">About</a>
 

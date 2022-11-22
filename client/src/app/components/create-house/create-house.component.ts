@@ -9,8 +9,9 @@ import { UploadImgService } from 'src/app/services/upload-img.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
 import { LocationService } from 'src/app/services/location.service';
-import { selectorListCountries } from 'src/app/redux/selectors/selectors';
+import { selectorListCountries, selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
 export interface NewHouse {
@@ -60,6 +61,9 @@ export class CreateHouseComponent implements OnInit {
   //ponerlo en true cuando el form este controlado
   errors:any =false
 
+  userProfile$: Observable<any> = new Observable();
+  userProfile: any;
+
   constructor(
     private _uploadImg: UploadImgService,
     private _http: DataServiceService,
@@ -68,9 +72,11 @@ export class CreateHouseComponent implements OnInit {
     private _locationService: LocationService,
     private matDialog: MatDialog,
     private _location:Location,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
+
     this._auth.user$.subscribe((profile) => {
 
       this.email = profile?.email ? profile?.email : '';
@@ -81,8 +87,33 @@ export class CreateHouseComponent implements OnInit {
     this._locationService.getCountries().subscribe((response) => {
       this._store.dispatch(loadedCountries({ countries: response.data }));
     });
+
+    this.userProfile$ = this._store.select(selectorListProfile)
+    this.userProfile$.subscribe(res=> 
+      { if(res.id){
+        this.userProfile= res
+        console.log(this.userProfile)
+        if(this.userProfile.verified !== 'verified'){
+          alert('Your account must to be verification')
+          this.router.navigate(['profile']);  
+        }}
+        else {
+          this._http.getUser(this.email).subscribe(res=>{
+            if(res.verified === 'verified'){
+              return
+            } else {
+              alert('Your account must to be verification')
+          this.router.navigate(['profile']); 
+            }
+          })
+        }
+        
+       })
+    
+   
   }
 
+  
   openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {}

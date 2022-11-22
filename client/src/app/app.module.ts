@@ -54,6 +54,9 @@ import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlternativehomeComponent } from './components/home/alternativehome/alternativehome.component';
 import { StatusComponent } from './components/housedetail/status/status.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { LayoutModule } from '@angular/cdk/layout';
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -69,6 +72,7 @@ const routes: Routes = [
       { path: 'createhouse', component: CreateHouseComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'housedetail/mercadopago/:id', component: StatusComponent },
       { path: "**", redirectTo: 'home' },
     ]
@@ -91,6 +95,7 @@ const routes: Routes = [
     ReviewsComponent,
     AlternativehomeComponent,
     StatusComponent,
+    DashboardComponent,
 
   ],
   imports: [
@@ -127,7 +132,9 @@ const routes: Routes = [
     IvyCarouselModule,
     MatGridListModule,
     NgbModule,
-    GalleryModule
+    GalleryModule,
+    MatMenuModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent],
