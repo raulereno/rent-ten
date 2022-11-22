@@ -13,7 +13,7 @@
           <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"  (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
         </div>
       </div>
-      <mat-paginator class="mat-app-background paginado" [length]="allHouses.length" [pageSize]="page_size"
+      <mat-paginator class="mat-app-background paginado" [length]="allHouses?.length" [pageSize]="page_size"
         [pageSizeOptions]="page_size_options" (page)="handlePage($event)" showFirstLastButtons="">
       </mat-paginator>
       &nbsp;&nbsp;&nbsp;&nbsp;
@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div *ngIf="!allHouses.length">
+  <div *ngIf="!(allHouses?.length)">
     <h3 style="font-size: 3rem;">There is no place with those requirements</h3>
     <button type="button" class="btn btn-outline-dark" (click)="clearFilters()">Clear filters</button>
   </div>

@@ -120,10 +120,11 @@ router.put("/edithouse/:id", async (req, res) => {
 
 router.delete("/deletehouse", async (req, res) => {
   const { houseId, userId } = req.body;
+
   try {
     const house = await House.findByPk(houseId, { include: User });
     const owner = house.Users[0].id;
-    if (userId !== owner) {
+    if (userId !== owner ) {
       res.status(200).json({
         msg: `The ID ${userId} is not the owner of the house with ID ${houseId}`,
       });

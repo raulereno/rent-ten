@@ -32,32 +32,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
-
-const calculateFilter=(form:any):number=>{
-  const { allowPets, city, country, maxPrice, minPrice, order, wifi } = form
-  let count:number =0
-  if(allowPets===true){
-    count++
-  }
-  if(wifi===true){
-    count++
-  }
-  if(city.length){
-    count++
-  }
-  if(country.length){
-    count++
-  }
-  if(maxPrice>0){
-    count++
-  }
-  if(minPrice>0){
-    count++
-  }
-   return count
-}
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -123,9 +97,6 @@ export class HomeComponent implements OnInit {
   order: string;
 
   darkmode: boolean;
-  show_div:boolean=false
-  quantityFilter:number=0;
-
   // --- ON INIT ---
 
   ngOnInit(): void {
@@ -170,6 +141,7 @@ export class HomeComponent implements OnInit {
   loadProfile(): void {
     this.auth.user$.subscribe((profile) => {
       this.profileJson = profile;
+
       this.http.getUser(this.profileJson.email).subscribe((res) => {
         this.store.dispatch(loadProfile({ userProfile: res }));
         this.userProfile$.subscribe((res) => {
@@ -184,6 +156,8 @@ export class HomeComponent implements OnInit {
           
         });
       });
+
+      
 
       this.http.updateUser(this.profileJson.email, this.profileJson.sub);
 
@@ -228,7 +202,6 @@ export class HomeComponent implements OnInit {
 
   handleOrder() {
     const {order}= this.filterForm.value;
-
     this.store.dispatch(handleOrder({ payload:order }));
   }
 
@@ -250,14 +223,19 @@ export class HomeComponent implements OnInit {
     );
     this.paginator.firstPage();
 
-
-    this.quantityFilter= calculateFilter(this.filterForm.value);
-    console.log(this.quantityFilter);
+    this.paginator.firstPage()
     // this.store.dispatch(handleOrder({payload: this.order}))
     //this.store.dispatch(handleOrder({payload: this.order}))
   }
+
   applyFilter() {
     this.handleFilters();
+  }
+
+  handleCountryClick() {
+    console.log('hiciste click');
+    selectedCountry: this.loadHouses();
+    this.selectedCity = '';
   }
 
   openFilterModal(filters: any) {
@@ -276,12 +254,6 @@ export class HomeComponent implements OnInit {
       wifi: false,
     });
     this.loadHouses();
-    this.quantityFilter=0
-  }
-
-
-  showDiv(){
-    this.show_div=!this.show_div
   }
 
   setFavorite(houseId: string, userId: string): void {
@@ -291,4 +263,3 @@ export class HomeComponent implements OnInit {
 
 
 }
-
