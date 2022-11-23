@@ -46,9 +46,9 @@
             <ng-template ngbPanelContent>
                 <div class="card-body">
                     <div *ngFor="let hou of userProfile.Houses" class="card" style="width: 18rem;">
-                      <a routerLink="/housedetail/{{hou.id}}" >
-                        <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
-                      </a>
+                        <a routerLink="/housedetail/{{hou.id}}">
+                            <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
+                        </a>
 
                         <div class="card-body">
                             <p class="card-text">{{hou.country}}, {{hou.city}}</p>
@@ -116,6 +116,37 @@
         </ngb-panel>
         <ngb-panel>
             <ng-template ngbPanelTitle>
+                <span>MY BOOKINGS</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="card-body">
+                    <div *ngFor="let book of userProfile.Bookings">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">House: {{book.id}}</span>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title">Itineraries</h1>
+                                <p class="card-text">Arrival: {{book.start}}</p>
+                                <p class="card-text">Departure: {{book.end}}</p>
+                            </div>
+
+                            <div class="card-footer">
+                                <span *ngIf="book.status === 'success'" class="card-subtitle mb-2 text-muted">State:
+                                    <span *ngIf="book.status === 'success'" style="color: green;">{{book.status}}</span>
+                                </span>
+                                <span *ngIf="book.status === 'pending'" class="card-subtitle mb-2 text-muted">State:
+                                    <span *ngIf="book.status === 'pending'" style="color: red;">{{book.status}}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
                 <span>MY REVIEWS</span>
             </ng-template>
             <ng-template ngbPanelContent>
@@ -129,7 +160,6 @@
                                 <h5 class="card-title"></h5>
                                 <p class="card-text">{{rev.opinion}}</p>
                             </div>
-
                             <div class="card-footer">
                                 <span class="card-subtitle mb-2 text-muted"> {{rev.userEmail}} | {{rev.createdAt
                                     |
@@ -142,6 +172,8 @@
             </ng-template>
         </ngb-panel>
     </ngb-accordion>
+
+
 
 
 

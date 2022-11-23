@@ -69,7 +69,7 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
       { path: 'housedetail/mercadopago/:id/:houseId/:code', component: StatusComponent },
-      { path: 'chat',component:ChatComponent },
+      { path: 'chat', component: ChatComponent },
       { path: "**", redirectTo: 'home' },
     ]
   }
