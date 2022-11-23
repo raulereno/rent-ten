@@ -3,22 +3,22 @@ const axios = require("axios");
 const server = require("./src/app.js");
 const http = require("http").Server(server);
 
-const io = require("socket.io")(http, {
-  cors: {
-    origin: true,
-    credentials: true,
-    allowedHeaders: ["my-custom-header"],
-    methods: ["GET", "POST"],
-  },
-});
-io.on("connection", (socket) => {
-  console.log("Nuevo usuario conectado");
-  console.log(socket);
-  socket.on("sendMessage", (messageInfo) => {
-    console.log(messageInfo);
-    socket.broadcast.emit("receiveMessage", messageInfo);
-  });
-});
+// const io = require("socket.io")(http, {
+//   cors: {
+//     origin: true,
+//     credentials: true,
+//     allowedHeaders: ["my-custom-header"],
+//     methods: ["GET", "POST"],
+//   },
+// });
+// io.on("connection", (socket) => {
+//   console.log("Nuevo usuario conectado");
+//   console.log(socket);
+//   socket.on("sendMessage", (messageInfo) => {
+//     console.log(messageInfo);
+//     socket.broadcast.emit("receiveMessage", messageInfo);
+//   });
+// });
 
 conn.sync({ force: true }).then(() => {
   server.listen(process.env.PORT, () => {
@@ -27,6 +27,6 @@ conn.sync({ force: true }).then(() => {
   });
 });
 
-http.listen(3000, () => {
-  console.log(`Server on port ${3000}`);
-});
+// http.listen(3000, () => {
+//   console.log(`Server on port ${3000}`);
+// });

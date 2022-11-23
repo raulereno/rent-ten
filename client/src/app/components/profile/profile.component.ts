@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
 
   loadProfile() {
     this.userProfile$.subscribe(profile => {
-      if (profile.length === 0) {
+      if (profile.id.length === 0) {
         this.auth.user$.subscribe(profile => {
           this.profileJson = profile;
           this.http.getUser(this.profileJson.email).subscribe(res => {
@@ -82,15 +82,6 @@ export class ProfileComponent implements OnInit {
       } else {
         this.allHouses = houses
       }
-
-      // this.userProfile$.subscribe((res) => {
-      //   let favoritesLS = this.localStorageSvc.getFavoritesHouses()
-      //   this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.concat(favoritesLS).some((h: string) => h == house.id)))
-      //   favoritesLS.forEach((houseId:string) => {
-      //     this.setFavorite(houseId, res.id)
-      //   })
-      //   localStorage.clear()
-      // })
       
       this.userProfile$.subscribe((res) => {
         this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.some((h: string) => h == house.id)))
@@ -105,7 +96,6 @@ export class ProfileComponent implements OnInit {
     this.favoritesHouses = this.favoritesHouses.filter(house => house.id !== houseId)
     this.localStorageSvc.removeFavorite(houseId)
 
-
   }
 
   showProfileJson(): void {
@@ -115,18 +105,18 @@ export class ProfileComponent implements OnInit {
   }
 
   verifyAccount(): void {
-
-    //this.dbProfile.verified = 'pending'
+    // this.dbProfile.verified = 'pending'
     this.store.dispatch(changeVerifiedStatusProfile({ payload: 'pending' }))
-    this.http.verifyAccount(this.dbProfile.mail)
+    this.http.verifyAccount(this.userProfile.mail)
   }
 
   sendVerificationCode(code: string): any {
-    this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data);
-    this.http.sendVerificationCode(this.profileJson.email, code)
+
+    this.http.sendVerificationCode(this.userProfile.mail, code)
       .pipe(catchError((error): any => { this.error = error.error.msg }))
       .subscribe(data => {
-        this.dbProfile.verified = 'verified'
+        this.loadProfile()
+        // this.userProfile.verified = 'verified'
         this.store.dispatch(changeVerifiedStatusProfile({ payload: 'verified' }))
       })
 

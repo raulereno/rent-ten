@@ -41,11 +41,35 @@
 
 }
 
+
+
 .card-header{
   border: 0;
   background-color: #FAFAFA;
 }
 
+.alternative_home { 
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+}
+
+.alternativehome_buttonFilter {
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  gap: 1%;
+  margin-top: 1rem;
+  min-width: 10rem;
+  max-height: 2.8rem;
+  transition: all .2s;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.alternativehome_buttonFilter:hover{
+  transform: scale(1.05);
+}
 
 .paginado {
   display: flex;

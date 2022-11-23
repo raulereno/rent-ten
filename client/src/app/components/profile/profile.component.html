@@ -45,7 +45,7 @@
         <ngb-panel title="MY HOUSES CREATE">
             <ng-template ngbPanelContent>
                 <div class="card-body">
-                    <div *ngFor="let hou of userProfile.Houses" class="card" style="width: 18rem;">
+                    <div *ngFor="let hou of userProfile?.Houses" class="card" style="width: 18rem;">
                         <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">{{hou.country}}, {{hou.city}}</p>

@@ -242,14 +242,16 @@ export class HomeComponent implements OnInit {
   clearFilters() {
 
     this.filterForm.reset({
-      country: '',
-      city: '',
-      order: '',
-      minPrice: '',
-      maxPrice: '',
+      country: null,
+      city: null,
+      order: null,
+      minPrice: null,
+      maxPrice: null,
       allowPets: false,
       wifi: false,
+      
     });
+    this.selectedCity = '';
     this.loadHouses();
   }
 

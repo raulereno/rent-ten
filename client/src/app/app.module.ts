@@ -54,6 +54,8 @@ import { environment } from '../environments/environment';
 import { NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlternativehomeComponent } from './components/home/alternativehome/alternativehome.component';
 import { StatusComponent } from './components/housedetail/status/status.component';
+import { AlternativehouseComponent } from './components/home/alternativehome/alternativehouse/alternativehouse.component';
+import { SliderComponent } from './components/home/alternativehome/slider/slider.component';
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -90,6 +92,8 @@ const routes: Routes = [
     ReviewsComponent,
     AlternativehomeComponent,
     StatusComponent,
+    AlternativehouseComponent,
+    SliderComponent,
 
   ],
   imports: [

@@ -62,19 +62,17 @@
 
         </form>
 
-            <div> <button *ngIf="!(auth.isAuthenticated$ | async)" disabled style="margin-left: 2%" (click)="reserveHouse()" type="button"
-                class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Login to make a reserve</button>
+        <div> <button *ngIf="!(auth.isAuthenticated$ | async)" disabled style="margin-left: 2%" (click)="reserveHouse()"
+                type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
+                autocomplete="off">Login to make a reserve</button>
 
-        <div> <button *ngIf="!paymentstatus && (auth.isAuthenticated$ | async) " style="margin-left: 2%" (click)="reserveHouse()" type="button"
-                class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Reserve
-                now</button>
-            <button *ngIf="paymentstatus == 'loading'" style="margin-left: 2%" disabled type="button"
-                class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
-                autocomplete="off">Loading...</button>
-            <form id="payment-form"></form>
-        </div>
+            <div> <button *ngIf="(auth.isAuthenticated$ | async)" style="margin-left: 2%" (click)="reserveHouse()"
+                    type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
+                    autocomplete="off">Reserve
+                    now</button>
+            </div>
 
-
+            <!-- 
         <div *ngIf="house.Bookings.length > 0">
             <br/>
             <h4>&#x26A0; This house has bookings on this dates:</h4>
@@ -87,6 +85,53 @@
 
         <div *ngIf="house.Bookings.length === 0">
             <h3>&#x263A; This house is all year available</h3>
+        </div> -->
+
         </div>
 
-    </div>
+
+        <ng-template #pay let-modal>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-basic-title">Details of your reserve
+                </h2>
+                <button id="closeModalButton" type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+
+                        <ng-container>
+                            <div class="input-group, row">
+                                <div style="justify-items: center; justify-content: center;" class="row">
+                                    <h5>House identifier: {{house.id}}</h5>
+                                    <img src="{{house.picture[0]}}" style="width: 200px; border-radius: 10%;" />
+                                </div>
+
+                                <div>
+                                    <br />
+                                    <span>
+                                        Price per day: {{house.price}} USD <br />
+                                        From: {{ formatDate_payment(form.value.daterange.start) }} <br />
+                                        To: {{ formatDate_payment(form.value.daterange.end) }} <br />
+                                        Total days: {{totaldays + 1}}
+
+                                    </span>
+                                </div>
+                                <div>
+                                    <h4 style="float: right">Total: <br /> {{totalprice}} USD</h4>
+                                </div>
+
+                            </div>
+                        </ng-container>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button *ngIf="paymentstatus !== 'ready'" disabled type="button" class="btn btn-primary">Processing payment...</button>
+                <form type="button" id="payment-form"></form>
+            </div>
+        </ng-template>

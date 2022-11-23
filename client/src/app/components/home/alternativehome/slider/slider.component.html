@@ -1,0 +1,25 @@
+
+<div class="slider" *ngIf="slider_priceval.length > 0">
+
+    <div class="slid_left">
+        <a (click)="slice_goBack()">
+            <p>&#x2770;</p>
+        </a>
+    </div>
+
+    <div class="cards_cont">
+
+        <div class="card, col" *ngFor="let house of slider_priceval">
+            <app-alternativehouse [house]=house [dbProfile]="dbProfile">
+            </app-alternativehouse>
+        </div>
+
+    </div>
+
+    <div class="slid_right">
+        <a (click)="slice_goFoward()">
+            <p>&#x2771;</p>
+        </a>
+    </div>
+
+</div>
