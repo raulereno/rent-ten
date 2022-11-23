@@ -14,6 +14,7 @@ import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Booking } from 'src/app/models/Booking';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class ProfileComponent implements OnInit {
   profileImg: string;
   reviewsHouses: Review[] = [];
   housesProfile: House[] = [];
-  
+  bookingsProfile: Booking[] = [];
+
 
 
   constructor(public auth: AuthService,
@@ -48,7 +50,7 @@ export class ProfileComponent implements OnInit {
     private _uploadImg: UploadImgService,
     private localStorageSvc: LocalStorageService,
     private _router: Router,
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -158,9 +160,9 @@ export class ProfileComponent implements OnInit {
   //     this.store.dispatch(addFavoriteHouse({ payload: houseId }))
   // }
 
-    goTo(id:string){
-         this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail
-    }
+  goTo(id: string) {
+    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`], { replaceUrl: true })//TODO: Redireccionar casa creada a detail
+  }
 
 
 }
