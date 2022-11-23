@@ -6,7 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GalleryModule } from  'ng-gallery';
 //COMPONENTES
 import { AppComponent } from './app.component';
 import { HouseComponent } from './components/home/house/house.component';
@@ -51,14 +50,18 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 //Enviroment
 import { environment } from '../environments/environment';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlternativehomeComponent } from './components/home/alternativehome/alternativehome.component';
 import { StatusComponent } from './components/housedetail/status/status.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ChatComponent } from './components/chat/chat.component';
+import { TableUserAComponent } from './components/dashboard/table-user-a/table-user-a.component';
+import { TableUserDComponent } from './components/dashboard/table-user-d/table-user-d.component';
+import { TableHouseAComponent } from './components/dashboard/table-house-a/table-house-a.component';
+import { TableHouseDComponent } from './components/dashboard/table-house-d/table-house-d.component';
 // import { environment as env } from 'src/environments/environment';
-
 
 
 const routes: Routes = [
@@ -73,7 +76,8 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'housedetail/mercadopago/:id', component: StatusComponent },
+      { path: 'housedetail/mercadopago/:id/:houseId/:code', component: StatusComponent },
+      { path: 'chat',component:ChatComponent },
       { path: "**", redirectTo: 'home' },
     ]
   }
@@ -96,6 +100,11 @@ const routes: Routes = [
     AlternativehomeComponent,
     StatusComponent,
     DashboardComponent,
+    ChatComponent,
+    TableUserAComponent,
+    TableUserDComponent,
+    TableHouseAComponent,
+    TableHouseDComponent,
 
   ],
   imports: [
@@ -132,9 +141,7 @@ const routes: Routes = [
     IvyCarouselModule,
     MatGridListModule,
     NgbModule,
-    GalleryModule,
-    MatMenuModule,
-    LayoutModule
+    NgbAccordionModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -141,24 +141,21 @@ export const countriesReducer = createReducer(
     on(handleOrder, (state, payload) => {
 
         let auxHouses = [...state.allHouses!];
-
         if (payload.payload == 'min') {
             auxHouses = auxHouses.sort((a, b) => a.price - b.price);
         }
-
-        if (payload.payload == "max") {
+        if (payload.payload == 'max') {
             auxHouses = auxHouses.sort((a, b) => b.price - a.price);
         }
-
         if (!payload.payload) {
-            auxHouses = [...state.backupHouses!]
+            auxHouses = [...state.backupHouses!];
         }
-
         return {
             ...state,
             allHouses: auxHouses
         }
     }),
+    
     on(loadPayment, (state,payload) => {
       return{
         ...state,

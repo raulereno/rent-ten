@@ -11,6 +11,7 @@ import { House } from '../../models/House';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class NavbarComponent implements OnInit {
     private _store:Store<any>,
     @Inject(DOCUMENT) private doc: Document,
     private _helper:HelperService,
-
+    private router: Router,
     private localStorageSvc:LocalStorageService,
     private modalService: NgbModal
     ) { }
@@ -79,13 +80,19 @@ export class NavbarComponent implements OnInit {
     this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
 
   }
+
   validateUser():void{
     if(!this.userProfile.id){
     if(confirm('You need login for post your place')){
         this.auth.loginWithRedirect()
       }
+    } 
+    else if (this.userProfile.verified !== 'verified'){console.log(this.userProfile.verified)
+      alert('Your account must to be verification')
+      this.router.navigate(['profile']);
+     }
     }
-  }
+  
 
 
   darkMode() : void{
@@ -115,7 +122,7 @@ export class NavbarComponent implements OnInit {
   
   openModalFav(favorites: any) {
     this.ngOnInit()
-		this.modalService.open(favorites, { ariaLabelledBy: 'modal-basic-title' })
+		this.modalService.open(favorites, { ariaLabelledBy: 'modal-basic-title', size:"lg"})
 	}
 
   fullDatabase(): void {

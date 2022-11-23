@@ -1,8 +1,8 @@
 
 import packageInfo from '../../auth_config.json'
 
-let domain = packageInfo.domain
-let clientId = packageInfo.clientId
+let domain = packageInfo.production.domain
+let clientId = packageInfo.production.clientId
 
 export const environment = {
   production: true,

@@ -1,16 +1,18 @@
 const { Router } = require("express");
+const { SendMail_verification } = require("../controllers/SendMail_verification")
+
 const {
   getUser,
   createUser,
   updateProfilePicture,
 } = require("../controllers/user");
-const { House, User, Review } = require("../db");
+const { House, User, Review, Booking } = require("../db");
 const { transporter } = require("../../nodemailer/nodemailer");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-  //Este get va a recibir por body un mail y un password que va a contrastar con la bd para encontrar coincidencias
+
   const { mail, password } = req.body;
   try {
     const user = await getUser(mail, password);
@@ -20,10 +22,11 @@ router.get("/", async (req, res) => {
   }
 });
 
+
 router.get("/getuser", async (req, res) => {
   const { mail } = req.query;
   try {
-    const finder = await User.findOne({ where: { mail: mail } });
+    const finder = await User.findOne({ where: { mail: mail }, include: [Review, House, Booking] })
     res.status(200).json(finder);
   } catch (error) {
     console.log(error);
@@ -97,12 +100,14 @@ router.post("/requirecode/:mail", async (req, res) => {
   const code = Math.random().toString(36).slice(4);
 
   try {
-    await transporter.sendMail({
-      from: '"Verication email for your Rent-Ten account" "<Rent-Ten@rentten.com>"',
-      to: mail,
-      subject: "Verification code",
-      html: `<h1> Hola, tu codigo para verificar tu mail en RentTen es: <b>${code}</b></h1>`,
-    });
+    // await transporter.sendMail({
+    //   from: '"Verication email for your Rent-Ten account" "<Rent-Ten@rentten.com>"',
+    //   to: mail,
+    //   subject: "Verification code",
+    //   html: `<h1> Hola, tu codigo para verificar tu mail en RentTen es: <b>${code}</b></h1>`,
+    // });
+    
+    await SendMail_verification(mail, code)
 
     const user = await User.findOne({ where: { mail: mail } });
     await user.update({ verificationCode: code, verified: "pending" });

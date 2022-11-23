@@ -4,7 +4,7 @@ import { AppState } from './../../redux/store/app.state';
 import { Observable } from 'rxjs';
 import { loadedCountries } from './../../redux/actions/location.actions';
 import { DataServiceService } from 'src/app/services/data-service.service';
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
@@ -12,6 +12,7 @@ import { LocationService } from 'src/app/services/location.service';
 import { selectorListCountries, selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+
 
 import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
 export interface NewHouse {
@@ -32,6 +33,7 @@ export interface NewHouse {
   selector: 'app-create-house',
   templateUrl: './create-house.component.html',
   styleUrls: ['./create-house.component.scss'],
+  
   providers: [UploadImgService],
 })
 export class CreateHouseComponent implements OnInit {
@@ -88,31 +90,36 @@ export class CreateHouseComponent implements OnInit {
       this._store.dispatch(loadedCountries({ countries: response.data }));
     });
 
-    this.userProfile$ = this._store.select(selectorListProfile)
+    /* this.userProfile$ = this._store.select(selectorListProfile)
     this.userProfile$.subscribe(res=> 
       { if(res.id){
         this.userProfile= res
         console.log(this.userProfile)
         if(this.userProfile.verified !== 'verified'){
           alert('Your account must to be verification')
-          this.router.navigate(['profile']);  
+          // this.userProfile.unsubscribe(); 
+          this.router.navigate(['profile']); 
+          
         }}
         else {
           this._http.getUser(this.email).subscribe(res=>{
             if(res.verified === 'verified'){
-              return
+              this.router.navigate(['createhouse']);
             } else {
               alert('Your account must to be verification')
-          this.router.navigate(['profile']); 
+              // this.userProfile.unsubscribe(); 
+              this.router.navigate(['profile']); 
+              
             }
-          })
+          }) 
         }
         
        })
-    
-   
+      */
   }
+ 
 
+ 
   
   openDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -126,6 +133,7 @@ export class CreateHouseComponent implements OnInit {
   onSelect(event: any) {
 
     if (this.files.some((e) => e.name === event.addedFiles[0].name)) {
+      console.log('ok')
       return;
     }
     this.files.push(...event.addedFiles);
@@ -150,7 +158,12 @@ export class CreateHouseComponent implements OnInit {
   }
 
   onSubmit(create: NgForm) {
-    this.onUpload(create);
+    /* if(this.userProfile.verified !== 'verified'){
+      alert('Your account must to be verification')
+      // this.userProfile.unsubscribe(); 
+      this.router.navigate(['profile']); }
+      else */this.onUpload(create);
+    
   }
 
   onUpload(create: NgForm) {
