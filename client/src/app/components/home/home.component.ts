@@ -129,9 +129,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.filterForm = this.initForm();
 
-    this._helper.customDarkMode.subscribe(
-      (active: boolean) => (this.darkmode = active)
-    );
+    // this._helper.customDarkMode.subscribe(
+    //   (active: boolean) => (this.darkmode = active)
+    // );
 
     this.loading$ = this.store.select(selectorListLoading);
     this.countries$ = this.store.select(selectorListCountries);

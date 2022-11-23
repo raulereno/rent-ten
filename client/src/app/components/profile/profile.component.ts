@@ -72,8 +72,10 @@ export class ProfileComponent implements OnInit {
       } else {
         this.userProfile = profile
       }
+      this.http.getUser(profile.mail).subscribe(res=>{
+        this.userProfile = res
+      })
     });
-
   }
 
   loadHouses_n_favorites() {
@@ -86,16 +88,6 @@ export class ProfileComponent implements OnInit {
       } else {
         this.allHouses = houses
       }
-
-      // this.userProfile$.subscribe((res) => {
-      //   let favoritesLS = this.localStorageSvc.getFavoritesHouses()
-      //   this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.concat(favoritesLS).some((h: string) => h == house.id)))
-      //   favoritesLS.forEach((houseId:string) => {
-      //     this.setFavorite(houseId, res.id)
-      //   })
-      //   localStorage.clear()
-      // })
-
       this.userProfile$.subscribe((res) => {
         this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.some((h: string) => h == house.id)))
       })
@@ -108,8 +100,6 @@ export class ProfileComponent implements OnInit {
     this.http.deleteFavorite(houseId, userId)
     this.favoritesHouses = this.favoritesHouses.filter(house => house.id !== houseId)
     this.localStorageSvc.removeFavorite(houseId)
-
-
   }
 
   showProfileJson(): void {
@@ -119,8 +109,6 @@ export class ProfileComponent implements OnInit {
   }
 
   verifyAccount(): void {
-
-    //this.dbProfile.verified = 'pending'
     this.store.dispatch(changeVerifiedStatusProfile({ payload: 'pending' }))
     this.http.verifyAccount(this.dbProfile.mail)
   }
@@ -143,20 +131,10 @@ export class ProfileComponent implements OnInit {
 
     this._uploadImg.uploadImage(data).subscribe(res => {
       this.http.updateProfilePicture(res.secure_url, this.userProfile.id, this.userProfile.sub);
-
       this.userProfile = { ...this.userProfile, picture: res.secure_url };
-
-      // TODO: RAUL -DANGER aca se produce un bucle de llamadas- arreglando
       this.store.dispatch(loadProfile({ userProfile: this.userProfile }));
-
-
     });
   }
-
-  // setFavorite(houseId: string, userId: string): void {
-  //     this.http.setFavorite(houseId, userId)
-  //     this.store.dispatch(addFavoriteHouse({ payload: houseId }))
-  // }
 
     goTo(id:string){
          this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail

@@ -20,6 +20,23 @@
   height: 100rem;
   min-width: 20%;
 }
+.container-image{
+  position: relative;
+}
+.profileImg:hover ~ .edit{
+  visibility: visible;
+}
+.profileImg:hover{
+  opacity: 0.3;
+}
+.edit{
+  position: absolute;
+  bottom: 44%;
+  left: 38%;
+  visibility: hidden;
+  cursor: pointer;
+}
+
 
 .infodiv {
   display: flex;
@@ -55,25 +72,25 @@
 
 .edit svg {
   width: 2rem;
-  fill: rgba(0, 0, 0, 0.604);
+  fill: rgb(0, 0, 0);
 }
 
 .edit svg:hover {
+  visibility: visible;
   transform: scale(1.1);
   cursor: pointer;
   fill: rgb(0, 0, 0);
 }
 
-.pencil {
-  background-color: black;
-  border: 0;
-}
 
 .profileImg {
   width: 12rem;
   height: 12rem;
   border-radius: 50%;
   object-fit: cover;
+}
+.edit svg:hover ~ .profileImg {
+  opacity: 0.3;
 }
 
 .favouriteslist {
@@ -185,3 +202,13 @@
 /* ::ng-deep .card.accordion-button {
   min-width: 30rem !important;
 } */
+
+@media screen and (max-width: 600px) {
+  .wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+  .leftdiv{
+    height: auto;
+  }
+}

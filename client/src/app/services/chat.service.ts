@@ -22,12 +22,13 @@ export class ChatService {
    }
 
   sendMessage(messageInfo:Message){
-    this.chats.push(messageInfo)
+    //this.chats.push(messageInfo)
     this.socket.io.emit("sendMessage", messageInfo)
   }
 
   onReceiveMessage(){
     this.socket.io.on('receiveMessage',(messageInfo)=>{
+      console.log(messageInfo);
       messageInfo.messageType = 2;
 
       this.chats.push(messageInfo)

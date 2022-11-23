@@ -1,10 +1,15 @@
-<div class="wrapper" [ngClass]="darkmode ? 'mat-elevation-z4 dark' : 'mat-elevation-z4'">
+
+<div class="wrapper mat-elevation-z4 mat-app-background">
   <a *ngIf="!darkmode" routerLink="/home">
     <img class="logo" src="../../assets/logo.png" alt="Logo">
   </a>
   <a *ngIf="darkmode" routerLink="/home">
     <img class="logo" src="../../assets/logo_white.png" alt="Logo">
   </a>
+
+
+
+
   <div class="leftdiv">
 
     <div class="host">
@@ -14,6 +19,11 @@
         a Host</a>
     </div>
   </div>
+  <button (click)="setActive()" class="button_hamburger">
+    <svg class="button_svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+    </svg>
+  </button>
 
 <!-- <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="favoritesHouses.length">  -->
 <!-- <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
@@ -59,7 +69,7 @@
 <!-- *ngIf="!userProfile" -->
 <!-- class="btn btn-lg btn-outline-primary"
 *ngIf="!isLogged" -->
-  <div class="rightdiv">
+  <div class="rightdiv" [ngClass]="{'rightdiv--activo': active}">
     <a mat-button routerLink="/home">Home</a>
     <a mat-button routerLink="/about">About</a>
 

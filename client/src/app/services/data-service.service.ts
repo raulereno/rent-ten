@@ -67,7 +67,7 @@ export class DataServiceService {
         console.log(error)
       }
     })
-    
+
   }
 
   deleteFavorite(houseId: string, userId: string) {
@@ -76,7 +76,7 @@ export class DataServiceService {
         console.log(error)
       }
     })}
-  
+
 
   createHouse(house: NewHouse, email: string) {
     this.http.post(`${environment.baseUrl}/houses/createhouse?userMail=${email}`, house).subscribe({
