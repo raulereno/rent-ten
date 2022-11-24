@@ -1,6 +1,6 @@
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { userProfile } from '../../models/UserProfile';
 import { House } from '../../models/House';
@@ -8,7 +8,7 @@ import { catchError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectorListBackup, selectorListProfile } from 'src/app/redux/selectors/selectors';
-import { addFavoriteHouse, changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
+import { addFavoriteHouse, changeAuthorizedUser, changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
 import { Review } from 'src/app/models/Review';
 import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -160,6 +160,11 @@ export class ProfileComponent implements OnInit {
 
     goTo(id:string){
          //this._router.navigate([`home/housedetail/${id}`])//TODO: Redireccionar casa creada a detail
+    }
+
+    deleteAccount(userId: string) {
+      this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+      this.http.deleteAccount(userId);
     }
 
 

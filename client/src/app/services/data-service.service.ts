@@ -75,7 +75,8 @@ export class DataServiceService {
       error: error => {
         console.log(error)
       }
-    })}
+    })
+  }
   
 
   createHouse(house: NewHouse, email: string) {
@@ -127,5 +128,12 @@ export class DataServiceService {
       }
     })}
 
+  deleteAccount(userId: string) {
+    this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}`, { userId }).subscribe({
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
 
 }
