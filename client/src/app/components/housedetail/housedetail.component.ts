@@ -9,6 +9,7 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-housedetail',

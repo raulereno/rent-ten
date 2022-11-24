@@ -141,7 +141,6 @@ const routes: Routes = [
     MatCheckboxModule,
     MatCardModule,
     MatListModule,
-    IvyCarouselModule,
     MatGridListModule,
     NgbModule,
     NgbAccordionModule
