@@ -6,7 +6,7 @@
         <button [ngClass]="filterForm.value.order === 'min' ? 'active':''" (click)="filterForm.get('order')?.setValue('min'); handleOrder()">Cheapest first</button>
         <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"  (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
       </div>
-      <mat-paginator class="paginado mat-app-background"
+      <mat-paginator class="paginado mat-app-background" [ngClass]="{'darkmodePaginator': darkmode}"
         [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
         (page)="handlePage($event)" showFirstLastButtons="">
       </mat-paginator>
@@ -42,12 +42,12 @@
 </div>
 
 <ng-template #filters let-modal >
-  <div class="container-modal ">
-    <div class="filtershead mat-app-background">
+  <div class="container-modal" [ngClass]="{'darkmodeModal': darkmode}">
+    <div class="filtershead">
       <h4 class="headtitle">Filters</h4>
       <button type="button" id="closemodal" class="modalbutton" aria-label="Close" (click)="modal.dismiss('Cross click')">✕</button>
     </div>
-    <div class="modal-body mat-app-background">
+    <div class="modal-body">
       <form [formGroup]="filterForm" (ngSubmit)="handleFilters()">
         <div class="mb-2">
           <ng-container>
@@ -81,8 +81,8 @@
               </div>
               <div class="modal-body">
                 <div style="font-size: 1rem; ">
-                  <mat-form-field style="max-width: 150px; max-height: 20px;" appearance="outline">
-                    <mat-label>Min price</mat-label>
+                  <mat-form-field  style="max-width: 150px; max-height: 20px;" appearance="outline">
+                    <mat-label >Min price</mat-label>
                     <input name="minPrice" type="number" matInput placeholder="USD" formControlName="minPrice">
                     <mat-icon matPrefix>dolar_symbol</mat-icon>
 

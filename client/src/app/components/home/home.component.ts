@@ -129,9 +129,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.filterForm = this.initForm();
 
-    // this._helper.customDarkMode.subscribe(
-    //   (active: boolean) => (this.darkmode = active)
-    // );
+    this._helper.customDarkMode.subscribe(
+      (active: boolean) => (this.darkmode = active)
+    );
 
     this.loading$ = this.store.select(selectorListLoading);
     this.countries$ = this.store.select(selectorListCountries);
@@ -178,7 +178,9 @@ export class HomeComponent implements OnInit {
           favoritesLS?.forEach((houseId: string) => {
             this.setFavorite(houseId, res.id);
           });
-          localStorage.clear();
+          localStorage.removeItem('myFavorites');
+
+          //localStorage.clear();
         });
       });
 
@@ -255,7 +257,7 @@ export class HomeComponent implements OnInit {
   }
 
   openFilterModal(filters: any) {
-    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title' });
+    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title',modalDialogClass:'mat-app-background' });
   }
 
   clearFilters() {

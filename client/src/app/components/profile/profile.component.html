@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <ngb-accordion  style="min-width: 75%;" #acc="ngbAccordion" activeIds="ngb-panel-0">
+      <ngb-accordion style="min-width: 75%;" #acc="ngbAccordion" activeIds="ngb-panel-0">
         <ngb-panel title="MY HOUSES CREATE">
             <ng-template ngbPanelContent>
                 <div class="card-body mat-app-background">
@@ -51,7 +51,7 @@
                         <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
                       </a>
 
-                        <div class="card-body">
+                        <div class="card-body mat-app-background">
                             <p class="card-text">{{hou.country}}, {{hou.city}}</p>
                             <p class="info">{{hou.rooms}} room/s</p>
                             <p class="info">{{hou.bathrooms}} bathroom/s</p>
@@ -123,8 +123,8 @@
                 <div class="card-body">
                     <div *ngFor="let book of userProfile.Bookings">
                         <div class="card">
-                            <div class="card-header">
-                                <span class="card-title">House: {{book.id}}</span>
+                          <div class="card-header">
+                            <span class="card-title">House: {{book.id}}</span>
                             </div>
                             <div class="card-body">
                                 <h1 class="card-title">Itineraries</h1>
@@ -174,7 +174,7 @@
         </ngb-panel>
     </ngb-accordion>
 
-    
+
 
 
 

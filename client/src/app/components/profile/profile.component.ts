@@ -1,3 +1,4 @@
+import { HelperService } from 'src/app/services/helper.service';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 import { selectorListBackup, selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { addFavoriteHouse, changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
 import { Review } from 'src/app/models/Review';
-import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionConfig, NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -41,8 +42,9 @@ export class ProfileComponent implements OnInit {
   reviewsHouses: Review[] = [];
   housesProfile: House[] = [];
   bookingsProfile: Booking[] = [];
+  darkmode:boolean;
 
-
+  myStyle:any={"backgroud-color:":"black"}
 
   constructor(public auth: AuthService,
     private http: DataServiceService,
@@ -50,6 +52,7 @@ export class ProfileComponent implements OnInit {
     private _uploadImg: UploadImgService,
     private localStorageSvc: LocalStorageService,
     private _router: Router,
+    private _helper:HelperService,
   ) {
   }
 
@@ -58,6 +61,11 @@ export class ProfileComponent implements OnInit {
     this.allHouses$ = this.store.select(selectorListBackup)
     this.loadProfile()
     this.loadHouses_n_favorites()
+
+    this._helper.customDarkMode.subscribe(
+      (active: boolean) => (this.darkmode = active)
+    );
+
   }
 
 
