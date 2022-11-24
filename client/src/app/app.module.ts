@@ -55,6 +55,14 @@ import { environment } from '../environments/environment';
 import { NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlternativehomeComponent } from './components/home/alternativehome/alternativehome.component';
 import { StatusComponent } from './components/housedetail/status/status.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { LayoutModule } from '@angular/cdk/layout';
+import { ChatComponent } from './components/chat/chat.component';
+import { TableUserAComponent } from './components/dashboard/table-user-a/table-user-a.component';
+import { TableUserDComponent } from './components/dashboard/table-user-d/table-user-d.component';
+import { TableHouseAComponent } from './components/dashboard/table-house-a/table-house-a.component';
+import { TableHouseDComponent } from './components/dashboard/table-house-d/table-house-d.component';
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -69,7 +77,9 @@ const routes: Routes = [
       { path: 'createhouse', component: CreateHouseComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'housedetail/mercadopago/:id/:houseId/:code', component: StatusComponent },
+      { path: 'chat', component: ChatComponent },
       { path: "**", redirectTo: 'home' },
     ]
   }
@@ -92,6 +102,12 @@ const routes: Routes = [
     AlternativehomeComponent,
     StatusComponent,
     GalleryDirective,
+    DashboardComponent,
+    ChatComponent,
+    TableUserAComponent,
+    TableUserDComponent,
+    TableHouseAComponent,
+    TableHouseDComponent,
 
   ],
   imports: [

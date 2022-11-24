@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { House } from 'src/app/models/House';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { loadProfile } from 'src/app/redux/actions/location.actions';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reviews',
@@ -122,13 +123,30 @@ export class ReviewsComponent implements OnInit {
   postNewReview() {
     this.errors = ''
 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast:any) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
     if (!this.userProfile.id) { this.errors = 'Login before let a review for this house!'; return }
+    // if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
     if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
     if (!this.newRatingInput) { this.errors = 'Please select a valoration.'; return }
     this.http.postNewReview(this.newReviewInput, this.newRatingInput, this.userProfile.id, this.house.id, this.userProfile.mail)
       .subscribe((res) => { this.house.Reviews = [...this.house.Reviews, res] })
     document.getElementById('closeModalButton')!.click();
-    alert('Thank you for your time!')
+    Toast.fire({
+      icon: 'success',
+      title: 'Thank you for your time!'
+    })
+    // alert('Thank you for your time!')
 
   }
 

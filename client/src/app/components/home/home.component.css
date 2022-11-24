@@ -39,12 +39,13 @@
   background-color: #FAFAFA;
 }
 
-.grid{
+.grid {
   display: grid;
   justify-content: center;
   grid-template-columns: 25% 25% 25% 25%;
 }
-.grid .grid-content{
+
+.grid .grid-content {
   justify-self: center;
 }
 
@@ -60,7 +61,7 @@
   animation: fadein 3s;
 }
 
-.filtersdiv{
+.filtersdiv {
   border: 0;
   display: flex;
   justify-content: center;
@@ -82,18 +83,18 @@
 
 /* //////////// FILTERS MODAL ////////////// */
 
-.filters{
+.filters {
   height: 3.6rem;
   transition: all .2s;
   border: 1px solid rgba(0, 0, 0, 0.368);
   border-radius: 5px;
 }
 
-.filters:hover{
+.filters:hover {
   transform: scale(1.05);
 }
 
-.filtershead{
+.filtershead {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -104,16 +105,16 @@
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-.headtitle{
+.headtitle {
   font-size: 30px;
   margin-top: 1rem;
 }
 
-.ptitle{
+.ptitle {
   margin-top: -0.5rem;
 }
 
-.modalbutton{
+.modalbutton {
   height: 30px;
   width: 35px;
   color: #000;
@@ -122,13 +123,13 @@
   font-size: 30px;
 }
 
-#closemodal{
+#closemodal {
   position: absolute;
   top: 1rem;
   left: 90%;
 }
 
-.sectiondiv{
+.sectiondiv {
   display: flex;
   flex-shrink: 0;
   align-items: center;
@@ -141,13 +142,13 @@
   border-top-right-radius: var(--bs-modal-inner-border-radius);
 }
 
-.selectdiv{
-  display:flex;
+.selectdiv {
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.filter-select{
+.filter-select {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-left: 0.5rem;
@@ -155,24 +156,24 @@
   border-color: rgba(92, 92, 92, 0.275);
   border-radius: 0.25rem;
   width: 9rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.filter-select:focus{
+.filter-select:focus {
   border-color: #86b7fe;
   outline: 0;
   box-shadow: 0 0 0 0.15rem rgb(13 110 253 / 25%);
 }
 
-#margin{
+#margin {
   margin-top: 1rem;
 }
 
-.modal-footer button{
+.modal-footer button {
   transition: .3s all;
 }
 
-.modal-footer button:hover{
+.modal-footer button:hover {
   transform: scale(1.03);
 }
 
@@ -190,104 +191,153 @@
 }
 
 /* Estilado para el dark mode */
-.darkmode{
-    background-color: #303030;
-    color: white;
-    transition: all .5s;
-  }
-  .darkmode .card-header{
-    border: 0;
-    background-color: #3030309a;
-    transition: all .7s;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .darkmode .filters{
-    background-color: #5252525d;
-    height: 3.6rem;
-    transition: all 0.2s;
-    color: white;
-    border: 1px solid rgb(78, 78, 78);
-  }
-  .darkmode .paginado{
-    background-color: #5252525d;
-    color: white;
-  }
-  .darkmode .paginado span span{
-    background-color: #7b7b7b5d;
-    color: white;
-  }
-  .darkmodeModal{
-    background-color: #303030;
-    color:white;
-  }
-  .darkmodeModal .modal-footer button{
-    background-color: #6e6e6e5d;
-    color: white;
-  }
-  .darkmodeModal .modal-footer button:hover{
-    background-color: #6e6e6eb9;
-    color: white;
-  }
-    /*Mediaqueries  */
-  @media only screen and (min-width: 1500px) {
-      .grid {
-        display: grid;
-        justify-content: center;
-        align-content: center;
-        grid-template-columns: 20% 20% 20% 20% 20%;
-      }
-    }
+/* .darkmode {
+  background-color: #3030309a;
+  color: white;
+  transition: all .5s;
+}
 
-.container-order{
+.darkmode .filtersdiv {
+  background-color: #303030;
+  transition: all .5s;
+}
+
+.darkmode .card-header {
+  border: 0;
+  background-color: #3030309a;
+  transition: all .7s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.darkmode .filters {
+  background-color: #5252525d;
+  height: 3.6rem;
+  transition: all 0.2s;
+  color: white;
+  border: 1px solid rgb(78, 78, 78);
+}
+
+.darkmode .paginado {
+  background-color: #5252525d;
+  color: white;
+}
+
+.darkmode .paginado span span {
+  background-color: #7b7b7b5d;
+  color: white;
+}
+
+.darkmodeModal {
+  background-color: #303030;
+  color: white;
+}
+
+.darkmodeModal .modal-footer button {
+  background-color: #6e6e6e5d;
+  color: white;
+}
+
+.darkmodeModal .modal-footer button:hover {
+  background-color: #6e6e6eb9;
+  color: white;
+}
+
+
+.darkmodeFooter{
+  background-color: #303030;
+  border-top: 1px solid #232323;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+} */
+
+/*Mediaqueries  */
+@media only screen and (min-width: 1500px) {
+  .grid {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+  }
+}
+
+.container-order {
   position: relative;
 }
 
-.container-order .order-options{
+.container-order .order-options {
   position: absolute;
   background-color: white;
   width: 15rem;
-  height:auto;
-  z-index:99;
+  height: auto;
+  z-index: 99;
   display: none;
   bottom: -3.1rem;
   border: 1px solid rgba(128, 128, 128, 0.552);
   border-radius: 5px;
 
 }
-.buttonOrder{
+
+.buttonOrder {
   height: 3.6rem;
 
   transition: all .2s;
   border: 1px solid black;
   border-radius: 6px;
 }
-.buttonOrder:hover{
+
+.buttonOrder:hover {
   transform: scale(1.05);
 }
-.container-order .orderOn{
+
+.container-order .orderOn {
   background-color: #30303074;
 }
-.container-order .showDiv{
+
+.container-order .showDiv {
   display: block;
   display: flex;
   flex-direction: column;
 }
-.container-order .showDiv:hover{
+
+.container-order .showDiv:hover {
   display: block;
   display: flex;
   flex-direction: column;
 }
-.container-order .showDiv button{
+
+.container-order .showDiv button {
   border: 0;
   font-size: 1.2rem;
   background-color: white;
 }
-.container-order .showDiv .active{
-  background-color: rgba(128, 128, 128, 0.552);
-}
-.container-order .showDiv button:hover{
+
+.container-order .showDiv .active {
   background-color: rgba(128, 128, 128, 0.552);
 }
 
+.container-order .showDiv button:hover {
+  background-color: rgba(128, 128, 128, 0.552);
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: 100%;
+  }
+  .navigation{
+    margin-top: 0.5rem;
+  }
+    .filtersdiv{
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+    }
+    .paginado{
+      margin-bottom: 0.5rem;
+      width: 100%;
+      font-size: 0.8rem;
+    }
+}

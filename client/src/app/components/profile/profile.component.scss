@@ -20,6 +20,34 @@
   height: 100rem;
   min-width: 20%;
 }
+.container-image{
+  position: relative;
+  .edit{
+    background-color: #fafafa86;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 0;
+    transition: all 1s ease;
+  }
+  .edit svg {
+    width: 2rem;
+    fill: rgb(0, 0, 0);
+  }
+
+  .edit svg:hover {
+    visibility: visible;
+    transform: scale(1.1);
+    cursor: pointer;
+    fill: rgb(0, 0, 0);
+  }
+  &:hover .edit{
+    height: 20%;
+  }
+}
 
 .infodiv {
   display: flex;
@@ -40,7 +68,6 @@
   max-width: 80%;
 }
 
-;
 
 #favdiv {
   display: flex;
@@ -54,27 +81,17 @@
   min-width: 90%;
 }
 
-.edit svg {
-  width: 2rem;
-  fill: rgba(0, 0, 0, 0.604);
-}
 
-.edit svg:hover {
-  transform: scale(1.1);
-  cursor: pointer;
-  fill: rgb(0, 0, 0);
-}
 
-.pencil {
-  background-color: black;
-  border: 0;
-}
 
 .profileImg {
   width: 12rem;
   height: 12rem;
   border-radius: 50%;
   object-fit: cover;
+}
+.edit svg:hover ~ .profileImg {
+  opacity: 0.3;
 }
 
 .favouriteslist {
@@ -186,3 +203,22 @@
 /* ::ng-deep .card.accordion-button {
   min-width: 30rem !important;
 } */
+
+@media screen and (max-width: 600px) {
+  .wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+  .leftdiv{
+    height: auto;
+  }
+}
+
+/* Cuando la pantalla es menor a 900px  (tablets y teléfonos inteligentes)*/
+@media only screen and (max-width : 1000px) {
+  .container-image{
+    .edit{
+      height: 20%;
+    }
+  }
+}

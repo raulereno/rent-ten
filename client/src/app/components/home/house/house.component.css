@@ -8,10 +8,10 @@
   height: 100%;
 }
 
-.darkmode {
+/* .darkmode {
   background-color: #303030;
   color: white;
-  /* transition: all 1s; */
+   transition: all 1s;
 }
 
 .darkmode .price {
@@ -22,7 +22,7 @@
   font-weight: 100;
   color: white;
   margin: -4px;
-}
+} */
 
 .housecard:hover .image {
   transition: 0.5s;
@@ -56,9 +56,6 @@
   left: 4%;
 }
 
-.darkmode #leftarrow {
-  color: black;
-}
 
 .image {
   height: 10rem;
@@ -73,9 +70,6 @@
   left: 86%;
 }
 
-.darkmode #rightarrow {
-  color: black;
-}
 
 .firstdiv {
   display: flex;
