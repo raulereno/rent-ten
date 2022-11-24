@@ -1,0 +1,19 @@
+
+
+<div [ngClass]="chatDiv? 'showChat':'hiddeChat'">
+  <div class="chatContainer">
+    <p (click)="sendMessage('paidMethod')" class="optionFAQ">Cual es el metodo de pago para las reservas?</p>
+
+    <p [ngClass]="message.messageType === 1 ? 'local':'remoto'" *ngFor="let message of chat.chats">{{message.text}}</p>
+  </div>
+
+  <div class="inputContainer">
+    <form (submit)="sendMessage()">
+
+      <input [(ngModel)]="text" [ngModelOptions]="{standalone:true}" type="text" name="" id="">
+    </form>
+  </div>
+</div>
+<div class="container-imgChat" (click)="showChat()">
+  <img class="imgChat" src="assets/logo_white.png" alt="">
+</div>

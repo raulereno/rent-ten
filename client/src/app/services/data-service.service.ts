@@ -67,7 +67,7 @@ export class DataServiceService {
         console.log(error)
       }
     })
-    
+
   }
 
   deleteFavorite(houseId: string, userId: string) {

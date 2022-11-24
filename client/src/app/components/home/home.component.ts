@@ -29,34 +29,32 @@ import { userProfile } from 'src/app/models/UserProfile';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { handleOrder } from 'src/app/redux/actions/location.actions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
-
-const calculateFilter=(form:any):number=>{
-  const { allowPets, city, country, maxPrice, minPrice, order, wifi } = form
-  let count:number =0
-  if(allowPets===true){
-    count++
+const calculateFilter = (form: any): number => {
+  const { allowPets, city, country, maxPrice, minPrice, order, wifi } = form;
+  let count: number = 0;
+  if (allowPets === true) {
+    count++;
   }
-  if(wifi===true){
-    count++
+  if (wifi === true) {
+    count++;
   }
-  if(city.length){
-    count++
+  if (city.length) {
+    count++;
   }
-  if(country.length){
-    count++
+  if (country.length) {
+    count++;
   }
-  if(maxPrice>0){
-    count++
+  if (maxPrice > 0) {
+    count++;
   }
-  if(minPrice>0){
-    count++
+  if (minPrice > 0) {
+    count++;
   }
-   return count
-}
-
+  return count;
+};
 
 @Component({
   selector: 'app-home',
@@ -91,7 +89,7 @@ export class HomeComponent implements OnInit {
     private _helper: HelperService,
     private modalService: NgbModal,
     private localStorageSvc: LocalStorageService
-  ) { }
+  ) {}
 
   filterForm!: FormGroup;
 
@@ -100,8 +98,8 @@ export class HomeComponent implements OnInit {
       country: [''],
       city: [''],
       order: [''],
-      minPrice: [0],
-      maxPrice: [0],
+      minPrice: [0, Validators.min(0)],
+      maxPrice: [0, Validators.min(0)],
       allowPets: [false],
       wifi: [false],
     });
@@ -123,24 +121,24 @@ export class HomeComponent implements OnInit {
   order: string;
 
   darkmode: boolean;
-  show_div:boolean=false
-  quantityFilter:number=0;
+  show_div: boolean = false;
+  quantityFilter: number = 0;
 
   // --- ON INIT ---
 
   ngOnInit(): void {
     this.filterForm = this.initForm();
 
-    this._helper.customDarkMode.subscribe(
-      (active: boolean) => (this.darkmode = active)
-    );
+    // this._helper.customDarkMode.subscribe(
+    //   (active: boolean) => (this.darkmode = active)
+    // );
 
     this.loading$ = this.store.select(selectorListLoading);
     this.countries$ = this.store.select(selectorListCountries);
     this.allHouses$ = this.store.select(selectorListHouses);
     this.userProfile$ = this.store.select(selectorListProfile);
     this.backupHouses$ = this.store.select(selectorListBackup);
-    this.backupHouses$.subscribe(res=>{
+    this.backupHouses$.subscribe((res) => {
       this.backupAllHouses = res;
     });
     this.city$ = this.store.select(selectorListCities);
@@ -176,17 +174,15 @@ export class HomeComponent implements OnInit {
           this.userProfile = res;
           this.dbProfile = res;
 
-          let favoritesLS = this.localStorageSvc.getFavoritesHouses()
-          favoritesLS?.forEach((houseId:string) => {
-            this.setFavorite(houseId, res.id)
-          })
-          localStorage.clear()
-          
+          let favoritesLS = this.localStorageSvc.getFavoritesHouses();
+          favoritesLS?.forEach((houseId: string) => {
+            this.setFavorite(houseId, res.id);
+          });
+          localStorage.clear();
         });
       });
 
       this.http.updateUser(this.profileJson.email, this.profileJson.sub);
-
     });
   }
 
@@ -200,20 +196,19 @@ export class HomeComponent implements OnInit {
   // --- ORDER AND FILTERS ----
 
   handleCountry() {
-
-    const {country}= this.filterForm.value;
+    const { country } = this.filterForm.value;
 
     let nombrecualquier = this.backupAllHouses?.filter(
-        (element) => element.country === country
-      );
-      this.city = nombrecualquier?.map(elemt => elemt.city);
+      (element) => element.country === country
+    );
+    let set = new Set(nombrecualquier?.map((elemt) => elemt.city));
+    this.city = [...set];
 
     this.filterForm.get('city')?.setValue('');
-
-
   }
 
-  handleCity(event: any) { //TODO: BUSCAR EL TIPO DEL EVENTO
+  handleCity(event: any) {
+    //TODO: BUSCAR EL TIPO DEL EVENTO
     let city = event.target.value;
     this.selectedCity = city;
     console.log('city', city);
@@ -227,16 +222,16 @@ export class HomeComponent implements OnInit {
   }
 
   handleOrder() {
-    const {order}= this.filterForm.value;
+    const { order } = this.filterForm.value;
 
-    this.store.dispatch(handleOrder({ payload:order }));
+    this.store.dispatch(handleOrder({ payload: order }));
   }
 
   handleFilters() {
     const { allowPets, city, country, maxPrice, minPrice, order, wifi } =
       this.filterForm.value;
 
-      this.store.dispatch(
+    this.store.dispatch(
       handleFilters({
         payload: {
           minPrice: minPrice,
@@ -250,8 +245,7 @@ export class HomeComponent implements OnInit {
     );
     this.paginator.firstPage();
 
-
-    this.quantityFilter= calculateFilter(this.filterForm.value);
+    this.quantityFilter = calculateFilter(this.filterForm.value);
     console.log(this.quantityFilter);
     // this.store.dispatch(handleOrder({payload: this.order}))
     //this.store.dispatch(handleOrder({payload: this.order}))
@@ -261,34 +255,38 @@ export class HomeComponent implements OnInit {
   }
 
   openFilterModal(filters: any) {
-    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title'});
+    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   clearFilters() {
-
     this.filterForm.reset({
       country: '',
       city: '',
       order: '',
-      minPrice: '',
-      maxPrice: '',
+      minPrice: 0,
+      maxPrice: 0,
       allowPets: false,
       wifi: false,
     });
     this.loadHouses();
-    this.quantityFilter=0
+    this.quantityFilter = 0;
   }
 
-
-  showDiv(){
-    this.show_div=!this.show_div
+  showDiv() {
+    this.show_div = !this.show_div;
   }
 
   setFavorite(houseId: string, userId: string): void {
-    this.http.setFavorite(houseId, userId)
-    this.store.dispatch(addFavoriteHouse({ payload: houseId }))
+    this.http.setFavorite(houseId, userId);
+    this.store.dispatch(addFavoriteHouse({ payload: houseId }));
+  }
+
+  // handlerPrice(event:any){
+  //   console.log(event.target.name);
+  //   console.log(typeof event.target.value);
+  //   if(Number(event.target.value) < 0){
+  //     console.log("entro");
+  //    this.filterForm.get(`${event.target.name}`)?.setValue(0)
+  //   }
+  // }
 }
-
-
-}
-

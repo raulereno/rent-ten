@@ -1,18 +1,19 @@
 <div *ngIf="(userProfile$ | async); let user;" class="wrapper">
     <!-- ---- PROFILE ---- -->
-    <div class="leftdiv">
+    <div class="leftdiv mat-app-background">
         <div class="userdiv">
-            <img src="{{user ? user.picture : 'https://images-ext-2.discordapp.net/external/pViXnUyCMi0jsx8mNDB13oL36CnRTes_D6sZLXH2xEY/https/cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png' }}"
-                class="profileImg" />
-
-            <span class="edit">
-                <svg (click)="fileInput.click()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path
-                        d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z" />
-                </svg>
-                <input (change)="onFileSelected($event)" #fileInput type="file" name="" id="" id="fileUpload"
-                    style="display: none;">
-            </span>
+            <div class="container-image">
+              <img src="{{user.picture}}"
+                  class="profileImg" />
+              <span class="edit">
+                  <svg (click)="fileInput.click()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <path
+                          d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z" />
+                  </svg>
+                  <input (change)="onFileSelected($event)" #fileInput type="file" name="" id="" id="fileUpload"
+                      style="display: none;">
+              </span>
+            </div>
             <!-- <button style="float:right" (click)="showProfileJson()">Console log Profile json & profile DB</button> -->
             <div class="infodiv">
                 <h2 class="text">{{user.email}}</h2>
@@ -47,12 +48,12 @@
         </div>
     </div>
 
-    <ngb-accordion style="min-width: 77%;" #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-accordion  style="min-width: 75%;" #acc="ngbAccordion" activeIds="ngb-panel-0">
         <ngb-panel title="MY HOUSES CREATE">
             <ng-template ngbPanelContent>
-                <div class="card-body">
-                    <div *ngFor="let hou of userProfile.Houses" class="card" style="width: 18rem;">
-                      <a (click)="goTo(hou.id)" >
+                <div class="card-body mat-app-background">
+                    <div *ngFor="let hou of userProfile.Houses" class="card mat-app-background" style="width: 18rem;">
+                      <a routerLink="/housedetail/{{hou.id}}" >
                         <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
                       </a>
 
@@ -79,11 +80,11 @@
         </ngb-panel>
         <ngb-panel>
             <ng-template ngbPanelTitle>
-                <span>MY FAVORITES HOUSES</span>
+                <span >MY FAVORITES HOUSES</span>
             </ng-template>
             <ng-template ngbPanelContent>
-                <div class="favdiv">
-                    <div class="housecard" *ngFor="let house of favoritesHouses">
+                <div class="favdiv mat-app-background">
+                    <div class="housecard mat-app-background" *ngFor="let house of favoritesHouses">
                         <div class="updiv">
                             <a routerLink="/housedetail/{{house.id}}">
                                 <img class="image" src={{house.picture[0]}} />
@@ -122,6 +123,37 @@
         </ngb-panel>
         <ngb-panel>
             <ng-template ngbPanelTitle>
+                <span>MY BOOKINGS</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="card-body">
+                    <div *ngFor="let book of userProfile.Bookings">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">House: {{book.id}}</span>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title">Itineraries</h1>
+                                <p class="card-text">Arrival: {{book.start}}</p>
+                                <p class="card-text">Departure: {{book.end}}</p>
+                            </div>
+
+                            <div class="card-footer">
+                                <span *ngIf="book.status === 'success'" class="card-subtitle mb-2 text-muted">State:
+                                    <span *ngIf="book.status === 'success'" style="color: green;">{{book.status}}</span>
+                                </span>
+                                <span *ngIf="book.status === 'pending'" class="card-subtitle mb-2 text-muted">State:
+                                    <span *ngIf="book.status === 'pending'" style="color: red;">{{book.status}}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
                 <span>MY REVIEWS</span>
             </ng-template>
             <ng-template ngbPanelContent>
@@ -135,7 +167,6 @@
                                 <h5 class="card-title"></h5>
                                 <p class="card-text">{{rev.opinion}}</p>
                             </div>
-
                             <div class="card-footer">
                                 <span class="card-subtitle mb-2 text-muted"> {{rev.userEmail}} | {{rev.createdAt
                                     |
@@ -148,6 +179,8 @@
             </ng-template>
         </ngb-panel>
     </ngb-accordion>
+
+    
 
 
 
