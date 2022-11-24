@@ -156,7 +156,7 @@ router.put('/deleteAccount/:userId', async (req, res) => {
   const userId = req.params.userId;
 
   try {
-    const user = await User.findOne({ where: { id: userId } });
+    const user = await User.findOne({ where: { id: Number(userId) } });
 
     if (user.id === userId) {
       await user.update({ authorized: "not" });
