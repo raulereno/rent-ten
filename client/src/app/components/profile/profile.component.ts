@@ -20,7 +20,7 @@ import { Booking } from 'src/app/models/Booking';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  styleUrls: ['./profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
 

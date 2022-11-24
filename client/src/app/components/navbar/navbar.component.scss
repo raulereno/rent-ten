@@ -2,13 +2,14 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   height: 5rem;
 }
 
 .leftdiv{
   display: flex;
   justify-content: space-between;
-  width: 55%;
+  width: 45%;
 }
 
 .logo{
@@ -29,7 +30,7 @@
 .rightdiv{
   display: flex;
   justify-content: flex-end;
-  width: 35%;
+  width: 40%;
 }
 .rightdiv a{
   align-self: center;
@@ -246,9 +247,12 @@
 .button_hamburger{
   display: none;
 }
+.profile{
+  display: flex;
+}
 
 
-@media screen and (max-width:500px){
+@media screen and (max-width:750px){
   .button_hamburger{
     display: flex;
     margin-right: 0.4rem;
