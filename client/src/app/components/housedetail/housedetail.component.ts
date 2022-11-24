@@ -1,3 +1,4 @@
+import { HelperService } from './../../services/helper.service';
 import { loadPayment } from './../../redux/actions/location.actions';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +10,6 @@ import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-housedetail',
@@ -24,6 +24,8 @@ export class HousedetailComponent implements OnInit {
     public http: DataServiceService,
     private fb: FormBuilder,
     private location: Location,
+    private router: Router,
+    private _helper: HelperService,
     public auth: AuthService) { }
 
 
@@ -36,6 +38,7 @@ export class HousedetailComponent implements OnInit {
   pagado: boolean;
   indexPhoto: number = 0
   paymentstatus: string;
+  darkmode: boolean;
 
 
   ngOnInit(): void {
@@ -58,6 +61,10 @@ export class HousedetailComponent implements OnInit {
         end: new FormControl(),
       }),
     });
+
+    this._helper.customDarkMode.subscribe(
+      (active: boolean) => (this.darkmode = active)
+    );
   }
 
 

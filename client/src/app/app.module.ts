@@ -18,6 +18,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ReviewsComponent } from './components/housedetail/reviews/reviews.component';
 import { DialogBodyComponent } from './components/create-house/dialog-body/dialog-body.component';
 import { environment as env } from 'src/environments/environment';
+//GALERIA
+import { GalleryDirective } from './components/housedetail/gallery.directive';
 //MATERIAL
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -99,6 +101,7 @@ const routes: Routes = [
     ReviewsComponent,
     AlternativehomeComponent,
     StatusComponent,
+    GalleryDirective,
     DashboardComponent,
     ChatComponent,
     TableUserAComponent,

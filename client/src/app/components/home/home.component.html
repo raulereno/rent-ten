@@ -1,7 +1,7 @@
-<div class="container mat-app-background">
-
-  <div class="navigation " >
-    <div class="mat-app-background filtersdiv ">
+<div class="background mat-app-background">
+  <div class="flex container" >
+  <div class="navigation" >
+    <div class="mat-app-background filtersdiv">
       <div style="display:none" class="order-options" [ngClass]="show_div? 'order-options showDiv': 'order-options'">
         <button [ngClass]="filterForm.value.order === 'min' ? 'active':''" (click)="filterForm.get('order')?.setValue('min'); handleOrder()">Cheapest first</button>
         <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"  (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
@@ -23,13 +23,13 @@
   </div>
 
   <!-- <div *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order"> -->
-      <div class="bodydiv">
-      <div class="grid">
-        <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
-          [dbProfile]="dbProfile" class="grid-content"></app-house>
-      </div>
-
+  <div [ngClass]="darkmode? 'bodydiv darkmode':'bodydiv'">
+    <div class="grid">
+      <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
+        [dbProfile]="dbProfile" class="grid-content"></app-house>
     </div>
+  </div>
+</div>
 
   <div *ngIf="!allHouses.length">
     <h3 style="font-size: 3rem;">There is no place with those requirements</h3>
@@ -142,5 +142,5 @@
     </div>
   </div>
 </ng-template>
-<footer class="mat-app-background footer mat-elevation-z4">Rent-Ten by Group-10</footer>
+<footer class="mat-app-background footer mat-elevation-z4">Rent-Ten - made with ♥ by group 10 of FT-30A at SoyHenry.</footer>
 
