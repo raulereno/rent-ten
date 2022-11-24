@@ -22,21 +22,32 @@
 }
 .container-image{
   position: relative;
-}
-.profileImg:hover ~ .edit{
-  visibility: visible;
-}
-.profileImg:hover{
-  opacity: 0.3;
-}
-.edit{
-  position: absolute;
-  bottom: 44%;
-  left: 38%;
-  visibility: hidden;
-  cursor: pointer;
-}
+  .edit{
+    background-color: #fafafa86;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 0;
+    transition: all 1s ease;
+  }
+  .edit svg {
+    width: 2rem;
+    fill: rgb(0, 0, 0);
+  }
 
+  .edit svg:hover {
+    visibility: visible;
+    transform: scale(1.1);
+    cursor: pointer;
+    fill: rgb(0, 0, 0);
+  }
+  &:hover .edit{
+    height: 20%;
+  }
+}
 
 .infodiv {
   display: flex;
@@ -70,17 +81,7 @@
   min-width: 90%;
 }
 
-.edit svg {
-  width: 2rem;
-  fill: rgb(0, 0, 0);
-}
 
-.edit svg:hover {
-  visibility: visible;
-  transform: scale(1.1);
-  cursor: pointer;
-  fill: rgb(0, 0, 0);
-}
 
 
 .profileImg {
@@ -210,5 +211,14 @@
   }
   .leftdiv{
     height: auto;
+  }
+}
+
+/* Cuando la pantalla es menor a 900px  (tablets y teléfonos inteligentes)*/
+@media only screen and (max-width : 1000px) {
+  .container-image{
+    .edit{
+      height: 20%;
+    }
   }
 }
