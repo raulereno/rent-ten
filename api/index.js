@@ -1,7 +1,7 @@
 const { conn } = require("./src/db.js");
 const axios = require("axios");
 const server = require("./src/app.js");
-//const http = require("http").Server(server);
+const http = require("http").Server(server);
 
 // const io = require("socket.io")(http, {
 //   cors: {
@@ -13,7 +13,12 @@ const server = require("./src/app.js");
 // });
 // io.on("connection", (socket) => {
 //   console.log("Nuevo usuario conectado");
-
+//   console.log(socket);
+//   socket.on("sendMessage", (messageInfo) => {
+//     console.log(messageInfo);
+//     socket.broadcast.emit("receiveMessage", messageInfo);
+//   });
+// });
 //   socket.on("sendMessage", (messageInfo) => {
 //     if (messageInfo.text === "paidMethod") {
 //       messageInfo = {

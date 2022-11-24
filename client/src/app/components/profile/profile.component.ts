@@ -1,7 +1,7 @@
 import { HelperService } from 'src/app/services/helper.service';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { userProfile } from '../../models/UserProfile';
 import { House } from '../../models/House';
@@ -9,7 +9,7 @@ import { catchError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectorListBackup, selectorListProfile } from 'src/app/redux/selectors/selectors';
-import { addFavoriteHouse, changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
+import { addFavoriteHouse, changeAuthorizedUser, changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
 import { Review } from 'src/app/models/Review';
 import { NgbAccordionConfig, NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -44,8 +44,6 @@ export class ProfileComponent implements OnInit {
   bookingsProfile: Booking[] = [];
   darkmode:boolean;
 
-  myStyle:any={"backgroud-color:":"black"}
-
   constructor(public auth: AuthService,
     private http: DataServiceService,
     private store: Store<any>,
@@ -72,7 +70,7 @@ export class ProfileComponent implements OnInit {
 
   loadProfile() {
     this.userProfile$.subscribe(profile => {
-      if (profile.length === 0) {
+      if (profile.id.length === 0) {
         this.auth.user$.subscribe(profile => {
           this.profileJson = profile;
           this.http.getUser(this.profileJson.email).subscribe(res => {
@@ -99,6 +97,7 @@ export class ProfileComponent implements OnInit {
       } else {
         this.allHouses = houses
       }
+
       this.userProfile$.subscribe((res) => {
         this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.some((h: string) => h == house.id)))
       })
@@ -111,6 +110,7 @@ export class ProfileComponent implements OnInit {
     this.http.deleteFavorite(houseId, userId)
     this.favoritesHouses = this.favoritesHouses.filter(house => house.id !== houseId)
     this.localStorageSvc.removeFavorite(houseId)
+
   }
 
   showProfileJson(): void {
@@ -131,10 +131,12 @@ export class ProfileComponent implements OnInit {
       .pipe(catchError((error): any => { this.error = error.error.msg }))
       .subscribe(data => {
         this.loadProfile()
+        // this.userProfile.verified = 'verified'
         this.store.dispatch(changeVerifiedStatusProfile({ payload: 'verified' }))
       })
 
   }
+
   onFileSelected(event: any): void {
     const data = new FormData();
     data.set('file', event.path[0].files[0]);
@@ -148,8 +150,13 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-    goTo(id:string){
-         this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail
+  goTo(id:string){
+    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail
+}
+
+    deleteAccount(userId: string) {
+      this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+      this.http.deleteAccount(userId);
     }
 
 

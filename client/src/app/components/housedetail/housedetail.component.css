@@ -4,48 +4,35 @@
 }
 
 .wrapper{
-display: flex;
-animation: fadein 2s;
-z-index: -1s;
+    margin: 0 auto;
+    width: 85%;
+}
+
+.background{
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url("../../../assets/background.jpg");
+    border-left: 1px solid #96969681;
+    border-right: 1px solid #96969681;
+}
+
+/* ////////GALERÍA//////// */
+.gallery{
+    animation: fadein 2s;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    width: 82%;
 }
 
 .topdiv{
-display:flex;
-margin: 0 auto;
-margin-top: 5rem;
-}
-
-.sidediv{
-    display: flex;
-    flex-direction: column;
-}
-
-.mainimg{
-    height: 25rem;
-    width: 37.5rem;
-    border-radius: 30px 0px 0px 30px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px 0px;
-}
-
-.sideimg{
-    height: 12rem;
-    width: 18rem;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px 0px;
-    margin-bottom: 1rem;
-    margin-left: 1rem;
-}
-
-.sideimg:hover{
-    transition: 0.5s;
-    opacity:70%;
-}
-
-#upcornerimg{
-    border-radius: 0px 30px 0px 0px;
-}
-
-#botcornerimg{
-    border-radius: 0px 0px 30px 0px;
+    display:flex;
+    margin: 0 auto;
+    margin-top: 5rem;
 }
 
 .button{
@@ -59,8 +46,7 @@ margin-top: 5rem;
     width: 50px;
     height: 50px;
     border-radius: 30px 0px 20px 0px;
-    z-index: +1;
-    opacity: 80%;
+    opacity: 60%;
     transition: 0.5s;
 }
 
@@ -68,24 +54,90 @@ margin-top: 5rem;
     opacity: 100%;
 }
 
+.mainimg{
+    height: 25rem;
+    width: 37.5rem;
+    border-radius: 30px 0px 0px 30px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px 0px;
+    background-size: cover;
+    transition: all 0.2s;
+}
+
+.rows{
+    display: flex;
+    flex-direction: row;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+.sideimg{
+    display: block;
+    cursor: pointer;
+    background-size: cover;
+    height: 8rem;
+    width: 12rem;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px 0px;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    opacity: 0.75;
+}
+
+.sideimg:hover{
+    transition: 0.5s;
+    opacity:100%;
+}
+
+.active{
+    border: 2px solid rgba(34, 34, 34, 0.6);
+    opacity: 1;
+}
+
+.upcornerimg{
+    border-radius: 0px 30px 0px 0px;
+}
+
+.botcornerimg{
+    border-radius: 0px 0px 30px 0px;
+}
+
+/* ////////HOUSEINFO//////// */
 .body{
     margin-left: 11rem;
     margin-top: 1rem;
     animation: fadein 2s;
-}
+    margin: 0 auto;
+    width: 85%;
+    display: flex;
+    flex-wrap: wrap;
+  }
 
 .location{
-    font-size: 50px;
+    font-size: 2.5rem;
     font-weight: 400;
     margin-bottom: 20px;
+}
+
+.flex{
+    display: flex;
+}
+
+.flex app-reviews{
+    position: relative;
+    top: 1rem;
+    left: 10%;
+    height: 2rem;
+    width: 20rem;
 }
 
 .info{
     font-size: 20px;
     font-weight: 100;
+    font-family: Arial, Helvetica;
     color: gray;
-    margin-left: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
 .price{
@@ -93,40 +145,48 @@ margin-top: 5rem;
     color: rgb(23, 59, 3);
     font-size: 30px;
     font-weight: 400;
-    margin-top: 10px;
-    margin-left: 5px;
+}
+.darkPrice{
+  color: rgb(60, 135, 20)
 }
 
+.infodiv{
+    width: 60%;
+}
 
-
-.containerGritDos {
-    display: flex;
+.bookingdiv{
+    display:flex;
     flex-direction: column;
+    width: 50%;
 }
 
-.divppalHouseDetail {
-    background-color: blue;
+.booking{
+    display: flex;
     justify-content: center;
-    margin-top: 1%;
+    border: 1px solid #A4A4A4;
+    border-radius: 1rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    width: 35rem;
 }
 
-
-.gridFechas {
-    display: flex;
-    flex-direction: column;
+.makebooking{
+    margin-right: 1rem;
+    padding-right: 1rem;
+    border-right: 1px solid #A4A4A4;
 }
 
-
-mat-grid-tile {
-    background: lightblue;
+.text{
+    font-size: 20px;
+    font-weight: 400;
 }
 
-.gridUno {
-    display: flex;
-    flex-direction: column;
-    margin: 2rem;
+.footer{
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-
+    background-color: #fafafa;
+    border-top: 1px solid #A4A4A4;
+    display: flex;
+    justify-content: center;
+    padding-top:1.9rem;
+    height: 1.5rem;
 }

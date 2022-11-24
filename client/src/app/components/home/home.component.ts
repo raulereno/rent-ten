@@ -227,12 +227,16 @@ export class HomeComponent implements OnInit {
     const { order } = this.filterForm.value;
 
     this.store.dispatch(handleOrder({ payload: order }));
+
+    this.allHouses$.subscribe(res=> this.allHouses=res);
+
   }
 
   handleFilters() {
     const { allowPets, city, country, maxPrice, minPrice, order, wifi } =
       this.filterForm.value;
 
+      console.log(this.filterForm.value);
     this.store.dispatch(
       handleFilters({
         payload: {
@@ -245,10 +249,15 @@ export class HomeComponent implements OnInit {
         },
       })
     );
-    this.paginator.firstPage();
+    try {
+      this.paginator.firstPage();
+    } catch (error) {
+      return
+    }
 
     this.quantityFilter = calculateFilter(this.filterForm.value);
-    console.log(this.quantityFilter);
+    this.allHouses$.subscribe(res=> this.allHouses=res);
+
     // this.store.dispatch(handleOrder({payload: this.order}))
     //this.store.dispatch(handleOrder({payload: this.order}))
   }

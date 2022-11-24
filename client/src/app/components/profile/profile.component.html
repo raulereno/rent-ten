@@ -39,17 +39,23 @@
                 </div>
             </div>
             <p style="color:red" *ngIf="error">{{error.error.msg}}</p>
+
+            <div>
+                <div>
+                    <button (click)="deleteAccount(user.id)" type="button" class="btn btn-danger btn-sm">Delete Account</button>
+                </div>
+            </div>
         </div>
     </div>
 
       <ngb-accordion style="min-width: 75%;" #acc="ngbAccordion" activeIds="ngb-panel-0">
         <ngb-panel title="MY HOUSES CREATE">
             <ng-template ngbPanelContent>
-                <div class="card-body mat-app-background">
-                    <div *ngFor="let hou of userProfile.Houses" class="card mat-app-background" style="width: 18rem;">
-                      <a routerLink="/housedetail/{{hou.id}}" >
-                        <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
-                      </a>
+                <div class="card-body">
+                    <div *ngFor="let hou of userProfile?.Houses" class="card" style="width: 18rem;">
+                        <a routerLink="/housedetail/{{hou.id}}" >
+                            <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
+                          </a>
 
                         <div class="card-body mat-app-background">
                             <p class="card-text">{{hou.country}}, {{hou.city}}</p>

@@ -1,8 +1,10 @@
 .wrapper{
+  position: sticky;
+  top: 0px;
+  z-index: +1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   height: 5rem;
 }
 
@@ -29,8 +31,9 @@
 
 .rightdiv{
   display: flex;
-  justify-content: flex-end;
-  width: 40%;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 45%;
 }
 .rightdiv a{
   align-self: center;
@@ -224,6 +227,11 @@
   border-radius: 1rem 0rem 0rem 1rem;
   margin-bottom: -1.5rem;
   object-fit: cover;
+}
+
+.image:hover{
+  transition: 0.5s;
+  opacity:70%;
 }
 
 .type{
