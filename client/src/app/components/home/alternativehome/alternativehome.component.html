@@ -3,98 +3,12 @@
 
     <h1 class="slider_title">Places with best price/valoration rate</h1>
 
-    <app-slider [housesSorted_byqualityprice]="housesSorted_byqualityprice" [slider_priceval]="slider_priceval">
+    <app-slider [dbProfile]="dbProfile" [housesSorted_byqualityprice]="housesSorted_byqualityprice" [slider_priceval]="slider_priceval">
     </app-slider>
-    <!-- 
-    <div class="slider" *ngIf="slider_priceval.length > 0">
 
-        <div class="slid_left">
-            <a (click)="slice_goBack()">
-                <p>&#x2770;</p>
-            </a>
-        </div>
+    <h1 class="slider_title">Best rated places</h1>
 
-        <div class="cards_cont">
+    <app-slider [dbProfile]="dbProfile" [housesSorted_byqualityprice]="housesSorted_byRating" [slider_priceval]="slider_rating">
+    </app-slider>
 
-            <div class="card, col" *ngFor="let house of slider_priceval">
-                <app-alternativehouse [house]=house [dbProfile]="dbProfile">
-                </app-alternativehouse>
-            </div>
-
-        </div>
-
-        <div class="slid_right">
-            <a (click)="slice_goFoward()">
-                <p>&#x2771;</p>
-            </a>
-        </div>
-
-    </div> -->
-
-
-<!-- 
-    <div class="alternativecont, row"> -->
-
-        <h1 class="slider_title">Best rated places</h1>
-
-        <app-slider [housesSorted_byqualityprice]="housesSorted_byRating" [slider_priceval]="slider_rating">
-        </app-slider>
-<!-- 
-        <div class="slider" *ngIf="slider_rating.length > 0">
-
-            <div class="slid_left">
-                <a (click)="slice_rating_goBack()">
-                    <p>&#x2770;</p>
-                </a>
-            </div>
-
-            <div class="cards_cont">
-
-                <div class="card, col" *ngFor="let house of slider_rating">
-                    <app-alternativehouse [house]=house [dbProfile]="dbProfile">
-                    </app-alternativehouse>
-                </div>
-
-            </div>
-
-            <div class="slid_right">
-                <a (click)="slice_rating_goFoward()">
-                    <p>&#x2771;</p>
-                </a>
-            </div>
-
-        </div>
-
-        <br /> -->
-
-
-        <!-- <hr />
-        <h1>Best rated places</h1>
-        <hr /> -->
-
-        <!-- 
-    <div class="slider" *ngIf="slider_rating.length > 0">
-
-
-        <div class="arrow_left">
-            <a (click)="slice_rating_goBack()">
-                <p>&#x2770;</p>
-            </a>
-        </div>
-
-        <div *ngFor="let house of slider_rating"  class="cards_cont">
-            <app-house [house]=house [dbProfile]="dbProfile">
-            </app-house>
-        </div>
-
-
-        <div class="arrow_right">
-            <a (click)="slice_rating_goFoward()">
-                <p>&#x2771;</p>
-            </a>
-        </div>
-
-
-    </div> -->
-
-    </div>
+</div>

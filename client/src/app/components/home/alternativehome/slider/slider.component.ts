@@ -15,7 +15,7 @@ export class SliderComponent implements OnInit {
 
   @Input() slider_priceval: House[]
   @Input() housesSorted_byqualityprice: House[]
-  
+  @Input() dbProfile: userProfile
 
   constructor(public http: DataServiceService, private store: Store<any>) { }
   
@@ -24,7 +24,7 @@ export class SliderComponent implements OnInit {
   allHouses: House[] = []
   public userProfile: userProfile;
   userProfile$: Observable<any> = new Observable()
-  dbProfile: any = {}
+  // dbProfile: any = {}
 
   // Slider of houses sorted by quality/price
   

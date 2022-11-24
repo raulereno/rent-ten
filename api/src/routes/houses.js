@@ -23,7 +23,7 @@ router.get("/:id", async (req, res) => {
 
   try {
     const house = await House.findByPk(id, { include: [User, Review, Booking] });
-    if (house.deleted) {return res.status(404).json({msg: `This place was deleted`})}
+    if (house.deleted) { return res.status(404).json({ msg: `This place was deleted` }) }
     return res.status(200).json(house);
   } catch (error) {
     console.log(error);
@@ -50,6 +50,21 @@ router.get("/order/:order", async (req, res) => {
     console.log(error);
   }
 });
+
+router.get("/deletedhouses", async (req, res) => {
+
+  try {
+
+    let allHouses = await House.findAll()
+    let filter = await allHouses.filter(house => house.deleted)
+    res.status(200).json(filter)
+
+  } catch (error) {
+    console.log(error)
+    res.status(400).json(error)
+  }
+
+})
 
 // --- POST METHODS ---
 router.post("/setowner", async (req, res) => {
@@ -133,7 +148,7 @@ router.delete("/deletehouse", async (req, res) => {
     const owner = house.Users[0].id;
 
     if (user.admin || userId == owner) {
-      await house.update({deleted: true})
+      await house.update({ deleted: true })
       res.status(200).json({ msg: `House with ID ${houseId} destroyed.` });
     } else {
       res.status(400).json({
@@ -165,8 +180,8 @@ router.post("/process_payment", (req, res) => {
 
 router.post("/fulldb", async (req, res) => {
   try {
-    let testuser = await User.create({lastname: "Of all houses", sub: 'owner', name: "Owner", mail: "owner@owner.com"})
-    await User.create({lastname: "Administrator", name: "Rent-Ten", mail: "admin@rent-ten.com", sub: 'Administrator', verified: true, admin: true })
+    let testuser = await User.create({ lastname: "Of all houses", sub: 'owner', name: "Owner", mail: "owner@owner.com" })
+    await User.create({ lastname: "Administrator", name: "Rent-Ten", mail: "rentten2022@gmail.com", sub: 'Administrator', verified: "verified", admin: true })
 
     extraHouses(50).forEach(async (house) => {
 

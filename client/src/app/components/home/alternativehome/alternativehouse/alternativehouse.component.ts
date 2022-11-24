@@ -62,7 +62,7 @@ export class AlternativehouseComponent implements OnInit {
 
   toggleFavorite(houseId: string): void {
     let favoritesLS = this.localStorageSvc.getFavoritesHouses()
-    if (!favoritesLS.includes(houseId)) {
+    if (!favoritesLS?.includes(houseId)) {
     this.localStorageSvc.addToFavorite(houseId)
     this.dbProfile.favoriteshouses?.concat(houseId)
   }
