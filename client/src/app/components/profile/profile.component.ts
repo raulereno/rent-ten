@@ -1,5 +1,5 @@
 import { UploadImgService } from 'src/app/services/upload-img.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { userProfile } from '../../models/UserProfile';
@@ -12,13 +12,16 @@ import { addFavoriteHouse, changeVerifiedStatusProfile, loadHouses, loadProfile 
 import { Review } from 'src/app/models/Review';
 import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { Booking } from 'src/app/models/Booking';
 
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
-
+  styleUrls: ['./profile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 
@@ -36,14 +39,19 @@ export class ProfileComponent implements OnInit {
   favoritesHouses$: Observable<any> = new Observable();
   profileImg: string;
   reviewsHouses: Review[] = [];
-  housesProfile: House[] = []
+  housesProfile: House[] = [];
+  bookingsProfile: Booking[] = [];
+
 
 
   constructor(public auth: AuthService,
     private http: DataServiceService,
     private store: Store<any>,
     private _uploadImg: UploadImgService,
-    private localStorageSvc: LocalStorageService,) {
+    private localStorageSvc: LocalStorageService,
+    private _router: Router,
+    
+    ) {
   }
 
   ngOnInit(): void {
@@ -57,7 +65,7 @@ export class ProfileComponent implements OnInit {
 
   loadProfile() {
     this.userProfile$.subscribe(profile => {
-      if (profile.length === 0) {
+      if (profile.id.length === 0) {
         this.auth.user$.subscribe(profile => {
           this.profileJson = profile;
           this.http.getUser(this.profileJson.email).subscribe(res => {
@@ -68,8 +76,10 @@ export class ProfileComponent implements OnInit {
       } else {
         this.userProfile = profile
       }
+      this.http.getUser(profile.mail).subscribe(res=>{
+        this.userProfile = res
+      })
     });
-
   }
 
   loadHouses_n_favorites() {
@@ -82,15 +92,6 @@ export class ProfileComponent implements OnInit {
       } else {
         this.allHouses = houses
       }
-
-      // this.userProfile$.subscribe((res) => {
-      //   let favoritesLS = this.localStorageSvc.getFavoritesHouses()
-      //   this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.concat(favoritesLS).some((h: string) => h == house.id)))
-      //   favoritesLS.forEach((houseId:string) => {
-      //     this.setFavorite(houseId, res.id)
-      //   })
-      //   localStorage.clear()
-      // })
       
       this.userProfile$.subscribe((res) => {
         this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.some((h: string) => h == house.id)))
@@ -115,22 +116,22 @@ export class ProfileComponent implements OnInit {
   }
 
   verifyAccount(): void {
-
-    //this.dbProfile.verified = 'pending'
+    // this.dbProfile.verified = 'pending'
     this.store.dispatch(changeVerifiedStatusProfile({ payload: 'pending' }))
-    this.http.verifyAccount(this.dbProfile.mail)
+    this.http.verifyAccount(this.userProfile.mail)
   }
 
   sendVerificationCode(code: string): any {
-    this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data);
-    this.http.sendVerificationCode(this.profileJson.email, code)
+
+    this.http.sendVerificationCode(this.userProfile.mail, code)
       .pipe(catchError((error): any => { this.error = error.error.msg }))
       .subscribe(data => {
-        this.dbProfile.verified = 'verified'
+        this.loadProfile()
         this.store.dispatch(changeVerifiedStatusProfile({ payload: 'verified' }))
       })
 
   }
+  
   onFileSelected(event: any): void {
     const data = new FormData();
     data.set('file', event.path[0].files[0]);
@@ -139,22 +140,14 @@ export class ProfileComponent implements OnInit {
 
     this._uploadImg.uploadImage(data).subscribe(res => {
       this.http.updateProfilePicture(res.secure_url, this.userProfile.id, this.userProfile.sub);
-
       this.userProfile = { ...this.userProfile, picture: res.secure_url };
-
-      // TODO: RAUL -DANGER aca se produce un bucle de llamadas- arreglando
       this.store.dispatch(loadProfile({ userProfile: this.userProfile }));
-
-
     });
   }
 
-  // setFavorite(houseId: string, userId: string): void {
-  //     this.http.setFavorite(houseId, userId)
-  //     this.store.dispatch(addFavoriteHouse({ payload: houseId }))
-  // }
-
-
+  goTo(id:string){
+    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail
+}
 
 }
 

@@ -32,6 +32,32 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
+
+const calculateFilter = (form: any): number => {
+  const { allowPets, city, country, maxPrice, minPrice, order, wifi } = form;
+  let count: number = 0;
+  if (allowPets === true) {
+    count++;
+  }
+  if (wifi === true) {
+    count++;
+  }
+  if (city.length) {
+    count++;
+  }
+  if (country.length) {
+    count++;
+  }
+  if (maxPrice > 0) {
+    count++;
+  }
+  if (minPrice > 0) {
+    count++;
+  }
+  return count;
+};
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -97,14 +123,16 @@ export class HomeComponent implements OnInit {
   order: string;
 
   darkmode: boolean;
+  show_div: boolean = false;
+  quantityFilter: number = 0;
   // --- ON INIT ---
 
   ngOnInit(): void {
     this.filterForm = this.initForm();
 
-    this._helper.customDarkMode.subscribe(
-      (active: boolean) => (this.darkmode = active)
-    );
+    // this._helper.customDarkMode.subscribe(
+    //   (active: boolean) => (this.darkmode = active)
+    // );
 
     this.loading$ = this.store.select(selectorListLoading);
     this.countries$ = this.store.select(selectorListCountries);
@@ -120,6 +148,7 @@ export class HomeComponent implements OnInit {
 
     this.loadProfile();
     this.loadHouses();
+
   }
 
   // --- LOCAL FUNCTIONS ----
@@ -206,7 +235,7 @@ export class HomeComponent implements OnInit {
     const { allowPets, city, country, maxPrice, minPrice, order, wifi } =
       this.filterForm.value;
 
-      this.store.dispatch(
+    this.store.dispatch(
       handleFilters({
         payload: {
           minPrice: minPrice,
@@ -220,11 +249,11 @@ export class HomeComponent implements OnInit {
     );
     this.paginator.firstPage();
 
-    this.paginator.firstPage()
+    this.quantityFilter = calculateFilter(this.filterForm.value);
+    console.log(this.quantityFilter);
     // this.store.dispatch(handleOrder({payload: this.order}))
     //this.store.dispatch(handleOrder({payload: this.order}))
   }
-
   applyFilter() {
     this.handleFilters();
   }
@@ -242,14 +271,16 @@ export class HomeComponent implements OnInit {
   clearFilters() {
 
     this.filterForm.reset({
-      country: '',
-      city: '',
-      order: '',
-      minPrice: '',
-      maxPrice: '',
+      country: null,
+      city: null,
+      order: null,
+      minPrice: null,
+      maxPrice: null,
       allowPets: false,
       wifi: false,
+      
     });
+    this.selectedCity = '';
     this.loadHouses();
   }
 

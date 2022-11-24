@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { House } from '../../../models/House';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { Observable } from 'rxjs';
@@ -15,11 +15,13 @@ import { userProfile } from 'src/app/models/UserProfile';
 })
 export class AlternativehomeComponent implements OnInit {
 
+
+  @Input() dbProfile: userProfile
+
   // Local inneeded variables
   allHouses: House[] = []
   public userProfile: userProfile;
   userProfile$: Observable<any> = new Observable()
-  dbProfile: any = {}
 
   // Slider of houses sorted by quality/price
   housesSorted_byqualityprice: House[]

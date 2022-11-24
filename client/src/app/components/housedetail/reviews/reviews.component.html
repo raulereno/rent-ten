@@ -1,4 +1,3 @@
-
 <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="house.Reviews">
     <!-- <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
         class="btn btn-outline-warning">You were there? Write a review!</button> -->
@@ -35,7 +34,8 @@
 
     <ng-template #letReview let-modal>
         <div class="modal-header">
-            <button id="closeModalButton" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            <button id="closeModalButton" type="button" class="btn-close" aria-label="Close"
+                (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
             <form>
@@ -46,12 +46,13 @@
                         <div class="input-group, row">
 
                             <div class="row">
-                                <h1><ngb-rating (rateChange)=getRating($event) [max]="5"></ngb-rating></h1>
+                                <h1>
+                                    <ngb-rating (rateChange)=getRating($event) [max]="5"></ngb-rating>
+                                </h1>
                             </div>
 
-                            <textarea (input)=setReview($event) style="height: 12rem" aria-label="Username" class="form-control"
-                                placeholder="Enter your review"></textarea>
-                            
+                            <textarea (input)=setReview($event) style="height: 12rem" aria-label="Username"
+                                class="form-control" placeholder="Enter your review"></textarea>
                         </div>
                         <p style="color: red">{{errors}}</p>
                     </ng-container>
@@ -66,7 +67,8 @@
 
 
     <button class="btn btn-lg btn-outline-primary" (click)="openModal(content)">See all reviews</button>
-    <button *ngIf="ableToPostReview" class="btn btn-lg btn-outline-primary" (click)="openLetReviewModal(letReview)">Post your experience!</button>
+    <button *ngIf="ableToPostReview" class="btn btn-lg btn-outline-primary" (click)="openLetReviewModal(letReview)">Post
+        your experience!</button>
     <hr />
 
 </div>

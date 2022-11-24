@@ -24,9 +24,10 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  sendMessage(){
+  sendMessage(string?:string){
+
     let messageInfo={
-      text:this.text,
+      text:string? string:this.text,
       messageType:1
     };
 

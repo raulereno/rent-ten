@@ -1,16 +1,26 @@
 .chatContainer{
   padding: 30px;
-  width: 100%;
-  height: max-content;
-  min-width: 100%;
+  width: 23rem;
+  height: 30rem;
+
   display: flex;
   flex-direction: column;
   padding-bottom: 70px;
   background-color: grey;
 }
-
+.inputContainer{
+  form{
+    input{
+      width: 23rem;
+      height: 2.5rem;
+    }
+  }
+}
 .local{
   background-color:red;
+}
+.remoto{
+  align-self: flex-end;
 }
 
 .container-imgChat{
