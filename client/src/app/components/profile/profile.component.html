@@ -39,6 +39,12 @@
                 </div>
             </div>
             <p style="color:red" *ngIf="error">{{error.error.msg}}</p>
+
+            <div>
+                <div>
+                    <button (click)="deleteAccount(user.id)" type="button" class="btn btn-danger btn-sm">Delete Account</button>
+                </div>
+            </div>
         </div>
     </div>
 

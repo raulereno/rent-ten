@@ -152,4 +152,44 @@ router.patch("/changepicture/:userID", async (req, res) => {
   }
 });
 
+router.put('/deleteAccount/:userId', async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await User.findOne({ where: { id: userId } });
+
+    if (user.id === userId) {
+      await user.update({ authorized: "not" });
+      return res
+        .status(200)
+        .json({ msg: `Your account has been delete!` });
+    } else {
+      throw new Error({ msg: "Can't delete this account" });
+    }
+  } catch (error) {
+    res.status(400).json({ msg: "Can't delete this account" });
+  }
+});
+
+/* 
+router.put('/deleteAccount', async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const user = await User.findByPk(id);
+
+    if (user.id === user) {
+      user.update({ authorized: 'not' });
+      res.status(200).json({ msg: `Your account has been delete` });
+    } else {
+      res
+        .status(200)
+        .json({ msg: `Your account has been delete` });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+*/
+
 module.exports = router;

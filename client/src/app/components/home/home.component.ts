@@ -97,13 +97,13 @@ export class HomeComponent implements OnInit {
 
   initForm(): FormGroup {
     return this.fb.group({
-      country: [''],
-      city: [''],
-      order: [''],
-      minPrice: [0],
-      maxPrice: [0],
-      allowPets: [false],
-      wifi: [false],
+      country: [null],
+      city: [null],
+      order: [null],
+      minPrice: [null],
+      maxPrice: [null],
+      allowPets: [null],
+      wifi: [null],
     });
   }
 
@@ -148,6 +148,8 @@ export class HomeComponent implements OnInit {
 
     this.loadProfile();
     this.loadHouses();
+
+    console.log(this.filterForm.value)
 
   }
 
