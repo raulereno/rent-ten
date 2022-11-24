@@ -13,7 +13,9 @@ const router = Router();
 // --- GET METHODS ---
 router.get("/", async (req, res) => {
   const allHouses = await House.findAll({ include: [User, Review, Booking] });
-  res.status(200).json(allHouses);
+  const availableHouses = await allHouses.filter(h => h.deleted !== true)
+
+  res.status(200).json(availableHouses);
 });
 
 router.get("/:id", async (req, res) => {
@@ -21,7 +23,8 @@ router.get("/:id", async (req, res) => {
 
   try {
     const house = await House.findByPk(id, { include: [User, Review, Booking] });
-    res.status(200).json(house);
+    if (house.deleted) { return res.status(404).json({ msg: `This place was deleted` }) }
+    return res.status(200).json(house);
   } catch (error) {
     console.log(error);
   }
@@ -47,6 +50,21 @@ router.get("/order/:order", async (req, res) => {
     console.log(error);
   }
 });
+
+router.get("/deletedhouses", async (req, res) => {
+
+  try {
+
+    let allHouses = await House.findAll()
+    let filter = await allHouses.filter(house => house.deleted)
+    res.status(200).json(filter)
+
+  } catch (error) {
+    console.log(error)
+    res.status(400).json(error)
+  }
+
+})
 
 // --- POST METHODS ---
 router.post("/setowner", async (req, res) => {
@@ -97,19 +115,22 @@ router.put("/edithouse/:id", async (req, res) => {
     wifi,
     type,
     bookings,
+    deleted
   } = req.body;
 
   try {
+    const user = await User.findByPk(userId)
     const house = await House.findByPk(houseId, { include: User });
     const owner = house.Users[0].id;
 
-    if (userId !== owner) {
+    if (user.admin || userId == owner) {
+      await house.update(req.body);
+      res.status(200).json(house);
+    } else {
       res.status(200).json({
         msg: `The ID ${userId} is not the owner of the house with ID ${houseId}`,
       });
-    } else {
-      await house.update(req.body);
-      res.status(200).json(house);
+
     }
   } catch (error) {
     console.log(error);
@@ -122,20 +143,23 @@ router.delete("/deletehouse", async (req, res) => {
   const { houseId, userId } = req.body;
 
   try {
+    const user = await User.findByPk(userId)
     const house = await House.findByPk(houseId, { include: User });
     const owner = house.Users[0].id;
-    if (userId !== owner ) {
-      res.status(200).json({
-        msg: `The ID ${userId} is not the owner of the house with ID ${houseId}`,
-      });
-    } else {
-      await House.destroy({ where: { id: houseId } });
+
+    if (user.admin || userId == owner) {
+      await house.update({ deleted: true })
       res.status(200).json({ msg: `House with ID ${houseId} destroyed.` });
+    } else {
+      res.status(400).json({
+        msg: `The ID ${userId} cant delete the house with ID ${houseId}`,
+      });
     }
   } catch (error) {
     console.log(error);
   }
 });
+
 //payment
 router.post("/process_payment", (req, res) => {
   console.log("BODY DE LA LLAMADA", req.body);
@@ -156,7 +180,8 @@ router.post("/process_payment", (req, res) => {
 
 router.post("/fulldb", async (req, res) => {
   try {
-    let testuser = await User.create({ mail: "user403@gmail.com", sub: 'sadasfasfj' })
+    let testuser = await User.create({ lastname: "Of all houses", sub: 'owner', name: "Owner", mail: "owner@owner.com" })
+    await User.create({ lastname: "Administrator", name: "Rent-Ten", mail: "rentten2022@gmail.com", sub: 'Administrator', verified: "verified", admin: true })
 
     extraHouses(50).forEach(async (house) => {
 

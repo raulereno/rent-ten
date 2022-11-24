@@ -106,7 +106,6 @@ export class ProfileComponent implements OnInit {
     this.favoritesHouses = this.favoritesHouses.filter(house => house.id !== houseId)
     this.localStorageSvc.removeFavorite(houseId)
 
-
   }
 
   showProfileJson(): void {
@@ -127,6 +126,7 @@ export class ProfileComponent implements OnInit {
       .pipe(catchError((error): any => { this.error = error.error.msg }))
       .subscribe(data => {
         this.loadProfile()
+        // this.userProfile.verified = 'verified'
         this.store.dispatch(changeVerifiedStatusProfile({ payload: 'verified' }))
       })
 

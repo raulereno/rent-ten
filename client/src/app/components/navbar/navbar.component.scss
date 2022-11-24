@@ -5,7 +5,6 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   height: 5rem;
   background-color: #fafafa;
 }
@@ -17,8 +16,14 @@
 }
 
 .logo{
-  width: 4rem;
-  margin-left: 1rem;
+  width: 5rem;
+  margin-left: 1.75rem;
+  transition: all 0.2s;
+}
+
+.logo:hover{
+  transition: all 0.2s;
+  transform: scale(110%);
 }
 
 .host{
@@ -29,7 +34,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 35%;
+  width: 45%;
 }
 .rightdiv a{
   align-self: center;

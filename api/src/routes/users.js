@@ -7,16 +7,16 @@ const {
   updateProfilePicture,
 } = require("../controllers/user");
 const { House, User, Review, Booking } = require("../db");
-const { transporter } = require("../../nodemailer/nodemailer");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
 
-  const { mail, password } = req.body;
   try {
-    const user = await getUser(mail, password);
-    res.status(200).json(user);
+    let user = await User.findAll();
+    let filterAdmins = await user.filter(user => !user.admin)
+
+    res.status(200).json(filterAdmins);
   } catch (error) {
     res.status(401).json(error.message);
   }
@@ -26,10 +26,11 @@ router.get("/", async (req, res) => {
 router.get("/getuser", async (req, res) => {
   const { mail } = req.query;
   try {
-    const finder = await User.findOne({ where: { mail: mail }, include: [Review, House, Booking] })
+    let finder = await User.findOne({where: {mail: mail}, include: [Review, House, Booking]})
     res.status(200).json(finder);
   } catch (error) {
     console.log(error);
+    res.status(400).json({error})
   }
 });
 

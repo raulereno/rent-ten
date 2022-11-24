@@ -1,7 +1,7 @@
 import { HelperService } from './../../services/helper.service';
 import { loadPayment } from './../../redux/actions/location.actions';
 import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { House } from '../../models/House';
@@ -10,7 +10,9 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
+import GalleryModule from 'ng-gallery';
 import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-housedetail',
@@ -19,6 +21,7 @@ import Swal from 'sweetalert2';
 })
 export class HousedetailComponent implements OnInit {
 
+  @ViewChild("pay",{static:true}) pay:ElementRef;
 
   constructor(private route: ActivatedRoute,
     public http: DataServiceService,
@@ -26,7 +29,9 @@ export class HousedetailComponent implements OnInit {
     private location: Location,
     private router: Router,
     private _helper: HelperService,
-    public auth: AuthService) { }
+    public auth: AuthService,
+    private modalService: NgbModal
+    ) { }
 
 
   userProfile: userProfile
@@ -35,11 +40,11 @@ export class HousedetailComponent implements OnInit {
   house: House
   form: FormGroup
   booking: boolean = false
-  pagado: boolean;
   indexPhoto: number = 0
   paymentstatus: string;
   darkmode: boolean;
-
+  totalprice: number;
+  totaldays: number;
 
   ngOnInit(): void {
     this.paramsId = this.route.snapshot.paramMap.get('id');
@@ -123,25 +128,21 @@ export class HousedetailComponent implements OnInit {
 
     } else {
       let transactionCode = Math.random().toString(36).slice(4)
-      var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-      // let startDate = this.formatDate(start.toLocaleDateString("en-GB", options))
-      // let endDate = this.formatDate(end.toLocaleDateString("en-GB", options))
-      // let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id, code: transactionCode }
+      let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
 
-    const newReserve = {
-      start: this.formatDate(start.toLocaleDateString("en-GB", options)),
-      end: this.formatDate(end.toLocaleDateString("en-GB", options)),
-      reservedBy: this.userProfile.id,
-      code: transactionCode
-    }
+      const newReserve = {
+        start: this.formatDate(start.toLocaleDateString("en-GB", options)),
+        end: this.formatDate(end.toLocaleDateString("en-GB", options)),
+        reservedBy: this.userProfile.id,
+        code: transactionCode
+      }
 
-      this.paymentstatus = 'loading'
+      this.openPayModal(this.pay)
       this.http.makeABook(this.house.id, newReserve, this.userProfile.id)
       this.getPreferenceId(transactionCode)
     }
 
   }
-
 
   // getPaymentLink(transactionCode: string) {
 
@@ -162,9 +163,16 @@ export class HousedetailComponent implements OnInit {
 
   getPreferenceId(transactionCode: string) {
 
+    let start = this.form.value.daterange.start
+    let end = this.form.value.daterange.end
+    let Difference_In_Time = end.getTime() - start.getTime();
+    let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    this.totaldays = Difference_In_Days
+    this.totalprice = (Difference_In_Days + 1) * this.house.price
+
     const item = {
       title: `Booking for house with ID ${this.house.id}`,
-      price: this.house.price,
+      price: this.totalprice,
       quantity: 1,
       email: this.userProfile.mail,
       userId: this.userProfile.id,
@@ -183,6 +191,15 @@ export class HousedetailComponent implements OnInit {
     }
     )
 
+  }
+
+  openPayModal(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+  }
+
+  formatDate_payment(date: any) {
+    let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return date.toLocaleDateString("en-GB", options)
   }
 
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);

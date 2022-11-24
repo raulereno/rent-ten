@@ -18,32 +18,41 @@
     </svg>
   </button>
 
-  <!-- <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="favoritesHouses.length">  -->
-  <!-- <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
+<!-- <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="favoritesHouses.length">  -->
+<!-- <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
   class="btn btn-outline-warning">You were there? Write a review!</button> -->
 
-  <ng-template #favorites let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">My Favorites</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
+<ng-template #favorites let-modal class="favmodal">
+  <div class="favoriteshead">
+    <h4 class="headtitle">Favourites</h4>
+    <p class="ptitle">Create an account to link your favourites to your profile!</p>
+    <button type="button" id="closemodal" class="modalbutton" aria-label="Close" (click)="modal.dismiss('Cross click')">✕</button>
+  </div>
+  <div class="favoritesbody">
       <form>
-        <div class="mb-3">
-
-          <ng-container>
+        <div class="grid">
             <div *ngFor="let favorite of favoritesHouses">
+              <div class="house" [ngClass]="
+              darkmode
+                ? 'housecard mat-app-background darkmode'
+                : 'housecard mat-app-background '
+              ">
+              <div class="updiv">
+                      <a routerLink="/housedetail/{{favorite.id}}">
+                          <img class="image" [src]="favorite.picture[0]" />
+                      </a>
+              </div>
 
-              <img class="image" [src]="" />
-              <a routerLink="/housedetail/{{favorite.id}}"><img src={{favorite.picture[0]}}
-                  style="height: 70px;width: 70px; border-radius: 5px;" /></a>
-              <p style="font-size: 15px;">{{favorite.id}}</p>
-              <br />
-              <span>{{favorite.type}}</span>
-              <button type="button" class="btn-close" aria-label="Close"
-                (click)="removeFavoriteLS(favorite.id)"></button>
+              <div class="firstdiv">
+                  <div class="houseinfo">
+                      <h1 class="type">House</h1>
+                      <span class="location"><br/>{{favorite.country}}, {{favorite.city}}</span>
+                      <h3 class="price"> USD ${{favorite.price}}</h3>
+                  </div>
+              </div>
+              <button type="button" id="removefav" class="modalbutton" aria-label="Close" (click)="removeFavoriteLS(favorite.id)">✕</button>
             </div>
-          </ng-container>
+          </div>
         </div>
       </form>
   </div>
@@ -64,12 +73,12 @@
     <a mat-button routerLink="/home">Home</a>
     <a mat-button routerLink="/about">About</a>
 
-    <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
-      aria-label="Sing Up">
-      <mat-icon class="profilebutton">account_circle</mat-icon>
-    </a>
+      <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
+        aria-label="Sing Up">
+        <mat-icon class="profilebutton">account_circle</mat-icon>
+      </a>
 
-    <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
+      <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
 
     <div *ngIf="(auth.isAuthenticated$ | async) === true" class="profile">
       <a mat-button routerLink="/profile">
@@ -79,7 +88,7 @@
       <button mat-button (click)="logout()">Sign out</button>
     </div>
 
-    <button class="switch" id="switch" [ngClass]=" darkmode ? 'switch active' : 'switch'" (click)="darkMode();">
+    <button class="switch" id="switch" [ngClass]=" darkmode ? 'switch active' : 'switch'" (click)="darkMode();" >
       <span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path
