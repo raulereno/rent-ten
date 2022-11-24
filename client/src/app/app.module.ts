@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GalleryModule } from 'ng-gallery';
 //COMPONENTES
 import { AppComponent } from './app.component';
 import { HouseComponent } from './components/home/house/house.component';
@@ -63,6 +64,8 @@ import { TableUserAComponent } from './components/dashboard/table-user-a/table-u
 import { TableUserDComponent } from './components/dashboard/table-user-d/table-user-d.component';
 import { TableHouseAComponent } from './components/dashboard/table-house-a/table-house-a.component';
 import { TableHouseDComponent } from './components/dashboard/table-house-d/table-house-d.component';
+import { AlternativehouseComponent } from './components/home/alternativehome/alternativehouse/alternativehouse.component';
+import { SliderComponent } from './components/home/alternativehome/slider/slider.component';
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -108,6 +111,8 @@ const routes: Routes = [
     TableUserDComponent,
     TableHouseAComponent,
     TableHouseDComponent,
+    AlternativehouseComponent,
+    SliderComponent,
 
   ],
   imports: [
@@ -143,6 +148,7 @@ const routes: Routes = [
     MatListModule,
     MatGridListModule,
     NgbModule,
+    GalleryModule,
     NgbAccordionModule
   ],
   providers: [],

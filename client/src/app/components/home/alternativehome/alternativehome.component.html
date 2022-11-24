@@ -1,41 +1,14 @@
-<div *ngIf="slider_priceval.length > 0">
-    <h1>Places with best price/valoration rate</h1>
-    <div class="wrapper">
+<hr />
+<div class="alternativecont, row">
 
-        <section id="section">
-            <a (click)="slice_goBack()" class="arrow">
-                <p style="margin-top: 20%">&#x2770;</p>
-            </a>
-            <div *ngFor="let house of slider_priceval" class="grid">
-                <app-house class="housesdiv, item" [house]=house [dbProfile]="dbProfile">
-                </app-house>
-            </div>
-            <a (click)="slice_goFoward()" class="arrow">
-                <p style="margin-top: 20%">&#x2771;</p>
-            </a>
-        </section>
-    </div>
+    <h1 class="slider_title"><span class="slider_title_text">Places with best price/valoration rate</span></h1>
 
+    <app-slider [dbProfile]="dbProfile" [housesSorted_byqualityprice]="housesSorted_byqualityprice" [slider_priceval]="slider_priceval">
+    </app-slider>
 
-    <div *ngIf="slider_rating.length > 0" style="margin-top: -1.1%">
-        <hr />
-        <h1>Best rated places</h1>
-        <hr class="hr_sliders" />
-        <div class="wrapper">
+   <h1 class="slider_title"><span class="slider_title_text">Best rated places</span></h1>
 
-            <section id="section1">
-                <a (click)="slice_rating_goBack()" class="arrow">
-                    <p style="margin-top: 20%">&#x2770;</p>
-                </a>
-                <div *ngFor="let house of slider_rating" class="grid">
-                    <app-house class="housesdiv, item" [house]=house [dbProfile]="dbProfile">
-                    </app-house>
-                </div>
-                <a (click)="slice_rating_goFoward()" class="arrow">
-                    <p style="margin-top: 20%">&#x2771;</p>
-                </a>
-            </section>
-        </div>
-    </div>
+    <app-slider [dbProfile]="dbProfile" [housesSorted_byqualityprice]="housesSorted_byRating" [slider_priceval]="slider_rating">
+    </app-slider>
 
 </div>

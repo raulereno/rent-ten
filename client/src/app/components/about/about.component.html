@@ -1,6 +1,4 @@
-<h1>Sobre Nosotros</h1>
-<h4>Somos un grupo de alumnos del bootcamp soyHenry, presentando como proyecto final una aplicación web para aquellas personas que buscan poder rentar un alojamiento a su gusto y postear sus viviendas con el mismo fin.</h4>
-
+<h1>Sobre el equipo</h1>
 <div>
   <ul>
     <li [ngClass]="{'darkmode': darkmode}" *ngFor="let about of creators">
@@ -13,7 +11,6 @@
       </div>
       <h3>{{ about.name }} {{ about.lastName }}</h3>
       <p>{{ about.info }}</p>
-
-    </li>
+      </li>
   </ul>
 </div>

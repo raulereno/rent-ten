@@ -15,23 +15,12 @@
     grid-template-columns: fit-content 100%;
 }
 
-.background{
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-image: url("../../../../assets/background.jpg");
-    border-left: 1px solid #96969681;
-    border-right: 1px solid #96969681;
-  }
-
 
 .slider {
     width: auto;
     display: grid;
     width: 100%;
-    grid-template-columns: 10% 80% 10%;
+    grid-template-columns: 8% 84% 8%;
     justify-items: center;
     justify-content: center;
     align-items: center;
@@ -101,13 +90,5 @@
 }
 
 .slider_title {
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 400;
-    color: rgb(255, 255, 255);
-    background-color: rgba(189, 188, 188, 0.096);
-    align-items: center;
-}
-
-.slider_title_text {
-    margin-left: 3%;
+    background-color: rgba(163, 163, 163, 0.096);
 }

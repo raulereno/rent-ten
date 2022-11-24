@@ -62,6 +62,7 @@ export const deleteFavoriteHouse = createAction (
     props<{ payload: string}>()
     )
 
+
 export const handleFilters = createAction (
     HANDLE_FILTERS,
     props<{payload: any}>()

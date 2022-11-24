@@ -107,7 +107,9 @@
 
 /* ////////HOUSEINFO//////// */
 .body{
-    display: flex;
+    width: 100%;
+    margin-left: 11rem;
+    margin-top: 1rem;
     animation: fadein 2s;
     margin: 0 auto;
     height: 20rem;

@@ -13,11 +13,9 @@
   color: white;
    transition: all 1s;
 }
-
 .darkmode .price {
   color: white;
 }
-
 .darkmode .info {
   font-weight: 100;
   color: white;

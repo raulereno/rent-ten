@@ -194,12 +194,10 @@
   color: white;
   transition: all .5s;
 }
-
 .darkmode .filtersdiv {
   background-color: #303030;
   transition: all .5s;
 }
-
 .darkmode .card-header {
   border: 0;
   background-color: #3030309a;
@@ -208,7 +206,6 @@
   justify-content: space-between;
   align-items: center;
 }
-
 .darkmode .filters {
   background-color: #5252525d;
   height: 3.6rem;
@@ -216,33 +213,26 @@
   color: white;
   border: 1px solid rgb(78, 78, 78);
 }
-
 .darkmode .paginado {
   background-color: #5252525d;
   color: white;
 }
-
 .darkmode .paginado span span {
   background-color: #7b7b7b5d;
   color: white;
 }
-
 .darkmodeModal {
   background-color: #303030;
   color: white;
 }
-
 .darkmodeModal .modal-footer button {
   background-color: #6e6e6e5d;
   color: white;
 }
-
 .darkmodeModal .modal-footer button:hover {
   background-color: #6e6e6eb9;
   color: white;
 }
-
-
 .darkmodeFooter{
   background-color: #303030;
   border-top: 1px solid #232323;
@@ -338,4 +328,27 @@
       width: 100%;
       font-size: 0.8rem;
     }
+}
+
+.alternative_home { 
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+}
+
+.alternativehome_buttonFilter {
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  gap: 1%;
+  margin-top: 1rem;
+  min-width: 10rem;
+  max-height: 2.8rem;
+  transition: all .2s;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.alternativehome_buttonFilter:hover{
+  transform: scale(1.05);
 }
