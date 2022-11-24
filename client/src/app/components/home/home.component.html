@@ -1,5 +1,5 @@
-<div class="container">
-
+<div [ngClass]="darkmode? 'background darkmode':'background'">
+  <div class="flex container" >
   <div [ngClass]="darkmode? 'navigation darkmode':'navigation'" >
     <div class="filtersdiv">
       <div style="display:none" class="order-options" [ngClass]="show_div? 'order-options showDiv': 'order-options'">
@@ -23,13 +23,13 @@
   </div>
 
   <!-- <div *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowpets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order"> -->
-      <div class="bodydiv">
-      <div class="grid">
-        <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
-          [dbProfile]="dbProfile" class="grid-content"></app-house>
-      </div>
-
+  <div [ngClass]="darkmode? 'bodydiv darkmode':'bodydiv'">
+    <div class="grid">
+      <app-house *ngFor="let house of allHouses$ | async | paginate: page_size:page_number" [house]="house"
+        [dbProfile]="dbProfile" class="grid-content"></app-house>
     </div>
+  </div>
+</div>
 
   <div *ngIf="!allHouses.length">
     <h3 style="font-size: 3rem;">There is no place with those requirements</h3>
@@ -141,5 +141,4 @@
     </div>
   </div>
 </ng-template>
-<footer class="footer">Rent-Ten by Group-10</footer>
-
+<footer [ngClass]="darkmode? 'footer darkmode':'footer'">Rent-Ten - made with ♥ by group 10 of FT-30A at SoyHenry.</footer>

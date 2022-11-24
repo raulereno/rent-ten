@@ -1,15 +1,8 @@
-<div class="wrapper" [ngClass]="darkmode ? 'mat-elevation-z4 dark' : 'mat-elevation-z4'">
+<div class="wrapper" [ngClass]="darkmode ? 'mat-elevation-z4 darkmode' : 'mat-elevation-z4'">
   <a routerLink="/home">
     <img class="logo" src="../../assets/logo.png" alt="Logo">
   </a>
   <div class="leftdiv">
-
-    <div class="host">
-      <a *ngIf="!userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button >Become
-      a Host</a>
-      <a *ngIf="userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button routerLink="/createhouse" >Become
-        a Host</a>
-    </div>
   </div>
 
 <!-- <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="favoritesHouses.length">  -->
@@ -57,6 +50,12 @@
 <!-- class="btn btn-lg btn-outline-primary"
 *ngIf="!isLogged" -->
   <div class="rightdiv">
+    <div class="host">
+      <a *ngIf="!userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button >Become
+      a Host</a>
+      <a *ngIf="userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button routerLink="/createhouse" >Become
+        a Host</a>
+    </div>
     <a mat-button routerLink="/home">Home</a>
     <a mat-button routerLink="/about">About</a>
 

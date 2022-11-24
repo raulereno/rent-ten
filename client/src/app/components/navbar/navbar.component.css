@@ -1,7 +1,11 @@
 .wrapper{
+  position: sticky;
+  top: 0px;
+  z-index: +1;
   display: flex;
   align-items: center;
   height: 5rem;
+  background-color: #fafafa;
 }
 
 .leftdiv{
@@ -27,7 +31,8 @@
 
 .rightdiv{
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-evenly;
+  align-items: center;
   width: 35%;
 }
 .rightdiv a{

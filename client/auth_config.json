@@ -1,5 +1,10 @@
 {
-    "domain": "dev-impunigkjc4q2zd1.us.auth0.com",
-    "clientId": "PwGqt1ORH5ujdPJXz2pauXlFQBKO9kx3"
-}
-
+    "local":{
+      "domain": "dev-p05tovuo7xrn30bk.us.auth0.com",
+      "clientId": "sonpZPamW7aCnVNH7eNXNXe63I21SpcF"
+    },
+    "production":{
+      "domain": "dev-impunigkjc4q2zd1.us.auth0.com",
+      "clientId": "PwGqt1ORH5ujdPJXz2pauXlFQBKO9kx3"
+    }
+  }
