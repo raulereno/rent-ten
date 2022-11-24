@@ -145,8 +145,12 @@ export class ProfileComponent implements OnInit {
     }
 
     deleteAccount(userId: string) {
-      this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-      this.http.deleteAccount(userId);
+      if (confirm('Are you sure you want delete your account?')) {
+        this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+        this.http.deleteAccount(userId);
+        this.auth.logout();
+        this._router.navigate(['home']);
+      }
     }
 
 
