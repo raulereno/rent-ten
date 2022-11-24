@@ -1,3 +1,4 @@
+import { Booking } from "./Booking";
 import { House } from "./House";
 
 export interface userProfile {
@@ -14,6 +15,7 @@ export interface userProfile {
         verificationCode: string;
         favoriteshouses?: string[];
         Reviews?: any[];
-        Houses?: House[]
+        Houses?: House[];
+        Bookings?: Booking[];
 
 }

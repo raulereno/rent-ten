@@ -1,5 +1,5 @@
 import { UploadImgService } from 'src/app/services/upload-img.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { userProfile } from '../../models/UserProfile';
@@ -14,13 +14,14 @@ import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Booking } from 'src/app/models/Booking';
 
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 
@@ -38,7 +39,9 @@ export class ProfileComponent implements OnInit {
   favoritesHouses$: Observable<any> = new Observable();
   profileImg: string;
   reviewsHouses: Review[] = [];
-  housesProfile: House[] = []
+  housesProfile: House[] = [];
+  bookingsProfile: Booking[] = [];
+
 
 
   constructor(public auth: AuthService,
@@ -47,7 +50,7 @@ export class ProfileComponent implements OnInit {
     private _uploadImg: UploadImgService,
     private localStorageSvc: LocalStorageService,
     private _router: Router,
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -109,16 +112,17 @@ export class ProfileComponent implements OnInit {
   }
 
   verifyAccount(): void {
+    // this.dbProfile.verified = 'pending'
     this.store.dispatch(changeVerifiedStatusProfile({ payload: 'pending' }))
-    this.http.verifyAccount(this.dbProfile.mail)
+    this.http.verifyAccount(this.userProfile.mail)
   }
 
   sendVerificationCode(code: string): any {
-    this.http.getUser(this.profileJson.email).subscribe(data => this.dbProfile = data);
-    this.http.sendVerificationCode(this.profileJson.email, code)
+
+    this.http.sendVerificationCode(this.userProfile.mail, code)
       .pipe(catchError((error): any => { this.error = error.error.msg }))
       .subscribe(data => {
-        this.dbProfile.verified = 'verified'
+        this.loadProfile()
         this.store.dispatch(changeVerifiedStatusProfile({ payload: 'verified' }))
       })
 

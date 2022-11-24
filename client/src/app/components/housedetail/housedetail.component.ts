@@ -8,6 +8,8 @@ import { Booking } from '../../models/Booking';
 import { Location } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from 'src/app/models/UserProfile';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-housedetail',
@@ -24,6 +26,7 @@ export class HousedetailComponent implements OnInit {
     private location: Location,
     public auth: AuthService) { }
 
+
   userProfile: userProfile
   house: House
   profileJson: any
@@ -36,8 +39,8 @@ export class HousedetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.route.params.subscribe(params=>{
-      this.paramsId= params["id"];
+    this.route.params.subscribe(params => {
+      this.paramsId = params["id"];
       this.http
         .getHouse(this.paramsId)
         .subscribe((data) => (this.house = data));
@@ -97,27 +100,41 @@ export class HousedetailComponent implements OnInit {
     let start = this.form.value.daterange.start
     let end = this.form.value.daterange.end
 
-    if (!start || !end) { alert("Please select both dates"); return }
-    if (this.checkItsOccuped(start, end)) { alert('This place has bookings between your selected dates. Please make two bookings or change your dates'); return
+
+    if (!start || !end) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please select both dates'
+      })
+    }
+    // if (!start || !end) { alert("Please select both dates"); return }
+    if (this.checkItsOccuped(start, end)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'This place has bookings between your selected dates. Please make two bookings or change your dates'
+      })
+      // alert('This place has bookings between your selected dates. Please make two bookings or change your dates'); return
 
     } else {
-    let transactionCode = Math.random().toString(36).slice(4)
-    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    // let startDate = this.formatDate(start.toLocaleDateString("en-GB", options))
-    // let endDate = this.formatDate(end.toLocaleDateString("en-GB", options))
-    // let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id, code: transactionCode }
+      let transactionCode = Math.random().toString(36).slice(4)
+      var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      // let startDate = this.formatDate(start.toLocaleDateString("en-GB", options))
+      // let endDate = this.formatDate(end.toLocaleDateString("en-GB", options))
+      // let newReserve = { start: startDate, end: endDate, reservedBy: this.userProfile.id, code: transactionCode }
 
 
-    const newReserve = {
-      start: this.formatDate(start.toLocaleDateString("en-GB", options)),
-      end: this.formatDate(end.toLocaleDateString("en-GB", options)),
-      reservedBy: this.userProfile.id,
-      code: transactionCode
-    }
+      const newReserve = {
+        start: this.formatDate(start.toLocaleDateString("en-GB", options)),
+        end: this.formatDate(end.toLocaleDateString("en-GB", options)),
+        reservedBy: this.userProfile.id,
+        code: transactionCode
+      }
 
-    this.paymentstatus = 'loading'
-    this.http.makeABook(this.house.id, newReserve, this.userProfile.id)
-    this.getPreferenceId(transactionCode)
+      this.paymentstatus = 'loading'
+      this.http.makeABook(this.house.id, newReserve, this.userProfile.id)
+      this.getPreferenceId(transactionCode)
     }
 
   }
@@ -152,8 +169,7 @@ export class HousedetailComponent implements OnInit {
       code: transactionCode
     }
 
-    this.http.getPaymentLink(item).subscribe(res =>
-      {
+    this.http.getPaymentLink(item).subscribe(res => {
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js';
@@ -179,8 +195,6 @@ export class HousedetailComponent implements OnInit {
 
     this.reserveHouse()
   }
-
-
 
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 }

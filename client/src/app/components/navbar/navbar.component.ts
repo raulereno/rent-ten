@@ -15,6 +15,8 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { loadProfile } from 'src/app/redux/actions/location.actions';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-navbar',
@@ -28,9 +30,9 @@ export class NavbarComponent implements OnInit {
     public http: DataServiceService,
     private _store: Store<any>,
     @Inject(DOCUMENT) private doc: Document,
-    private _helper: HelperService,
-
-    private localStorageSvc: LocalStorageService,
+    private _helper:HelperService,
+    private router: Router,
+    private localStorageSvc:LocalStorageService,
     private modalService: NgbModal
   ) {}
 
@@ -84,11 +86,17 @@ export class NavbarComponent implements OnInit {
         this.auth.loginWithRedirect();
       }
     }
-  }
+    else if (this.userProfile.verified !== 'verified'){console.log(this.userProfile.verified)
+      alert('Your account must to be verification')
+      this.router.navigate(['profile']);
+     }
+    }
 
-  darkMode(): void {
-    this.darkmode = !this.darkmode;
-    this._helper.changeMode(this.darkmode);
+
+
+  darkMode() : void{
+     this.darkmode = !this.darkmode;
+     this._helper.changeMode(this.darkmode);
   }
 
   loginWithRedirect = async (): Promise<void> => {
@@ -111,6 +119,7 @@ export class NavbarComponent implements OnInit {
     this.localStorageSvc.removeFavorite(id);
     this.ngOnInit();
   }
+
   openModalFav(favorites: any) {
     this.ngOnInit();
     this.modalService.open(favorites, {

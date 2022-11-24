@@ -60,17 +60,22 @@
 
     </form>
 
-    <div> <button *ngIf="!(auth.isAuthenticated$ | async)" disabled style="margin-left: 2%" (click)="reserveHouse()"
+    <div>
+      <button *ngIf="!(auth.isAuthenticated$ | async)" disabled style="margin-left: 2%" (click)="reserveHouse()"
         type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Login
-        to make a reserve</button>
+        to make a reserve
+      </button>
 
-      <div> <button *ngIf="!paymentstatus && (auth.isAuthenticated$ | async) " style="margin-left: 2%"
+      <div>
+        <button *ngIf="!paymentstatus && (auth.isAuthenticated$ | async) " style="margin-left: 2%"
           (click)="reserveHouse()" type="button" class="btn btn-outline-primary" data-toggle="button"
-          aria-pressed="false" autocomplete="off">Reserve
-          now</button>
+          aria-pressed="false" autocomplete="off">
+          Reserve now
+        </button>
         <button *ngIf="paymentstatus == 'loading'" style="margin-left: 2%" disabled type="button"
-          class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
-          autocomplete="off">Loading...</button>
+          class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+          Loading...
+        </button>
         <form id="payment-form"></form>
       </div>
 

@@ -70,6 +70,7 @@
 <!-- class="btn btn-lg btn-outline-primary"
 *ngIf="!isLogged" -->
   <div class="rightdiv" [ngClass]="{'rightdiv--activo': active}">
+    <a *ngIf="!userProfile.adm" mat-button routerLink="/dashboard">Dashboard</a>
     <a mat-button routerLink="/home">Home</a>
     <a mat-button routerLink="/about">About</a>
 
