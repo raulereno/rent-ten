@@ -6,21 +6,7 @@
     <img class="logo" src="../../assets/logo_white.png" alt="Logo">
   </a>
 
-
-
-
-  <div class="leftdiv">
-
-    <div class="host">
-      <a *ngIf="!userProfile.id" (click)="validateUser()"
-        style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button>Become
-        a Host</a>
-      <a *ngIf="userProfile.id" (click)="validateUser()"
-        style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button
-        routerLink="/createhouse">Become
-        a Host</a>
-    </div>
-  </div>
+ 
   <button (click)="setActive()" class="button_hamburger">
     <svg class="button_svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
       viewBox="0 0 16 16">
