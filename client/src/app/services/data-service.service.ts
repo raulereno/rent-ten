@@ -128,6 +128,15 @@ export class DataServiceService {
       }
     })}
 
+  handleHouseState(userId: string, houseId:string, newValues: any) {
+    console.log(userId, houseId, newValues);
+    this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?userId=${userId}`, newValues).subscribe({
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
+
   deleteAccount(userId: string) {
     this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}`, { userId }).subscribe({
       error: error => {

@@ -152,17 +152,28 @@ export class ProfileComponent implements OnInit {
 
   goTo(id:string){
     this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail
-}
+  }
 
-    deleteAccount(userId: string) {
-      if (confirm('Are you sure you want delete your account?')) {
-        this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-        this.http.deleteAccount(userId);
-        this.auth.logout();
-        this._router.navigate(['home']);
-      }
+  deleteHouse(houseId: string, userId: string) {
+    let value = {
+      deleted: true
     }
+    
+    if (confirm('Are you sure you want delete your create place?')) {
+      //this.store.dispatch(deleteHouse({ payload: true }));
+      this.http.handleHouseState(userId, houseId, value);
+      this.userProfile = {...this.userProfile, Houses: this.userProfile.Houses?.filter(h => h.id !== houseId)};
+    }
+  }
 
+  deleteAccount(userId: string) {
+    if (confirm('Are you sure you want delete your account?')) {
+      this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+      this.http.deleteAccount(userId);
+      this.auth.logout();
+      this._router.navigate(['home']);
+    }
+  }
 
 }
 
