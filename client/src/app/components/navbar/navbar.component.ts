@@ -11,7 +11,7 @@ import { House } from '../../models/House';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -25,76 +25,101 @@ export class NavbarComponent implements OnInit {
   constructor(
     public auth: AuthService,
     public http: DataServiceService,
-    private _store:Store<any>,
+    private _store: Store<any>,
     @Inject(DOCUMENT) private doc: Document,
-    private _helper:HelperService,
+    private _helper: HelperService,
 
-    private localStorageSvc:LocalStorageService,
+    private localStorageSvc: LocalStorageService,
     private modalService: NgbModal
-    ) { }
+  ) { }
 
   profileJson: any;
   dbProfile: any = {}
-  isLogged: boolean=true;
+  isLogged: boolean = true;
   userProfile: any;
 
   allHouses: House[] = [];
   favoritesHouses: House[] = [];
-  allHouses$:Observable <any>=new Observable()
+  allHouses$: Observable<any> = new Observable()
   favorites: string[]
 
 
   userProfile$: Observable<any> = new Observable()
 
-  darkmode:boolean;
+  darkmode: boolean;
 
   ngOnInit(): void {
-    this.auth.user$.subscribe(res=>{
+    this.auth.user$.subscribe(res => {
       const mail = res?.email
-      if(res === null) this.isLogged=false
-      if(mail !== undefined){
-        this.http.getUser(mail).subscribe(res=>{
-          this.userProfile=res
+      if (res === null) this.isLogged = false
+      if (mail !== undefined) {
+        this.http.getUser(mail).subscribe(res => {
+          this.userProfile = res
         })
-      }})
+      }
+    })
 
 
-  this.allHouses$ = this._store.select(selectorListHouses)
+    this.allHouses$ = this._store.select(selectorListHouses)
 
-  this.allHouses$.subscribe(res=>{
-  let favorites =this.localStorageSvc.getFavoritesHouses()
-  this.favoritesHouses = res.filter((house: House) => favorites.some((h: string) => h === house.id))
-     })
+    this.allHouses$.subscribe(res => {
+      let favorites = this.localStorageSvc.getFavoritesHouses()
+      this.favoritesHouses = res.filter((house: House) => favorites.some((h: string) => h === house.id))
+    })
 
 
-    ;
+      ;
     //TODO: RAUL -DANGER aca se produce un bucle de llamadas- arreglando
     this.userProfile$ = this._store.select(selectorListProfile);
-    this.userProfile$.subscribe(res=>{
+    this.userProfile$.subscribe(res => {
 
 
-      this.userProfile=res
+      this.userProfile = res
     });
 
-    this._helper.customDarkMode.subscribe((active:boolean)=> this.darkmode= active)
+    this._helper.customDarkMode.subscribe((active: boolean) => this.darkmode = active)
 
   }
-  validateUser():void{
-    if(!this.userProfile.id){
-    if(confirm('You need login for post your place')){
-        this.auth.loginWithRedirect()
+  validateUser(): void {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
+    })
+    if (!this.userProfile.id) {
+      // alert('You need login for post your place')
+      Swal.fire({
+        title: 'You must be a user to be able to create a house',
+        text: "Do you want to register?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes I want to register'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.auth.loginWithRedirect()
+        }
+      })
+
+
     }
   }
 
 
-  darkMode() : void{
-     this.darkmode = !this.darkmode;
-     this._helper.changeMode(this.darkmode)
+  darkMode(): void {
+    this.darkmode = !this.darkmode;
+    this._helper.changeMode(this.darkmode)
   }
 
-  loginWithRedirect = async ():Promise<void> => {
-    this.auth.loginWithRedirect({authorizationParams: {redirect_uri: window.location.origin}})
+  loginWithRedirect = async (): Promise<void> => {
+    this.auth.loginWithRedirect({ authorizationParams: { redirect_uri: window.location.origin } })
   }
 
   logout(): void {
@@ -104,19 +129,19 @@ export class NavbarComponent implements OnInit {
   showInfo(): void {
   }
 
-  getFavoriteLS():void{
-    this.favorites=this.localStorageSvc.getFavoritesHouses()
+  getFavoriteLS(): void {
+    this.favorites = this.localStorageSvc.getFavoritesHouses()
   }
 
-  removeFavoriteLS(id:string): void {
+  removeFavoriteLS(id: string): void {
     this.localStorageSvc.removeFavorite(id)
     this.ngOnInit()
 
   }
   openModalFav(favorites: any) {
     this.ngOnInit()
-		this.modalService.open(favorites, { ariaLabelledBy: 'modal-basic-title', size:"lg"})
-	}
+    this.modalService.open(favorites, { ariaLabelledBy: 'modal-basic-title', size: "lg" })
+  }
 
   fullDatabase(): void {
     this.http.fullDatabase()

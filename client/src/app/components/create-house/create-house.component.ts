@@ -4,7 +4,7 @@ import { AppState } from './../../redux/store/app.state';
 import { Observable } from 'rxjs';
 import { loadedCountries } from './../../redux/actions/location.actions';
 import { DataServiceService } from 'src/app/services/data-service.service';
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
@@ -12,7 +12,8 @@ import { LocationService } from 'src/app/services/location.service';
 import { selectorListCountries } from 'src/app/redux/selectors/selectors';
 import { Location } from '@angular/common';
 
-import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 export interface NewHouse {
   city: string;
   country: string;
@@ -58,7 +59,7 @@ export class CreateHouseComponent implements OnInit {
   cities$: any;
   //TODO: hacer una interface para los errores
   //ponerlo en true cuando el form este controlado
-  errors:any =false
+  errors: any = false
 
   constructor(
     private _uploadImg: UploadImgService,
@@ -67,8 +68,8 @@ export class CreateHouseComponent implements OnInit {
     private _store: Store<AppState>,
     private _locationService: LocationService,
     private matDialog: MatDialog,
-    private _location:Location,
-  ) {}
+    private _location: Location,
+  ) { }
 
   ngOnInit(): void {
     this._auth.user$.subscribe((profile) => {
@@ -86,7 +87,7 @@ export class CreateHouseComponent implements OnInit {
   openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {}
-    let dialogRef =this.matDialog.open(DialogBodyComponent, dialogConfig);
+    let dialogRef = this.matDialog.open(DialogBodyComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(value => {
       console.log(`Dialog sent: ${value}`);
     });
@@ -98,7 +99,7 @@ export class CreateHouseComponent implements OnInit {
       return;
     }
     this.files.push(...event.addedFiles);
-    this.errors=false
+    this.errors = false
   }
 
   searchStates(country: string) {
@@ -124,7 +125,8 @@ export class CreateHouseComponent implements OnInit {
 
   onUpload(create: NgForm) {
     if (!this.files[0]) {
-      alert('Ingresa al menos una foto de portada');
+      // alert('Enter at least one cover photo');
+      Swal.fire('Enter at least one cover photo')
       return;
     }
 
@@ -138,7 +140,7 @@ export class CreateHouseComponent implements OnInit {
         this.newHouse.picture?.push(response.secure_url);
         if (this.files.length === this.newHouse.picture.length) {
           this._http.createHouse(this.newHouse, this.email);
-          this.files=[]
+          this.files = []
           create.resetForm()
         }
       });
@@ -149,14 +151,14 @@ export class CreateHouseComponent implements OnInit {
     return JSON.stringify(this.newHouse);
   }
 
-  handlePrice(price:number){
-    if(price <= 0){
+  handlePrice(price: number) {
+    if (price <= 0) {
       this.newHouse.price = 0
     }
 
   }
-  handleType(e:string){
-    this.newHouse.type= e;
+  handleType(e: string) {
+    this.newHouse.type = e;
 
   }
 
