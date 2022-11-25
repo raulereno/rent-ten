@@ -67,7 +67,7 @@ export class DataServiceService {
         console.log(error)
       }
     })
-    
+
   }
 
   deleteFavorite(houseId: string, userId: string) {
@@ -75,7 +75,8 @@ export class DataServiceService {
       error: error => {
         console.log(error)
       }
-    })}
+    })
+  }
   
 
   createHouse(house: NewHouse, email: string) {
@@ -127,5 +128,21 @@ export class DataServiceService {
       }
     })}
 
+    getUsers(): Observable<any> {
+      // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
+      return this.http.get<any>('http://localhost:3001/users/allUsers'); 
+    }
+
+    getUsersD(): Observable<any> {
+      // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
+      return this.http.get<any>('http://localhost:3001/users/usersD'); 
+    }
+  deleteAccount(userId: string) {
+    this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}`, { userId }).subscribe({
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
 
 }

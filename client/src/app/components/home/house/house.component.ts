@@ -67,6 +67,7 @@ export class HouseComponent implements OnInit {
     this.dbProfile.favoriteshouses?.concat(houseId)
   }
   }
+  
 
   deleteFavorite(houseId: string, userId: string): void {
 

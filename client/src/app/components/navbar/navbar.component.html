@@ -1,74 +1,79 @@
-<div class="wrapper" [ngClass]="darkmode ? 'mat-elevation-z4 dark' : 'mat-elevation-z4'">
+<div class="wrapper mat-elevation-z4 mat-app-background">
   <a *ngIf="!darkmode" routerLink="/home">
     <img class="logo" src="../../assets/logo.png" alt="Logo">
   </a>
   <a *ngIf="darkmode" routerLink="/home">
     <img class="logo" src="../../assets/logo_white.png" alt="Logo">
   </a>
-  <div class="leftdiv">
 
+ 
+  <button (click)="setActive()" class="button_hamburger">
+    <svg class="button_svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+      viewBox="0 0 16 16">
+      <path fill-rule="evenodd"
+        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+    </svg>
+  </button>
+
+  <!-- <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="favoritesHouses.length">  -->
+  <!-- <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
+  class="btn btn-outline-warning">You were there? Write a review!</button> -->
+
+  <ng-template #favorites let-modal class="favmodal">
+    <div class="favoriteshead" [ngClass]="{'darkmodeModal': darkmode}">
+      <h4 class="headtitle">Favourites</h4>
+      <p class="ptitle">Create an account to link your favourites to your profile!</p>
+      <button type="button" id="closemodal" class="modalbutton" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">✕</button>
+    </div>
+    <div class="favoritesbody" [ngClass]="{'darkmodeModal': darkmode}">
+      <form>
+        <div class="grid">
+          <div *ngFor="let favorite of favoritesHouses">
+            <div class="house">
+              <div class="updiv">
+                <a routerLink="/housedetail/{{favorite.id}}">
+                  <img class="image" [src]="favorite.picture[0]" />
+                </a>
+              </div>
+
+              <div class="firstdiv">
+                <div class="houseinfo">
+                  <h1 class="type">House</h1>
+                  <span class="location"><br />{{favorite.country}}, {{favorite.city}}</span>
+                  <h3 class="price"> USD ${{favorite.price}}</h3>
+                </div>
+              </div>
+              <button type="button" id="removefav" class="modalbutton" aria-label="Close"
+                (click)="removeFavoriteLS(favorite.id)">✕</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <button *ngIf="!isLogged" (click)="openModalFav(favorites)">My favourites</button>
+  <!-- *ngIf="!userProfile" -->
+  <!-- class="btn btn-lg btn-outline-primary"
+*ngIf="!isLogged" -->
+  <div class="rightdiv" [ngClass]="{'rightdiv--activo': active}">
+    <a *ngIf="!userProfile.adm" mat-button routerLink="/dashboard">Dashboard</a>
     <div class="host">
       <a *ngIf="!userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button >Become
       a Host</a>
       <a *ngIf="userProfile.id" (click)="validateUser()" style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button routerLink="/createhouse" >Become
         a Host</a>
     </div>
-  </div>
-
-<!-- <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="favoritesHouses.length">  -->
-<!-- <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
-  class="btn btn-outline-warning">You were there? Write a review!</button> -->
-
-<ng-template #favorites let-modal class="favmodal">
-  <div class="favoriteshead">
-    <h4 class="headtitle">Favourites</h4>
-    <p class="ptitle">Create an account to link your favourites to your profile!</p>
-    <button type="button" id="closemodal" class="modalbutton" aria-label="Close" (click)="modal.dismiss('Cross click')">✕</button>
-  </div>
-  <div class="favoritesbody">
-      <form>
-        <div class="grid">
-            <div *ngFor="let favorite of favoritesHouses">
-              <div class="house" [ngClass]="
-              darkmode
-                ? 'housecard mat-app-background darkmode'
-                : 'housecard mat-app-background '
-              ">
-              <div class="updiv">
-                      <a routerLink="/housedetail/{{favorite.id}}">
-                          <img class="image" [src]="favorite.picture[0]" />
-                      </a>
-              </div>
-
-              <div class="firstdiv">
-                  <div class="houseinfo">
-                      <h1 class="type">House</h1>
-                      <span class="location"><br/>{{favorite.country}}, {{favorite.city}}</span>
-                      <h3 class="price"> USD ${{favorite.price}}</h3>
-                  </div>
-              </div>
-              <button type="button" id="removefav" class="modalbutton" aria-label="Close" (click)="removeFavoriteLS(favorite.id)">✕</button>
-            </div>
-          </div>
-        </div>
-      </form>
-  </div>
-</ng-template>
-
-        <button *ngIf="!isLogged" (click)="openModalFav(favorites)">My favourites</button>
-<!-- *ngIf="!userProfile" -->
-<!-- class="btn btn-lg btn-outline-primary"
-*ngIf="!isLogged" -->
-  <div class="rightdiv">
     <a mat-button routerLink="/home">Home</a>
     <a mat-button routerLink="/about">About</a>
 
-      <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
-        aria-label="Sing Up">
-        <mat-icon class="profilebutton">account_circle</mat-icon>
-      </a>
+    <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
+      aria-label="Sing Up">
+      <mat-icon class="profilebutton">account_circle</mat-icon>
+    </a>
 
-      <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
+    <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
 
     <div *ngIf="(auth.isAuthenticated$ | async) === true" class="profile">
       <a mat-button routerLink="/profile">
@@ -78,7 +83,7 @@
       <button mat-button (click)="logout()">Sign out</button>
     </div>
 
-    <button class="switch" id="switch" [ngClass]=" darkmode ? 'switch active' : 'switch'" (click)="darkMode();" >
+    <button class="switch" id="switch" [ngClass]=" darkmode ? 'switch active' : 'switch'" (click)="darkMode();">
       <span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path

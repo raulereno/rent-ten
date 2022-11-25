@@ -3,33 +3,59 @@ const { SendMail_verification } = require("../controllers/SendMail_verification"
 
 const {
   getUser,
+  getUsers,
   createUser,
   updateProfilePicture,
 } = require("../controllers/user");
 const { House, User, Review, Booking } = require("../db");
-const { transporter } = require("../../nodemailer/nodemailer");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
 
-  const { mail, password } = req.body;
   try {
-    const user = await getUser(mail, password);
-    res.status(200).json(user);
+    let user = await User.findAll();
+    let filterAdmins = await user.filter(user => !user.admin)
+
+    res.status(200).json(filterAdmins);
   } catch (error) {
     res.status(401).json(error.message);
   }
 });
 
+router.get("/allUsers", async (req, res)=>{
+  try {
+    const users = await getUsers();
+    console.log(users)
+    const usersA = users.filter(elem=>elem.authorized === 'all')
+    const usersS = [...new Set(usersA)]
+    console.log(usersS)
+    res.status(200).json(usersS);
+  } catch (error) {
+    res.status(401).json(error.message);
+  }
+})
+
+router.get("/usersD", async (req, res)=>{
+  try {
+    const users = await getUsers();
+    const usersD = users.filter(elem=>elem.authorized !== 'all')
+    const usersS = [...new Set(usersD)]
+    console.log(usersS)
+    res.status(200).json(usersS);
+  } catch (error) {
+    res.status(401).json(error.message);
+  }
+})
 
 router.get("/getuser", async (req, res) => {
   const { mail } = req.query;
   try {
-    const finder = await User.findOne({ where: { mail: mail }, include: [Review, House, Booking] })
+    let finder = await User.findOne({where: {mail: mail}, include: [Review, House, Booking]})
     res.status(200).json(finder);
   } catch (error) {
     console.log(error);
+    res.status(400).json({error})
   }
 });
 
@@ -151,5 +177,45 @@ router.patch("/changepicture/:userID", async (req, res) => {
       .json({ msg: "There was an error updating the profile picture" });
   }
 });
+
+router.put('/deleteAccount/:userId', async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await User.findOne({ where: { id: Number(userId) } });
+
+    if (user.id === userId) {
+      await user.update({ authorized: "not" });
+      return res
+        .status(200)
+        .json({ msg: `Your account has been delete!` });
+    } else {
+      throw new Error({ msg: "Can't delete this account" });
+    }
+  } catch (error) {
+    res.status(400).json({ msg: "Can't delete this account" });
+  }
+});
+
+/* 
+router.put('/deleteAccount', async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const user = await User.findByPk(id);
+
+    if (user.id === user) {
+      user.update({ authorized: 'not' });
+      res.status(200).json({ msg: `Your account has been delete` });
+    } else {
+      res
+        .status(200)
+        .json({ msg: `Your account has been delete` });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+*/
 
 module.exports = router;

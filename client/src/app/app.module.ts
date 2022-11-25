@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GalleryModule } from 'ng-gallery';
 //COMPONENTES
 import { AppComponent } from './app.component';
 import { HouseComponent } from './components/home/house/house.component';
@@ -18,6 +19,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ReviewsComponent } from './components/housedetail/reviews/reviews.component';
 import { DialogBodyComponent } from './components/create-house/dialog-body/dialog-body.component';
 import { environment as env } from 'src/environments/environment';
+//GALERIA
+import { GalleryDirective } from './components/housedetail/gallery.directive';
 //MATERIAL
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -53,7 +56,16 @@ import { environment } from '../environments/environment';
 import { NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlternativehomeComponent } from './components/home/alternativehome/alternativehome.component';
 import { StatusComponent } from './components/housedetail/status/status.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { LayoutModule } from '@angular/cdk/layout';
 import { ChatComponent } from './components/chat/chat.component';
+import { TableUserAComponent } from './components/dashboard/table-user-a/table-user-a.component';
+import { TableUserDComponent } from './components/dashboard/table-user-d/table-user-d.component';
+import { TableHouseAComponent } from './components/dashboard/table-house-a/table-house-a.component';
+import { TableHouseDComponent } from './components/dashboard/table-house-d/table-house-d.component';
+import { AlternativehouseComponent } from './components/home/alternativehome/alternativehouse/alternativehouse.component';
+import { SliderComponent } from './components/home/alternativehome/slider/slider.component';
 // import { environment as env } from 'src/environments/environment';
 
 
@@ -68,6 +80,11 @@ const routes: Routes = [
       { path: 'createhouse', component: CreateHouseComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'housedetail/:id', component: HousedetailComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard/housesA', component: TableHouseAComponent },
+      { path: 'dashboard/housesD', component: TableHouseDComponent },
+      { path: 'dashboard/usersA', component: TableUserAComponent },
+      { path: 'dashboard/usersD', component: TableUserDComponent },
       { path: 'housedetail/mercadopago/:id/:houseId/:code', component: StatusComponent },
       { path: 'chat', component: ChatComponent },
       { path: "**", redirectTo: 'home' },
@@ -91,7 +108,15 @@ const routes: Routes = [
     ReviewsComponent,
     AlternativehomeComponent,
     StatusComponent,
+    GalleryDirective,
+    DashboardComponent,
     ChatComponent,
+    TableUserAComponent,
+    TableUserDComponent,
+    TableHouseAComponent,
+    TableHouseDComponent,
+    AlternativehouseComponent,
+    SliderComponent,
 
   ],
   imports: [
@@ -125,9 +150,9 @@ const routes: Routes = [
     MatCheckboxModule,
     MatCardModule,
     MatListModule,
-    IvyCarouselModule,
     MatGridListModule,
     NgbModule,
+    GalleryModule,
     NgbAccordionModule
   ],
   providers: [],
