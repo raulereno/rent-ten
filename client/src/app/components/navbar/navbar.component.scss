@@ -1,5 +1,9 @@
 .wrapper{
+  position: sticky;
+  top: 0px;
+  z-index: +1;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   height: 5rem;
 }
@@ -7,7 +11,7 @@
 .leftdiv{
   display: flex;
   justify-content: space-between;
-  width: 65%;
+  width: 45%;
 }
 
 .logo{
@@ -27,8 +31,9 @@
 
 .rightdiv{
   display: flex;
-  justify-content: flex-end;
-  width: 35%;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 45%;
 }
 .rightdiv a{
   align-self: center;
@@ -224,6 +229,11 @@
   object-fit: cover;
 }
 
+.image:hover{
+  transition: 0.5s;
+  opacity:70%;
+}
+
 .type{
   font-size: 20px;
   font-weight: 900;
@@ -240,4 +250,70 @@
   font-size: 17px;
   font-weight: 400;
   margin-top: 0.2rem;
+}
+
+.button_hamburger{
+  display: none;
+}
+.profile{
+  display: flex;
+}
+.favoriteshead{
+  margin: 0;
+}
+.darkmodeModal{
+  background-color: #3A3A3A;
+  color: white;
+}
+
+@media screen and (max-width:750px){
+  .button_hamburger{
+    display: flex;
+    margin-right: 0.4rem;
+  }
+  .wrapper{
+    height: auto;
+    min-height: 3rem;
+    justify-content: space-between;
+  }
+  .logo{
+    width: 3.5rem;
+  }
+  .host{
+
+    a{
+      font-size: 0.7rem;
+    }
+  }
+  .leftdiv{
+    justify-content: center;
+  }
+  .host{
+
+    margin: 0;
+  }
+  .rightdiv{
+    width: 100%;
+    display: none;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    transition: all .5s ease;
+    &--activo{
+      display: flex;
+      align-items: flex-end;
+
+      a{
+        align-self: flex-end;
+      }
+      .switch{
+        align-self: flex-end;
+      }
+    }
+  }
+  .profile{
+    display: flex;
+    flex-direction: column;
+  }
+
 }

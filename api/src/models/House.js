@@ -89,6 +89,12 @@ module.exports = (sequelize) => {
       allowNull: true
     },
 
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
+    },
+
     rating: {
       type: DataTypes.VIRTUAL,
       get() {

@@ -8,25 +8,27 @@
   height: 100%;
 }
 
-.darkmode {
+/* .darkmode {
   background-color: #303030;
   color: white;
-  /* transition: all 1s; */
+   transition: all 1s;
 }
-
 .darkmode .price {
   color: white;
 }
-
 .darkmode .info {
   font-weight: 100;
   color: white;
   margin: -4px;
-}
+} */
 
 .housecard:hover .image {
   transition: 0.5s;
   opacity: 70%;
+}
+
+.margin{
+  margin-bottom: -1.2rem;
 }
 
 .updiv {
@@ -48,14 +50,11 @@
 
 #leftarrow {
   position: relative;
-  top: 45%;
+  bottom: 45%;
   left: 4%;
-  z-index: +1;
-}
-
-.darkmode #leftarrow {
   color: black;
 }
+
 
 .image {
   height: 10rem;
@@ -66,13 +65,11 @@
 
 #rightarrow {
   position: relative;
-  bottom: 45%;
+  bottom: 55%;
   left: 86%;
-}
-
-.darkmode #rightarrow {
   color: black;
 }
+
 
 .firstdiv {
   display: flex;

@@ -1,14 +1,10 @@
-<div [ngClass]="
-darkmode
-  ? 'housecard mat-app-background darkmode'
-  : 'housecard mat-app-background '
-">
+<div class="housecard mat-app-background">
     <div class="updiv">
         <mat-card-actions class="margin">
-            <mat-icon id="leftarrow" class="carrouselbutton" (click)="paginationBack()">navigate_before</mat-icon>
             <a routerLink="/housedetail/{{house.id}}">
                 <img class="image" [src]="giveMePhoto()" />
             </a>
+            <mat-icon id="leftarrow" class="carrouselbutton" (click)="paginationBack()">navigate_before</mat-icon>
             <mat-icon id="rightarrow" class="carrouselbutton" (click)="paginationForward()">navigate_next</mat-icon>
         </mat-card-actions>
     </div>
@@ -44,7 +40,7 @@ darkmode
         </h3>
         <h3 class="info">Occupants: {{house.maxpeople}} </h3>
     </div>
-    <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
+    <h3 class="price" *ngIf="house.country"> ARS ${{house.price}}</h3>
 </div>
 
 <footer class="footer">

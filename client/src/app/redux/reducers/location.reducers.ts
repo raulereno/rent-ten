@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { GlobalState } from 'src/app/models/Country.state';
-import { loadData, loadedCountries, addFavoriteHouse, deleteFavoriteHouse, loadProfile, loadHouses, handleFilters, changeVerifiedStatusProfile, handleOrder, loadPayment } from '../actions/location.actions';
+import { loadData, loadedCountries, addFavoriteHouse, deleteFavoriteHouse, loadProfile, loadHouses, handleFilters, changeVerifiedStatusProfile, handleOrder, loadPayment, changeAuthorizedUser } from '../actions/location.actions';
 
 // *********** ESTADO INICIAL ********** //
 //Creo una interfaz de estado inicial con sus propiedades
@@ -100,7 +100,6 @@ export const countriesReducer = createReducer(
 
     on(handleFilters, (state, payload) => {
         let superFilter = state.backupHouses
-        console.log(payload.payload)
 
         const { minPrice, maxPrice, maxPeople, allowPets, wifi, selectedCountry, selectedCity } = payload.payload
 
@@ -141,26 +140,39 @@ export const countriesReducer = createReducer(
     on(handleOrder, (state, payload) => {
 
         let auxHouses = [...state.allHouses!];
+
         if (payload.payload == 'min') {
             auxHouses = auxHouses.sort((a, b) => a.price - b.price);
         }
-        if (payload.payload == 'max') {
+
+        if (payload.payload == "max") {
             auxHouses = auxHouses.sort((a, b) => b.price - a.price);
         }
+
         if (!payload.payload) {
-            auxHouses = [...state.backupHouses!];
+            auxHouses = [...state.backupHouses!]
         }
+
         return {
             ...state,
             allHouses: auxHouses
         }
     }),
-    
     on(loadPayment, (state,payload) => {
       return{
         ...state,
         paymentInfo:[...state.paymentInfo!, payload.payload]
       }
-    })
+    }),
+
+    on(changeAuthorizedUser, (state, { payload }) => {
+        return {
+            ...state,
+            userProfile: {
+                ...state.userProfile!,
+                authorized: payload
+            }
+        }
+    }),
 
 );
