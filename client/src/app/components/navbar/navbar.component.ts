@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
     private _helper:HelperService,
     private router: Router,
     private localStorageSvc:LocalStorageService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
   ) {}
 
   public active:boolean=false;
@@ -96,6 +96,8 @@ export class NavbarComponent implements OnInit {
 
   darkMode() : void{
      this.darkmode = !this.darkmode;
+     localStorage.setItem('darkmode',JSON.stringify(this.darkmode));
+
      this._helper.changeMode(this.darkmode);
   }
 

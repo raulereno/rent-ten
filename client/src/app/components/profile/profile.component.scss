@@ -214,7 +214,9 @@
     height: auto;
   }
 }
-
+#acordionProfile{
+  background-color: black;
+}
 /* Cuando la pantalla es menor a 900px  (tablets y teléfonos inteligentes)*/
 @media only screen and (max-width : 1000px) {
   .container-image{

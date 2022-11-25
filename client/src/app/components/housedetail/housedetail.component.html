@@ -1,5 +1,5 @@
-<div [ngClass]="darkmode? 'background darkmode':'background'">
-    <div class="wrapper">
+<div class="mat-app-background" [ngClass]="darkmode? 'background darkmode':'background'">
+    <div class="wrapper mat-app-background">
         <section class="gallery">
             <div class="topdiv">
                 <button class="button" routerLink="/home">🡠</button>
@@ -21,14 +21,14 @@
                         <img *ngIf="house.picture[8]" class="sideimg" [ngClass]="!house.picture[11] ? 'botcornerimg' : ''" src="{{house.picture[8]}}" alt="Image" Gallery>
                     </div>
                 </div>
-            </div>   
+            </div>
         </section>
 
         <div class="body">
             <div class="infodiv">
                 <h3 class="location">{{house.country}}, {{house.city}}</h3>
                 <div class="flex">
-                    <h3 class="price"> ARS ${{house.price}}</h3>
+                    <h3 class="price" [ngClass]="{'darkPrice':darkmode}"> ARS ${{house.price}}</h3>
                     <app-reviews></app-reviews>
                 </div>
                 <h3 class="info">
@@ -69,7 +69,7 @@
                     now</button>
             </div>
 
-            <!-- 
+            <!--
         <div *ngIf="house.Bookings.length > 0">
             <br/>
             <h4>&#x26A0; This house has bookings on this dates:</h4>

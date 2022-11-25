@@ -12,7 +12,7 @@ import { LocationService } from 'src/app/services/location.service';
 import { selectorListCountries, selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-
+import  Swal from "sweetalert2"
 
 import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
 export interface NewHouse {
@@ -33,7 +33,7 @@ export interface NewHouse {
   selector: 'app-create-house',
   templateUrl: './create-house.component.html',
   styleUrls: ['./create-house.component.scss'],
-  
+
   providers: [UploadImgService],
 })
 export class CreateHouseComponent implements OnInit {
@@ -91,15 +91,15 @@ export class CreateHouseComponent implements OnInit {
     });
 
     /* this.userProfile$ = this._store.select(selectorListProfile)
-    this.userProfile$.subscribe(res=> 
+    this.userProfile$.subscribe(res=>
       { if(res.id){
         this.userProfile= res
         console.log(this.userProfile)
         if(this.userProfile.verified !== 'verified'){
           alert('Your account must to be verification')
-          // this.userProfile.unsubscribe(); 
-          this.router.navigate(['profile']); 
-          
+          // this.userProfile.unsubscribe();
+          this.router.navigate(['profile']);
+
         }}
         else {
           this._http.getUser(this.email).subscribe(res=>{
@@ -107,20 +107,20 @@ export class CreateHouseComponent implements OnInit {
               this.router.navigate(['createhouse']);
             } else {
               alert('Your account must to be verification')
-              // this.userProfile.unsubscribe(); 
-              this.router.navigate(['profile']); 
-              
+              // this.userProfile.unsubscribe();
+              this.router.navigate(['profile']);
+
             }
-          }) 
+          })
         }
-        
+
        })
       */
   }
- 
 
- 
-  
+
+
+
   openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {}
@@ -160,10 +160,10 @@ export class CreateHouseComponent implements OnInit {
   onSubmit(create: NgForm) {
     /* if(this.userProfile.verified !== 'verified'){
       alert('Your account must to be verification')
-      // this.userProfile.unsubscribe(); 
+      // this.userProfile.unsubscribe();
       this.router.navigate(['profile']); }
       else */this.onUpload(create);
-    
+
   }
 
   onUpload(create: NgForm) {
@@ -171,7 +171,7 @@ export class CreateHouseComponent implements OnInit {
       alert('Ingresa al menos una foto de portada');
       return;
     }
-
+    this.openDialog()
     this.files.forEach((image) => {
       const data = new FormData();
       data.set('file', image);
