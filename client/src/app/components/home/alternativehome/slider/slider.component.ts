@@ -54,5 +54,11 @@ export class SliderComponent implements OnInit {
     this.slider_priceval = this.housesSorted_byqualityprice.slice(this.page_firstslice, this.page_secondslice)
   }
 
+  enableArrow(arrow:string) {
+    if (arrow === 'foward') {return this.page_index == Math.ceil(this.housesSorted_byqualityprice.length / this.page_size)}
+    if (arrow === 'back') {return this.page_index == 1}
+
+    return true
+  }
 
 }

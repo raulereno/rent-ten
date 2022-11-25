@@ -147,11 +147,12 @@ export class ProfileComponent implements OnInit {
 
   goTo(id:string){
     this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail
-}
+  }
 
     deleteAccount(userId: string) {
+      let value = 'not'
       this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-      this.http.deleteAccount(userId);
+      this.http.deleteAccount(userId, value);
     }
 
 

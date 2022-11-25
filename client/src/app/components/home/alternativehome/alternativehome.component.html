@@ -1,14 +1,18 @@
 <hr />
 <div class="alternativecont, row">
 
-    <h1 class="slider_title"><span class="slider_title_text">Places with best price/valoration rate</span></h1>
+    <h1 *ngIf="housesSorted_byqualityprice" class="slider_title"><span class="slider_title_text">Places with best price/valoration rate</span></h1>
 
     <app-slider [dbProfile]="dbProfile" [housesSorted_byqualityprice]="housesSorted_byqualityprice" [slider_priceval]="slider_priceval">
     </app-slider>
 
-   <h1 class="slider_title"><span class="slider_title_text">Best rated places</span></h1>
+   <h1 *ngIf="housesSorted_byRating" class="slider_title"><span class="slider_title_text">Best rated places</span></h1>
 
     <app-slider [dbProfile]="dbProfile" [housesSorted_byqualityprice]="housesSorted_byRating" [slider_priceval]="slider_rating">
     </app-slider>
 
+    <h1 *ngIf="housesInArea" class="slider_title"><span class="slider_title_text">In your area ({{geoloc_value}})</span></h1>
+
+    <app-slider [dbProfile]="dbProfile" [housesSorted_byqualityprice]="housesInArea" [slider_priceval]="slider_housesInArea">
+    </app-slider>
 </div>

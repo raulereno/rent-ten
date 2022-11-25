@@ -80,6 +80,8 @@
   }
   
   .namediv {
+    color: white;
+    font-weight: 300;
     width: 88%;
     margin-left: 0.25rem;
   }

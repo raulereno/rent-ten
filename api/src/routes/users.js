@@ -153,14 +153,16 @@ router.patch("/changepicture/:userID", async (req, res) => {
   }
 });
 
+
 router.put('/deleteAccount/:userId', async (req, res) => {
   const userId = req.params.userId;
+  const value = req.query.value;
 
   try {
     const user = await User.findOne({ where: { id: userId } });
 
     if (user.id === userId) {
-      await user.update({ authorized: "not" });
+      await user.update({ authorized: value });
       return res
         .status(200)
         .json({ msg: `Your account has been delete!` });

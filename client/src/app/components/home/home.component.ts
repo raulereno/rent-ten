@@ -243,10 +243,14 @@ export class HomeComponent implements OnInit {
         },
       })
     );
-    this.paginator.firstPage();
+    try {
+      this.paginator.firstPage();
+    }catch (error) {
+      return
+    }
 
     this.quantityFilter = calculateFilter(this.filterForm.value);
-    console.log(this.quantityFilter);
+    this.allHouses$.subscribe(res => this.allHouses = res)
     // this.store.dispatch(handleOrder({payload: this.order}))
     //this.store.dispatch(handleOrder({payload: this.order}))
   }
