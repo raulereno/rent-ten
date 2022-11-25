@@ -3,6 +3,7 @@ const { SendMail_verification } = require("../controllers/SendMail_verification"
 
 const {
   getUser,
+  getUsers,
   createUser,
   updateProfilePicture,
 } = require("../controllers/user");
@@ -22,6 +23,30 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/allUsers", async (req, res)=>{
+  try {
+    const users = await getUsers();
+    console.log(users)
+    const usersA = users.filter(elem=>elem.authorized === 'all')
+    const usersS = [...new Set(usersA)]
+    console.log(usersS)
+    res.status(200).json(usersS);
+  } catch (error) {
+    res.status(401).json(error.message);
+  }
+})
+
+router.get("/usersD", async (req, res)=>{
+  try {
+    const users = await getUsers();
+    const usersD = users.filter(elem=>elem.authorized !== 'all')
+    const usersS = [...new Set(usersD)]
+    console.log(usersS)
+    res.status(200).json(usersS);
+  } catch (error) {
+    res.status(401).json(error.message);
+  }
+})
 
 router.get("/getuser", async (req, res) => {
   const { mail } = req.query;

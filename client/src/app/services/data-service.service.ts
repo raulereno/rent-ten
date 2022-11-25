@@ -127,5 +127,14 @@ export class DataServiceService {
       }
     })}
 
+    getUsers(): Observable<any> {
+      // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
+      return this.http.get<any>('http://localhost:3001/users/allUsers'); 
+    }
+
+    getUsersD(): Observable<any> {
+      // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
+      return this.http.get<any>('http://localhost:3001/users/usersD'); 
+    }
 
 }
