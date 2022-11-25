@@ -126,18 +126,19 @@ export class DataServiceService {
       error: error => {
         console.log(error)
       }
-    })}
+    })
+  }
 
-    getUsers(): Observable<any> {
-      // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
-      return this.http.get<any>('http://localhost:3001/users/allUsers'); 
-    }
+  getUsers(): Observable<any> {
+    // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
+    return this.http.get<any>('http://localhost:3001/users/allUsers'); 
+  }
 
-    getUsersD(): Observable<any> {
-      // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
-      return this.http.get<any>('http://localhost:3001/users/usersD'); 
-    }
-    
+  getUsersD(): Observable<any> {
+    // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
+    return this.http.get<any>('http://localhost:3001/users/usersD'); 
+  }
+
   handleHouseState(userId: string, houseId:string, newValues: any) {
     console.log(userId, houseId, newValues);
     this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?userId=${userId}`, newValues).subscribe({
