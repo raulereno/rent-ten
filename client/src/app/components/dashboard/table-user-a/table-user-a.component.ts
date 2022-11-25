@@ -6,6 +6,8 @@ import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { userProfile } from 'src/app/models/UserProfile';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { AuthService } from '@auth0/auth0-angular';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-table-user-a',
@@ -13,21 +15,35 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./table-user-a.component.css']
 })
 export class TableUserAComponent implements OnInit {
+ 
   userProfile$: Observable<any> = new Observable();
   public userProfile: userProfile;
+ 
+  
   constructor(
     private store: Store<any>,
     public http: DataServiceService,
     public auth: AuthService,
+    private router: Router,
     ) { }
-
-  profileJson: any;
-  ngOnInit(): void {
-
+    profileJson: any;
+    
+    public users: any[];
+  
+    
+ 
+  
+    ngOnInit(): void {
    
+    this.getUsers();
     this.userProfile$ = this.store.select(selectorListProfile);
     this.loadProfile();
+    
+  
+  
   }
+
+
 
   loadProfile(): void {
     this.auth.user$.subscribe((profile) => {
@@ -43,4 +59,14 @@ export class TableUserAComponent implements OnInit {
     });
   }
 
+  getUsers(){
+   this.http.getUsers().subscribe(res=>this.users = res)
+   console.log(this.users)
+ }
+
+ back(){this.router.navigate(['dashboard'])}
+
+showInfo() {
+  console.log(this.users)
+}
 }
