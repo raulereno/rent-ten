@@ -38,9 +38,8 @@ router.post('/', async (req, res) => {
         const newReview = await Review.create({ opinion, rating, userEmail })
         await newReview.setUser(userId)
         await newReview.setHouse(houseId)
-        await house_ref.update({ scores: house_ref.scores.concat(rating)})
+        await house_ref.update({ scores: [...house_ref.scores, rating] })
         res.status(200).json(newReview)
-
     } catch (error) {
         console.log(error)
     }

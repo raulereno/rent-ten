@@ -141,4 +141,16 @@ export class DataServiceService {
     return data
   }
 
+  handleHouseState(userId: string, houseId:string, newValues: any) {
+    this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?userId=${userId}`, newValues).subscribe({
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
+
+
+
 }
+
+

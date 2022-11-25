@@ -139,8 +139,9 @@ export class ReviewsComponent implements OnInit {
     // if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
     if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
     if (!this.newRatingInput) { this.errors = 'Please select a valoration.'; return }
+    console.log(this.newRatingInput)
     this.http.postNewReview(this.newReviewInput, this.newRatingInput, this.userProfile.id, this.house.id, this.userProfile.mail)
-      .subscribe((res) => { this.house.Reviews = [...this.house.Reviews, res] })
+      .subscribe((res) => { this.house.Reviews = [...this.house.Reviews, res]})
     document.getElementById('closeModalButton')!.click();
     Toast.fire({
       icon: 'success',

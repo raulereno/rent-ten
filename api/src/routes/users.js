@@ -1,4 +1,6 @@
+const { json } = require("body-parser");
 const { Router } = require("express");
+const { filter } = require("lodash");
 const { SendMail_verification } = require("../controllers/SendMail_verification")
 
 const {
@@ -15,7 +17,6 @@ router.get("/", async (req, res) => {
   try {
     let user = await User.findAll();
     let filterAdmins = await user.filter(user => !user.admin)
-
     res.status(200).json(filterAdmins);
   } catch (error) {
     res.status(401).json(error.message);
@@ -26,11 +27,11 @@ router.get("/", async (req, res) => {
 router.get("/getuser", async (req, res) => {
   const { mail } = req.query;
   try {
-    let finder = await User.findOne({where: {mail: mail}, include: [Review, House, Booking]})
+    let finder = await User.findOne({ where: { mail: mail }, include: [Review, House, Booking] })
     res.status(200).json(finder);
   } catch (error) {
     console.log(error);
-    res.status(400).json({error})
+    res.status(400).json({ error })
   }
 });
 
@@ -107,7 +108,7 @@ router.post("/requirecode/:mail", async (req, res) => {
     //   subject: "Verification code",
     //   html: `<h1> Hola, tu codigo para verificar tu mail en RentTen es: <b>${code}</b></h1>`,
     // });
-    
+
     await SendMail_verification(mail, code)
 
     const user = await User.findOne({ where: { mail: mail } });

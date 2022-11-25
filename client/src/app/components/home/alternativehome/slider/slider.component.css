@@ -13,8 +13,8 @@
     margin-right: -2rem;
     /* grid-auto-flow: column; */
     grid-template-columns: fit-content 100%;
-}
 
+}
 
 .slider {
     width: auto;
@@ -25,6 +25,11 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
+    
+}
+
+.slider:hover {
+    animation-play-state: paused;
 }
 
 .cards_cont {
@@ -34,7 +39,8 @@
     width: auto;
     column-gap: 3%;
     gap: 5%;
-    grid-template-columns: 20% 20% 20% 20% 20%
+    grid-template-columns: 20% 20% 20% 20% 20%;
+
 }
 
 .card {
@@ -63,6 +69,7 @@
     transition: all 0.5s;
     color: rgb(165, 165, 165);
     /* margin-left: 15rem; */
+    cursor: pointer;
 }
 
 .slid_right:hover {
@@ -81,6 +88,7 @@
     align-items: center;
     transition: all 0.5s;
     color: rgb(165, 165, 165);
+    cursor: pointer;
     /* margin-right: 15rem; */
 }
 

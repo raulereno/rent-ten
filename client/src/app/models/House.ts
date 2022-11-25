@@ -19,4 +19,5 @@ export interface House {
     Reviews?: any[];
     rating?: number;
     price_quality_relation: number;
+    deleted?: boolean;
 }

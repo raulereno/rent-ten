@@ -121,9 +121,10 @@ router.put("/edithouse/:id", async (req, res) => {
   try {
     const user = await User.findByPk(userId)
     const house = await House.findByPk(houseId, { include: User });
+    console.log(user)
     const owner = house.Users[0].id;
 
-    if (user.admin || userId == owner) {
+    if (user.admin === true || userId == owner) {
       await house.update(req.body);
       res.status(200).json(house);
     } else {
@@ -182,7 +183,7 @@ router.post("/fulldb", async (req, res) => {
   try {
     let testuser = await User.create({ lastname: "Of all houses", sub: 'owner', name: "Owner", mail: "owner@owner.com" })
     await User.create({ lastname: "Administrator", name: "Rent-Ten", mail: "rentten2022@gmail.com", sub: 'Administrator', verified: "verified", admin: true })
-
+    await House.create({price: 023, address: "asfjashjsdjas"})
     extraHouses(50).forEach(async (house) => {
 
       let finder = await House.findOne({ where: house });

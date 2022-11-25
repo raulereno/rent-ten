@@ -42,16 +42,14 @@ export class ProfileComponent implements OnInit {
   housesProfile: House[] = [];
   bookingsProfile: Booking[] = [];
 
-
-
   constructor(public auth: AuthService,
     private http: DataServiceService,
     private store: Store<any>,
     private _uploadImg: UploadImgService,
     private localStorageSvc: LocalStorageService,
     private _router: Router,
-    
-    ) {
+
+  ) {
   }
 
   ngOnInit(): void {
@@ -59,9 +57,8 @@ export class ProfileComponent implements OnInit {
     this.allHouses$ = this.store.select(selectorListBackup)
     this.loadProfile()
     this.loadHouses_n_favorites()
+
   }
-
-
 
   loadProfile() {
     this.userProfile$.subscribe(profile => {
@@ -69,6 +66,7 @@ export class ProfileComponent implements OnInit {
         this.auth.user$.subscribe(profile => {
           this.profileJson = profile;
           this.http.getUser(this.profileJson.email).subscribe(res => {
+            res = {...res, Houses: res.Houses.filter((h:House) => !h.deleted)} 
             this.store.dispatch(loadProfile({ userProfile: res }))
             this.userProfile = res
           });
@@ -76,7 +74,8 @@ export class ProfileComponent implements OnInit {
       } else {
         this.userProfile = profile
       }
-      this.http.getUser(profile.mail).subscribe(res=>{
+      this.http.getUser(profile.mail).subscribe(res => {
+        res = {...res, Houses: res.Houses.filter((h:House) => !h.deleted)} 
         this.userProfile = res
       })
     });
@@ -92,7 +91,7 @@ export class ProfileComponent implements OnInit {
       } else {
         this.allHouses = houses
       }
-      
+
       this.userProfile$.subscribe((res) => {
         this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.some((h: string) => h == house.id)))
       })
@@ -131,7 +130,7 @@ export class ProfileComponent implements OnInit {
       })
 
   }
-  
+
   onFileSelected(event: any): void {
     const data = new FormData();
     data.set('file', event.path[0].files[0]);
@@ -145,15 +144,29 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  goTo(id:string){
-    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail
+  goTo(id: string) {
+    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`], { replaceUrl: true })//TODO: Redireccionar casa creada a detail
   }
 
-    deleteAccount(userId: string) {
-      let value = 'not'
-      this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-      this.http.deleteAccount(userId, value);
+  deleteAccount(userId: string) {
+    let value = 'not'
+    this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+    this.http.deleteAccount(userId, value);
+  }
+
+  deleteHouse(houseId: string, userId: string) {
+    let value = {
+      deleted: true
     }
+
+    if (confirm('Are you sure you want delete your create place?')) {
+      //this.store.dispatch(deleteHouse({ payload: true }));
+      this.http.handleHouseState(userId, houseId, value);
+      let filter = {...this.userProfile, Houses: this.userProfile.Houses?.filter(h => h.id !== houseId)}
+      this.userProfile = filter;
+      this.store.dispatch(loadProfile({ userProfile: filter}))
+    }
+  }
 
 
 }
