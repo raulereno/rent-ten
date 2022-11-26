@@ -148,8 +148,8 @@ export class DataServiceService {
     })
   }
 
-  deleteAccount(userId: string) {
-    this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}`, { userId }).subscribe({
+  deleteAccount(userId: string, value: string) {
+    this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}?value=${value}`, { userId }).subscribe({
       error: error => {
         console.log(error)
       }
