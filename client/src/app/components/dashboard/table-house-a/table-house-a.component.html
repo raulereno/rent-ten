@@ -12,17 +12,17 @@
       <!-- <th scope="col">e-mail</th> -->
     </tr>
   </thead>
-  <tbody>  
-    <tr *ngFor="let house of houses"> 
+  <tbody>
+    <tr *ngFor="let house of houses">
       <th scope="row">{{house.id}}</th>
-      <td>{{house.country}}</td>  
-      <td><img src={{house.picture[0]}} style="height: 2rem; width: 2rem;"/></td>
+      <td>{{house.country}}</td>
+      <td><img src={{house.picture[0]}} style="height: 2rem; width: 2rem;" /></td>
       <td>{{house.type}}</td>
       <td>{{house.maxpeople}}</td>
       <td>{{house.price}}</td> 
       <td><button (click)="deleteHouse(house.id)">x</button></td>
     </tr>
 
-  <button (click)="showInfo()">show</button>
+    <button (click)="showInfo()">show</button>
 
 </table>

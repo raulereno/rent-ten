@@ -16,7 +16,7 @@ import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 
 
 export class TableHouseDComponent implements OnInit {
- 
+
 
   constructor(
     public http: DataServiceService,

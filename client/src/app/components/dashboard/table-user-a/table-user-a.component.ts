@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadProfile } from 'src/app/redux/actions/location.actions';
+import { changeAuthorizedUser, loadProfile } from 'src/app/redux/actions/location.actions';
 import { Observable, pipe } from 'rxjs';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { userProfile } from 'src/app/models/UserProfile';
 import { DataServiceService } from 'src/app/services/data-service.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { Router } from '@angular/router';
+import { AdmindashboardService } from 'src/app/services/admindashboard.service';
 
 
 @Component({
@@ -15,32 +16,43 @@ import { Router } from '@angular/router';
   styleUrls: ['./table-user-a.component.css']
 })
 export class TableUserAComponent implements OnInit {
- 
+
   userProfile$: Observable<any> = new Observable();
   public userProfile: userProfile;
- 
-  
+
+
   constructor(
     private store: Store<any>,
     public http: DataServiceService,
     public auth: AuthService,
     private router: Router,
-    ) { }
-    profileJson: any;
-    
-    public users: any[];
-  
-    
- 
-  
-    ngOnInit(): void {
-   
-    this.getUsers();
+    private _admindashboard: AdmindashboardService,
+
+  ) { }
+  profileJson: any;
+
+  public users: any[];
+
+  id: string;
+
+  customChangeAutorized: string
+
+
+  ngOnInit(): void {
+
+
     this.userProfile$ = this.store.select(selectorListProfile);
-    this.loadProfile();
-    
-  
-  
+    this.desactiveAccount(this.id);
+
+    this._admindashboard.customChangeAutorized.subscribe((res: string) => {
+      this.customChangeAutorized = res
+      if (this.customChangeAutorized === "all") {
+        console.log("click tabla A")
+        this.getUsers()
+        this.loadProfile();
+      }
+    })
+
   }
 
 
@@ -59,14 +71,22 @@ export class TableUserAComponent implements OnInit {
     });
   }
 
-  getUsers(){
-   this.http.getUsers().subscribe(res=>this.users = res)
-   console.log(this.users)
- }
+  getUsers() {
+    this.http.getUsers().subscribe(res => this.users = res)
+  }
 
- back(){this.router.navigate(['dashboard'])}
+  back() { this.router.navigate(['dashboard']) }
 
-showInfo() {
-  console.log(this.users)
-}
+  showInfo() {
+    console.log(this.users)
+  }
+
+  desactiveAccount(id: string) {
+    this.id = id
+    this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+    this.http.deleteAccount(this.id, 'not')
+    this._admindashboard.changeModeAutorized("not")
+    this.getUsers()
+  }
+
 }
