@@ -112,10 +112,20 @@ export class NavbarComponent implements OnInit {
 
     }
     else if (this.userProfile.verified !== 'verified') {
-      console.log(this.userProfile.verified)
-      alert('Your account must to be verification')
-      this.router.navigate(['profile']);
+      // alert('Your account must to be verification')
+      Swal.fire(
+        'Your account must to be verification',
+        'Do you want to verify your username?',
+        'warning'
+      ).then(result => {
+        this.router.navigate(['profile']);
+      })
+      // this.router.navigate(['profile']);
+
+    } else {
+      this.router.navigate(['createhouse']);
     }
+
   }
 
 

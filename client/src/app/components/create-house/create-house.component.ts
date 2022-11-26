@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 import Swal from "sweetalert2"
 
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import Swal from 'sweetalert2';
 export interface NewHouse {
   city: string;
   country: string;
@@ -63,9 +62,6 @@ export class CreateHouseComponent implements OnInit {
   //TODO: hacer una interface para los errores
   //ponerlo en true cuando el form este controlado
   errors: any = false
-
-  userProfile$: Observable<any> = new Observable();
-  userProfile: any;
 
   userProfile$: Observable<any> = new Observable();
   userProfile: any;

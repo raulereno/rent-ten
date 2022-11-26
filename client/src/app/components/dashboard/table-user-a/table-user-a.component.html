@@ -1,28 +1,30 @@
 <table class="table">
   <button (click)="back()">Back</button>
-    <thead >
-      <tr>
-        <th scope="col">#id</th>
-        <th scope="col">e-mail</th>
-        <th scope="col">Name</th>
-        <th scope="col">Last</th>
-        <th scope="col">Country</th>
-        <th scope="col">Authorized</th>
-        <th scope="col">Cancel</th>
-        <!-- <th scope="col">e-mail</th> -->
-      </tr>
-    </thead>
-    <tbody>  
-      <tr *ngFor="let user of users"> 
-        <th scope="row">{{user.id}}</th>
-        <td>{{user.mail}}</td>  
-        <td>{{user.name}}</td>
-        <td>{{user.lastname}}</td>
-        <td>{{user.Country}}</td>
-        <td>{{user.authorized}}</td> 
-        <td><button>x</button></td>
-      </tr>
-   <!--    <tr>
+  <thead>
+    <tr>
+      <th scope="col">#id</th>
+      <th scope="col">e-mail</th>
+      <th scope="col">Name</th>
+      <th scope="col">Last</th>
+      <th scope="col">Country</th>
+      <th scope="col">Authorized</th>
+      <th scope="col">Disable</th>
+      <!-- <th scope="col">e-mail</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{user.id}}</th>
+      <td>{{user.mail}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.lastname}}</td>
+      <td>{{user.Country}}</td>
+      <td>{{user.authorized}}</td>
+      <td>
+        <button class="buttons" (click)="desactiveAccount(user.id)">x</button>
+      </td>
+    </tr>
+    <!--    <tr>
 
 
 
@@ -37,7 +39,7 @@
         <td>the Bird</td>
         <td>@twitter</td> 
       </tr> -->
-    </tbody>
-  </table>
+  </tbody>
+</table>
 
 <button (click)="showInfo()">show</button>
