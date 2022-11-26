@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   reviewsHouses: Review[] = [];
   housesProfile: House[] = [];
   bookingsProfile: Booking[] = [];
-  darkmode:boolean;
+  darkmode: boolean;
 
   constructor(public auth: AuthService,
     private http: DataServiceService,
@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
     private _uploadImg: UploadImgService,
     private localStorageSvc: LocalStorageService,
     private _router: Router,
-    private _helper:HelperService,
+    private _helper: HelperService,
   ) {
   }
 
@@ -74,6 +74,7 @@ export class ProfileComponent implements OnInit {
         this.auth.user$.subscribe(profile => {
           this.profileJson = profile;
           this.http.getUser(this.profileJson.email).subscribe(res => {
+            res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
             this.store.dispatch(loadProfile({ userProfile: res }))
             this.userProfile = res
           });
@@ -81,7 +82,8 @@ export class ProfileComponent implements OnInit {
       } else {
         this.userProfile = profile
       }
-      this.http.getUser(profile.mail).subscribe(res=>{
+      this.http.getUser(profile.mail).subscribe(res => {
+        res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
         this.userProfile = res
       })
     });
@@ -150,19 +152,30 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  goTo(id:string){
-    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`],{replaceUrl:true})//TODO: Redireccionar casa creada a detail
-}
+  goTo(id: string) {
+    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`], { replaceUrl: true })//TODO: Redireccionar casa creada a detail
+  }
 
-    deleteAccount(userId: string) {
-      if (confirm('Are you sure you want delete your account?')) {
-        this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-        this.http.deleteAccount(userId);
-        this.auth.logout();
-        this._router.navigate(['home']);
-      }
+  deleteHouse(houseId: string, userId: string) {
+    let value = {
+      deleted: true
     }
 
+    if (confirm('Are you sure you want delete your create place?')) {
+      //this.store.dispatch(deleteHouse({ payload: true }));
+      this.http.handleHouseState(userId, houseId, value);
+      this.userProfile = { ...this.userProfile, Houses: this.userProfile.Houses?.filter(h => h.id !== houseId) };
+    }
+  }
+
+  deleteAccount(userId: string) {
+    if (confirm('Are you sure you want delete your account?')) {
+      this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+      this.http.deleteAccount(userId, 'not');
+      this.auth.logout();
+      this._router.navigate(['home']);
+    }
+  }
 
 }
 

@@ -36,7 +36,7 @@ export class HousedetailComponent implements OnInit {
 
   userProfile: userProfile
   profileJson: any
-  paramsId: string | null
+  paramsId: string;
   house: House
   form: FormGroup
   booking: boolean = false
@@ -47,11 +47,12 @@ export class HousedetailComponent implements OnInit {
   totaldays: number;
 
   ngOnInit(): void {
-    this.paramsId = this.route.snapshot.paramMap.get('id');
-    this.paramsId &&
+    this.route.params.subscribe(params=>{
+      this.paramsId= params["id"];
       this.http
         .getHouse(this.paramsId)
         .subscribe((data) => (this.house = data));
+    });
 
     this.auth.user$.subscribe((res) => {
       this.profileJson = res
