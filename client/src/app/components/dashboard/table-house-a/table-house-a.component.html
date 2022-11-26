@@ -20,7 +20,7 @@
       <td>{{house.type}}</td>
       <td>{{house.maxpeople}}</td>
       <td>{{house.price}}</td> 
-      <td><button>x</button></td>
+      <td><button (click)="deleteHouse(house.id)">x</button></td>
     </tr>
 
   <button (click)="showInfo()">show</button>

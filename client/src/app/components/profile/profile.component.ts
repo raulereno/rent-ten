@@ -9,7 +9,7 @@ import { catchError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectorListBackup, selectorListProfile } from 'src/app/redux/selectors/selectors';
-import { addFavoriteHouse, changeAuthorizedUser, changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
+import { addFavoriteHouse,  changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
 import { Review } from 'src/app/models/Review';
 import { NgbAccordionConfig, NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -156,8 +156,10 @@ export class ProfileComponent implements OnInit {
 
     deleteAccount(userId: string) {
       if (confirm('Are you sure you want delete your account?')) {
+        console.log('user profile autorizado1',this.userProfile)
         this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
         this.http.deleteAccount(userId);
+        console.log('user profile autorizado2',this.userProfile)
         this.auth.logout();
         this._router.navigate(['home']);
       }
@@ -168,4 +170,8 @@ export class ProfileComponent implements OnInit {
 
 export class NgbdAccordionBasic { }
 export class SectionModule { }
+
+function changeAuthorizedUser(arg0: { payload: string; }): any {
+  throw new Error('Function not implemented.');
+}
 

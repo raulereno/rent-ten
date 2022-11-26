@@ -137,12 +137,26 @@ export class DataServiceService {
       // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
       return this.http.get<any>('http://localhost:3001/users/usersD'); 
     }
-  deleteAccount(userId: string) {
+
+
+  deleteAccount(userId: string){
     this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}`, { userId }).subscribe({
       error: error => {
         console.log(error)
       }
     })
   }
+
+  handleHouseState(userId: string, houseId:string, newValues: any) {
+    console.log('userIdserv',userId)
+    console.log('houseIdser',houseId)
+    console.log('newValuesserv',newValues) 
+    this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?value=${userId}`, newValues).subscribe({
+      error: error => {
+        console.log(error)
+      }
+    })
+  }
+
 
 }

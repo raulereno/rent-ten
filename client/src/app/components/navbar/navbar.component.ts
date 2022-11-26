@@ -87,7 +87,7 @@ export class NavbarComponent implements OnInit {
       }
     }
     else if (this.userProfile.verified !== 'verified'){console.log(this.userProfile.verified)
-      alert('Your account must to be verification')
+      alert('Your account must to be verificated')
       this.router.navigate(['profile']);
      }
     }

@@ -102,8 +102,10 @@ router.post("/createhouse", async (req, res) => {
 // --- PUT METHODS ---
 
 router.put("/edithouse/:id", async (req, res) => {
+  
   const houseId = req.params.id;
-  const { userId } = req.query;
+  const userId  = req.query.value;
+ 
   const {
     city,
     country,
@@ -117,13 +119,16 @@ router.put("/edithouse/:id", async (req, res) => {
     bookings,
     deleted
   } = req.body;
-
+ 
   try {
     const user = await User.findByPk(userId)
+   
     const house = await House.findByPk(houseId, { include: User });
+   
     const owner = house.Users[0].id;
 
     if (user.admin || userId == owner) {
+      console.log('true',user.admin)
       await house.update(req.body);
       res.status(200).json(house);
     } else {
