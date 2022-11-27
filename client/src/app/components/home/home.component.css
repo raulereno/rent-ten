@@ -30,9 +30,9 @@
 }
 
 .bodydiv {
+  min-height: 70vh;
   width: 120%;
   padding: 1rem;
-  height: fit-content;
   padding-top: 2rem;
   margin-bottom: 3rem;
   border-radius: 1rem;
@@ -83,11 +83,30 @@
 
 /* //////////// FILTERS MODAL ////////////// */
 
-.filters {
+.altfilters{
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   height: 3.6rem;
+  width: 10rem;
   transition: all .2s;
   border: 1px solid rgba(0, 0, 0, 0.368);
+  background-color: #fafafa;
   border-radius: 5px;
+}
+
+.altfilters:hover {
+  transform: scale(1.05);
+}
+
+.filters{
+  height: 3.6rem;
+  width: 5rem;
+  transition: all .2s;
+  border: 1px solid rgba(0, 0, 0, 0.368);
+  background-color: #fafafa;
+  border-radius: 5px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .filters:hover {
