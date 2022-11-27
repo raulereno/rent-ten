@@ -40,18 +40,17 @@ export class TableUserAComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log(" 1 - Inicio OnInint")
 
     this.userProfile$ = this.store.select(selectorListProfile);
-    this.desactiveAccount(this.id);
+    console.log(" 2 - Pasa por el Profile")
 
-    this._admindashboard.customChangeAutorized.subscribe((res: string) => {
-      this.customChangeAutorized = res
-      if (this.customChangeAutorized === "all") {
-        console.log("click tabla A")
-        this.getUsers()
-        this.loadProfile();
-      }
-    })
+    this.desactiveAccount(this.id);
+    console.log(" 3 - Pasa por el desactiveAcount This.id")
+
+
+
+
 
   }
 
@@ -82,11 +81,38 @@ export class TableUserAComponent implements OnInit {
   }
 
   desactiveAccount(id: string) {
+
+    console.log("----- Inicio Desactive Account")
+
     this.id = id
-    this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
     this.http.deleteAccount(this.id, 'not')
-    this._admindashboard.changeModeAutorized("not")
+    this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+    this._admindashboard.changeModeAutorized('not')
+    // this.getUsers()
+    console.log(" -- Ejecuto el getUser dentro del Acount")
+
+    console.log("----- Fin Desactive Account")
+
+    this._admindashboard.customChangeAutorized.subscribe((res: string) => {
+      this.customChangeAutorized = res
+      if (this.customChangeAutorized === "all") {
+        console.log(" 4 - Entra al if CustomChange = all")
+        this.getUsers()
+        this.loadProfile();
+
+      }
+    })
+
     this.getUsers()
   }
+
+  // deleteAccount(userId: string) {
+  //   if (confirm('Are you sure you want delete your account?')) {
+  //     this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+  //     this.http.deleteAccount(userId, 'not');
+  //     this.auth.logout();
+  //     this._router.navigate(['home']);
+  //   }
+  // }
 
 }

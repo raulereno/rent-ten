@@ -41,14 +41,7 @@ export class TableUserDComponent implements OnInit {
     this.userProfile$ = this.store.select(selectorListProfile);
     this.desactiveAccount(this.id);
 
-    this._admindashboard.customChangeAutorized.subscribe((res: string) => {
-      this.customChangeAutorized = res
-      if (this.customChangeAutorized === "not") {
-        console.log("click tabla D")
-        this.getUsersD()
-        this.loadProfile();
-      }
-    })
+
 
   }
 
@@ -78,9 +71,18 @@ export class TableUserDComponent implements OnInit {
 
   desactiveAccount(id: string) {
     this.id = id
-    this.store.dispatch(changeAuthorizedUser({ payload: 'all' }));
     this.http.deleteAccount(this.id, 'all')
+    this.store.dispatch(changeAuthorizedUser({ payload: 'all' }));
+
     this._admindashboard.changeModeAutorized("all")
     this.getUsersD()
+    this._admindashboard.customChangeAutorized.subscribe((res: string) => {
+      this.customChangeAutorized = res
+      if (this.customChangeAutorized === "not") {
+        console.log("click tabla D")
+        this.getUsersD()
+        this.loadProfile();
+      }
+    })
   }
 }
