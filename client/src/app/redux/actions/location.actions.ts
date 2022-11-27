@@ -18,6 +18,7 @@ export const CHANGE_VERIFIED = '[CHANGE_VERIFIED] CHANGE_VERIFIED'
 export const HANDLE_ORDER = '[HANDLE_ORDER] HANDLE_ORDER'
 export const LOAD_PAYMENT = '[LOAD_PAYMENT] LOAD_PAYMENT'
 export const CHANGE_AUTHORIZED = '[CHANGE_AUTHORIZED] CHANGE_AUTHORIZED';
+export const DELETE_HOUSE = '[DELETE_HOUSE] DELETE_HOUSE';
 
 export const loadData= createAction(
     LOAD_DATA
@@ -86,4 +87,9 @@ export const loadPayment = createAction(
 export const changeAuthorizedUser = createAction (
     CHANGE_AUTHORIZED,
     props<{ payload: string }>()
+);
+
+export const deleteHouse = createAction (
+    DELETE_HOUSE,
+    props<{ payload: boolean }>()
 );

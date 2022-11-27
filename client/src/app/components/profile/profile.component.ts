@@ -1,3 +1,4 @@
+import { HelperService } from 'src/app/services/helper.service';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService, User } from '@auth0/auth0-angular';
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 import { selectorListBackup, selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { addFavoriteHouse, changeAuthorizedUser, changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
 import { Review } from 'src/app/models/Review';
-import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionConfig, NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -41,6 +42,7 @@ export class ProfileComponent implements OnInit {
   reviewsHouses: Review[] = [];
   housesProfile: House[] = [];
   bookingsProfile: Booking[] = [];
+  darkmode: boolean;
 
   constructor(public auth: AuthService,
     private http: DataServiceService,
@@ -48,7 +50,7 @@ export class ProfileComponent implements OnInit {
     private _uploadImg: UploadImgService,
     private localStorageSvc: LocalStorageService,
     private _router: Router,
-
+    private _helper: HelperService,
   ) {
   }
 
@@ -58,6 +60,10 @@ export class ProfileComponent implements OnInit {
     this.loadProfile()
     this.loadHouses_n_favorites()
 
+    this._helper.customDarkMode.subscribe(
+      (active: boolean) => (this.darkmode = active)
+    );
+
   }
 
   loadProfile() {
@@ -66,7 +72,7 @@ export class ProfileComponent implements OnInit {
         this.auth.user$.subscribe(profile => {
           this.profileJson = profile;
           this.http.getUser(this.profileJson.email).subscribe(res => {
-            res = {...res, Houses: res.Houses.filter((h:House) => !h.deleted)} 
+            res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
             this.store.dispatch(loadProfile({ userProfile: res }))
             this.userProfile = res
           });
@@ -75,7 +81,7 @@ export class ProfileComponent implements OnInit {
         this.userProfile = profile
       }
       this.http.getUser(profile.mail).subscribe(res => {
-        res = {...res, Houses: res.Houses.filter((h:House) => !h.deleted)} 
+        res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
         this.userProfile = res
       })
     });
@@ -148,12 +154,6 @@ export class ProfileComponent implements OnInit {
     this._router.navigate([`http://localhost:4200/home/housedetail/${id}`], { replaceUrl: true })//TODO: Redireccionar casa creada a detail
   }
 
-  deleteAccount(userId: string) {
-    let value = 'not'
-    this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-    this.http.deleteAccount(userId, value);
-  }
-
   deleteHouse(houseId: string, userId: string) {
     let value = {
       deleted: true
@@ -162,12 +162,18 @@ export class ProfileComponent implements OnInit {
     if (confirm('Are you sure you want delete your create place?')) {
       //this.store.dispatch(deleteHouse({ payload: true }));
       this.http.handleHouseState(userId, houseId, value);
-      let filter = {...this.userProfile, Houses: this.userProfile.Houses?.filter(h => h.id !== houseId)}
-      this.userProfile = filter;
-      this.store.dispatch(loadProfile({ userProfile: filter}))
+      this.userProfile = { ...this.userProfile, Houses: this.userProfile.Houses?.filter(h => h.id !== houseId) };
     }
   }
 
+  deleteAccount(userId: string) {
+    if (confirm('Are you sure you want delete your account?')) {
+      this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+      this.http.deleteAccount(userId, 'not');
+      this.auth.logout();
+      this._router.navigate(['home']);
+    }
+  }
 
 }
 

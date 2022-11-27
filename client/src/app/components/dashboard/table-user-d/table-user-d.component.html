@@ -1,31 +1,26 @@
 <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
-
+  <button (click)="back()">Back</button>
+  <thead>
+    <tr>
+      <th scope="col">#id</th>
+      <th scope="col">e-mail</th>
+      <th scope="col">Name</th>
+      <th scope="col">Last</th>
+      <th scope="col">Country</th>
+      <th scope="col">authorized</th>
+      <th scope="col">Activate</th>
+      <!-- <th scope="col">e-mail</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{user.id}}</th>
+      <td>{{user.mail}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.lastname}}</td>
+      <td>{{user.Country}}</td>
+      <td>{{user.authorized}}</td>
+      <td>
+        <button class="buttons" (click)="desactiveAccount(user.id)">x</button>
+      </td>
+    </tr>

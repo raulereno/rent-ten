@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { DataServiceService } from 'src/app/services/data-service.service';
 
 @Component({
   selector: 'app-table-house-a',
@@ -7,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableHouseAComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(public http: DataServiceService, private router: Router,) { }
+  headers = ['Name', 'Position', 'Office', 'Age', 'Start Date', 'Salary'];
+  public houses: any[];
 
   ngOnInit(): void {
+
+    this.getHouses();
+
   }
+
+  getHouses() {
+    this.http.getHouses().subscribe(res => this.houses = res)
+    console.log(this.houses)
+  }
+
+  back() { this.router.navigate(['dashboard']) }
+
+  showInfo() {
+    console.log(this.houses)
+  }
+
 
 }

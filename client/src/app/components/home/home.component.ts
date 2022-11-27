@@ -129,9 +129,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.filterForm = this.initForm();
 
-    // this._helper.customDarkMode.subscribe(
-    //   (active: boolean) => (this.darkmode = active)
-    // );
+    this._helper.customDarkMode.subscribe(
+      (active: boolean) => (this.darkmode = active)
+    );
 
     this.loading$ = this.store.select(selectorListLoading);
     this.countries$ = this.store.select(selectorListCountries);
@@ -178,7 +178,9 @@ export class HomeComponent implements OnInit {
           favoritesLS?.forEach((houseId: string) => {
             this.setFavorite(houseId, res.id);
           });
-          localStorage.clear();
+          localStorage.removeItem('myFavorites');
+
+          //localStorage.clear();
         });
       });
 
@@ -225,12 +227,16 @@ export class HomeComponent implements OnInit {
     const { order } = this.filterForm.value;
 
     this.store.dispatch(handleOrder({ payload: order }));
+
+    this.allHouses$.subscribe(res=> this.allHouses=res);
+
   }
 
   handleFilters() {
     const { allowPets, city, country, maxPrice, minPrice, order, wifi } =
       this.filterForm.value;
 
+      console.log(this.filterForm.value);
     this.store.dispatch(
       handleFilters({
         payload: {
@@ -245,12 +251,13 @@ export class HomeComponent implements OnInit {
     );
     try {
       this.paginator.firstPage();
-    }catch (error) {
+    } catch (error) {
       return
     }
 
     this.quantityFilter = calculateFilter(this.filterForm.value);
-    this.allHouses$.subscribe(res => this.allHouses = res)
+    this.allHouses$.subscribe(res=> this.allHouses=res);
+
     // this.store.dispatch(handleOrder({payload: this.order}))
     //this.store.dispatch(handleOrder({payload: this.order}))
   }
@@ -259,7 +266,7 @@ export class HomeComponent implements OnInit {
   }
 
   openFilterModal(filters: any) {
-    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title' });
+    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title',modalDialogClass:'mat-app-background' });
   }
 
   clearFilters() {

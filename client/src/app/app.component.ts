@@ -1,3 +1,4 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { HelperService } from './services/helper.service';
 import { Component, HostBinding } from '@angular/core';
 
@@ -11,11 +12,13 @@ export class AppComponent {
 
   constructor(
     private _helper: HelperService,
+    private _overlay:OverlayContainer
   ) {}
 
   private isDarkmode: boolean = false;
 
   ngOnInit(): void {
+
     this._helper.customDarkMode.subscribe(
       (active: boolean) => (this.isDarkmode = active)
     );

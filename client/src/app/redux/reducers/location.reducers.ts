@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { GlobalState } from 'src/app/models/Country.state';
-import { loadData, loadedCountries, addFavoriteHouse, deleteFavoriteHouse, loadProfile, loadHouses, handleFilters, changeVerifiedStatusProfile, handleOrder, loadPayment, changeAuthorizedUser } from '../actions/location.actions';
+import { loadData, loadedCountries, addFavoriteHouse, deleteFavoriteHouse, loadProfile, loadHouses, handleFilters, changeVerifiedStatusProfile, handleOrder, loadPayment, changeAuthorizedUser, deleteHouse } from '../actions/location.actions';
 
 // *********** ESTADO INICIAL ********** //
 //Creo una interfaz de estado inicial con sus propiedades
@@ -100,7 +100,7 @@ export const countriesReducer = createReducer(
 
     on(handleFilters, (state, payload) => {
         let superFilter = state.backupHouses
-        
+
         const { minPrice, maxPrice, maxPeople, allowPets, wifi, selectedCountry, selectedCity } = payload.payload
 
         if (minPrice) {
@@ -172,6 +172,12 @@ export const countriesReducer = createReducer(
                 ...state.userProfile!,
                 authorized: payload
             }
+        }
+    }),
+
+    on(deleteHouse, (state, payload) => {
+        return {
+            ...state, 
         }
     }),
 

@@ -4,9 +4,8 @@
 }
 
 .wrapper{
-    background-color: #fafafa;
     margin: 0 auto;
-    width: 80%;
+    width: 85%;
 }
 
 .background{
@@ -18,14 +17,13 @@
     background-image: url("../../../assets/background.jpg");
     border-left: 1px solid #96969681;
     border-right: 1px solid #96969681;
-}  
+}
 
 /* ////////GALERÍA//////// */
 .gallery{
     animation: fadein 2s;
     display: flex;
     flex-direction: column;
-    background-color: #fafafa;
     margin: 0 auto;
     margin-bottom: 2rem;
     width: 82%;
@@ -107,18 +105,17 @@
 
 /* ////////HOUSEINFO//////// */
 .body{
-    width: 100%;
     margin-left: 11rem;
     margin-top: 1rem;
     animation: fadein 2s;
     margin: 0 auto;
-    height: 20rem;
-    width: 82%;
-    justify-content: space-evenly;
-}
+    width: 85%;
+    display: flex;
+    flex-wrap: wrap;
+  }
 
 .location{
-    font-size: 50px;
+    font-size: 2.5rem;
     font-weight: 400;
     margin-bottom: 20px;
 }
@@ -149,9 +146,12 @@
     font-size: 30px;
     font-weight: 400;
 }
+.darkPrice{
+  color: rgb(60, 135, 20)
+}
 
 .infodiv{
-    width: 40%;
+    width: 60%;
 }
 
 .bookingdiv{

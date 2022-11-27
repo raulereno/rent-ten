@@ -13,6 +13,7 @@
     margin-right: -2rem;
     /* grid-auto-flow: column; */
     grid-template-columns: fit-content 100%;
+    width: 100%;
 }
 
 .background{
