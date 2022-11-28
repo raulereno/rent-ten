@@ -58,10 +58,6 @@ export class TableUserDComponent implements OnInit {
     });
   }
 
-  getUsersD() {
-    this.http.getUsersD().subscribe(res => this.users = res)
-  }
-
   back() { this.router.navigate(['dashboard']) }
 
   showInfo() {

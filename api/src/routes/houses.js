@@ -18,6 +18,22 @@ router.get("/", async (req, res) => {
   res.status(200).json(availableHouses);
 });
 
+router.get("/deletedhouses", async (req, res) => {
+
+  try {
+
+    let allHouses = await House.findAll()
+    let filter = await allHouses.filter(house => house.deleted)
+    res.status(200).json(filter)
+
+  } catch (error) {
+    console.log(error)
+    res.status(400).json(error)
+  }
+
+})
+
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -51,20 +67,6 @@ router.get("/order/:order", async (req, res) => {
   }
 });
 
-router.get("/deletedhouses", async (req, res) => {
-
-  try {
-
-    let allHouses = await House.findAll()
-    let filter = await allHouses.filter(house => house.deleted)
-    res.status(200).json(filter)
-
-  } catch (error) {
-    console.log(error)
-    res.status(400).json(error)
-  }
-
-})
 
 // --- POST METHODS ---
 router.post("/setowner", async (req, res) => {
@@ -121,13 +123,13 @@ router.put("/edithouse/:id", async (req, res) => {
   try {
     const user = await User.findByPk(userId)
     const house = await House.findByPk(houseId, { include: User });
-    console.log(user)
     const owner = house.Users[0].id;
 
     if (user.admin === true || userId == owner) {
       await house.update(req.body);
       res.status(200).json(house);
     } else {
+      console.log(`The ID ${userId} is not the owner of the house with ID ${houseId}`)
       res.status(200).json({
         msg: `The ID ${userId} is not the owner of the house with ID ${houseId}`,
       });

@@ -149,14 +149,17 @@ export class DataServiceService {
   }
 
   handleHouseState(userId: string, houseId:string, newValues: any) {
-    this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?userId=${userId}`, newValues).subscribe({
-      error: error => {
-        console.log(error)
-      }
-    })
+    return this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?userId=${userId}`, newValues)
+    // .subscribe({
+    //   error: error => {
+    //     console.log(error)
+    //   }
+    // })
   }
 
-
+  getDeletedHouses(): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/houses/deletedhouses`);
+  }
 
 }
 

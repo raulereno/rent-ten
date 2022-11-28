@@ -1,3 +1,6 @@
+<h5>Total active users: {{users.length}}</h5>
+
+
 <table class="table">
   <button (click)="back()">Back</button>
   <thead>
@@ -21,7 +24,7 @@
       <td>{{user.Country}}</td>
       <td>{{user.authorized}}</td>
       <td>
-        <button class="buttons" (click)="desactiveAccount(user.id)">x</button>
+        <button class="buttons" class="btn btn-danger" (click)="desactiveAccount(user.id)">x</button>
       </td>
     </tr>
     <!--    <tr>

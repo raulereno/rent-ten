@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
 import { Booking } from '../models/Booking';
 import { DataServiceService } from './data-service.service';
+import { House } from '../models/House';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class AdmindashboardService {
     this.activateAutorized.next(active);
   }
 
+  // ----------- Users Services -----------
 
   // activated users =
   private usersA$ = new BehaviorSubject<any>([])
@@ -37,7 +39,6 @@ export class AdmindashboardService {
     this.data.getUsers().subscribe(res => this.usersA$.next(res))
   }
 
-
   // deleted users =
   private usersD$ = new BehaviorSubject<any>([])
   get getUsersD$(): Observable<any> {
@@ -47,13 +48,42 @@ export class AdmindashboardService {
     this.data.getUsersD().subscribe(res => this.usersD$.next(res))
   }
 
-
   // update tables
   delete_set(id: string, value: string): void {
-    this.data.deleteAccount(id, value).subscribe(res => {
+    this.data.deleteAccount(id, value).subscribe(() => {
       this.setUsersA()
       this.setUsersD()
     })
   }
 
+  // ----------- Houses Services -----------
+
+  // Active houses = 
+  private housesA$ = new BehaviorSubject<any>([])
+  get getHousesA$(): Observable<any> {
+    return this.housesA$.asObservable()
+  }
+  setHousesA(): void {
+    this.data.getHouses().subscribe(res => this.housesA$.next(res))
+  }
+
+
+  // Deleted Houses = 
+  private housesD$ = new BehaviorSubject<any>([])
+  get getHousesD$(): Observable<any> {
+    return this.housesD$.asObservable()
+  }
+  setHousesD(): void {
+    this.data.getDeletedHouses().subscribe(res => this.housesD$.next(res))
+  }
+
+  // update tables
+  changeHouseStatus(userId: string, houseId: string, newValues: any): void {
+    console.log(newValues)
+    this.data.handleHouseState(userId, houseId, newValues).subscribe(() => {
+      this.setHousesA()
+      this.setHousesD()
+    })
+  }
 }
+
