@@ -20,13 +20,27 @@
   height: 100rem;
   min-width: 20%;
 }
+.userdiv{
+
+  .darkmode{
+    .edit{
+      background-color: #303030c4;
+      svg{
+        fill: rgba(255, 255, 255, 0.671);
+        &:hover{
+          fill: white;
+        }
+      }
+    }
+  }
+}
 .container-image{
   position: relative;
   .edit{
     background-color: #fafafa86;
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: -1rem;
     width: 100%;
     display: flex;
     justify-content: center;

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { House } from '../../../models/House';
-import { DataServiceService } from 'src/app/services/data-service.service';
+import { DataService } from 'src/app/services/data.service';
 import { Observable } from 'rxjs';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { Store } from '@ngrx/store';
@@ -34,11 +34,11 @@ export class AlternativehomeComponent implements OnInit {
   slider_rating: House[] = []
 
 
-  constructor(public http: DataServiceService, private store: Store<any>) { }
+  constructor(public http: DataService, private store: Store<any>) { }
 
 
   ngOnInit(): void {
-    
+
     this.userProfile$ = this.store.select(selectorListProfile)
 
     this.http.getHouses_withOrder('byqualityprice').subscribe(res => {

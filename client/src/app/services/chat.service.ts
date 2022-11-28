@@ -1,37 +1,26 @@
-import { SocketService } from './socket.service';
+import { environment } from './../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { MessageChat } from './../models/faqs.interface';
 import { Injectable } from '@angular/core';
 
-
-interface Message{
-  text:string;
-  messageType:number;
-}
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
+  constructor(private http: HttpClient) {}
 
-  chats:Message[] = [];
-
-
-  constructor(
-    private socket:SocketService
-  ) {
-    this.onReceiveMessage()
-   }
-
-  sendMessage(messageInfo:Message){
-    //this.chats.push(messageInfo)
-    this.socket.io.emit("sendMessage", messageInfo)
-  }
-
-  onReceiveMessage(){
-    this.socket.io.on('receiveMessage',(messageInfo)=>{
-      console.log(messageInfo);
-      messageInfo.messageType = 2;
-
-      this.chats.push(messageInfo)
-    })
+  sendMessage(messageInfo: string, mail: string, subject: string) {
+    console.log(messageInfo, mail, subject);
+    this.http
+      .post(`${environment.baseUrl}/question/sendQuestion`, {
+        message: messageInfo,
+        mail: mail,
+        subject: subject,
+      })
+      .subscribe({
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 }

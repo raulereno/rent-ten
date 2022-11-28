@@ -104,11 +104,11 @@ export const countriesReducer = createReducer(
         const { minPrice, maxPrice, maxPeople, allowPets, wifi, selectedCountry, selectedCity } = payload.payload
 
         if (minPrice) {
-            superFilter = superFilter?.filter((house: any) => house.price > minPrice)
+            superFilter = superFilter?.filter((house: any) => house.price >= minPrice)
         }
 
         if (maxPrice) {
-            superFilter = superFilter?.filter((house: any) => house.price < maxPrice)
+            superFilter = superFilter?.filter((house: any) => house.price <= maxPrice)
         }
 
         if (maxPeople) {

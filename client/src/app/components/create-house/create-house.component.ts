@@ -1,9 +1,9 @@
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
-import { FormGroup, NgForm } from '@angular/forms';
+import {  NgForm } from '@angular/forms';
 import { AppState } from './../../redux/store/app.state';
 import { Observable } from 'rxjs';
 import { loadedCountries } from './../../redux/actions/location.actions';
-import { DataServiceService } from 'src/app/services/data-service.service';
+import { DataService } from 'src/app/services/data.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { AuthService } from '@auth0/auth0-angular';
@@ -12,7 +12,6 @@ import { LocationService } from 'src/app/services/location.service';
 import { selectorListCountries, selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import  Swal from "sweetalert2"
 
 import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
 export interface NewHouse {
@@ -68,7 +67,7 @@ export class CreateHouseComponent implements OnInit {
 
   constructor(
     private _uploadImg: UploadImgService,
-    private _http: DataServiceService,
+    private _http: DataService,
     public _auth: AuthService,
     private _store: Store<AppState>,
     private _locationService: LocationService,

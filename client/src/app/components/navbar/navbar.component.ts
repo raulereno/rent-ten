@@ -8,7 +8,7 @@ import {
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
-import { DataServiceService } from '../../services/data-service.service';
+import { DataService } from '../../services/data.service';
 
 import { House } from '../../models/House';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -17,26 +17,25 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { loadProfile } from 'src/app/redux/actions/location.actions';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  providers: [DataServiceService],
+  providers: [DataService],
 })
 export class NavbarComponent implements OnInit {
   constructor(
     public auth: AuthService,
-    public http: DataServiceService,
+    public http: DataService,
     private _store: Store<any>,
     @Inject(DOCUMENT) private doc: Document,
-    private _helper:HelperService,
+    private _helper: HelperService,
     private router: Router,
-    private localStorageSvc:LocalStorageService,
-    private modalService: NgbModal,
+    private localStorageSvc: LocalStorageService,
+    private modalService: NgbModal
   ) {}
 
-  public active:boolean=false;
+  public active: boolean = false;
   profileJson: any;
   dbProfile: any = {};
   isLogged: boolean = true;
@@ -85,20 +84,18 @@ export class NavbarComponent implements OnInit {
       if (confirm('You need login for post your place')) {
         this.auth.loginWithRedirect();
       }
-    }
-    else if (this.userProfile.verified !== 'verified'){console.log(this.userProfile.verified)
-      alert('Your account must to be verification')
+    } else if (this.userProfile.verified !== 'verified') {
+      console.log(this.userProfile.verified);
+      alert('Your account must to be verification');
       this.router.navigate(['profile']);
-     }
     }
+  }
 
+  darkMode(): void {
+    this.darkmode = !this.darkmode;
+    localStorage.setItem('darkmode', JSON.stringify(this.darkmode));
 
-
-  darkMode() : void{
-     this.darkmode = !this.darkmode;
-     localStorage.setItem('darkmode',JSON.stringify(this.darkmode));
-
-     this._helper.changeMode(this.darkmode);
+    this._helper.changeMode(this.darkmode);
   }
 
   loginWithRedirect = async (): Promise<void> => {
@@ -134,7 +131,7 @@ export class NavbarComponent implements OnInit {
     this.http.fullDatabase();
     this.ngOnInit();
   }
-  setActive():void{
-    this.active=!this.active
+  setActive(): void {
+    this.active = !this.active;
   }
 }

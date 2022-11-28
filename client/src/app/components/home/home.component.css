@@ -121,6 +121,11 @@
   background: none;
   border: 0;
   font-size: 30px;
+  transition: .5 all;
+}
+.modalbutton:hover{
+  transform: scale(1.1);
+  color: rgb(141, 0, 0);
 }
 
 #closemodal {
@@ -191,6 +196,12 @@
 .darkmodeModal {
   background-color: #303030;
   color: white;
+}
+.darkmodeModal .modalbutton{
+  color: white;
+}
+.darkmodeModal .modalbutton:hover{
+  color: rgb(210, 0, 0);
 }
 .darkmodeModal mat-label{
   color: white;
