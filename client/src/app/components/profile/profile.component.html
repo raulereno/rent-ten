@@ -48,8 +48,8 @@
         </div>
     </div>
 
-    <ngb-accordion style="min-width: 75%;" #acc="ngbAccordion" activeIds="ngb-panel-0">
-        <ngb-panel title="MY HOUSES CREATE">
+      <ngb-accordion style="min-width: 75%; margin-top: 3rem;" #acc="ngbAccordion" activeIds="ngb-panel-0">
+        <ngb-panel title="CREATED HOUSES">
             <ng-template ngbPanelContent>
                 <div class="card-body">
                     <div *ngFor="let hou of userProfile?.Houses" class="card" style="width: 18rem;">
@@ -89,10 +89,7 @@
                 </div>
             </ng-template>
         </ngb-panel>
-        <ngb-panel>
-            <ng-template ngbPanelTitle>
-                <span>MY FAVORITES HOUSES</span>
-            </ng-template>
+        <ngb-panel title="MY FAVOURITES">
             <ng-template ngbPanelContent>
                 <div class="favdiv mat-app-background">
                     <div class="housecard mat-app-background" *ngFor="let house of favoritesHouses">
@@ -132,10 +129,7 @@
                 </div>
             </ng-template>
         </ngb-panel>
-        <ngb-panel>
-            <ng-template ngbPanelTitle>
-                <span>MY BOOKINGS</span>
-            </ng-template>
+        <ngb-panel title="MY BOOKINGS">
             <ng-template ngbPanelContent>
                 <div class="card-body">
                     <div *ngFor="let book of userProfile.Bookings">
@@ -165,10 +159,7 @@
                 </div>
             </ng-template>
         </ngb-panel>
-        <ngb-panel>
-            <ng-template ngbPanelTitle>
-                <span>MY REVIEWS</span>
-            </ng-template>
+        <ngb-panel title="MY REVIEWS">
             <ng-template ngbPanelContent>
                 <div class="card-body">
                     <div *ngFor="let rev of userProfile.Reviews">

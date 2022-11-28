@@ -18,7 +18,7 @@
             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {{quantityFilter}}
           </span>
-          <span class="row " type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)">
+          <span type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)">
             <mat-icon>filter_list</mat-icon>
             <span>Filters</span>
           </span>
@@ -46,15 +46,15 @@
 
 </div>
 
-<div class="background mat-app-background"
+<div  [ngClass]="filterForm.value.allowPets && filterForm.value.city && filterForm.value.country && filterForm.value.maxPrice && filterForm.value.minPrice && filterForm.value.order && filterForm.value.wifi? 'background mat-app-background' : ''"
   *ngIf="!filterForm.value.allowPets && !filterForm.value.city && !filterForm.value.country && !filterForm.value.maxPrice && !filterForm.value.minPrice && !filterForm.value.order && !filterForm.value.wifi">
   <div class="alternative_home">
 
-    <button type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)"
-      class="alternativehome_buttonFilter mat-app-background">
-      Filters
-      <br />
-      <mat-icon>filter_list</mat-icon>
+    <button class="altfilters">
+      <span class="flex" type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)">
+        <mat-icon>filter_list</mat-icon>
+        <span>Filters</span>
+      </span>
     </button>
   </div>
 

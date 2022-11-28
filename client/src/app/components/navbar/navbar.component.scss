@@ -105,38 +105,20 @@
   transition: all 1s;
   color: white;
 }
-.darkmode .myFavorites{
-  background-color: #3A3A3A;
-  color: white;
-  transition: all 1s;
-}
-.darkmode .myFavorites:hover{
-  color: blue;
-}
 
-.myFavorites{
-  width: 8rem;
-  height: 2.2rem;
-  background-color: #DFDFDF;
-  border: 0;
-  border-radius: 3px;
-  font-size: 0.9rem;
+.myFavourites{
+  width: 7rem;
+  height: 2rem;
+  background-color: #fde39773;
+  border: 1px solid #ffc1077b;
+  border-radius: 1rem;
+  color: #3A3A3A;
+  font-size: 0.7rem;
   font-weight: 500;
   align-self: center;
 }
-.myFavorites:hover{
-  color: blue;
-}
 
-.myfavourites{
-  height: 2rem;
-  width: 6rem;
-  transition: all .2s;
-  border: 1px solid rgba(0, 0, 0, 0.368);
-  border-radius: 5px;
-}
-
-.myfavourites:hover{
+.myFavourites:hover{
   transform: scale(1.05);
 }
 
@@ -195,6 +177,7 @@
 .favoritesbody{
   padding-left: 1rem;
   padding-right: 1rem;
+  margin-top: 1rem;
 }
 
 .grid{
