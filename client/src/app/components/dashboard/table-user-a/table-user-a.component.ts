@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { changeAuthorizedUser, loadProfile } from 'src/app/redux/actions/location.actions';
-import { Observable, pipe } from 'rxjs';
+import { Observable, pipe, subscribeOn } from 'rxjs';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { userProfile } from 'src/app/models/UserProfile';
 import { DataServiceService } from 'src/app/services/data-service.service';
@@ -37,25 +37,14 @@ export class TableUserAComponent implements OnInit {
 
   customChangeAutorized: string
 
-
   ngOnInit(): void {
-
-
     this.userProfile$ = this.store.select(selectorListProfile);
-    this.desactiveAccount(this.id);
+    this.loadProfile()
 
-    this._admindashboard.customChangeAutorized.subscribe((res: string) => {
-      this.customChangeAutorized = res
-      if (this.customChangeAutorized === "all") {
-        console.log("click tabla A")
-        this.getUsers()
-        this.loadProfile();
-      }
-    })
+    this._admindashboard.setUsersA()
+    this._admindashboard.getUsersA$.subscribe(res => this.users = res)
 
   }
-
-
 
   loadProfile(): void {
     this.auth.user$.subscribe((profile) => {
@@ -67,12 +56,7 @@ export class TableUserAComponent implements OnInit {
         });
       });
 
-      this.http.updateUser(this.profileJson.email, this.profileJson.sub);
     });
-  }
-
-  getUsers() {
-    this.http.getUsers().subscribe(res => this.users = res)
   }
 
   back() { this.router.navigate(['dashboard']) }
@@ -81,12 +65,9 @@ export class TableUserAComponent implements OnInit {
     console.log(this.users)
   }
 
-  desactiveAccount(id: string) {
-    this.id = id
-    this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-    this.http.deleteAccount(this.id, 'not')
-    this._admindashboard.changeModeAutorized("not")
-    this.getUsers()
+  desactiveAccount (id: string) {
+    this._admindashboard.delete_set(id, 'not')
   }
+
 
 }

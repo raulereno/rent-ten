@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { DataServiceService } from 'src/app/services/data-service.service';
-import { AuthService } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
-import { loadProfile } from 'src/app/redux/actions/location.actions';
 import { userProfile } from 'src/app/models/UserProfile';
+import { AdmindashboardService } from 'src/app/services/admindashboard.service';
+import { Store } from '@ngrx/store';
+
+
+import { DataServiceService } from 'src/app/services/data-service.service';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
+import { AuthService } from '@auth0/auth0-angular';
+import { loadProfile } from 'src/app/redux/actions/location.actions';
+import { House } from 'src/app/models/House';
 
 @Component({
   selector: 'app-table-house-a',
@@ -14,73 +18,59 @@ import { selectorListProfile } from 'src/app/redux/selectors/selectors';
   styleUrls: ['./table-house-a.component.css']
 })
 export class TableHouseAComponent implements OnInit {
- 
-  constructor(
-    public http: DataServiceService,
-    private router: Router,
-    public auth: AuthService,
-    private store: Store<any>,
-    ) { }
-  
-  userProfile$: Observable<any> = new Observable();
-  public userProfile: userProfile;
+
+
+  constructor(public http: DataServiceService, private router: Router, private _admindashboard: AdmindashboardService, private store: Store<any>, public auth: AuthService,) { }
+  headers = ['Name', 'Position', 'Office', 'Age', 'Start Date', 'Salary'];
   public houses: any[];
-  profileJson: any;
-  houseId: string;
-  userId: string;
- 
+  userProfile$: Observable<any> = new Observable();
+  public userProfile: userProfile; 
+
+  public filtered_house: any;
+  public filtered_house_result: any
 
   ngOnInit(): void {
 
-    this.getHouses();
-    console.log(this.houses)
     this.userProfile$ = this.store.select(selectorListProfile);
-    
-    this.loadProfile();
-    console.log('usserprofile',this.userProfile)
-    
+    this.loadProfile()
+
+    this._admindashboard.setHousesA()
+    this._admindashboard.getHousesA$.subscribe(res => this.houses = res)
+
   }
-  
 
   loadProfile(): void {
-    this.auth.user$.subscribe((profile) => {
-      this.profileJson = profile;
-      this.http.getUser(this.profileJson.email).subscribe((res) => {
+    this.auth.user$.subscribe((profile: any) => {
+      this.http.getUser(profile.email).subscribe((res) => {
         this.store.dispatch(loadProfile({ userProfile: res }));
         this.userProfile$.subscribe((res) => {
           this.userProfile = res;
         });
       });
 
-    this.http.updateUser(this.profileJson.email, this.profileJson.sub);
     });
   }
-  getHouses(){
-    this.http. getHouses().subscribe(res=>this.houses = res.filter((elem:any)=>elem.deleted ===false))
+  
+  back() { this.router.navigate(['dashboard']) }
+
+  showInfo() {
     console.log(this.houses)
   }
- 
 
-  
-  deleteHouse(houseId:string){
-    console.log(this.userProfile)
-    console.log('houseId',houseId)
-    console.log('userprofileid',this.userProfile.id)
-    
-    this.houseId= houseId
+  changeHouseStatus(houseId: string) {
+    let newValues = { deleted: true }
+    this._admindashboard.changeHouseStatus(this.userProfile.id, houseId, newValues)
+    this.resetResults()
 
-    let newValues:any ={
-      deleted: true
-    }
-    this.http.handleHouseState(this.userProfile.id, this.houseId, newValues)
-   console.log(this.userProfile)
-  
-    
-  } 
-  
-  back(){this.router.navigate(['dashboard'])}
- 
- showInfo() {
-   console.log(this.houses)
- }
+  }
+
+  handleInput(){
+    this.filtered_house_result = this.houses.find((h:House) => h.id === this.filtered_house.trimRight())
+    if (!this.filtered_house_result) {alert('No house with that ID')}
+  }
+
+  resetResults() {
+    this.filtered_house_result = null
+    this.filtered_house = ''
+  }
 }

@@ -39,16 +39,9 @@ export class TableUserDComponent implements OnInit {
   ngOnInit(): void {
 
     this.userProfile$ = this.store.select(selectorListProfile);
-    this.desactiveAccount(this.id);
-
-    this._admindashboard.customChangeAutorized.subscribe((res: string) => {
-      this.customChangeAutorized = res
-      if (this.customChangeAutorized === "not") {
-        console.log("click tabla D")
-        this.getUsersD()
-        this.loadProfile();
-      }
-    })
+    this.loadProfile()
+    this._admindashboard.setUsersD()
+    this._admindashboard.getUsersD$.subscribe(res => this.users = res)
 
   }
 
@@ -62,12 +55,7 @@ export class TableUserDComponent implements OnInit {
         });
       });
 
-      this.http.updateUser(this.profileJson.email, this.profileJson.sub);
     });
-  }
-
-  getUsersD() {
-    this.http.getUsersD().subscribe(res => this.users = res)
   }
 
   back() { this.router.navigate(['dashboard']) }
@@ -76,11 +64,7 @@ export class TableUserDComponent implements OnInit {
     console.log(this.users)
   }
 
-  desactiveAccount(id: string) {
-    this.id = id
-    this.store.dispatch(changeAuthorizedUser({ payload: 'all' }));
-    this.http.deleteAccount(this.id, 'all')
-    this._admindashboard.changeModeAutorized("all")
-    this.getUsersD()
+  desactiveAccount (id: string) {
+    this._admindashboard.delete_set(id, 'all')
   }
 }
