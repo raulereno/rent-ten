@@ -16,6 +16,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Booking } from 'src/app/models/Booking';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -161,11 +162,19 @@ export class ProfileComponent implements OnInit {
       deleted: true
     }
 
-    if (confirm('Are you sure you want delete your create place?')) {
-      //this.store.dispatch(deleteHouse({ payload: true }));
-      this.http.handleHouseState(userId, houseId, value);
-      this.userProfile = { ...this.userProfile, Houses: this.userProfile.Houses?.filter(h => h.id !== houseId) };
-    }
+    Swal.fire({
+      title: 'Are you sure you want delete your create place?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.http.handleHouseState(userId, houseId, value);
+        this.userProfile = { ...this.userProfile, Houses: this.userProfile.Houses?.filter(h => h.id !== houseId) };
+      }
+    })
   }
 
   deleteAccount(userId: string) {
