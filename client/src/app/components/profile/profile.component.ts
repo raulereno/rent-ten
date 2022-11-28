@@ -9,7 +9,7 @@ import { catchError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectorListBackup, selectorListProfile } from 'src/app/redux/selectors/selectors';
-import { addFavoriteHouse, changeAuthorizedUser, changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
+import { addFavoriteHouse,  changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
 import { Review } from 'src/app/models/Review';
 import { NgbAccordionConfig, NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -190,4 +190,8 @@ export class ProfileComponent implements OnInit {
 
 export class NgbdAccordionBasic { }
 export class SectionModule { }
+
+function changeAuthorizedUser(arg0: { payload: string; }): any {
+  throw new Error('Function not implemented.');
+}
 

@@ -139,21 +139,26 @@ export class DataServiceService {
     return this.http.get<any>('http://localhost:3001/users/usersD');
   }
 
-  handleHouseState(userId: string, houseId: string, newValues: any) {
-    console.log(userId, houseId, newValues);
-    this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?userId=${userId}`, newValues).subscribe({
-      error: error => {
-        console.log(error)
-      }
-    })
+  deleteAccount(userId: string, value:string) {
+    return this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}?value=${value}`, { userId })
   }
 
-  deleteAccount(userId: string, value: string) {
-    this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}?value=${value}`, { userId }).subscribe({
-      error: error => {
-        console.log(error)
-      }
-    })
+  fetchGeoLoc():Observable<any>{
+    const data = this.http.get<any>(`https://api.ipregistry.co/?key=kyas25fizs7e9yrf`)
+    return data
+  }
+
+  handleHouseState(userId: string, houseId:string, newValues: any) {
+    return this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?userId=${userId}`, newValues)
+    // .subscribe({
+    //   error: error => {
+    //     console.log(error)
+    //   }
+    // })
+  }
+
+  getDeletedHouses(): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/houses/deletedhouses`);
   }
 
 }

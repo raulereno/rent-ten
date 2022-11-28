@@ -53,12 +53,12 @@
     </div>
   </ng-template>
 
-  <button *ngIf="!isLogged" (click)="openModalFav(favorites)">My favourites</button>
+  <button class="myFavourites" *ngIf="!isLogged" (click)="openModalFav(favorites)">My favourites ♥</button>
   <!-- *ngIf="!userProfile" -->
   <!-- class="btn btn-lg btn-outline-primary"
 *ngIf="!isLogged" -->
   <div class="rightdiv" [ngClass]="{'rightdiv--activo': active}">
-    <a *ngIf="!userProfile.adm" mat-button routerLink="/dashboard">Dashboard</a>
+    <a *ngIf="userProfile.admin" mat-button routerLink="/dashboard">Dashboard</a>
     <div class="host">
       <a *ngIf="!userProfile.id" (click)="validateUser()"
         style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button>

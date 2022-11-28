@@ -29,7 +29,6 @@
                 <h3 class="location">{{house.country}}, {{house.city}}</h3>
                 <div class="flex">
                     <h3 class="price" [ngClass]="{'darkPrice':darkmode}"> ARS ${{house.price}}</h3>
-                    <app-reviews></app-reviews>
                 </div>
                 <h3 class="info">
                     <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span style="color: green">✓</span></span>
@@ -42,6 +41,9 @@
                 <p class="info">{{house.rooms}} room/s</p>
                 <p class="info">{{house.bathrooms}} bathroom/s</p>
                 <h3 class="info">{{house.maxpeople}} occupant/s</h3>
+                <div class="reviews">
+                    <app-reviews></app-reviews>
+                </div>
             </div>
 
             <div class="bookingdiv">
@@ -59,33 +61,32 @@
                             </mat-form-field>
                         </form>
 
-        <div> <button *ngIf="!(auth.isAuthenticated$ | async)" disabled style="margin-left: 2%" (click)="reserveHouse()"
-                type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
-                autocomplete="off">Login to make a reserve</button>
+                        <div>
+                            <button *ngIf="!(auth.isAuthenticated$ | async)" disabled style="margin-left: 2%" (click)="reserveHouse()"
+                            type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
+                            autocomplete="off">Login to make a reserve</button>
+                        </div>
 
-            <div> <button *ngIf="(auth.isAuthenticated$ | async)" style="margin-left: 2%" (click)="reserveHouse()"
-                    type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
-                    autocomplete="off">Reserve
-                    now</button>
+                        <div>
+                            <button *ngIf="(auth.isAuthenticated$ | async)" style="margin-left: 2%" (click)="reserveHouse()"
+                            type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
+                            autocomplete="off">Reserve now</button>
+                        </div>
+                    </div>
+                    <div class="reserved">
+                        <div *ngIf="house.Bookings.length > 0">
+                            <h2 class="text">&#x26A0; This place is not available on:</h2>
+                                <h3 *ngFor="let book of house.Bookings">
+                                    &#x2714; {{book.start}} || to: {{book.end}}
+                                </h3>
+                        </div>
+                        <div *ngIf="house.Bookings.length === 0">
+                            <h3>&#x263A; This house is all year available</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!--
-        <div *ngIf="house.Bookings.length > 0">
-            <br/>
-            <h4>&#x26A0; This house has bookings on this dates:</h4>
-            <ul>
-                <li *ngFor="let book of house.Bookings">
-                    &#x2714; From: {{book.start}} // To: {{book.end}}
-                </li>
-            </ul>
         </div>
-
-        <div *ngIf="house.Bookings.length === 0">
-            <h3>&#x263A; This house is all year available</h3>
-        </div> -->
-
-        </div>
-
 
         <ng-template #pay let-modal>
             <div class="modal-header">
@@ -132,3 +133,6 @@
                 <form type="button" id="payment-form"></form>
             </div>
         </ng-template>
+    </div>
+    <footer class="mat-app-background footer mat-elevation-z4">Rent-Ten - made with ♥ by group 10 of FT-30A at SoyHenry.</footer>
+</div>

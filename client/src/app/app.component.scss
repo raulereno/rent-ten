@@ -4,6 +4,10 @@
 //   color: white;
 //   transition: all 0.5s;
 // }
+.zindex{
+  position: relative;
+  z-index: +1;
+}
 
 .container-all{
   position: relative;

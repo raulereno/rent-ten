@@ -36,7 +36,7 @@ export class HousedetailComponent implements OnInit {
 
   userProfile: userProfile
   profileJson: any
-  paramsId: string;
+  paramsId: string 
   house: House
   form: FormGroup
   booking: boolean = false

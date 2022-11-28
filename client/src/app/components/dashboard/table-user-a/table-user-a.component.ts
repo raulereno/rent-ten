@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { changeAuthorizedUser, loadProfile } from 'src/app/redux/actions/location.actions';
-import { Observable, pipe } from 'rxjs';
+import { Observable, pipe, subscribeOn } from 'rxjs';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { userProfile } from 'src/app/models/UserProfile';
 import { DataServiceService } from 'src/app/services/data-service.service';
@@ -37,24 +37,14 @@ export class TableUserAComponent implements OnInit {
 
   customChangeAutorized: string
 
-
   ngOnInit(): void {
-
-    console.log(" 1 - Inicio OnInint")
-
     this.userProfile$ = this.store.select(selectorListProfile);
-    console.log(" 2 - Pasa por el Profile")
+    this.loadProfile()
 
-    this.desactiveAccount(this.id);
-    console.log(" 3 - Pasa por el desactiveAcount This.id")
-
-
-
-
+    this._admindashboard.setUsersA()
+    this._admindashboard.getUsersA$.subscribe(res => this.users = res)
 
   }
-
-
 
   loadProfile(): void {
     this.auth.user$.subscribe((profile) => {
@@ -66,12 +56,7 @@ export class TableUserAComponent implements OnInit {
         });
       });
 
-      this.http.updateUser(this.profileJson.email, this.profileJson.sub);
     });
-  }
-
-  getUsers() {
-    this.http.getUsers().subscribe(res => this.users = res)
   }
 
   back() { this.router.navigate(['dashboard']) }
@@ -81,38 +66,8 @@ export class TableUserAComponent implements OnInit {
   }
 
   desactiveAccount(id: string) {
-
-    console.log("----- Inicio Desactive Account")
-
-    this.id = id
-    this.http.deleteAccount(this.id, 'not')
-    this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-    this._admindashboard.changeModeAutorized('not')
-    // this.getUsers()
-    console.log(" -- Ejecuto el getUser dentro del Acount")
-
-    console.log("----- Fin Desactive Account")
-
-    this._admindashboard.customChangeAutorized.subscribe((res: string) => {
-      this.customChangeAutorized = res
-      if (this.customChangeAutorized === "all") {
-        console.log(" 4 - Entra al if CustomChange = all")
-        this.getUsers()
-        this.loadProfile();
-
-      }
-    })
-
-    this.getUsers()
+    this._admindashboard.delete_set(id, 'not')
   }
 
-  // deleteAccount(userId: string) {
-  //   if (confirm('Are you sure you want delete your account?')) {
-  //     this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-  //     this.http.deleteAccount(userId, 'not');
-  //     this.auth.logout();
-  //     this._router.navigate(['home']);
-  //   }
-  // }
 
 }

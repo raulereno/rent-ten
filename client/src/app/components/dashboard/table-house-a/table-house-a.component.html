@@ -1,4 +1,12 @@
-<table class="table">
+<h5>Total active houses: {{houses.length}}</h5>
+<div style="float: right; margin-right: 2%">
+  Search by ID:
+  <input [(ngModel)]="filtered_house" id="filter_input"/>
+  <button *ngIf="!filtered_house_result" (click)="handleInput()" type="button" class="btn btn-info">Search</button>
+  <button *ngIf="filtered_house_result" (click)="resetResults()" type="button" class="btn btn-info">Reset</button>
+</div>
+
+<table class="table table-striped">
   <button (click)="back()">Back</button>
   <thead>
     <tr>
@@ -9,10 +17,10 @@
       <th scope="col">MaxPeople</th>
       <th scope="col">Price USD</th>
       <th scope="col">Cancel</th>
-      <!-- <th scope="col">e-mail</th> -->
     </tr>
   </thead>
   <tbody>
+    <ng-container *ngIf="!filtered_house_result">
     <tr *ngFor="let house of houses">
       <th scope="row">{{house.id}}</th>
       <td>{{house.country}}</td>
@@ -20,9 +28,19 @@
       <td>{{house.type}}</td>
       <td>{{house.maxpeople}}</td>
       <td>{{house.price}}</td>
-      <td><button>x</button></td>
+      <td><button class="btn btn-danger" (click)="changeHouseStatus(house.id)">x</button></td>
+    </tr>
+  </ng-container>
+
+    <tr *ngIf="filtered_house_result">
+      <th scope="row">{{filtered_house_result.id}}</th>
+      <td>{{filtered_house_result.country}}</td>
+      <td><img src={{filtered_house_result.picture[0]}} style="height: 2rem; width: 2rem;" /></td>
+      <td>{{filtered_house_result.type}}</td>
+      <td>{{filtered_house_result.maxpeople}}</td>
+      <td>{{filtered_house_result.price}}</td>
+      <td><button class="btn btn-danger" (click)="changeHouseStatus(filtered_house_result.id)">x</button></td>
     </tr>
 
     <button (click)="showInfo()">show</button>
-
 </table>
