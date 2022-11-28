@@ -7,6 +7,7 @@ const MY_FAVORITES: string = 'myFavorites';
 })
 export class LocalStorageService {
   constructor() {
+  
     this.initialStorage(MY_FAVORITES, localStorage);
   }
 

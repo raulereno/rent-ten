@@ -1,5 +1,5 @@
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
-import {  NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { AppState } from './../../redux/store/app.state';
 import { Observable } from 'rxjs';
 import { loadedCountries } from './../../redux/actions/location.actions';
@@ -9,11 +9,15 @@ import { UploadImgService } from 'src/app/services/upload-img.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
 import { LocationService } from 'src/app/services/location.service';
-import { selectorListCountries, selectorListProfile } from 'src/app/redux/selectors/selectors';
+import {
+  selectorListCountries,
+  selectorListProfile,
+} from 'src/app/redux/selectors/selectors';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
-import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 export interface NewHouse {
   city: string;
   country: string;
@@ -60,7 +64,7 @@ export class CreateHouseComponent implements OnInit {
   cities$: any;
   //TODO: hacer una interface para los errores
   //ponerlo en true cuando el form este controlado
-  errors:any =false
+  errors: any = false;
 
   userProfile$: Observable<any> = new Observable();
   userProfile: any;
@@ -72,14 +76,12 @@ export class CreateHouseComponent implements OnInit {
     private _store: Store<AppState>,
     private _locationService: LocationService,
     private matDialog: MatDialog,
-    private _location:Location,
-    private router: Router,
+    private _location: Location,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-
     this._auth.user$.subscribe((profile) => {
-
       this.email = profile?.email ? profile?.email : '';
     });
 
@@ -117,26 +119,22 @@ export class CreateHouseComponent implements OnInit {
       */
   }
 
-
-
-
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {}
-    let dialogRef =this.matDialog.open(DialogBodyComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(value => {
+    dialogConfig.data = {};
+    let dialogRef = this.matDialog.open(DialogBodyComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((value) => {
       console.log(`Dialog sent: ${value}`);
     });
   }
 
   onSelect(event: any) {
-
     if (this.files.some((e) => e.name === event.addedFiles[0].name)) {
-      console.log('ok')
+      console.log('ok');
       return;
     }
     this.files.push(...event.addedFiles);
-    this.errors=false
+    this.errors = false;
   }
 
   searchStates(country: string) {
@@ -161,16 +159,16 @@ export class CreateHouseComponent implements OnInit {
       alert('Your account must to be verification')
       // this.userProfile.unsubscribe();
       this.router.navigate(['profile']); }
-      else */this.onUpload(create);
-
+      else */ this.onUpload(create);
   }
 
   onUpload(create: NgForm) {
     if (!this.files[0]) {
-      alert('Ingresa al menos una foto de portada');
+      // alert('Enter at least one cover photo');
+      Swal.fire('Enter at least one cover photo');
       return;
     }
-    this.openDialog()
+    this.openDialog();
     this.files.forEach((image) => {
       const data = new FormData();
       data.set('file', image);
@@ -181,8 +179,8 @@ export class CreateHouseComponent implements OnInit {
         this.newHouse.picture?.push(response.secure_url);
         if (this.files.length === this.newHouse.picture.length) {
           this._http.createHouse(this.newHouse, this.email);
-          this.files=[]
-          create.resetForm()
+          this.files = [];
+          create.resetForm();
         }
       });
     });
@@ -192,18 +190,14 @@ export class CreateHouseComponent implements OnInit {
     return JSON.stringify(this.newHouse);
   }
 
-  handlePrice(price:number){
-    if(price <= 0){
-      this.newHouse.price = 0
+  handlePrice(price: number) {
+    if (price <= 0) {
+      this.newHouse.price = 0;
     }
-
   }
-  handleType(e:string){
-    this.newHouse.type= e;
-
+  handleType(e: string) {
+    this.newHouse.type = e;
   }
-
-
 
   //Add and less number
   handlePLusAndMinus(operator: string, name: string) {

@@ -1,5 +1,11 @@
 const { User } = require("../db");
 
+const getUsers =() =>{
+  const users = User.findAll();
+  return users
+}
+
+
 const getUser = (mail, password) => {
   //acordarse del password
 
@@ -40,4 +46,4 @@ const updateProfilePicture = async (userID, newPicture, authID) => {
   //   });
 };
 
-module.exports = { getUser, createUser, updateProfilePicture };
+module.exports = { getUsers, getUser, createUser, updateProfilePicture };

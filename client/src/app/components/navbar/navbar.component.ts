@@ -16,6 +16,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { loadProfile } from 'src/app/redux/actions/location.actions';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -80,14 +81,44 @@ export class NavbarComponent implements OnInit {
     );
   }
   validateUser(): void {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
+    });
     if (!this.userProfile.id) {
-      if (confirm('You need login for post your place')) {
-        this.auth.loginWithRedirect();
-      }
+      // alert('You need login for post your place')
+      Swal.fire({
+        title: 'You must be a user to be able to create a house',
+        text: 'Do you want to register?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes I want to register',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.auth.loginWithRedirect();
+        }
+      });
     } else if (this.userProfile.verified !== 'verified') {
-      console.log(this.userProfile.verified);
-      alert('Your account must to be verification');
-      this.router.navigate(['profile']);
+      // alert('Your account must to be verification')
+      Swal.fire(
+        'Your account must to be verification',
+        'Do you want to verify your username?',
+        'warning'
+      ).then((result) => {
+        this.router.navigate(['profile']);
+      });
+      // this.router.navigate(['profile']);
+    } else {
+      this.router.navigate(['createhouse']);
     }
   }
 

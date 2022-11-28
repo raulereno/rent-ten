@@ -91,7 +91,6 @@
 }
 
 .active{
-    border: 2px solid rgba(34, 34, 34, 0.6);
     opacity: 1;
 }
 
@@ -105,13 +104,11 @@
 
 /* ////////HOUSEINFO//////// */
 .body{
-    margin-left: 11rem;
-    margin-top: 1rem;
     animation: fadein 2s;
     margin: 0 auto;
-    width: 85%;
+    height: 20rem;
+    width: 75%;
     display: flex;
-    flex-wrap: wrap;
   }
 
 .location{
@@ -122,14 +119,6 @@
 
 .flex{
     display: flex;
-}
-
-.flex app-reviews{
-    position: relative;
-    top: 1rem;
-    left: 10%;
-    height: 2rem;
-    width: 20rem;
 }
 
 .info{
@@ -154,10 +143,19 @@
     width: 60%;
 }
 
+.reviews app-reviews{
+    margin-top: 0.5rem;
+    margin-left: -7rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    height: 2rem;
+}
+
 .bookingdiv{
     display:flex;
     flex-direction: column;
-    width: 50%;
+    margin-top: 1rem;
+    margin-left: -1rem;
 }
 
 .booking{
@@ -167,7 +165,7 @@
     border-radius: 1rem;
     margin-top: 0.5rem;
     padding: 1rem;
-    width: 35rem;
+    width: 35vw;
 }
 
 .makebooking{
@@ -187,6 +185,6 @@
     border-top: 1px solid #A4A4A4;
     display: flex;
     justify-content: center;
-    padding-top:1.9rem;
-    height: 1.5rem;
+    align-items: center;
+    height: 3rem;
 }
