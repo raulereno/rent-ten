@@ -161,4 +161,8 @@ export class DataServiceService {
     return this.http.get<any>(`${environment.baseUrl}/houses/deletedhouses`);
   }
 
+  updateData(userId: string, name: string, lastname: string, mail: string, country: string) {
+    return this.http.put<any>(`${environment.baseUrl}/users/editUser/${userId}`, { userId, name, lastname, mail, country });
+  }
+
 }

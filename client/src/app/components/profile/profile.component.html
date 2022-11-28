@@ -16,6 +16,7 @@
             </div>
             <!-- <button style="float:right" (click)="showProfileJson()">Console log Profile json & profile DB</button> -->
             <div class="infodiv">
+                <h2 class="text">{{ user.name }}</h2>
                 <h2 class="text">{{user.email}}</h2>
                 <h3>{{user.mail}}</h3>
                 <h4 *ngIf="user.verified === 'verified'" style="color: green">&#x2714;Your email is verified</h4>
@@ -40,25 +41,8 @@
             </div>
             <p style="color:red" *ngIf="error">{{error.error.msg}}</p>
 
-            <div>
-                <form>
-                    <label for="name">Name</label><br/>
-                    <input type="text" name="name" value="{{ user.name }}" aria-invalid="false"><br/>
-                    <label for="lastname">Lastname</label><br/>
-                    <input type="text" name="lastname" value="{{ user.lastname }}" aria-invalid="false"><br/>
-                    <label for="mail">Email</label><br/>
-                    <input type="text" name="mail" value="{{ user.mail }}" aria-invalid="false"><br/>
+            <button style="margin-bottom: 0.3rem" class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Edit</button>
 
-                    <button type="submit">Save</button>
-                </form>
-            </div>
-
-            <div>
-                <div>
-                    <button (click)="deleteAccount(user.id)" type="button" class="btn btn-danger btn-sm">Delete
-                        Account</button>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -200,7 +184,44 @@
         </ngb-panel>
     </ngb-accordion>
 
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">My Data Profile</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
 
+                    <ng-container>
+                        <div>
+                            <form>
+                                <label for="name">Name</label><br/>
+                                <input type="text" name="name" value="{{ user.name }}" aria-invalid="false"><br/>
+                                <label for="lastname">Lastname</label><br/>
+                                <input type="text" name="lastname" value="{{ user.lastname }}" aria-invalid="false"><br/>
+                                <label for="mail">Email</label><br/>
+                                <input type="text" name="mail" value="{{ user.mail }}" aria-invalid="false"><br/>
+                                <label for="country">Country</label><br/>
+                                <input type="text" name="country" value="{{ user.country }}" aria-invalid="false"><br/>
+                            </form>
+                        </div>
+                        <br/>
+                        <div>
+                            <div>
+                                <button (click)="deleteAccount(user.id)" type="button" class="btn btn-danger btn-sm">Delete
+                                    Account</button>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="saveData(user.id, user.name, user.lastname, user.mail, user.country); modal.dismiss('Cross click')">Save</button>
+        </div>
+    </ng-template>
 
 
 

@@ -16,6 +16,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Booking } from 'src/app/models/Booking';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class ProfileComponent implements OnInit {
     private localStorageSvc: LocalStorageService,
     private _router: Router,
     private _helper: HelperService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -174,6 +176,16 @@ export class ProfileComponent implements OnInit {
       this.http.deleteAccount(userId, 'not');
       this.auth.logout();
       this._router.navigate(['home']);
+    }
+  }
+
+  openModal(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+  }
+
+  saveData(userId: string, name: string, lastname: string, mail: string, country: string) {
+    if (confirm('Confirm your data?')) {
+      this.http.updateData(userId, name, lastname, mail, country);
     }
   }
 

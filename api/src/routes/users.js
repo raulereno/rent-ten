@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { last } = require("lodash");
 const { SendMail_verification } = require("../controllers/SendMail_verification")
 
 const {
@@ -237,5 +238,35 @@ router.put('/deleteAccount', async (req, res) => {
   }
 });
 */
+
+router.put("/editUser/:id", async (req, res) => {
+  const userId = req.params.id;
+  const {
+    name,
+    lastname,
+    mail,
+    country
+  } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { id: userId } });
+
+    if (user.id === userId) {
+      await user.update({ 
+        name: name, 
+        lastname: lastname, 
+        mail: mail, 
+        country: country 
+      });
+      return res
+        .status(200)
+        .json({ msg: 'Your data has been updated successfully' });
+    } else {
+      throw new Error({ msg: "Can't update your data" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = router;
