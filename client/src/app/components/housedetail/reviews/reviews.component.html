@@ -1,7 +1,4 @@
-<div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="house.Reviews">
-    <!-- <button disabled style="max-width: 600px; justify-content: center;" (click)="writeReview()" type="button"
-        class="btn btn-outline-warning">You were there? Write a review!</button> -->
-
+<div class='row' *ngIf="house.Reviews">
     <ng-template #content let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">All reviews</h4>
@@ -66,8 +63,6 @@
     </ng-template>
 
 
-    <button style="margin-bottom: 0.3rem" class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Reviews</button>
+    <button class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Reviews</button>
     <button *ngIf="ableToPostReview" class="btn btn-lg btn-outline-primary" (click)="openLetReviewModal(letReview)">Post your experience!</button>
-    <hr />
-
 </div>

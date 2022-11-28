@@ -5,13 +5,14 @@
 
 .wrapper{
     margin: 0 auto;
-    width: 85%;
+    width: 90%;
 }
 
 .background{
     position: relative;
     margin: 0 auto;
-    width: 100%;
+    overflow: hidden;
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-image: url("../../../assets/background.jpg");
@@ -19,39 +20,50 @@
     border-right: 1px solid #96969681;
 }
 
-/* ////////GALERÍA//////// */
+/* ////////////////////////////////////////////////////////  GALERÍA  //////////////////////////////////////////////////////// */
+
 .gallery{
     animation: fadein 2s;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     margin-bottom: 2rem;
-    width: 82%;
+    width: 90%;
+}
+
+.gallery img{
+    transition: all 0.2s;
 }
 
 .topdiv{
     display:flex;
     margin: 0 auto;
-    margin-top: 5rem;
+    margin-top: 40px;
+    margin-bottom: 10px;
 }
 
 .button{
     position: absolute;
     border:none;
-    background-color: black;
-    color: white;
-    padding-top: 6px;
-    font-size: 18px;
+    background-color: #cdcdcd8c;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    color: rgb(95, 95, 95);
+    font-size: 30px;
     font-weight: 100;
-    width: 50px;
-    height: 50px;
-    border-radius: 30px 0px 20px 0px;
-    opacity: 60%;
-    transition: 0.5s;
+    width: 6%;
+    height: 10%;
+    border-bottom-right-radius: 100px;
+    opacity: 90%;
+    transition: all 0.2s;
+    box-shadow: inset  -10px -10px 8px rgba(0,0,0,0.2);
+    -moz-box-shadow: inset  -10px -10px 8px rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset  -10px -10px 8px rgba(0,0,0,0.2);
+    -o-box-shadow: inset  -10px -10px 8px rgba(0,0,0,0.2);
 }
 
 .button:hover{
-    opacity: 100%;
+    color: black;
 }
 
 .mainimg{
@@ -60,7 +72,6 @@
     border-radius: 30px 0px 0px 30px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px 0px;
     background-size: cover;
-    transition: all 0.2s;
 }
 
 .rows{
@@ -74,14 +85,13 @@
 }
 
 .sideimg{
-    display: block;
     cursor: pointer;
     background-size: cover;
     height: 8rem;
     width: 12rem;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px 0px;
-    margin-bottom: 0.5rem;
-    margin-left: 0.5rem;
+    margin-bottom: 10px;
+    margin-left: 10px;
     opacity: 0.75;
 }
 
@@ -102,6 +112,14 @@
     border-radius: 0px 0px 30px 0px;
 }
 
+/* ////////////////////////////////////////////////////////  GALERÍA  //////////////////////////////////////////////////////// */
+
+.reviews{
+    margin-top: 40px;
+    margin: 0 auto;
+    width: 80%;
+}
+
 /* ////////HOUSEINFO//////// */
 .body{
     animation: fadein 2s;
@@ -112,7 +130,7 @@
   }
 
 .location{
-    font-size: 2.5rem;
+    font-size: 50px;
     font-weight: 400;
     margin-bottom: 20px;
 }
@@ -141,20 +159,12 @@
 
 .infodiv{
     width: 60%;
-}
-
-.reviews app-reviews{
-    margin-top: 0.5rem;
-    margin-left: -7rem;
-    margin-bottom: 0.5rem;
-    display: flex;
-    height: 2rem;
+    margin: 0 auto;
 }
 
 .bookingdiv{
     display:flex;
     flex-direction: column;
-    margin-top: 1rem;
     margin-left: -1rem;
 }
 
@@ -188,3 +198,160 @@
     align-items: center;
     height: 3rem;
 }
+
+/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
+
+@media only screen and (max-width: 1800px) {
+    .mainimg{
+        height: 400px;
+        width: 600px;
+    }
+
+    .sideimg{
+        height: 126.5px;
+        width: 190px;
+    }
+
+    .reviews{
+        height: 100px;
+        width: 990px;
+    }
+}
+
+@media only screen and (max-width: 1450px) {
+    .mainimg{
+        height: 350px;
+        width: 500px;
+    }
+
+    .sideimg{
+        height: 110px;
+        width: 160px;
+    }
+
+    .button{
+        width: 8%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .button{
+        width: 10%;
+    }
+
+    .mainimg{
+        height: 250px;
+        width: 350px;
+    }
+
+    .sideimg{
+        height: 79.3px;
+        width: 120px;
+        margin-bottom: 6px;
+        margin-left: 6px;
+    }
+
+    .upcornerimg{
+        border-radius: 0px 25px 0px 0px;
+    }
+
+    .botcornerimg{
+        border-radius: 0px 0px 25px 0px;
+    }
+
+    .location{
+        font-size: 35px;
+        margin-bottom: 5px;
+    }
+
+    .price{
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .info{
+        font-size: 15px;
+        margin-bottom: -1px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .mainimg{
+        height: 180px;
+        width: 250px;
+    }
+
+    .sideimg{
+        height: 55.9px;
+        width: 80px;
+        margin-bottom: 6px;
+        margin-left: 6px;
+    }
+
+    .upcornerimg{
+        border-radius: 0px 20px 0px 0px;
+    }
+
+    .botcornerimg{
+        border-radius: 0px 0px 20px 0px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .mainimg{
+        border-radius: 15px 0px 0px 15px;
+        height: 150px;
+        width: 200px;
+    }
+
+    .sideimg{
+        height: 47.5px;
+        width: 70px;
+        margin-bottom: 4px;
+        margin-left: 4px;
+    }
+
+    .upcornerimg{
+        border-radius: 0px 10px 0px 0px;
+    }
+
+    .botcornerimg{
+        border-radius: 0px 0px 10px 0px;
+    }
+
+    .button{
+        height: 8%;
+        font-size: 25px;
+        border-bottom-right-radius: 90px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .button{
+        width: 15%;
+        font-size: 25px;
+        border-bottom-right-radius: 90px;
+    }
+
+    .mainimg{
+        border-radius: 10px 0px 0px 10px;
+        height: 80px;
+        width: 130px;
+    }
+
+    .sideimg{
+        height: 24px;
+        width: 35px;
+        margin-bottom: 4px;
+        margin-left: 4px;
+    }
+
+    .upcornerimg{
+        border-radius: 0px 10px 0px 0px;
+    }
+
+    .botcornerimg{
+        border-radius: 0px 0px 10px 0px;
+    }
+}
+/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */

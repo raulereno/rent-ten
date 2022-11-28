@@ -1,8 +1,8 @@
 <div class="mat-app-background" [ngClass]="darkmode? 'background darkmode':'background'">
     <div class="wrapper mat-app-background">
+        <button class="button" routerLink="/home">🡠</button>
         <section class="gallery">
             <div class="topdiv">
-                <button class="button" routerLink="/home">🡠</button>
                 <img id="preview" class="mainimg" src="{{house.picture[0]}}" alt="Image" >
                 <div class="rows">
                     <div class="column">
@@ -22,6 +22,12 @@
                     </div>
                 </div>
             </div>
+            <div class="reviews">
+                <app-reviews></app-reviews>
+            </div>
+            <div class="insetShadow">
+
+            </div>
         </section>
 
         <div class="body">
@@ -30,20 +36,17 @@
                 <div class="flex">
                     <h3 class="price" [ngClass]="{'darkPrice':darkmode}"> ARS ${{house.price}}</h3>
                 </div>
-                <h3 class="info">
+                <p class="info">
                     <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span style="color: green">✓</span></span>
                     <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
-                    <span style="margin-left: 0.5%"><span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span
-                                style="color: green">✓</span></span>
-                        <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
-                    </span>
-                </h3>
+                </p>
+                <p class="info">
+                    <span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span style="color: green">✓</span></span>
+                    <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
+                </p>
                 <p class="info">{{house.rooms}} room/s</p>
                 <p class="info">{{house.bathrooms}} bathroom/s</p>
-                <h3 class="info">{{house.maxpeople}} occupant/s</h3>
-                <div class="reviews">
-                    <app-reviews></app-reviews>
-                </div>
+                <p class="info">{{house.maxpeople}} occupant/s</p>
             </div>
 
             <div class="bookingdiv">
