@@ -120,19 +120,21 @@
     width: 80%;
 }
 
-/* ////////HOUSEINFO//////// */
+/* ////////////////////////////////////////////////////////  HOUSE INFO  //////////////////////////////////////////////////////// */
+
 .body{
     animation: fadein 2s;
     margin: 0 auto;
     height: 20rem;
-    width: 75%;
+    width: 80%;
     display: flex;
-  }
+}
 
 .location{
     font-size: 50px;
     font-weight: 400;
     margin-bottom: 20px;
+    width: fit-content;
 }
 
 .flex{
@@ -145,6 +147,7 @@
     font-family: Arial, Helvetica;
     color: gray;
     margin-bottom: 4px;
+    width: fit-content;
 }
 
 .price{
@@ -153,39 +156,39 @@
     font-size: 30px;
     font-weight: 400;
 }
-.darkPrice{
-  color: rgb(60, 135, 20)
-}
 
-.infodiv{
-    width: 46%
+.darkPrice{
+    color: rgb(60, 135, 20)
 }
 
 .bookingdiv{
-    margin-top: -20px;
     display:flex;
     flex-direction: column;
+    margin-left: 100px;
 }
 
 .booking{
     display: flex;
     justify-content: center;
-    border: 1px solid #A4A4A4;
     border-radius: 20px;
     margin-top: 10px;
     padding: 10px;
-    width: 120%;
 }
 
 .makebooking{
-    margin-right: 1rem;
-    padding-right: 1rem;
+    margin-right: 20px;
+    padding-right: 20px;
     border-right: 1px solid #A4A4A4;
 }
 
 .text{
     font-size: 20px;
     font-weight: 400;
+}
+
+.notavailable{
+    font-weight: 600;
+    margin-bottom: -5px;
 }
 
 .footer{
@@ -198,6 +201,96 @@
     height: 3rem;
 }
 
+/* ////////////////////////////////////////////////////////  RESERVE MODAL  //////////////////////////////////////////////////////// */
+
+.reservehead{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100px;
+    margin-bottom: 30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.headtitle{
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.ptitle{
+    margin-top: -10px;
+    font-size: 14px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.modalbutton{
+    height: 30px;
+    width: 35px;
+    color: #000;
+    background: none;
+    border: 0;
+    font-size: 20px;
+}
+
+#closemodal{
+    position: absolute;
+    top: 0.7rem;
+    left: 90%;
+}
+
+.reservebody{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+}
+
+.reserveimg{
+    height: 250px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.reslocation{
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.infodiv{
+    display:flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.restext{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    margin-bottom: 0px;
+}
+
+.textvalue{
+    color: rgb(52, 52, 52);
+}
+
+#margin{
+    margin-top: 10px;
+}
+
+.resprice{
+    position: flex;
+    color: rgb(23, 59, 3);
+    font-size: 25px;
+    font-weight: 400;
+}
+
+/* ////////////////////////////////////////////////////////  RESERVE MODAL  //////////////////////////////////////////////////////// */
+
+
+
 /* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
 
 @media only screen and (max-width: 1800px) {
@@ -209,11 +302,6 @@
     .sideimg{
         height: 126.5px;
         width: 190px;
-    }
-
-    .reviews{
-        height: 100px;
-        width: 990px;
     }
 }
 
@@ -230,6 +318,21 @@
 
     .button{
         width: 8%;
+    }
+
+    .location{
+        font-size: 35px;
+        margin-bottom: 5px;
+    }
+
+    .price{
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+
+    .info{
+        font-size: 15px;
+        margin-bottom: 0px;
     }
 }
 
@@ -334,13 +437,13 @@
 
     .mainimg{
         border-radius: 10px 0px 0px 10px;
-        height: 80px;
-        width: 130px;
+        height: 100px;
+        width: 150px;
     }
 
     .sideimg{
-        height: 24px;
-        width: 35px;
+        height: 30.5px;
+        width: 45px;
         margin-bottom: 4px;
         margin-left: 4px;
     }

@@ -351,3 +351,26 @@
     font-size: 0.8rem;
   }
 }
+
+/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
+
+@media only screen and (max-width: 1800px) {
+
+}
+
+@media only screen and (max-width: 1450px) {
+
+}
+
+@media only screen and (max-width: 900px) {
+
+}
+
+@media only screen and (max-width: 650px) {
+
+}
+
+@media only screen and (max-width: 500px) {
+
+}
+/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
