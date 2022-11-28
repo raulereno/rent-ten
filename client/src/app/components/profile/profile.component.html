@@ -2,6 +2,7 @@
     <!-- ---- PROFILE ---- -->
     <div class="leftdiv mat-app-background">
         <div class="userdiv">
+            <h1>My Profile</h1>
             <div class="container-image">
                 <img src="{{user.picture}}" class="profileImg" />
                 <span class="edit">
@@ -38,6 +39,19 @@
                 </div>
             </div>
             <p style="color:red" *ngIf="error">{{error.error.msg}}</p>
+
+            <div>
+                <form>
+                    <label for="name">Name</label><br/>
+                    <input type="text" name="name" value="{{ user.name }}" aria-invalid="false"><br/>
+                    <label for="lastname">Lastname</label><br/>
+                    <input type="text" name="lastname" value="{{ user.lastname }}" aria-invalid="false"><br/>
+                    <label for="mail">Email</label><br/>
+                    <input type="text" name="mail" value="{{ user.mail }}" aria-invalid="false"><br/>
+
+                    <button type="submit">Save</button>
+                </form>
+            </div>
 
             <div>
                 <div>
