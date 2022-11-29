@@ -5,8 +5,7 @@ import { userProfile } from 'src/app/models/UserProfile';
 import { AdmindashboardService } from 'src/app/services/admindashboard.service';
 import { Store } from '@ngrx/store';
 
-
-import { DataServiceService } from 'src/app/services/data-service.service';
+import { DataService } from 'src/app/services/data.service';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { AuthService } from '@auth0/auth0-angular';
 import { loadProfile } from 'src/app/redux/actions/location.actions';
@@ -17,31 +16,34 @@ import { House } from 'src/app/models/House';
 @Component({
   selector: 'app-table-house-a',
   templateUrl: './table-house-a.component.html',
-  styleUrls: ['./table-house-a.component.css']
+  styleUrls: ['./table-house-a.component.css'],
 })
 export class TableHouseAComponent implements OnInit {
-
-
-  constructor(public http: DataServiceService, private router: Router, private _admindashboard: AdmindashboardService, private store: Store<any>, public auth: AuthService,) { }
+  constructor(
+    public http: DataService,
+    private router: Router,
+    private _admindashboard: AdmindashboardService,
+    private store: Store<any>,
+    public auth: AuthService
+  ) { }
   headers = ['Name', 'Position', 'Office', 'Age', 'Start Date', 'Salary'];
   public houses: any[];
   userProfile$: Observable<any> = new Observable();
   public userProfile: userProfile;
 
+
   public filtered_house: any;
-  public filtered_house_result: any
+  public filtered_house_result: any;
 
   public page = 1;
   public pageSize = 5;
 
   ngOnInit(): void {
-
     this.userProfile$ = this.store.select(selectorListProfile);
-    this.loadProfile()
+    this.loadProfile();
 
-    this._admindashboard.setHousesA()
-    this._admindashboard.getHousesA$.subscribe(res => this.houses = res)
-
+    this._admindashboard.setHousesA();
+    this._admindashboard.getHousesA$.subscribe((res) => (this.houses = res));
   }
 
   loadProfile(): void {
@@ -52,31 +54,37 @@ export class TableHouseAComponent implements OnInit {
           this.userProfile = res;
         });
       });
-
     });
   }
 
   back() { this.router.navigate(['dashboard']) }
 
   showInfo() {
-    console.log(this.houses)
+    console.log(this.houses);
   }
 
   changeHouseStatus(houseId: string) {
-    let newValues = { deleted: true }
-    this._admindashboard.changeHouseStatus(this.userProfile.id, houseId, newValues)
-    this.resetResults()
-
+    let newValues = { deleted: true };
+    this._admindashboard.changeHouseStatus(
+      this.userProfile.id,
+      houseId,
+      newValues
+    );
+    this.resetResults();
   }
 
   handleInput() {
-    this.filtered_house_result = this.houses.find((h: House) => h.id === this.filtered_house.trimRight())
-    if (!this.filtered_house_result) { alert('No house with that ID') }
+    this.filtered_house_result = this.houses.find(
+      (h: House) => h.id === this.filtered_house.trimRight()
+    );
+    if (!this.filtered_house_result) {
+      alert('No house with that ID');
+    }
   }
 
   resetResults() {
-    this.filtered_house_result = null
-    this.filtered_house = ''
+    this.filtered_house_result = null;
+    this.filtered_house = '';
   }
 
 

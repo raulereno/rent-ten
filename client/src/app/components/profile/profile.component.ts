@@ -2,33 +2,41 @@ import { HelperService } from 'src/app/services/helper.service';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService, User } from '@auth0/auth0-angular';
-import { DataServiceService } from 'src/app/services/data-service.service';
+import { DataService } from 'src/app/services/data.service';
 import { userProfile } from '../../models/UserProfile';
 import { House } from '../../models/House';
 import { catchError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectorListBackup, selectorListProfile } from 'src/app/redux/selectors/selectors';
-import { addFavoriteHouse,  changeVerifiedStatusProfile, loadHouses, loadProfile } from 'src/app/redux/actions/location.actions';
+import {
+  selectorListBackup,
+  selectorListProfile,
+} from 'src/app/redux/selectors/selectors';
+import {
+  addFavoriteHouse,
+  changeVerifiedStatusProfile,
+  loadHouses,
+  loadProfile,
+} from 'src/app/redux/actions/location.actions';
 import { Review } from 'src/app/models/Review';
-import { NgbAccordionConfig, NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAccordionConfig,
+  NgbAccordionModule,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Booking } from 'src/app/models/Booking';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
-
-
 export class ProfileComponent implements OnInit {
-
   allHouses$: Observable<any> = new Observable();
   dbProfile: userProfile;
   allHouses: House[] = [];
@@ -45,99 +53,100 @@ export class ProfileComponent implements OnInit {
   bookingsProfile: Booking[] = [];
   darkmode: boolean;
 
-  constructor(public auth: AuthService,
-    private http: DataServiceService,
+  constructor(
+    public auth: AuthService,
+    private http: DataService,
     private store: Store<any>,
     private _uploadImg: UploadImgService,
     private localStorageSvc: LocalStorageService,
     private _router: Router,
-    private _helper: HelperService,
-  ) {
-  }
+    private _helper: HelperService
+  ) {}
 
   ngOnInit(): void {
-    this.userProfile$ = this.store.select(selectorListProfile)
-    this.allHouses$ = this.store.select(selectorListBackup)
-    this.loadProfile()
-    this.loadHouses_n_favorites()
+    this.userProfile$ = this.store.select(selectorListProfile);
+    this.allHouses$ = this.store.select(selectorListBackup);
+    this.loadProfile();
+    this.loadHouses_n_favorites();
 
     this._helper.customDarkMode.subscribe(
       (active: boolean) => (this.darkmode = active)
     );
-
   }
 
-
-
   loadProfile() {
-    this.userProfile$.subscribe(profile => {
+    this.userProfile$.subscribe((profile) => {
       if (profile.id.length === 0) {
-        this.auth.user$.subscribe(profile => {
+        this.auth.user$.subscribe((profile) => {
           this.profileJson = profile;
-          this.http.getUser(this.profileJson.email).subscribe(res => {
-            res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
-            this.store.dispatch(loadProfile({ userProfile: res }))
-            this.userProfile = res
+          this.http.getUser(this.profileJson.email).subscribe((res) => {
+            this.store.dispatch(loadProfile({ userProfile: res }));
+            this.userProfile = res;
           });
-        })
+        });
       } else {
-        this.userProfile = profile
+        this.userProfile = profile;
       }
-      this.http.getUser(profile.mail).subscribe(res => {
-        res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
-        this.userProfile = res
-      })
+      this.http.getUser(profile.mail).subscribe((res) => {
+        this.userProfile = res;
+      });
     });
   }
 
   loadHouses_n_favorites() {
-    this.allHouses$.subscribe(houses => {
+    this.allHouses$.subscribe((houses) => {
       if (houses.length === 0) {
-        this.http.getHouses().subscribe(data => {
+        this.http.getHouses().subscribe((data) => {
           this.store.dispatch(loadHouses({ allHouses: data }));
           this.allHouses = data;
-        })
+        });
       } else {
-        this.allHouses = houses
+        this.allHouses = houses;
       }
 
       this.userProfile$.subscribe((res) => {
-        this.favoritesHouses = this.allHouses.filter((house: House) => (res.favoriteshouses!.some((h: string) => h == house.id)))
-      })
-
-
-    })
+        this.favoritesHouses = this.allHouses.filter((house: House) =>
+          res.favoriteshouses!.some((h: string) => h == house.id)
+        );
+      });
+    });
   }
 
   deleteFavorite(houseId: string, userId: string): void {
-    this.http.deleteFavorite(houseId, userId)
-    this.favoritesHouses = this.favoritesHouses.filter(house => house.id !== houseId)
-    this.localStorageSvc.removeFavorite(houseId)
-
+    this.http.deleteFavorite(houseId, userId);
+    this.favoritesHouses = this.favoritesHouses.filter(
+      (house) => house.id !== houseId
+    );
+    this.localStorageSvc.removeFavorite(houseId);
   }
 
   showProfileJson(): void {
-    console.log(this.userProfile)
-    console.log(this.favoritesHouses)
-    console.log("Console Revw: ", this.reviewsHouses)
+    console.log(this.userProfile);
+    console.log(this.favoritesHouses);
+    console.log('Console Revw: ', this.reviewsHouses);
   }
 
   verifyAccount(): void {
     // this.dbProfile.verified = 'pending'
-    this.store.dispatch(changeVerifiedStatusProfile({ payload: 'pending' }))
-    this.http.verifyAccount(this.userProfile.mail)
+    this.store.dispatch(changeVerifiedStatusProfile({ payload: 'pending' }));
+    this.http.verifyAccount(this.userProfile.mail);
   }
 
   sendVerificationCode(code: string): any {
-
-    this.http.sendVerificationCode(this.userProfile.mail, code)
-      .pipe(catchError((error): any => { this.error = error.error.msg }))
-      .subscribe(data => {
-        this.loadProfile()
+    this.http
+      .sendVerificationCode(this.userProfile.mail, code)
+      .pipe(
+        catchError((error): any => {
+          this.error = error.error.msg;
+        })
+      )
+      .subscribe((data) => {
+        this.loadProfile();
         // this.userProfile.verified = 'verified'
-        this.store.dispatch(changeVerifiedStatusProfile({ payload: 'verified' }))
-      })
-
+        this.store.dispatch(
+          changeVerifiedStatusProfile({ payload: 'verified' })
+        );
+      });
   }
 
   onFileSelected(event: any): void {
@@ -146,21 +155,26 @@ export class ProfileComponent implements OnInit {
     data.set('upload_preset', 'h4e9cy2g');
     data.set('cloud_name', 'dbgpp8nla');
 
-    this._uploadImg.uploadImage(data).subscribe(res => {
-      this.http.updateProfilePicture(res.secure_url, this.userProfile.id, this.userProfile.sub);
+    this._uploadImg.uploadImage(data).subscribe((res) => {
+      this.http.updateProfilePicture(
+        res.secure_url,
+        this.userProfile.id,
+        this.userProfile.sub
+      );
       this.userProfile = { ...this.userProfile, picture: res.secure_url };
       this.store.dispatch(loadProfile({ userProfile: this.userProfile }));
     });
   }
 
   goTo(id: string) {
-    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`], { replaceUrl: true })//TODO: Redireccionar casa creada a detail
+    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`], {
+      replaceUrl: true,
+    }); //TODO: Redireccionar casa creada a detail
   }
-
   deleteHouse(houseId: string, userId: string) {
     let value = {
-      deleted: true
-    }
+      deleted: true,
+    };
 
     Swal.fire({
       title: 'Are you sure you want delete your create place?',
@@ -168,13 +182,16 @@ export class ProfileComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
         this.http.handleHouseState(userId, houseId, value);
-        this.userProfile = { ...this.userProfile, Houses: this.userProfile.Houses?.filter(h => h.id !== houseId) };
+        this.userProfile = {
+          ...this.userProfile,
+          Houses: this.userProfile.Houses?.filter((h) => h.id !== houseId),
+        };
       }
-    })
+    });
   }
 
   deleteAccount(userId: string) {
@@ -185,13 +202,11 @@ export class ProfileComponent implements OnInit {
       this._router.navigate(['home']);
     }
   }
-
 }
 
-export class NgbdAccordionBasic { }
-export class SectionModule { }
+export class NgbdAccordionBasic {}
+export class SectionModule {}
 
-function changeAuthorizedUser(arg0: { payload: string; }): any {
+function changeAuthorizedUser(arg0: { payload: string }): any {
   throw new Error('Function not implemented.');
 }
-

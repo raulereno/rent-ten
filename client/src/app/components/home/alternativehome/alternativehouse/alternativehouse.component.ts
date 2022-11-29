@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { House } from '../../../../models/House';
-import { DataServiceService } from '../../../../services/data-service.service'
+import { DataService } from '../../../../services/data.service'
 import { AuthService } from '@auth0/auth0-angular';
 import { userProfile } from '../../../../models/UserProfile';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class AlternativehouseComponent implements OnInit {
   public userProfile: userProfile;
 
   constructor(
-    public http: DataServiceService,
+    public http: DataService,
     public auth: AuthService,
     private router: Router,
     private store: Store<any>,

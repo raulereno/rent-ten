@@ -20,7 +20,6 @@
   height: 100vh;
   min-width: 20%;
 }
-
 .container-image {
   position: relative;
 
@@ -28,7 +27,7 @@
     background-color: #fafafa86;
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: -1rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -72,8 +71,6 @@
   max-width: 80%;
 }
 
-;
-
 #favdiv {
   display: flex;
   flex-wrap: wrap;
@@ -86,9 +83,6 @@
   min-width: 90%;
 }
 
-
-
-
 .profileImg {
   width: 12rem;
   height: 12rem;
@@ -96,7 +90,7 @@
   object-fit: cover;
 }
 
-.edit svg:hover~.profileImg {
+.edit svg:hover ~ .profileImg {
   opacity: 0.3;
 }
 
@@ -226,7 +220,7 @@
 }
 
 /* Cuando la pantalla es menor a 900px  (tablets y teléfonos inteligentes)*/
-@media only screen and (max-width : 1000px) {
+@media only screen and (max-width: 1000px) {
   .container-image {
     .edit {
       height: 20%;

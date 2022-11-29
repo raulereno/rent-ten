@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 
-import { DataServiceService } from 'src/app/services/data-service.service';
+import { DataService } from 'src/app/services/data.service';
 import { userProfile } from 'src/app/models/UserProfile';
 import { Observable } from 'rxjs';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
@@ -14,7 +14,7 @@ import { loadProfile } from 'src/app/redux/actions/location.actions';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
 
@@ -29,7 +29,7 @@ export class DashboardComponent {
           { title: 'Card 1', cols: 1, rows: 1 },
           { title: 'Card 2', cols: 1, rows: 1 },
           { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
+          { title: 'Card 4', cols: 1, rows: 1 },
         ];
       }
 
@@ -37,19 +37,18 @@ export class DashboardComponent {
         { title: 'Card 1', cols: 2, rows: 1 },
         { title: 'Card 2', cols: 1, rows: 1 },
         { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
+        { title: 'Card 4', cols: 1, rows: 1 },
       ];
     })
   );
 
-
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public http: DataServiceService,
+    public http: DataService,
     private router: Router,
     public auth: AuthService,
-    private store: Store<any>,) { }
-
+    private store: Store<any>
+  ) { }
 
   public users: [];
   public houses: any[];
@@ -61,18 +60,16 @@ export class DashboardComponent {
 
 
   ngOnInit(): void {
-
-    this.http.getHouses().subscribe(res => this.houses = res)
-    console.log(this.houses)
-
+    this.http.getHouses().subscribe((res) => (this.houses = res));
+    console.log(this.houses);
   }
 
   /*  this.userProfile$ = this.store.select(selectorListProfile);
-   
-   this.loadProfile();
-   console.log('usserprofile',this.userProfile)
-   
- 
+
+    this.loadProfile();
+    console.log('usserprofile',this.userProfile)
+
+
 
  loadProfile(): void {
    this.auth.user$.subscribe((profile) => {
@@ -84,14 +81,14 @@ export class DashboardComponent {
        });
      });
 
-   this.http.updateUser(this.profileJson.email, this.profileJson.sub);
-   });
- }
- getHouses(){
-   // this.http. getHouses().subscribe(res=>this.houses = res.filter((elem:any)=>elem.deleted ===false))
-   this.http. getHouses().subscribe(res=>this.houses = res)
-   console.log(this.houses)
- } 
+    this.http.updateUser(this.profileJson.email, this.profileJson.sub);
+    });
+  }
+  getHouses(){
+    // this.http. getHouses().subscribe(res=>this.houses = res.filter((elem:any)=>elem.deleted ===false))
+    this.http. getHouses().subscribe(res=>this.houses = res)
+    console.log(this.houses)
+  }
 */
   redirectHA() { this.router.navigate(['dashboard/housesA']) }
 
