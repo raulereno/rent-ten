@@ -54,5 +54,4 @@ export class SliderComponent implements OnInit {
     this.slider_priceval = this.housesSorted_byqualityprice.slice(this.page_firstslice, this.page_secondslice)
   }
 
-
 }

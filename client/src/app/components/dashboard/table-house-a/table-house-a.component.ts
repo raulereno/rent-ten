@@ -11,6 +11,8 @@ import { AuthService } from '@auth0/auth0-angular';
 import { loadProfile } from 'src/app/redux/actions/location.actions';
 import { House } from 'src/app/models/House';
 
+
+
 @Component({
   selector: 'app-table-house-a',
   templateUrl: './table-house-a.component.html',
@@ -23,14 +25,18 @@ export class TableHouseAComponent implements OnInit {
     private _admindashboard: AdmindashboardService,
     private store: Store<any>,
     public auth: AuthService
-  ) {}
+  ) { }
   headers = ['Name', 'Position', 'Office', 'Age', 'Start Date', 'Salary'];
   public houses: any[];
   userProfile$: Observable<any> = new Observable();
   public userProfile: userProfile;
 
+
   public filtered_house: any;
   public filtered_house_result: any;
+
+  public page = 1;
+  public pageSize = 5;
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile);
@@ -51,9 +57,7 @@ export class TableHouseAComponent implements OnInit {
     });
   }
 
-  back() {
-    this.router.navigate(['dashboard']);
-  }
+  back() { this.router.navigate(['dashboard']) }
 
   showInfo() {
     console.log(this.houses);
@@ -82,4 +86,6 @@ export class TableHouseAComponent implements OnInit {
     this.filtered_house_result = null;
     this.filtered_house = '';
   }
+
+
 }
