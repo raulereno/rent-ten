@@ -200,39 +200,7 @@ router.put("/editUser/:userId", async (req, res) => {
     mail,
     country
   } = req.body;
-  console.log(req.body)
-  console.log(userId)
-  try {
-    const user = await User.findOne({ where: { id: userId } });
-
-    if (user.id === userId) {
-      await user.update({ 
-        name: name, 
-        lastname: lastname, 
-        mail: mail, 
-        country: country 
-      });
-      return res
-        .status(200)
-        .json({ msg: 'Your data has been updated successfully' });
-    } else {
-      throw new Error({ msg: "Can't update your data" });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}); 
-
-router.put("/editUser/:userId", async (req, res) => {
-  const userId = req.params.userId;
-  const {
-    name,
-    lastname,
-    mail,
-    country
-  } = req.body;
-  console.log(req.body)
-  console.log(userId)
+  
   try {
     const user = await User.findOne({ where: { id: userId } });
 
