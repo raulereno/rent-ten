@@ -386,8 +386,10 @@
                             <form (ngSubmit)="onSubmit(user.id)" [formGroup]="profileForm" action="users/editUser/'user.id'">
                                 <label for="name">Name</label><br/>
                                 <input type="text" name="name" value="{{ user.name }}" formControlName="name"><br/>
+                                <div *ngIf="profileForm.get('name')?.touched && profileForm.get('name')?.errors?.['minlength']" class="alert alert-danger">Name must be longer than {{ profileForm.get('name')?.errors?.['minlength']?.requiredLength }} characters.</div>
                                 <label for="lastname">Lastname</label><br/>
                                 <input type="text" name="lastname" value="{{ user.lastname }}" formControlName="lastname"><br/>
+                                <div *ngIf="profileForm.get('lastname')?.touched && profileForm.get('lastname')?.errors?.['minlength']" class="alert alert-danger">Lastname must be longer than {{ profileForm.get('lastname')?.errors?.['minlength']?.requiredLength }} characters.</div>
                                 <label for="mail">Email</label><br/>
                                 <input type="text" name="mail" value="{{ user.mail }}" formControlName="mail"><br/>
                                 <div *ngIf="profileForm.get('mail')?.touched && profileForm.get('mail')?.errors?.['required']" class="alert alert-danger">This field is required.</div>
