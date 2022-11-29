@@ -1,6 +1,6 @@
 .housecard {
-  width: 12.5rem;
-  height: 20rem;
+  width: 250px;
+  height: 400px;
   transition: all 0.3s;
   animation: fadein 2s;
   border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
@@ -24,12 +24,12 @@
 }
 
 .margin{
-  margin-bottom: -1.2rem;
+  margin-bottom: -25px;
 }
 
 .updiv {
   display: flex;
-  margin-bottom: -0.75rem;
+  margin-bottom: -15px;
 }
 
 .updiv:hover .carrouselbutton {
@@ -40,7 +40,7 @@
   display: flex;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.176);
-  border-radius: 0.75rem;
+  border-radius: 15px;
   transition: 0.3s all;
 }
 
@@ -53,9 +53,9 @@
 
 
 .image {
-  height: 10rem;
-  width: 12.5rem;
-  border-radius: 0.75rem 0.75rem 0rem 0.75rem;
+  height: 200px;
+  width: 250px;
+  border-radius: 15px 15px 0px 15px;
   transition: 0.5s;
 }
 
@@ -69,35 +69,38 @@
 
 .firstdiv {
   display: flex;
-  margin-top: -4.40rem;
-  margin-bottom: -0.8rem;
+  margin-top: -88px;
+  margin-bottom: -16px;
 }
 
 .namediv {
   width: 88%;
-  margin-top: 0.2rem;
-  margin-left: 0.25rem;
+  margin-top: 4px;
+  margin-left: 5px;
 }
 
 .name {
-  font-size: 0.9rem;
+  font-size: 18px;
 }
 
 .favdiv {
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+
   position: relative;
-  top: 0rem;
-  right: 0rem;
-  width: 12%;
-  margin-top: 1.61rem;
+  top: 33px;
+  right: 0px;
 }
 
 .favourites {
-  height: 1.8rem;
-  width: 1.5rem;
-  font-size: 0.8rem;
+  height: 36px;
+  width: 30px;
+  font-size: 16px;
   font-weight: 100;
   border-top: none;
-  border-radius: 0rem 0rem 1rem 1rem;
+  border-radius: 0px 0px 20px 20px;
 
   cursor: pointer;
   transition: 0.25s;
