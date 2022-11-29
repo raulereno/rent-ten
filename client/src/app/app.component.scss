@@ -1,11 +1,13 @@
-
 // .darkmode{
 //   background-color: #303030;
 //   color: white;
 //   transition: all 0.5s;
 // }
-
-.container-all{
+.zindex{
   position: relative;
-  padding-bottom: 3.6em;
+  z-index: +1;
+}
+
+.container_all {
+  position: relative;
 }

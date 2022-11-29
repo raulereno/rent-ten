@@ -1,5 +1,6 @@
 .grid-container {
   margin: 20px;
+
 }
 
 .dashboard-card {
@@ -18,4 +19,5 @@
 
 .dashboard-card-content {
   text-align: center;
+  height: fit-content;
 }

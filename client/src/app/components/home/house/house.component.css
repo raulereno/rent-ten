@@ -1,10 +1,9 @@
 .housecard {
-  width: 12.5rem;
-  height: 20rem;
+  width: 250px;
+  height: 400px;
   transition: all 0.3s;
   animation: fadein 2s;
   border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
-
   height: 100%;
 }
 
@@ -12,9 +11,6 @@
   background-color: #303030;
   color: white;
    transition: all 1s;
-}
-.darkmode .price {
-  color: white;
 }
 .darkmode .info {
   font-weight: 100;
@@ -28,12 +24,12 @@
 }
 
 .margin{
-  margin-bottom: -1.2rem;
+  margin-bottom: -25px;
 }
 
 .updiv {
   display: flex;
-  margin-bottom: -0.75rem;
+  margin-bottom: -15px;
 }
 
 .updiv:hover .carrouselbutton {
@@ -44,67 +40,77 @@
   display: flex;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.176);
-  border-radius: 0.75rem;
-  transition: .3 all;
+  border-radius: 15px;
+  transition: 0.3s all;
 }
 
 #leftarrow {
   position: relative;
-  bottom: 45%;
+  bottom: 40%;
   left: 4%;
+  color: black;
 }
 
 
 .image {
-  height: 10rem;
-  width: 12.5rem;
-  border-radius: 0.75rem 0.75rem 0rem 0.75rem;
+  height: 200px;
+  width: 250px;
+  border-radius: 15px 15px 0px 15px;
   transition: 0.5s;
 }
 
 #rightarrow {
   position: relative;
-  bottom: 55%;
+  bottom: 48%;
   left: 86%;
+  color: black;
 }
 
 
 .firstdiv {
   display: flex;
-  margin-bottom: -0.5rem;
+  margin-top: -88px;
+  margin-bottom: -16px;
 }
 
 .namediv {
   width: 88%;
-  margin-left: 0.25rem;
+  margin-top: 4px;
+  margin-left: 5px;
 }
 
 .name {
-  font-size: 0.9rem;
+  font-size: 18px;
 }
 
 .favdiv {
-  width: 12%;
-  margin-top: -0.45rem;
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+
+  position: relative;
+  top: 33px;
+  right: 0px;
 }
 
 .favourites {
-  height: 1.8rem;
-  width: 1.5rem;
-
-  font-size: 0.8rem;
+  height: 36px;
+  width: 30px;
+  font-size: 16px;
   font-weight: 100;
   border-top: none;
-  border-radius: 0rem 0rem 1rem 1rem;
+  border-radius: 0px 0px 20px 20px;
 
   cursor: pointer;
   transition: 0.25s;
+  background-color: #fde497;
 }
 
 #addfav {
   transition: .25s;
   color: #ffc107;
-  border: 1px solid #ffc107;
+  border: 2px solid #ffc107;
   border-top: none;
   border-color: #ffc107;
   background-color: none;
@@ -118,14 +124,12 @@
 #addfav:hover {
   transition: 0.25s;
   height: 2.5rem;
-  color: white;
   background-color: #ffc107;
 }
 
 #removefav {
   transition: 0.25s;
   height: 2.5rem;
-  color: white;
   border: none;
   background-color: #ffc107;
   transition: .5s all;
@@ -139,6 +143,22 @@
   transition: 0.25s;
   color: white;
   background-color: #dc3545;
+}
+
+.heartsvg{
+  width: 0.8rem;
+  padding-right: 0.1rem;
+  fill:#d6a410;
+  transition: all 0.2s;
+}
+
+.favourites:hover .heartsvg{
+  fill:rgb(126, 0, 0);
+}
+
+#favsvg{
+  margin-left: 0.1rem;
+  fill:rgb(126, 0, 0);
 }
 
 @keyframes like {
@@ -172,23 +192,27 @@
 .botdiv {
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
 }
 
 .info {
   font-weight: 100;
   color: gray;
   margin: -0.2rem;
+  margin-left: 0.25rem;
 }
 
 .price {
   color: rgb(23, 59, 3);
   font-weight: 400;
-  margin-top: 0.5rem;
   margin-left: 0.25rem;
 }
 
 ngb-rating {
-  color: #b39601;
-  font-size: 1rem;
+  position: relative;
+  top: -4rem;
+  left: 0rem;
+  background-color: #ffffff97;
+  padding: 0.3rem;
+  border-radius: 0rem 0.75rem 0rem 0.75rem ;
+  font-size: 1.1rem;
 }

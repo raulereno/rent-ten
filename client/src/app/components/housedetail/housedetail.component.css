@@ -4,56 +4,66 @@
 }
 
 .wrapper{
-    background-color: #fafafa;
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
 }
 
 .background{
     position: relative;
     margin: 0 auto;
-    width: 100%;
+    overflow: hidden;
+    background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-image: url("../../../assets/background.jpg");
     border-left: 1px solid #96969681;
     border-right: 1px solid #96969681;
-}  
+}
 
-/* ////////GALERÍA//////// */
+/* ////////////////////////////////////////////////////////  GALERÍA  //////////////////////////////////////////////////////// */
+
 .gallery{
     animation: fadein 2s;
     display: flex;
     flex-direction: column;
-    background-color: #fafafa;
     margin: 0 auto;
     margin-bottom: 2rem;
-    width: 82%;
+    width: 90%;
+}
+
+.gallery img{
+    transition: all 0.2s;
 }
 
 .topdiv{
     display:flex;
     margin: 0 auto;
-    margin-top: 5rem;
+    margin-top: 80px;
+    margin-bottom: 10px;
 }
 
 .button{
     position: absolute;
     border:none;
-    background-color: black;
-    color: white;
-    padding-top: 6px;
-    font-size: 18px;
+    background-color: #cdcdcd8c;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    color: rgb(95, 95, 95);
+    font-size: 30px;
     font-weight: 100;
-    width: 50px;
-    height: 50px;
-    border-radius: 30px 0px 20px 0px;
-    opacity: 60%;
-    transition: 0.5s;
+    width: 6%;
+    height: 10%;
+    border-bottom-right-radius: 100px;
+    opacity: 90%;
+    transition: all 0.2s;
+    box-shadow: inset  -10px -10px 8px rgba(0,0,0,0.2);
+    -moz-box-shadow: inset  -10px -10px 8px rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset  -10px -10px 8px rgba(0,0,0,0.2);
+    -o-box-shadow: inset  -10px -10px 8px rgba(0,0,0,0.2);
 }
 
 .button:hover{
-    opacity: 100%;
+    color: black;
 }
 
 .mainimg{
@@ -62,7 +72,6 @@
     border-radius: 30px 0px 0px 30px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px 0px;
     background-size: cover;
-    transition: all 0.2s;
 }
 
 .rows{
@@ -76,14 +85,13 @@
 }
 
 .sideimg{
-    display: block;
     cursor: pointer;
     background-size: cover;
     height: 8rem;
     width: 12rem;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px 0px;
-    margin-bottom: 0.5rem;
-    margin-left: 0.5rem;
+    margin-bottom: 10px;
+    margin-left: 10px;
     opacity: 0.75;
 }
 
@@ -93,7 +101,6 @@
 }
 
 .active{
-    border: 2px solid rgba(34, 34, 34, 0.6);
     opacity: 1;
 }
 
@@ -105,34 +112,33 @@
     border-radius: 0px 0px 30px 0px;
 }
 
-/* ////////HOUSEINFO//////// */
+/* ////////////////////////////////////////////////////////  GALERÍA  //////////////////////////////////////////////////////// */
+
+.reviews{
+    margin-top: 40px;
+    margin: 0 auto;
+    width: 80%;
+}
+
+/* ////////////////////////////////////////////////////////  HOUSE INFO  //////////////////////////////////////////////////////// */
+
 .body{
-    width: 100%;
-    margin-left: 11rem;
-    margin-top: 1rem;
     animation: fadein 2s;
     margin: 0 auto;
     height: 20rem;
-    width: 82%;
-    justify-content: space-evenly;
+    width: 80%;
+    display: flex;
 }
 
 .location{
     font-size: 50px;
     font-weight: 400;
     margin-bottom: 20px;
+    width: fit-content;
 }
 
 .flex{
     display: flex;
-}
-
-.flex app-reviews{
-    position: relative;
-    top: 1rem;
-    left: 10%;
-    height: 2rem;
-    width: 20rem;
 }
 
 .info{
@@ -141,6 +147,7 @@
     font-family: Arial, Helvetica;
     color: gray;
     margin-bottom: 4px;
+    width: fit-content;
 }
 
 .price{
@@ -150,29 +157,27 @@
     font-weight: 400;
 }
 
-.infodiv{
-    width: 40%;
+.darkPrice{
+    color: rgb(60, 135, 20)
 }
 
 .bookingdiv{
     display:flex;
     flex-direction: column;
-    width: 50%;
+    margin-left: 100px;
 }
 
 .booking{
     display: flex;
     justify-content: center;
-    border: 1px solid #A4A4A4;
-    border-radius: 1rem;
-    margin-top: 0.5rem;
-    padding: 1rem;
-    width: 35rem;
+    border-radius: 20px;
+    margin-top: 10px;
+    padding: 10px;
 }
 
 .makebooking{
-    margin-right: 1rem;
-    padding-right: 1rem;
+    margin-right: 20px;
+    padding-right: 20px;
     border-right: 1px solid #A4A4A4;
 }
 
@@ -181,12 +186,274 @@
     font-weight: 400;
 }
 
+.notavailable{
+    font-weight: 600;
+    margin-bottom: -5px;
+}
+
 .footer{
     width: 100%;
     background-color: #fafafa;
     border-top: 1px solid #A4A4A4;
     display: flex;
     justify-content: center;
-    padding-top:1.9rem;
-    height: 1.5rem;
+    align-items: center;
+    height: 3rem;
 }
+
+/* ////////////////////////////////////////////////////////  RESERVE MODAL  //////////////////////////////////////////////////////// */
+
+.reservehead{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100px;
+    margin-bottom: 30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.headtitle{
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.ptitle{
+    margin-top: -10px;
+    font-size: 14px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.modalbutton{
+    height: 30px;
+    width: 35px;
+    color: #000;
+    background: none;
+    border: 0;
+    font-size: 20px;
+}
+
+#closemodal{
+    position: absolute;
+    top: 0.7rem;
+    left: 90%;
+}
+
+.reservebody{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+}
+
+.reserveimg{
+    height: 250px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.reslocation{
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.infodiv{
+    display:flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.restext{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    margin-bottom: 0px;
+}
+
+.textvalue{
+    color: rgb(52, 52, 52);
+}
+
+#margin{
+    margin-top: 10px;
+}
+
+.resprice{
+    position: flex;
+    color: rgb(23, 59, 3);
+    font-size: 25px;
+    font-weight: 400;
+}
+
+/* ////////////////////////////////////////////////////////  RESERVE MODAL  //////////////////////////////////////////////////////// */
+
+
+
+/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
+
+@media only screen and (max-width: 1800px) {
+    .mainimg{
+        height: 400px;
+        width: 600px;
+    }
+
+    .sideimg{
+        height: 126.5px;
+        width: 190px;
+    }
+}
+
+@media only screen and (max-width: 1450px) {
+    .mainimg{
+        height: 350px;
+        width: 500px;
+    }
+
+    .sideimg{
+        height: 110px;
+        width: 160px;
+    }
+
+    .button{
+        width: 8%;
+    }
+
+    .location{
+        font-size: 35px;
+        margin-bottom: 5px;
+    }
+
+    .price{
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+
+    .info{
+        font-size: 15px;
+        margin-bottom: 0px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .button{
+        width: 10%;
+    }
+
+    .mainimg{
+        height: 250px;
+        width: 350px;
+    }
+
+    .sideimg{
+        height: 79.3px;
+        width: 120px;
+        margin-bottom: 6px;
+        margin-left: 6px;
+    }
+
+    .upcornerimg{
+        border-radius: 0px 25px 0px 0px;
+    }
+
+    .botcornerimg{
+        border-radius: 0px 0px 25px 0px;
+    }
+
+    .location{
+        font-size: 35px;
+        margin-bottom: 5px;
+    }
+
+    .price{
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .info{
+        font-size: 15px;
+        margin-bottom: -1px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .mainimg{
+        height: 180px;
+        width: 250px;
+    }
+
+    .sideimg{
+        height: 55.9px;
+        width: 80px;
+        margin-bottom: 6px;
+        margin-left: 6px;
+    }
+
+    .upcornerimg{
+        border-radius: 0px 20px 0px 0px;
+    }
+
+    .botcornerimg{
+        border-radius: 0px 0px 20px 0px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .mainimg{
+        border-radius: 15px 0px 0px 15px;
+        height: 150px;
+        width: 200px;
+    }
+
+    .sideimg{
+        height: 47.5px;
+        width: 70px;
+        margin-bottom: 4px;
+        margin-left: 4px;
+    }
+
+    .upcornerimg{
+        border-radius: 0px 10px 0px 0px;
+    }
+
+    .botcornerimg{
+        border-radius: 0px 0px 10px 0px;
+    }
+
+    .button{
+        height: 8%;
+        font-size: 25px;
+        border-bottom-right-radius: 90px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .button{
+        width: 15%;
+        font-size: 25px;
+        border-bottom-right-radius: 90px;
+    }
+
+    .mainimg{
+        border-radius: 10px 0px 0px 10px;
+        height: 100px;
+        width: 150px;
+    }
+
+    .sideimg{
+        height: 30.5px;
+        width: 45px;
+        margin-bottom: 4px;
+        margin-left: 4px;
+    }
+
+    .upcornerimg{
+        border-radius: 0px 10px 0px 0px;
+    }
+
+    .botcornerimg{
+        border-radius: 0px 0px 10px 0px;
+    }
+}
+/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */

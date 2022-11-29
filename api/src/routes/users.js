@@ -3,6 +3,7 @@ const { SendMail_verification } = require("../controllers/SendMail_verification"
 
 const {
   getUser,
+  getUsers,
   createUser,
   updateProfilePicture,
 } = require("../controllers/user");
@@ -22,15 +23,39 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/allUsers", async (req, res) => {
+  try {
+    const users = await getUsers();
+    console.log(users)
+    const usersA = users.filter(elem => elem.authorized === 'all')
+    const usersS = [...new Set(usersA)]
+    console.log(usersS)
+    res.status(200).json(usersS);
+  } catch (error) {
+    res.status(401).json(error.message);
+  }
+})
+
+router.get("/usersD", async (req, res) => {
+  try {
+    const users = await getUsers();
+    const usersD = users.filter(elem => elem.authorized !== 'all')
+    const usersS = [...new Set(usersD)]
+    console.log(usersS)
+    res.status(200).json(usersS);
+  } catch (error) {
+    res.status(401).json(error.message);
+  }
+})
 
 router.get("/getuser", async (req, res) => {
   const { mail } = req.query;
   try {
-    let finder = await User.findOne({where: {mail: mail}, include: [Review, House, Booking]})
+    let finder = await User.findOne({ where: { mail: mail }, include: [Review, House, Booking] })
     res.status(200).json(finder);
   } catch (error) {
     console.log(error);
-    res.status(400).json({error})
+    res.status(400).json({ error })
   }
 });
 
@@ -107,7 +132,7 @@ router.post("/requirecode/:mail", async (req, res) => {
     //   subject: "Verification code",
     //   html: `<h1> Hola, tu codigo para verificar tu mail en RentTen es: <b>${code}</b></h1>`,
     // });
-    
+
     await SendMail_verification(mail, code)
 
     const user = await User.findOne({ where: { mail: mail } });
@@ -165,7 +190,7 @@ router.put('/deleteAccount/:userId', async (req, res) => {
       await user.update({ authorized: value });
       return res
         .status(200)
-        .json({ msg: `Your account has been delete!` });
+        .json({ msg: 'Your account has been delete!' });
     } else {
       throw new Error({ msg: "Can't delete this account" });
     }

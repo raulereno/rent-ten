@@ -11,7 +11,7 @@
 .background{
   position: relative;
   margin: 0 auto;
-  width: 100%;
+  background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-image: url("../../../assets/background.jpg");
@@ -30,19 +30,20 @@
 }
 
 .bodydiv {
-  width: 120%;
+  min-height: 70vh;
+  width: 85vw;
   padding: 1rem;
-  height: fit-content;
   padding-top: 2rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
   margin-bottom: 3rem;
   border-radius: 1rem;
-  background-color: #FAFAFA;
 }
 
 .grid {
   display: grid;
   justify-content: center;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 20% 20% 20% 20% 20%;
 }
 
 .grid .grid-content {
@@ -79,16 +80,35 @@
   color: rgb(52, 52, 52);
   font-size: 16px;
   width: 70%;
-  margin-right: 2rem;
+  margin-left: 5vw;
 }
 
 /* //////////// FILTERS MODAL ////////////// */
 
-.filters {
+.altfilters{
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   height: 3.6rem;
+  width: 10rem;
   transition: all .2s;
   border: 1px solid rgba(0, 0, 0, 0.368);
+  background-color: #fafafa;
   border-radius: 5px;
+}
+
+.altfilters:hover {
+  transform: scale(1.05);
+}
+
+.filters{
+  height: 3.6rem;
+  width: 5rem;
+  transition: all .2s;
+  border: 1px solid rgba(0, 0, 0, 0.368);
+  background-color: #fafafa;
+  border-radius: 5px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .filters:hover {
@@ -122,6 +142,11 @@
   background: none;
   border: 0;
   font-size: 30px;
+  transition: .5 all;
+}
+.modalbutton:hover{
+  transform: scale(1.1);
+  color: rgb(141, 0, 0);
 }
 
 #closemodal {
@@ -180,7 +205,6 @@
 
 .footer{
   width: 100%;
-  background-color: #fffbfb;
   border-top: 1px solid #A4A4A4;
   display: flex;
   justify-content: center;
@@ -189,40 +213,21 @@
 }
 
 /* Estilado para el dark mode */
-/* .darkmode {
-  background-color: #3030309a;
-  color: white;
-  transition: all .5s;
-}
-.darkmode .filtersdiv {
-  background-color: #303030;
-  transition: all .5s;
-}
-.darkmode .card-header {
-  border: 0;
-  background-color: #3030309a;
-  transition: all .7s;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.darkmode .filters {
-  background-color: #5252525d;
-  height: 3.6rem;
-  transition: all 0.2s;
-  color: white;
-  border: 1px solid rgb(78, 78, 78);
-}
-.darkmode .paginado {
-  background-color: #5252525d;
-  color: white;
-}
-.darkmode .paginado span span {
-  background-color: #7b7b7b5d;
-  color: white;
-}
+
 .darkmodeModal {
   background-color: #303030;
+  color: white;
+}
+.darkmodeModal .modalbutton{
+  color: white;
+}
+.darkmodeModal .modalbutton:hover{
+  color: rgb(210, 0, 0);
+}
+.darkmodeModal mat-label{
+  color: white;
+}
+.darkmodeModal mat-form-field{
   color: white;
 }
 .darkmodeModal .modal-footer button {
@@ -233,20 +238,8 @@
   background-color: #6e6e6eb9;
   color: white;
 }
-.darkmodeFooter{
-  background-color: #303030;
-  border-top: 1px solid #232323;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-} */
-
-/*Mediaqueries  */
-@media only screen and (min-width: 1500px) {
-  .grid {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-  }
+.darkmodePaginator{
+  color: white;
 }
 
 .container-order {
@@ -308,29 +301,7 @@
   background-color: rgba(128, 128, 128, 0.552);
 }
 
-@media screen and (max-width: 600px) {
-  .grid {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    grid-template-columns: 100%;
-  }
-  .navigation{
-    margin-top: 0.5rem;
-  }
-    .filtersdiv{
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-    }
-    .paginado{
-      margin-bottom: 0.5rem;
-      width: 100%;
-      font-size: 0.8rem;
-    }
-}
-
-.alternative_home { 
+.alternative_home {
   display: grid;
   justify-items: center;
   justify-content: center;
@@ -352,3 +323,77 @@
 .alternativehome_buttonFilter:hover{
   transform: scale(1.05);
 }
+
+.noHouses{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
+
+@media only screen and (max-width: 1600px) {
+  .grid {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .grid {
+    grid-template-columns: 33% 33% 33%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 47% 47%;
+  }
+  .bodydiv{
+    width: 90vw;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .bodydiv{
+    width: 70vw;
+  }
+  .grid {
+    grid-template-columns: 100%;
+  }
+  .navigation{
+    margin-top: 0.5rem;
+  }
+  .paginado{
+    width: 70%;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-left: 0px;
+    padding: 10px;
+  }
+  .footer{
+    font-size: 15px;
+  }
+  .filtersdiv{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }
+  .filters{
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .paginado{
+    width: 360px;
+  }
+
+  .bodydiv{
+    width: 85vw;
+  }
+
+  .footer{
+    font-size: 13px;
+  }
+}
+/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */

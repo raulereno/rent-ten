@@ -1,8 +1,8 @@
-<div [ngClass]="darkmode? 'background darkmode':'background'">
-    <div class="wrapper">
+<div class="mat-app-background" [ngClass]="darkmode? 'background darkmode':'background'">
+    <div class="wrapper mat-app-background">
+        <button class="button" routerLink="/home">🡠</button>
         <section class="gallery">
             <div class="topdiv">
-                <button class="button" routerLink="/home">🡠</button>
                 <img id="preview" class="mainimg" src="{{house.picture[0]}}" alt="Image" >
                 <div class="rows">
                     <div class="column">
@@ -21,27 +21,32 @@
                         <img *ngIf="house.picture[8]" class="sideimg" [ngClass]="!house.picture[11] ? 'botcornerimg' : ''" src="{{house.picture[8]}}" alt="Image" Gallery>
                     </div>
                 </div>
-            </div>   
+            </div>
+            <div class="reviews">
+                <app-reviews></app-reviews>
+            </div>
+            <div class="insetShadow">
+
+            </div>
         </section>
 
         <div class="body">
             <div class="infodiv">
-                <h3 class="location">{{house.country}}, {{house.city}}</h3>
+                <h2 class="location">{{house.country}}, {{house.city}}</h2>
                 <div class="flex">
-                    <h3 class="price"> ARS ${{house.price}}</h3>
-                    <app-reviews></app-reviews>
+                    <h3 class="price" [ngClass]="{'darkPrice':darkmode}"> ARS ${{house.price}}</h3>
                 </div>
-                <h3 class="info">
+                <p class="info">
                     <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span style="color: green">✓</span></span>
                     <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
-                    <span style="margin-left: 0.5%"><span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span
-                                style="color: green">✓</span></span>
-                        <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
-                    </span>
-                </h3>
+                </p>
+                <p class="info">
+                    <span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span style="color: green">✓</span></span>
+                    <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
+                </p>
                 <p class="info">{{house.rooms}} room/s</p>
                 <p class="info">{{house.bathrooms}} bathroom/s</p>
-                <h3 class="info">{{house.maxpeople}} occupant/s</h3>
+                <p class="info">{{house.maxpeople}} occupant/s</p>
             </div>
 
             <div class="bookingdiv">
@@ -59,71 +64,53 @@
                             </mat-form-field>
                         </form>
 
-        <div> <button *ngIf="!(auth.isAuthenticated$ | async)" disabled style="margin-left: 2%" (click)="reserveHouse()"
-                type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
-                autocomplete="off">Login to make a reserve</button>
+                        <div>
+                            <button *ngIf="!(auth.isAuthenticated$ | async)" class="reservebutton" (click)="reserveHouse()"
+                            type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
+                            autocomplete="off">Login to make a reserve</button>
+                        </div>
 
-            <div> <button *ngIf="(auth.isAuthenticated$ | async)" style="margin-left: 2%" (click)="reserveHouse()"
-                    type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
-                    autocomplete="off">Reserve
-                    now</button>
+                        <div>
+                            <button *ngIf="(auth.isAuthenticated$ | async)" (click)="reserveHouse()"
+                            type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
+                            autocomplete="off">Reserve now</button>
+                        </div>
+                    </div>
+                    <div class="reserved">
+                        <div *ngIf="house.Bookings.length > 0">
+                            <h2 class="text"><span style="color: red; font-size: 25px; font-weight: 200;">&#x26A0;</span> This place is not available on:</h2>
+                                <div *ngFor="let book of house.Bookings">
+                                    <h3 class="notavailable"><span style="color: red; font-weight: 400;">X</span> {{book.start}} <span style="color: gray; font-weight: 400;">// to:</span> {{book.end}}</h3>
+                                </div>
+                        </div>
+                        <div *ngIf="house.Bookings.length === 0">
+                            <h3>&#x263A; This house is all year available</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- 
-        <div *ngIf="house.Bookings.length > 0">
-            <br/>
-            <h4>&#x26A0; This house has bookings on this dates:</h4>
-            <ul>
-                <li *ngFor="let book of house.Bookings">
-                    &#x2714; From: {{book.start}} // To: {{book.end}}
-                </li>
-            </ul>
         </div>
-
-        <div *ngIf="house.Bookings.length === 0">
-            <h3>&#x263A; This house is all year available</h3>
-        </div> -->
-
-        </div>
-
 
         <ng-template #pay let-modal>
-            <div class="modal-header">
-                <h2 class="modal-title" id="modal-basic-title">Details of your reserve
-                </h2>
-                <button id="closeModalButton" type="button" class="btn-close" aria-label="Close"
-                    (click)="modal.dismiss('Cross click')"></button>
+            <div class="reservehead">
+                <h4 class="headtitle">Make a reserve:</h4>
+                <p class="ptitle">House id: {{house.id}}</p>
+                <button type="button" id="closemodal" class="modalbutton" aria-label="Close" (click)="modal.dismiss('Cross click')">✕</button>
             </div>
 
-            <div class="modal-body">
+            <div class="reservebody">
                 <form>
-                    <div class="mb-3">
-
-                        <ng-container>
-                            <div class="input-group, row">
-                                <div style="justify-items: center; justify-content: center;" class="row">
-                                    <h5>House identifier: {{house.id}}</h5>
-                                    <img src="{{house.picture[0]}}" style="width: 200px; border-radius: 10%;" />
-                                </div>
-
-                                <div>
-                                    <br />
-                                    <span>
-                                        Price per day: {{house.price}} USD <br />
-                                        From: {{ formatDate_payment(form.value.daterange.start) }} <br />
-                                        To: {{ formatDate_payment(form.value.daterange.end) }} <br />
-                                        Total days: {{totaldays + 1}}
-
-                                    </span>
-                                </div>
-                                <div>
-                                    <h4 style="float: right">Total: <br /> {{totalprice}} USD</h4>
-                                </div>
-
-                            </div>
-                        </ng-container>
-
-                    </div>
+                    <ng-container>
+                        <img class="reserveimg" src="{{house.picture[0]}}" />
+                        <h4 class="reslocation">{{house.country}}, {{house.city}}</h4>
+                        <div class="infodiv">
+                            <h3 class="restext">Price per day: <span class="textvalue">ARS ${{house.price}}</span></h3>
+                            <h3 class="restext">Total days: <span class="textvalue">{{totaldays + 1}}</span></h3>
+                            <h3 id="margin" class="restext">From: <span class="textvalue">{{ formatDate_payment(form.value.daterange.start) }}</span></h3>
+                            <h3 class="restext">To: <span class="textvalue">{{ formatDate_payment(form.value.daterange.end) }}</span></h3>
+                            <h3 id="margin" class="restext">Total: <span class="resprice">ARS ${{totalprice}}</span></h3>
+                        </div>
+                    </ng-container>
                 </form>
             </div>
 
@@ -132,3 +119,6 @@
                 <form type="button" id="payment-form"></form>
             </div>
         </ng-template>
+    </div>
+    <footer class="mat-app-background footer mat-elevation-z4">Rent-Ten - made with ♥ by group 10 of FT-30A at SoyHenry.</footer>
+</div>

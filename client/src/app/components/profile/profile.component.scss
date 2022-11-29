@@ -17,22 +17,24 @@
   justify-content: center;
   margin-top: 3rem;
   margin-left: 3rem;
-  height: 100rem;
+  height: 100vh;
   min-width: 20%;
 }
-.container-image{
+.container-image {
   position: relative;
-  .edit{
+
+  .edit {
     background-color: #fafafa86;
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: -1rem;
     width: 100%;
     display: flex;
     justify-content: center;
     height: 0;
     transition: all 1s ease;
   }
+
   .edit svg {
     width: 2rem;
     fill: rgb(0, 0, 0);
@@ -44,7 +46,8 @@
     cursor: pointer;
     fill: rgb(0, 0, 0);
   }
-  &:hover .edit{
+
+  &:hover .edit {
     height: 20%;
   }
 }
@@ -68,8 +71,6 @@
   max-width: 80%;
 }
 
-;
-
 #favdiv {
   display: flex;
   flex-wrap: wrap;
@@ -82,15 +83,13 @@
   min-width: 90%;
 }
 
-
-
-
 .profileImg {
   width: 12rem;
   height: 12rem;
   border-radius: 50%;
   object-fit: cover;
 }
+
 .edit svg:hover ~ .profileImg {
   opacity: 0.3;
 }
@@ -206,19 +205,24 @@
 } */
 
 @media screen and (max-width: 600px) {
-  .wrapper{
+  .wrapper {
     display: flex;
     flex-direction: column;
   }
-  .leftdiv{
+
+  .leftdiv {
     height: auto;
   }
 }
 
+#acordionProfile {
+  background-color: black;
+}
+
 /* Cuando la pantalla es menor a 900px  (tablets y teléfonos inteligentes)*/
-@media only screen and (max-width : 1000px) {
-  .container-image{
-    .edit{
+@media only screen and (max-width: 1000px) {
+  .container-image {
+    .edit {
       height: 20%;
     }
   }
