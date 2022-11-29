@@ -8,6 +8,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { Booking } from 'src/app/models/Booking';
 import { Observable } from 'rxjs';
 import { House } from 'src/app/models/House';
+import { Review } from 'src/app/models/Review';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { loadProfile } from 'src/app/redux/actions/location.actions';
 import Swal from 'sweetalert2';
@@ -75,12 +76,12 @@ export class ReviewsComponent implements OnInit {
           this.http.getUser(this.profileJson.email).subscribe(res => {
             this.store.dispatch(loadProfile({ userProfile: res }))
             this.userProfile = res
-            this.ableToPostReview = this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)
+            this.ableToPostReview = this.house.Bookings?.some((booking: Booking) => booking.UserId === this.userProfile.id)
           });
         })
       } else {
         this.userProfile = profile
-        this.ableToPostReview = this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)
+        this.ableToPostReview = this.house.Bookings?.some((booking: Booking) => booking.UserId === this.userProfile.id)
 
       }
     });
@@ -106,9 +107,8 @@ export class ReviewsComponent implements OnInit {
   }
 
   openLetReviewModal(content: any) {
-    console.log(this.house.Booking)
-    console.log(this.userProfile)
-    if (!this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)) { alert('You can only post reviews of places you have been to') }
+    if (this.house.Reviews.some((review:Review) => review.UserId == this.userProfile.id)) {alert('You already gave a review for this place'); return}
+    if (!this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)) { alert('You can only post reviews of places you have been to'); return }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
   }
 

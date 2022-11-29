@@ -51,7 +51,7 @@ export class SliderComponent implements OnInit {
   animation() {
     setTimeout(() => {
       const animate = () => {
-        if (this.animate) { this.page_index < this.array.length && this.animationside == 'foward' ? this.slice_goFoward() : this.slice_goBack() }
+        if (this.animate && this.array) { this.page_index < this.array.length && this.animationside == 'foward' ? this.slice_goFoward() : this.slice_goBack() }
       }
       setInterval(animate, 5500);
     }, Math.floor(Math.random() * (2000 - 800) + 800));

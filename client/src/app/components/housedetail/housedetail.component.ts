@@ -21,7 +21,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HousedetailComponent implements OnInit {
 
-  @ViewChild("pay",{static:true}) pay:ElementRef;
+  @ViewChild("pay", { static: true }) pay: ElementRef;
 
   constructor(private route: ActivatedRoute,
     public http: DataServiceService,
@@ -31,7 +31,7 @@ export class HousedetailComponent implements OnInit {
     private _helper: HelperService,
     public auth: AuthService,
     private modalService: NgbModal
-    ) { }
+  ) { }
 
 
   userProfile: userProfile
@@ -47,8 +47,8 @@ export class HousedetailComponent implements OnInit {
   totaldays: number;
 
   ngOnInit(): void {
-    this.route.params.subscribe(params=>{
-      this.paramsId= params["id"];
+    this.route.params.subscribe(params => {
+      this.paramsId = params["id"];
       this.http
         .getHouse(this.paramsId)
         .subscribe((data) => (this.house = data));
@@ -72,6 +72,8 @@ export class HousedetailComponent implements OnInit {
   }
 
   unavailableDays = (calendarDate: Date): boolean => {
+    let today = new Date()
+    if (today > calendarDate || calendarDate > new Date('12-31-2024')) { return false }
     if (!this.house.Bookings) return true;
     return !this.house.Bookings.some(
       (d: Booking) =>
@@ -96,7 +98,6 @@ export class HousedetailComponent implements OnInit {
   }
 
   checkItsOccuped(start: Date, end: Date) {
-    console.log(this.house.Bookings)
     return this.house.Bookings.some(
       (d: Booking) =>
         start < new Date(d.start) &&
@@ -107,9 +108,17 @@ export class HousedetailComponent implements OnInit {
 
   reserveHouse(): void {
 
+    if (this.house.Users![0].id == this.userProfile.id ) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops..',
+        text: 'You cant reserve your own place'
+      })
+      return
+    }
+
     let start = this.form.value.daterange.start
     let end = this.form.value.daterange.end
-
 
     if (!start || !end) {
       Swal.fire({

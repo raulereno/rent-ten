@@ -161,7 +161,8 @@ export class ProfileComponent implements OnInit {
 
     if (confirm('Are you sure you want delete your create place?')) {
       //this.store.dispatch(deleteHouse({ payload: true }));
-      this.http.handleHouseState(userId, houseId, value);
+
+      this.http.handleHouseState(userId, houseId, value).subscribe()
       this.userProfile = { ...this.userProfile, Houses: this.userProfile.Houses?.filter(h => h.id !== houseId) };
     }
   }
