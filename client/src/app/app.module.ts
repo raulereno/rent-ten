@@ -69,6 +69,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 //COOKIES
 import { CookieService } from 'ngx-cookie-service';
 import { SocketIoModule } from 'ngx-socket-io';
+import { FooterComponent } from './components/footer/footer.component';
 
 const routes: Routes = [
   {
@@ -121,6 +122,7 @@ const routes: Routes = [
     TableHouseDComponent,
     AlternativehouseComponent,
     SliderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

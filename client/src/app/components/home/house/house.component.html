@@ -1,4 +1,4 @@
-<div class="housecard mat-app-background">
+<div class="housecard mat-app-background" [ngClass]="{'darkmode': darkmode}">
     <div class="updiv">
         <mat-card-actions class="margin">
             <a routerLink="/housedetail/{{house.id}}">

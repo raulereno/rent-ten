@@ -80,6 +80,7 @@ export class ProfileComponent implements OnInit {
         this.auth.user$.subscribe((profile) => {
           this.profileJson = profile;
           this.http.getUser(this.profileJson.email).subscribe((res) => {
+            res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
             this.store.dispatch(loadProfile({ userProfile: res }));
             this.userProfile = res;
           });
@@ -88,6 +89,7 @@ export class ProfileComponent implements OnInit {
         this.userProfile = profile;
       }
       this.http.getUser(profile.mail).subscribe((res) => {
+        res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
         this.userProfile = res;
       });
     });
@@ -173,8 +175,8 @@ export class ProfileComponent implements OnInit {
   }
   deleteHouse(houseId: string, userId: string) {
     let value = {
-      deleted: true,
-    };
+      deleted: true
+    }
 
     Swal.fire({
       title: 'Are you sure you want delete your create place?',
@@ -185,7 +187,7 @@ export class ProfileComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.http.handleHouseState(userId, houseId, value);
+        this.http.handleHouseState(userId, houseId, value).subscribe();
         this.userProfile = {
           ...this.userProfile,
           Houses: this.userProfile.Houses?.filter((h) => h.id !== houseId),
@@ -196,7 +198,7 @@ export class ProfileComponent implements OnInit {
 
   deleteAccount(userId: string) {
     if (confirm('Are you sure you want delete your account?')) {
-      // this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
+      //this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
       this.http.deleteAccount(userId, 'not');
       this.auth.logout();
       this._router.navigate(['home']);
