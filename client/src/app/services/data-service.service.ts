@@ -161,4 +161,16 @@ export class DataServiceService {
     return this.http.get<any>(`${environment.baseUrl}/houses/deletedhouses`);
   }
 
+  set_admin(newValues: any, userId: string): Observable<any> {
+    console.log('userId', userId)
+    console.log('nevalues', newValues)
+    return this.http.put<any>(`${environment.baseUrl}/users/editUser/${userId}`, newValues);
+  }
 }
+
+
+/* this.data.set_admin(id, value).subscribe(() => {
+  this.setUsersA() 
+  .
+   handleHouseState(userId: string, houseId:string, newValues: any) {
+    return this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?userId=${userId}`, newValues)*/

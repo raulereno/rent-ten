@@ -54,9 +54,7 @@ export class TableHouseDComponent implements OnInit {
   back() { this.router.navigate(['dashboard']) }
 
 
-  showInfo() {
-    console.log(this.houses)
-  }
+ 
 
   changeHouseStatus(houseId: string) {
     let newValues = { deleted: false }

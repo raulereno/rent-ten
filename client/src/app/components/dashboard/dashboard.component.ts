@@ -22,7 +22,7 @@ export class DashboardComponent {
 
   
   /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+/*   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
         return [
@@ -41,7 +41,7 @@ export class DashboardComponent {
       ];
     })
   );
- 
+  */
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -51,47 +51,8 @@ export class DashboardComponent {
     private store: Store<any>,) {}
   
   
-  public users: [];
-  public houses: any[];
-  profileJson: any;
-  houseId: string;
-  userId: string;
-  userProfile$: Observable<any> = new Observable();
-  public userProfile: userProfile;
 
-  ngOnInit(): void {
 
-    this.http.getHouses().subscribe(res=>this.houses = res)
-    console.log(this.houses)
-  
-  }
- 
-   /*  this.userProfile$ = this.store.select(selectorListProfile);
-    
-    this.loadProfile();
-    console.log('usserprofile',this.userProfile)
-    
-  
-
-  loadProfile(): void {
-    this.auth.user$.subscribe((profile) => {
-      this.profileJson = profile;
-      this.http.getUser(this.profileJson.email).subscribe((res) => {
-        this.store.dispatch(loadProfile({ userProfile: res }));
-        this.userProfile$.subscribe((res) => {
-          this.userProfile = res;
-        });
-      });
-
-    this.http.updateUser(this.profileJson.email, this.profileJson.sub);
-    });
-  }
-  getHouses(){
-    // this.http. getHouses().subscribe(res=>this.houses = res.filter((elem:any)=>elem.deleted ===false))
-    this.http. getHouses().subscribe(res=>this.houses = res)
-    console.log(this.houses)
-  } 
-*/
 redirectHA(){this.router.navigate(['dashboard/housesA'])}
 
 redirectHD(){this.router.navigate(['dashboard/housesD'])}
@@ -100,8 +61,5 @@ redirectUA(){this.router.navigate(['dashboard/usersA'])}
 
 redirectUD(){this.router.navigate(['dashboard/usersD'])}
   
-  /* getUsers(){
-    this.http.getUsers().subscribe(res=>this.users = res)
-     console.log(this.users)
-  } */
+ 
 }

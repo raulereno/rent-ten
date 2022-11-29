@@ -220,7 +220,7 @@ export class HomeComponent implements OnInit {
       (elemten) => elemten.city === city
     );
 
-    // console.log("Nombre cualquiera: ", nombrecualquier)
+    
   }
 
   handleOrder() {
@@ -258,8 +258,7 @@ export class HomeComponent implements OnInit {
     this.quantityFilter = calculateFilter(this.filterForm.value);
     this.allHouses$.subscribe(res=> this.allHouses=res);
 
-    // this.store.dispatch(handleOrder({payload: this.order}))
-    //this.store.dispatch(handleOrder({payload: this.order}))
+ 
   }
   applyFilter() {
     this.handleFilters();
@@ -292,12 +291,4 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(addFavoriteHouse({ payload: houseId }));
   }
 
-  // handlerPrice(event:any){
-  //   console.log(event.target.name);
-  //   console.log(typeof event.target.value);
-  //   if(Number(event.target.value) < 0){
-  //     console.log("entro");
-  //    this.filterForm.get(`${event.target.name}`)?.setValue(0)
-  //   }
-  // }
 }

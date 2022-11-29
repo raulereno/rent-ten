@@ -164,6 +164,42 @@ router.get("/verifymail/:mail", async (req, res) => {
   }
 });
 
+router.put("/editUser/:userId", async (req, res) => {
+  const {userId} = req.params;
+  console.log(userId)
+  const {
+    name,
+    picture,
+    sub,
+    lastname,
+    mail,
+    country,
+    authorized,
+    verified,
+    verificationCode,
+    admin,
+    favoriteshouses,
+  } = req.body;
+ console.log(req.body)
+  try {
+    const user = await User.findByPk(userId)
+    console.log(user)
+ /*    if (user.admin === true) { */
+      await user.update(req.body);
+      console.log(user)
+      res.status(200).json(user);
+    /* } else {
+      res.status(200).json({
+        msg: `The ID ${userId} is not admin`,
+      }); 
+
+    }*/
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
 router.patch("/changepicture/:userID", async (req, res) => {
   const { userID } = req.params;
   const { newPicture, authID } = req.body;
