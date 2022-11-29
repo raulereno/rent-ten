@@ -28,7 +28,10 @@ export class TableHouseDComponent implements OnInit {
 
   public filtered_house: string;
   public filtered_house_result: House | null
-  
+
+  public page = 1;
+  public pageSize = 5;
+
   ngOnInit(): void {
 
     this.userProfile$ = this.store.select(selectorListProfile);
@@ -64,9 +67,9 @@ export class TableHouseDComponent implements OnInit {
     this.resetResults()
   }
 
-  handleInput(){
-    this.filtered_house_result = this.houses.find((h:House) => h.id === this.filtered_house.trimRight())
-    if (!this.filtered_house_result) {alert('No house with that ID')}
+  handleInput() {
+    this.filtered_house_result = this.houses.find((h: House) => h.id === this.filtered_house.trimRight())
+    if (!this.filtered_house_result) { alert('No house with that ID') }
   }
 
   resetResults() {

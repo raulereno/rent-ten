@@ -12,6 +12,8 @@ import { AuthService } from '@auth0/auth0-angular';
 import { loadProfile } from 'src/app/redux/actions/location.actions';
 import { House } from 'src/app/models/House';
 
+
+
 @Component({
   selector: 'app-table-house-a',
   templateUrl: './table-house-a.component.html',
@@ -24,10 +26,13 @@ export class TableHouseAComponent implements OnInit {
   headers = ['Name', 'Position', 'Office', 'Age', 'Start Date', 'Salary'];
   public houses: any[];
   userProfile$: Observable<any> = new Observable();
-  public userProfile: userProfile; 
+  public userProfile: userProfile;
 
   public filtered_house: any;
   public filtered_house_result: any
+
+  public page = 1;
+  public pageSize = 5;
 
   ngOnInit(): void {
 
@@ -50,7 +55,7 @@ export class TableHouseAComponent implements OnInit {
 
     });
   }
-  
+
   back() { this.router.navigate(['dashboard']) }
 
   showInfo() {
@@ -64,13 +69,15 @@ export class TableHouseAComponent implements OnInit {
 
   }
 
-  handleInput(){
-    this.filtered_house_result = this.houses.find((h:House) => h.id === this.filtered_house.trimRight())
-    if (!this.filtered_house_result) {alert('No house with that ID')}
+  handleInput() {
+    this.filtered_house_result = this.houses.find((h: House) => h.id === this.filtered_house.trimRight())
+    if (!this.filtered_house_result) { alert('No house with that ID') }
   }
 
   resetResults() {
     this.filtered_house_result = null
     this.filtered_house = ''
   }
+
+
 }
