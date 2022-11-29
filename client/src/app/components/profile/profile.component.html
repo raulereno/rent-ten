@@ -375,7 +375,7 @@
     <ng-template #content let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">My Data Profile</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            <button id="closeModal" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
             <form>
@@ -383,7 +383,7 @@
 
                     <ng-container>
                         <div>
-                            <form (ngSubmit)="onSubmit()" [formGroup]="profileForm" action="users/editUser/'user.id'">
+                            <form (ngSubmit)="onSubmit(user.id)" [formGroup]="profileForm" action="users/editUser/'user.id'">
                                 <label for="name">Name</label><br/>
                                 <input type="text" name="name" value="{{ user.name }}" formControlName="name"><br/>
                                 <label for="lastname">Lastname</label><br/>
@@ -395,7 +395,7 @@
                                 <input type="text" name="country" value="{{ user.country }}" formControlName="country"><br/>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-dark" (click)="onSubmit(); modal.dismiss('Cross click')" [disabled]="profileForm.invalid">Save</button>
+                                    <button type="submit" class="btn btn-outline-dark" [disabled]="profileForm.invalid">Save</button>
                                 </div>
                             </form>
                         </div>

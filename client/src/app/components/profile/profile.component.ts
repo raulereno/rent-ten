@@ -31,6 +31,7 @@ import { Booking } from 'src/app/models/Booking';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ThumbnailsMode } from 'ng-gallery';
 
 
 @Component({
@@ -220,6 +221,7 @@ export class ProfileComponent implements OnInit {
 
   initForm(): FormGroup {
     return this.fb.group({
+      userId: [''],
       name: ['', [Validators.minLength(3)]],
       lastname: ['', [Validators.minLength(3)]],
       mail: ['', [Validators.required]],
@@ -227,14 +229,17 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    this.saveData(this.profileForm.value.userId, this.profileForm.value.name, this.profileForm.value.lastname, this.profileForm.value.mail, this.profileForm.value.country);
+  onSubmit(userId: string) {
+    this.profileForm.get('userId')?.setValue(userId);
+    this.saveData(this.profileForm.value);
+    console.log(this.profileForm.value)
   }
 
-  saveData(userId: string, name: string, lastname: string, mail: string, country: string) {
+  saveData(value: any) {
     if (confirm('Confirm your data?')) {
       this.userProfile = this.profileForm.value;
-      this.http.updateData(userId, name, lastname, mail, country);
+      this.http.updateData(this.profileForm.value);
+      document.getElementById('closeModal')!.click();
     }
   }
 

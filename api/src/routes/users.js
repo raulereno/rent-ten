@@ -239,14 +239,15 @@ router.put('/deleteAccount', async (req, res) => {
 });
 */
 
-router.put("/editUser/:id", async (req, res) => {
-  const userId = req.params.id;
+router.put("/editUser/:userId", async (req, res) => {
+  const userId = req.params.userId;
   const {
     name,
     lastname,
     mail,
     country
   } = req.body;
+  console.log(req.body)
   console.log(userId)
   try {
     const user = await User.findOne({ where: { id: userId } });
