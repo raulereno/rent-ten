@@ -185,6 +185,7 @@ export class ProfileComponent implements OnInit {
       replaceUrl: true,
     }); //TODO: Redireccionar casa creada a detail
   }
+
   deleteHouse(houseId: string, userId: string) {
     let value = {
       deleted: true
@@ -218,7 +219,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openModal(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   initForm(): FormGroup {
