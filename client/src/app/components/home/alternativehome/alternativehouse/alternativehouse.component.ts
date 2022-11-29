@@ -49,6 +49,7 @@ export class AlternativehouseComponent implements OnInit {
       this.starRating = Math.ceil(this.n / this.house.scores?.length)
     })
     this._helper.customDarkMode.subscribe((active: boolean) => this.darkmode = active)
+
   }
 
   setFavorite(houseId: string, userId: string): void {

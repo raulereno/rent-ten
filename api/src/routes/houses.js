@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { House, User, Review, Booking } = require("../db");
-const { extraHouses, extraReviews, extraBookings } = require("../../extra-db/extra-db");
+const { extraHouses, extraReviews, extraBookings, realHousesArray } = require("../../extra-db/extra-db");
 const { SendMail_booking } = require("../controllers/SendMail_booking")
 
 const mercadopago = require("mercadopago");
@@ -130,6 +130,7 @@ router.put("/edithouse/:id", async (req, res) => {
       await house.update(req.body);
       res.status(200).json(house);
     } else {
+      console.log(`The ID ${userId} is not the owner of the house with ID ${houseId}`)
       res.status(200).json({
         msg: `The ID ${userId} is not the owner of the house with ID ${houseId}`,
       });
@@ -182,10 +183,21 @@ router.post("/process_payment", (req, res) => {
 
 router.post("/fulldb", async (req, res) => {
   try {
+    const mails = ["castioniezequiel@gmail.com", "dianaterragno@gmail.com", "raulereno@gmail.com", "ariijackson96@gmail.com", "leandefilippis@gmail.com", "jash0310@gmail.com"]
+
     let testuser = await User.create({ lastname: "Of all houses", sub: 'owner', name: "Owner", mail: "owner@owner.com" })
+
     await User.create({ lastname: "Administrator", name: "Rent-Ten", mail: "rentten2022@gmail.com", sub: 'Administrator', verified: "verified", admin: true })
+    await User.create({ lastname: "Castioni", name: "Ezequiel", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668902580/fz0t1blvbqtawh67ultd.jpg", mail: "castioniezequiel@gmail.com", sub: '123456', verified: "verified", admin: true })
+    await User.create({ lastname: "Terragno", name: "Diana", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668887349/dgkfsmjmsa7ryh7qaiks.jpg", mail: "dianaterragno@gmail.com", sub: '123456', verified: "verified", admin: true })
+    await User.create({ lastname: "Ereno", name: "Raul", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1669161526/px9jrclxc4ub480gs08l.jpg", mail: "raulereno@gmail.com", sub: '123456', verified: "verified", admin: true })
+    await User.create({ lastname: "Amaya Natel", name: "Ariana", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668898884/eipeywxilye3soog2nne.jpg", mail: "ariijackson96@gmail.com", sub: '123456', verified: "verified", admin: true })
+    await User.create({ lastname: "De Filippis", name: "Leandro", picture: "https://avatars.githubusercontent.com/u/76658911?v=4", mail: "leandefilippis@gmail.com", sub: '123456', verified: "verified", admin: true })
+    await User.create({ lastname: "Hurtado", name: "Jhony Saenz", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668898845/uqdscb1mhxqiz6jzlrgv.jpg", mail: "jash0310@gmail.com", sub: '123456', verified: "verified", admin: true })
+
 
     extraHouses(50).forEach(async (house) => {
+      // realHousesArray().forEach(async (house) => {
 
       let finder = await House.findOne({ where: house });
       const { scores, city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =
@@ -205,17 +217,18 @@ router.post("/fulldb", async (req, res) => {
           let booking = await Booking.create(newBooking)
           await booking.setUser(testuser.id)
           await booking.setHouse(newHouse.id)
-
         })
 
-        await newHouse.setUsers(testuser.id);
+        let randomUser = await User.findOne({ where: { mail: mails[Math.floor(Math.random() * 5)] } })
+        // await newHouse.setUsers(testuser.id);
+        await newHouse.setUsers(randomUser.id);
 
       }
     }
     );
-
     res.status(200).json({ msg: "Base de datos creada" });
   } catch (error) {
+    console.log(error)
     res.status(400).json(error);
   }
 });
