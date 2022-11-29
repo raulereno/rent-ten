@@ -9,10 +9,6 @@
           <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"
             (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
         </div>
-        <mat-paginator class="paginado mat-app-background" [ngClass]="{'darkmodeModal': darkmode}"
-          [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
-          (page)="handlePage($event)" showFirstLastButtons="">
-        </mat-paginator>
         <button class="filters position-relative mat-app-background">
           <span *ngIf="quantityFilter !== 0"
             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -23,6 +19,10 @@
             <span>Filters</span>
           </span>
         </button>
+        <mat-paginator class="paginado mat-app-background" [ngClass]="{'darkmodeModal': darkmode}"
+        [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+        (page)="handlePage($event)" showFirstLastButtons="">
+        </mat-paginator>
       </div>
     </div>
 

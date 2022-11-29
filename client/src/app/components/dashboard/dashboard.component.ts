@@ -17,6 +17,10 @@ import { loadProfile } from 'src/app/redux/actions/location.actions';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
+
+
+
+
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -44,7 +48,7 @@ export class DashboardComponent {
     private router: Router,
     public auth: AuthService,
     private store: Store<any>
-  ) {}
+  ) { }
 
   public users: [];
   public houses: any[];
@@ -53,6 +57,7 @@ export class DashboardComponent {
   userId: string;
   userProfile$: Observable<any> = new Observable();
   public userProfile: userProfile;
+
 
   ngOnInit(): void {
     this.http.getHouses().subscribe((res) => (this.houses = res));
@@ -66,15 +71,15 @@ export class DashboardComponent {
 
 
 
-  loadProfile(): void {
-    this.auth.user$.subscribe((profile) => {
-      this.profileJson = profile;
-      this.http.getUser(this.profileJson.email).subscribe((res) => {
-        this.store.dispatch(loadProfile({ userProfile: res }));
-        this.userProfile$.subscribe((res) => {
-          this.userProfile = res;
-        });
-      });
+ loadProfile(): void {
+   this.auth.user$.subscribe((profile) => {
+     this.profileJson = profile;
+     this.http.getUser(this.profileJson.email).subscribe((res) => {
+       this.store.dispatch(loadProfile({ userProfile: res }));
+       this.userProfile$.subscribe((res) => {
+         this.userProfile = res;
+       });
+     });
 
     this.http.updateUser(this.profileJson.email, this.profileJson.sub);
     });
@@ -85,24 +90,18 @@ export class DashboardComponent {
     console.log(this.houses)
   }
 */
-  redirectHA() {
-    this.router.navigate(['dashboard/housesA']);
-  }
+  redirectHA() { this.router.navigate(['dashboard/housesA']) }
 
-  redirectHD() {
-    this.router.navigate(['dashboard/housesD']);
-  }
+  redirectHD() { this.router.navigate(['dashboard/housesD']) }
 
-  redirectUA() {
-    this.router.navigate(['dashboard/usersA']);
-  }
+  redirectUA() { this.router.navigate(['dashboard/usersA']) }
 
-  redirectUD() {
-    this.router.navigate(['dashboard/usersD']);
-  }
+  redirectUD() { this.router.navigate(['dashboard/usersD']) }
 
   /* getUsers(){
     this.http.getUsers().subscribe(res=>this.users = res)
      console.log(this.users)
   } */
+
+  back() { this.router.navigate(['dashboard']) }
 }

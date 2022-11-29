@@ -1,17 +1,12 @@
-  <div class="grid-container">
+<div class="grid-container">
   <h1 class="mat-h1">Dashboard Admin</h1>
   <mat-grid-list cols="1" rowHeight="350px">
     <mat-grid-tile>
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" style="overflow: scroll;">
         <mat-card-header>
           <mat-card-title>
-          
-
-          
-        
-              <h2 class="mat-h2">Hostings Activated</h2>
-            
-              <button (click)="redirectHA()">See all</button>
+            <h2 class="mat-h2">Hostings Activated</h2>
+            <button class="btn btn-primary" (click)="redirectHA()">See all</button>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
@@ -19,16 +14,12 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-
-
     <mat-grid-tile>
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" style="overflow: scroll;">
         <mat-card-header>
-          <mat-card-title>        
-         
-              <h2 class="mat-h2">Hostings Desactivated</h2>
-           
-              <button (click)="redirectHD()">See all</button>
+          <mat-card-title>
+            <h2 class="mat-h2">Hostings Desactivated</h2>
+            <button class="btn btn-primary" (click)="redirectHD()">See all</button>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
@@ -36,15 +27,12 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-
     <mat-grid-tile>
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" style="overflow: scroll;">
         <mat-card-header>
-          <mat-card-title>        
-          
-              <h2 class="mat-h2">Users Activated</h2>
-             
-              <button (click)="redirectUA()">See all</button>
+          <mat-card-title>
+            <h2 class="mat-h2">Users Activated</h2>
+            <button class="btn btn-primary" (click)="redirectUA()">See all</button>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
@@ -52,17 +40,12 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-
-
     <mat-grid-tile>
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" style="overflow: scroll;">
         <mat-card-header>
-          <mat-card-title>        
-            
-              <h2 class="mat-h2">Users Desactivated</h2>
-           
-           
-              <button (click)="redirectUD()">See all</button>
+          <mat-card-title>
+            <h2 class="mat-h2">Users Desactivated</h2>
+            <button class="btn btn-primary" (click)="redirectUD()">See all</button>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
@@ -70,14 +53,5 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-
-
-  </mat-grid-list>  
-
- 
-
- 
-
-
-
- 
+  </mat-grid-list>
+</div>

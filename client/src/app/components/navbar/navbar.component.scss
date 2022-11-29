@@ -300,16 +300,17 @@
       display: flex;
       align-items: flex-end;
 
-      a {
+      a{
         align-self: flex-end;
       }
-      .switch {
+      .switch{
         align-self: flex-end;
       }
     }
   }
-  .profile {
+  .profile{
     display: flex;
     flex-direction: column;
   }
+
 }
