@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { House } from 'src/app/models/House';
 import { userProfile } from 'src/app/models/UserProfile';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
-import { DataServiceService } from 'src/app/services/data-service.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-slider',
@@ -17,8 +17,8 @@ export class SliderComponent implements OnInit {
   @Input() housesSorted_byqualityprice: House[]
   @Input() dbProfile: userProfile
 
-  constructor(public http: DataServiceService, private store: Store<any>) { }
-  
+  constructor(public http: DataService, private store: Store<any>) { }
+
 
   // Local inneeded variables
   allHouses: House[] = []
@@ -27,7 +27,7 @@ export class SliderComponent implements OnInit {
   // dbProfile: any = {}
 
   // Slider of houses sorted by quality/price
-  
+
   page_index: number = 1
   page_size: number = 5
   page_firstslice: number = 0
@@ -45,7 +45,7 @@ export class SliderComponent implements OnInit {
     this.page_index = this.page_index + 1
     this.slider_priceval = this.housesSorted_byqualityprice.slice(this.page_firstslice, this.page_secondslice)
   }
-  
+
   slice_goBack() {
     if (this.page_index == 1) { return }
     this.page_firstslice = this.page_firstslice - this.page_size

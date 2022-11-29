@@ -8,7 +8,7 @@ import {
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
-import { DataServiceService } from '../../services/data-service.service';
+import { DataService } from '../../services/data.service';
 
 import { House } from '../../models/House';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -18,24 +18,23 @@ import { loadProfile } from 'src/app/redux/actions/location.actions';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  providers: [DataServiceService],
+  providers: [DataService],
 })
 export class NavbarComponent implements OnInit {
   constructor(
     public auth: AuthService,
-    public http: DataServiceService,
+    public http: DataService,
     private _store: Store<any>,
     @Inject(DOCUMENT) private doc: Document,
     private _helper: HelperService,
     private router: Router,
     private localStorageSvc: LocalStorageService,
-    private modalService: NgbModal,
-  ) { }
+    private modalService: NgbModal
+  ) {}
 
   public active: boolean = false;
   profileJson: any;
@@ -89,46 +88,39 @@ export class NavbarComponent implements OnInit {
       timer: 3000,
       timerProgressBar: true,
       didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
+    });
     if (!this.userProfile.id) {
       // alert('You need login for post your place')
       Swal.fire({
         title: 'You must be a user to be able to create a house',
-        text: "Do you want to register?",
+        text: 'Do you want to register?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes I want to register'
+        confirmButtonText: 'Yes I want to register',
       }).then((result) => {
         if (result.isConfirmed) {
-          this.auth.loginWithRedirect()
+          this.auth.loginWithRedirect();
         }
-      })
-
-
-    }
-    else if (this.userProfile.verified !== 'verified') {
+      });
+    } else if (this.userProfile.verified !== 'verified') {
       // alert('Your account must to be verification')
       Swal.fire(
         'Your account must to be verification',
         'Do you want to verify your username?',
         'warning'
-      ).then(result => {
+      ).then((result) => {
         this.router.navigate(['profile']);
-      })
+      });
       // this.router.navigate(['profile']);
-
     } else {
       this.router.navigate(['createhouse']);
     }
-
   }
-
-
 
   darkMode(): void {
     this.darkmode = !this.darkmode;
@@ -147,7 +139,7 @@ export class NavbarComponent implements OnInit {
     this.auth.logout({ returnTo: this.doc.location.origin });
   }
 
-  showInfo(): void { }
+  showInfo(): void {}
 
   getFavoriteLS(): void {
     this.favorites = this.localStorageSvc.getFavoritesHouses();
@@ -171,6 +163,6 @@ export class NavbarComponent implements OnInit {
     this.ngOnInit();
   }
   setActive(): void {
-    this.active = !this.active
+    this.active = !this.active;
   }
 }

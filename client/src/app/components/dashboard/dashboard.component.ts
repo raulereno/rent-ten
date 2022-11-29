@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 
-import { DataServiceService } from 'src/app/services/data-service.service';
+import { DataService } from 'src/app/services/data.service';
 import { userProfile } from 'src/app/models/UserProfile';
 import { Observable } from 'rxjs';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
@@ -14,13 +14,9 @@ import { loadProfile } from 'src/app/redux/actions/location.actions';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-
-
-
-  
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -29,7 +25,7 @@ export class DashboardComponent {
           { title: 'Card 1', cols: 1, rows: 1 },
           { title: 'Card 2', cols: 1, rows: 1 },
           { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
+          { title: 'Card 4', cols: 1, rows: 1 },
         ];
       }
 
@@ -37,20 +33,19 @@ export class DashboardComponent {
         { title: 'Card 1', cols: 2, rows: 1 },
         { title: 'Card 2', cols: 1, rows: 1 },
         { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
+        { title: 'Card 4', cols: 1, rows: 1 },
       ];
     })
   );
- 
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    public http: DataServiceService,
-    private router: Router,   
+    public http: DataService,
+    private router: Router,
     public auth: AuthService,
-    private store: Store<any>,) {}
-  
-  
+    private store: Store<any>
+  ) {}
+
   public users: [];
   public houses: any[];
   profileJson: any;
@@ -60,18 +55,16 @@ export class DashboardComponent {
   public userProfile: userProfile;
 
   ngOnInit(): void {
-
-    this.http.getHouses().subscribe(res=>this.houses = res)
-    console.log(this.houses)
-  
+    this.http.getHouses().subscribe((res) => (this.houses = res));
+    console.log(this.houses);
   }
- 
-   /*  this.userProfile$ = this.store.select(selectorListProfile);
-    
+
+  /*  this.userProfile$ = this.store.select(selectorListProfile);
+
     this.loadProfile();
     console.log('usserprofile',this.userProfile)
-    
-  
+
+
 
   loadProfile(): void {
     this.auth.user$.subscribe((profile) => {
@@ -90,16 +83,24 @@ export class DashboardComponent {
     // this.http. getHouses().subscribe(res=>this.houses = res.filter((elem:any)=>elem.deleted ===false))
     this.http. getHouses().subscribe(res=>this.houses = res)
     console.log(this.houses)
-  } 
+  }
 */
-redirectHA(){this.router.navigate(['dashboard/housesA'])}
+  redirectHA() {
+    this.router.navigate(['dashboard/housesA']);
+  }
 
-redirectHD(){this.router.navigate(['dashboard/housesD'])}
+  redirectHD() {
+    this.router.navigate(['dashboard/housesD']);
+  }
 
-redirectUA(){this.router.navigate(['dashboard/usersA'])}
+  redirectUA() {
+    this.router.navigate(['dashboard/usersA']);
+  }
 
-redirectUD(){this.router.navigate(['dashboard/usersD'])}
-  
+  redirectUD() {
+    this.router.navigate(['dashboard/usersD']);
+  }
+
   /* getUsers(){
     this.http.getUsers().subscribe(res=>this.users = res)
      console.log(this.users)
