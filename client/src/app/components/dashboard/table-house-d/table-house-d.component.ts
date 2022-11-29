@@ -22,14 +22,17 @@ export class TableHouseDComponent implements OnInit {
     private _admindashboard: AdmindashboardService,
     private store: Store<any>,
     public auth: AuthService
-  ) {}
+  ) { }
 
   public houses: any[];
   userProfile$: Observable<any> = new Observable();
   public userProfile: userProfile;
 
   public filtered_house: string;
-  public filtered_house_result: House | null;
+  public filtered_house_result: House | null
+
+  public page = 1;
+  public pageSize = 5;
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile);

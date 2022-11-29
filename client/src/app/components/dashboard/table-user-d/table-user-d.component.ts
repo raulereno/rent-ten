@@ -36,6 +36,9 @@ export class TableUserDComponent implements OnInit {
 
   id: string;
 
+  public page = 1;
+  public pageSize = 5;
+
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile);
     this.loadProfile();

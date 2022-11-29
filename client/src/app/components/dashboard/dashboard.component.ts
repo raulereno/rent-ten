@@ -17,6 +17,10 @@ import { loadProfile } from 'src/app/redux/actions/location.actions';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
+
+
+
+
   /** Based on the screen size, switch from standard to one column per row */
 /*   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -44,16 +48,33 @@ export class DashboardComponent {
     public http: DataService,
     private router: Router,
     public auth: AuthService,
-    private store: Store<any>,) {}
+    private store: Store<any>
+  ) { }
+
+  public users: [];
+  public houses: any[];
+  profileJson: any;
+  houseId: string;
+  userId: string;
+  userProfile$: Observable<any> = new Observable();
+  public userProfile: userProfile;
+
+
+  ngOnInit(): void {
+    this.http.getHouses().subscribe((res) => (this.houses = res));
+    console.log(this.houses);
   
-  
+
+  /*  this.userProfile$ = this.store.select(selectorListProfile); */
+
+   
+    console.log('usserprofile',this.userProfile)
+  }
 
 
 redirectHA(){this.router.navigate(['dashboard/housesA'])}
 
-  redirectHD() {
-    this.router.navigate(['dashboard/housesD']);
-  }
+  redirectHD() { this.router.navigate(['dashboard/housesD']) }
 
   redirectUA() {
     this.router.navigate(['dashboard/usersA']);

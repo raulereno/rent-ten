@@ -28,7 +28,7 @@
     "@material/form-field": "^14.0.0",
     "@material/grid-list": "^4.0.0",
     "@material/menu": "^14.0.0",
-    "@ng-bootstrap/ng-bootstrap": "^13.1.0",
+    "@ng-bootstrap/ng-bootstrap": "^13.1.1",
     "@ngbmodule/material-carousel": "^0.7.2",
     "@ngmodule/material-carousel": "^0.6.0",
     "@ngrx/store": "^14.3.2",
