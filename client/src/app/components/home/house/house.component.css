@@ -23,7 +23,7 @@
   opacity: 70%;
 }
 
-.margin{
+.margin {
   margin-bottom: -1.2rem;
 }
 
@@ -51,7 +51,6 @@
   color: black;
 }
 
-
 .image {
   height: 10rem;
   width: 12.5rem;
@@ -66,10 +65,9 @@
   color: black;
 }
 
-
 .firstdiv {
   display: flex;
-  margin-top: -4.40rem;
+  margin-top: -4.4rem;
   margin-bottom: -0.8rem;
 }
 
@@ -105,15 +103,13 @@
 }
 
 #addfav {
-  transition: .25s;
+  transition: 0.25s;
   color: #ffc107;
   border: 2px solid #ffc107;
   border-top: none;
   border-color: #ffc107;
   background-color: none;
-
 }
-
 
 #addfav svg {
   animation: dislike 0.5s 1;
@@ -129,7 +125,7 @@
   height: 2.5rem;
   border: none;
   background-color: #ffc107;
-  transition: .5s all;
+  transition: 0.5s all;
 }
 
 #removefav svg {
@@ -142,20 +138,20 @@
   background-color: #dc3545;
 }
 
-.heartsvg{
+.heartsvg {
   width: 0.8rem;
   padding-right: 0.1rem;
-  fill:#d6a410;
+  fill: #d6a410;
   transition: all 0.2s;
 }
 
-.favourites:hover .heartsvg{
-  fill:rgb(126, 0, 0);
+.favourites:hover .heartsvg {
+  fill: rgb(126, 0, 0);
 }
 
-#favsvg{
+#favsvg {
   margin-left: 0.1rem;
-  fill:rgb(126, 0, 0);
+  fill: rgb(126, 0, 0);
 }
 
 @keyframes like {
@@ -185,7 +181,6 @@
   }
 }
 
-
 .botdiv {
   display: flex;
   flex-direction: column;
@@ -210,6 +205,9 @@ ngb-rating {
   left: 0rem;
   background-color: #ffffff97;
   padding: 0.3rem;
-  border-radius: 0rem 0.75rem 0rem 0.75rem ;
+  border-radius: 0rem 0.75rem 0rem 0.75rem;
   font-size: 1.1rem;
+}
+.darkmode .price {
+  color: rgb(55, 151, 4);
 }

@@ -95,6 +95,7 @@
 
 .altfilters:hover {
   transform: scale(1.05);
+  background-color: #555555c1;
 }
 
 .filters {
@@ -199,15 +200,6 @@
 
 .modal-footer button:hover {
   transform: scale(1.03);
-}
-
-.footer {
-  width: 100%;
-  border-top: 1px solid #a4a4a4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 4rem;
 }
 
 /* Estilado para el dark mode */

@@ -1,240 +1,231 @@
-<div *ngIf="(userProfile$ | async); let user;" class="wrapper">
-    <!-- ---- PROFILE ---- -->
-    <div class="leftdiv mat-app-background">
-        <div class="userdiv" >
-            <div class="container-image" [ngClass]="{'darkmode': darkmode}">
-              <img src="{{user.picture}}"
-                  class="profileImg" />
-              <span class="edit" >
-                  <svg (click)="fileInput.click()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                      <path
-                          d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z" />
-                  </svg>
-                  <input (change)="onFileSelected($event)" #fileInput type="file" name="" id="" id="fileUpload"
-                      style="display: none;">
-              </span>
-            </div>
-            <!-- <button style="float:right" (click)="showProfileJson()">Console log Profile json & profile DB</button> -->
-            <div class="infodiv">
-                <h2 class="text">{{user.email}}</h2>
-                <h3>{{user.mail}}</h3>
-                <h4 *ngIf="user.verified === 'verified'" style="color: green">&#x2714;Your email is verified</h4>
-                <h5 *ngIf="user.verified === 'not_verified'" style="color: red; font-weight: 400;">
-                    <button style="size: 50%" (click)="verifyAccount()" type="button"
-                        class="btn btn-outline-danger btn-sm">Verify</button>
-                    &#x2716; Your account is not verified
-                </h5>
-                <!-- ---- EMAIL ---- -->
-                <div>
+<div *ngIf="(userProfile$ | async); let user;" class="wrapper" [ngClass]="{'darkmode': darkmode}">
+  <!-- ---- PROFILE ---- -->
+  <div class="leftdiv mat-app-background">
+    <div class="userdiv">
+      <div class="container-image" [ngClass]="{'darkmode': darkmode}">
+        <img src="{{user.picture}}" class="profileImg" />
+        <span class="edit">
+          <svg (click)="fileInput.click()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z" />
+          </svg>
+          <input (change)="onFileSelected($event)" #fileInput type="file" name="" id="" id="fileUpload"
+            style="display: none;">
+        </span>
+      </div>
+      <!-- <button style="float:right" (click)="showProfileJson()">Console log Profile json & profile DB</button> -->
+      <div class="infodiv">
+        <h2 class="text">{{user.email}}</h2>
+        <h3>{{user.mail}}</h3>
+        <h4 *ngIf="user.verified === 'verified'" style="color: green">&#x2714;Your email is verified</h4>
+        <h5 *ngIf="user.verified === 'not_verified'" style="color: red; font-weight: 400;">
+          <button style="size: 50%" (click)="verifyAccount()" type="button"
+            class="btn btn-outline-danger btn-sm">Verify</button>
+          &#x2716; Your account is not verified
+        </h5>
+        <!-- ---- EMAIL ---- -->
+        <div>
 
-                    <div *ngIf="user.verified === 'pending'">
+          <div *ngIf="user.verified === 'pending'">
 
-                        <form>
-                            <p>Please enter the security code which you received in your email</p>
-                            <input #code name="code" value="" type="string" placeholder="Insert the code">
-                            <button style="size: 50%" (click)="sendVerificationCode(code.value)" type="button"
-                                class="btn btn-outline-warning btn-sm">Verify</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <p style="color:red" *ngIf="error">{{error.error.msg}}</p>
-
-            <div>
-                <div>
-                    <button (click)="deleteAccount(user.id)" type="button" class="btn btn-danger btn-sm">Delete
-                        Account</button>
-                </div>
-            </div>
+            <form>
+              <p>Please enter the security code which you received in your email</p>
+              <input #code name="code" value="" type="string" placeholder="Insert the code">
+              <button style="size: 50%" (click)="sendVerificationCode(code.value)" type="button"
+                class="btn btn-outline-warning btn-sm">Verify</button>
+            </form>
+          </div>
         </div>
+      </div>
+      <p style="color:red" *ngIf="error">{{error.error.msg}}</p>
+
+      <div>
+        <div>
+          <button (click)="deleteAccount(user.id)" type="button" class="btn btn-danger btn-sm">Delete
+            Account</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- bootstap -->
-    <div class="accordion" id="accordionPanelsStayOpenExample" style="min-width: 75%; margin-top: 2rem;">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseOne">
-                    MY HOUSES CREATE
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-                aria-labelledby="panelsStayOpen-headingOne">
-                <div class="accordion-body">
-                    <div *ngFor="let hou of userProfile?.Houses" class="card" style="width: 18rem;">
-                        <button (click)="deleteHouse(hou.id, user.id)" class="btn btn-danger btn-sm"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <polyline points="3 6 5 6 21 6"></polyline>
-                                <path
-                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                </path>
-                                <line x1="10" y1="11" x2="10" y2="17"></line>
-                                <line x1="14" y1="11" x2="14" y2="17"></line>
-                            </svg></button>
-                        <a routerLink="/housedetail/{{hou.id}}">
-                            <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
-                        </a>
+  <!-- bootstap -->
+  <div class="accordion mat-app-background" id="accordionPanelsStayOpenExample"
+    style="min-width: 75%; margin-top: 2rem; max-width: 75%;">
+    <div class="accordion-item mat-app-background">
+      <h2 class="accordion-header mat-app-background" id="panelsStayOpen-headingOne">
+        <button class="accordion-button collapsed mat-app-background" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          MY HOUSES CREATE
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+        aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body">
+          <div *ngFor="let hou of userProfile?.Houses" class="card" style="width: 18rem;" [ngClass]="{'darkmodeMyHouses': darkmode}">
+            <button (click)="deleteHouse(hou.id, user.id)" class="btn btn-danger btn-sm"><svg
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                </path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg></button>
+            <a routerLink="/housedetail/{{hou.id}}">
+              <img class="card-img-top" src="{{hou.picture[0]}}" alt="Card image cap">
+            </a>
 
-                        <div class="card-body mat-app-background">
-                            <p class="card-text">{{hou.country}}, {{hou.city}}</p>
-                            <p class="info">{{hou.rooms}} room/s</p>
-                            <p class="info">{{hou.bathrooms}} bathroom/s</p>
-                            <h3 class="info">
-                                <span *ngIf="hou.allowpets as value; else elseBlock">Pets: <span
-                                        style="color: green">✓</span></span>
-                                <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
-                                <span style="margin-left: 5%"><span *ngIf="hou.wifi as value; else elseBlockwifi">Wi-Fi:
-                                        <span style="color: green">✓</span></span>
-                                    <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
-                                </span>
-                            </h3>
-                            <h3 class="info">Occupants: {{hou.maxpeople}} </h3>
-                            <h3 class="price" *ngIf="hou.country"> USD ${{hou.price}}</h3>
-                        </div>
-                    </div>
-                </div>
+            <div class="card-body mat-app-background">
+              <p class="card-text">{{hou.country}}, {{hou.city}}</p>
+              <p class="info">{{hou.rooms}} room/s</p>
+              <p class="info">{{hou.bathrooms}} bathroom/s</p>
+              <h3 class="info">
+                <span *ngIf="hou.allowpets as value; else elseBlock">Pets: <span style="color: green">✓</span></span>
+                <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
+                <span style="margin-left: 5%"><span *ngIf="hou.wifi as value; else elseBlockwifi">Wi-Fi:
+                    <span style="color: green">✓</span></span>
+                  <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
+                </span>
+              </h3>
+              <h3 class="info">Occupants: {{hou.maxpeople}} </h3>
+              <h3 class="price" *ngIf="hou.country"> USD ${{hou.price}}</h3>
             </div>
+          </div>
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseTwo">
-                    MY FAVORITES HOUSES
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
-                aria-labelledby="panelsStayOpen-headingTwo">
-                <div class="accordion-body">
+      </div>
+    </div>
+    <div class="accordion-item mat-app-background">
+      <h2 class="accordion-header mat-app-background" id="panelsStayOpen-headingTwo">
+        <button class="accordion-button collapsed mat-app-background" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+          MY FAVORITES HOUSES
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+        aria-labelledby="panelsStayOpen-headingTwo">
+        <div class="accordion-body">
 
 
-                    <div class="favdiv mat-app-background">
-                        <div class="housecard mat-app-background" *ngFor="let house of favoritesHouses">
-                            <div class="updiv">
-                                <a routerLink="/housedetail/{{house.id}}">
-                                    <img class="image" src={{house.picture[0]}} />
-                                </a>
-                            </div>
-                            <div class="firstdiv">
-                                <div class="namediv">
-                                    <h2 class="name">{{house.country}}, {{house.city}}</h2>
-                                </div>
-                                <div class="remove">
-                                    <button id="removefav" class="favourites"
-                                        (click)="deleteFavorite(house.id, user.id)">❤</button>
-                                </div>
-                            </div>
-                            <div class="botdiv">
-                                <h3 class="info">{{house.rooms}} room/s</h3>
-                                <h3 class="info">{{house.bathrooms}} bathroom/s</h3>
-                                <h3 class="info">
-                                    <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span
-                                            style="color: green">✓</span></span>
-                                    <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
-                                    <span style="margin-left: 5%"><span
-                                            *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span
-                                                style="color: green">✓</span></span>
-                                        <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span>
-                                        </ng-template>
-                                    </span>
-                                </h3>
-                                <h3 class="info">Occupants: {{house.maxpeople}} </h3>
-                            </div>
-                            <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
-                        </div>
-                    </div>
+          <div class="favdiv mat-app-background" [ngClass]="{'darkmodeFavs': darkmode}">
+            <div class="housecard mat-app-background" *ngFor="let house of favoritesHouses">
+              <div class="updiv">
+                <a routerLink="/housedetail/{{house.id}}">
+                  <img class="image" src={{house.picture[0]}} />
+                </a>
+              </div>
+              <div class="firstdiv">
+                <div class="namediv">
+                  <h2 class="name">{{house.country}}, {{house.city}}</h2>
                 </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseThree">
-                    MY BOOKINGS
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
-                aria-labelledby="panelsStayOpen-headingThree">
-                <div class="accordion-body">
-
-                    <div class="card-body">
-                        <div *ngFor="let book of userProfile.Bookings">
-                            <div class="card">
-                                <div class="card-header">
-                                    <a routerLink="/housedetail/{{book.HouseId}}">
-                                        <span class="card-title">House: {{book.id}}</span>
-                                    </a>
-                                </div>
-                                <div class="card-body">
-                                    <h1 class="card-title">Itineraries</h1>
-                                    <p class="card-text">Arrival: {{book.start}}</p>
-                                    <p class="card-text">Departure: {{book.end}}</p>
-                                </div>
-
-                                <div class="card-footer">
-                                    <span *ngIf="book.status === 'success'" class="card-subtitle mb-2 text-muted">State:
-                                        <span *ngIf="book.status === 'success'"
-                                            style="color: green;">{{book.status}}</span>
-                                    </span>
-                                    <span *ngIf="book.status === 'pending'" class="card-subtitle mb-2 text-muted">State:
-                                        <span *ngIf="book.status === 'pending'"
-                                            style="color: red;">{{book.status}}</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
+                <div class="remove">
+                  <button id="removefav" class="favourites" (click)="deleteFavorite(house.id, user.id)">❤</button>
                 </div>
+              </div>
+              <div class="botdiv">
+                <h3 class="info">{{house.rooms}} room/s</h3>
+                <h3 class="info">{{house.bathrooms}} bathroom/s</h3>
+                <h3 class="info">
+                  <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span
+                      style="color: green">✓</span></span>
+                  <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
+                  <span style="margin-left: 5%"><span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span
+                        style="color: green">✓</span></span>
+                    <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span>
+                    </ng-template>
+                  </span>
+                </h3>
+                <h3 class="info">Occupants: {{house.maxpeople}} </h3>
+              </div>
+              <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
             </div>
+          </div>
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseFour">
-                    MY REVIEWS
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
-                aria-labelledby="panelsStayOpen-headingFour">
-                <div class="accordion-body">
-                    <div class="card-body">
-                        <div *ngFor="let rev of userProfile.Reviews">
-                            <div class="card">
-                                <div class="card-header">
-                                    <a routerLink="/housedetail/{{rev.HouseId}}">
-                                        <span class="card-title">House: {{rev.HouseId}}</span>
-                                    </a>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title"></h5>
-                                    <p class="card-text">{{rev.opinion}}</p>
-                                </div>
-                                <div class="card-footer">
-                                    <span class="card-subtitle mb-2 text-muted"> {{rev.userEmail}} | {{rev.createdAt
+      </div>
+    </div>
+    <div class="accordion-item mat-app-background">
+      <h2 class="accordion-header mat-app-background" id="panelsStayOpen-headingThree">
+        <button class="accordion-button collapsed mat-app-background" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+          aria-controls="panelsStayOpen-collapseThree">
+          MY BOOKINGS
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+        aria-labelledby="panelsStayOpen-headingThree">
+        <div class="accordion-body">
+
+          <div class="card-body">
+            <div *ngFor="let book of userProfile.Bookings">
+              <div class="card">
+                <div class="card-header">
+                  <a routerLink="/housedetail/{{book.HouseId}}">
+                    <span class="card-title">House: {{book.id}}</span>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h1 class="card-title">Itineraries</h1>
+                  <p class="card-text">Arrival: {{book.start}}</p>
+                  <p class="card-text">Departure: {{book.end}}</p>
+                </div>
+
+                <div class="card-footer">
+                  <span *ngIf="book.status === 'success'" class="card-subtitle mb-2 text-muted">State:
+                    <span *ngIf="book.status === 'success'" style="color: green;">{{book.status}}</span>
+                  </span>
+                  <span *ngIf="book.status === 'pending'" class="card-subtitle mb-2 text-muted">State:
+                    <span *ngIf="book.status === 'pending'" style="color: red;">{{book.status}}</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item mat-app-background">
+      <h2 class="accordion-header mat-app-background" id="panelsStayOpen-headingFour">
+        <button class="accordion-button collapsed mat-app-background" type="button" data-bs-toggle="collapse"
+          data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+          aria-controls="panelsStayOpen-collapseFour">
+          MY REVIEWS
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
+        aria-labelledby="panelsStayOpen-headingFour">
+        <div class="accordion-body">
+          <div class="card-body">
+            <div *ngFor="let rev of userProfile.Reviews">
+              <div class="card">
+                <div class="card-header">
+                  <a routerLink="/housedetail/{{rev.HouseId}}">
+                    <span class="card-title">House: {{rev.HouseId}}</span>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">{{rev.opinion}}</p>
+                </div>
+                <div class="card-footer">
+                  <span class="card-subtitle mb-2 text-muted"> {{rev.userEmail}} | {{rev.createdAt
                                         |
                                         date:"short" }}</span>
-                                </div>
-                            </div>
-                            <br>
-                        </div>
-                    </div>
                 </div>
+              </div>
+              <br>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <!-- bootstap -->
+  <!-- bootstap -->
 
 
 
 
-    <!-- <ngb-accordion style="min-width: 75%;" #acc="ngbAccordion" activeIds="ngb-panel-0">
+  <!-- <ngb-accordion style="min-width: 75%;" #acc="ngbAccordion" activeIds="ngb-panel-0">
         <ngb-panel title="MY HOUSES CREATE">
             <ng-template ngbPanelContent>
                 <div class="card-body">
@@ -372,4 +363,4 @@
         </ngb-panel>
     </ngb-accordion> -->
 
-    <p *ngIf="!(userProfile$ | async)">loading...</p>
+  <p *ngIf="!(userProfile$ | async)">loading...</p>

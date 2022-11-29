@@ -39,7 +39,7 @@
 
               <div class="firstdiv">
                 <div class="houseinfo">
-                  <h1 class="type">House</h1>
+                  <h1 class="type">{{favorite.type | titlecase}}</h1>
                   <span class="location"><br />{{favorite.country}}, {{favorite.city}}</span>
                   <h3 class="price"> USD ${{favorite.price}}</h3>
                 </div>
@@ -53,18 +53,18 @@
     </div>
   </ng-template>
 
-  <button class="myFavourites" *ngIf="!isLogged" (click)="openModalFav(favorites)">My favourites ♥</button>
+  <button class="myFavourites mat-app-background" *ngIf="!isLogged" (click)="openModalFav(favorites)">My favourites</button>
   <!-- *ngIf="!userProfile" -->
   <!-- class="btn btn-lg btn-outline-primary"
 *ngIf="!isLogged" -->
   <div class="rightdiv" [ngClass]="{'rightdiv--activo': active}">
     <a *ngIf="userProfile.admin" mat-button routerLink="/dashboard">Dashboard</a>
     <div class="host">
-      <a *ngIf="!userProfile.id" (click)="validateUser()"
+      <a class="hostButton" *ngIf="!userProfile.id" (click)="validateUser()"
         style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button>
         Become a Host
       </a>
-      <a *ngIf="userProfile.id" (click)="validateUser()"
+      <a class="hostButton" *ngIf="userProfile.id" (click)="validateUser()"
         style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button>
         Become a Host
       </a>

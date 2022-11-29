@@ -1,5 +1,11 @@
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
-import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  NgForm,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ValidationErrors,
+} from '@angular/forms';
 import { AppState } from './../../redux/store/app.state';
 import { Observable } from 'rxjs';
 import { loadedCountries } from './../../redux/actions/location.actions';
@@ -62,7 +68,7 @@ export class CreateHouseComponent implements OnInit {
       picture: [[]],
       price: [
         0,
-        [Validators.min(0), Validators.max(10000), Validators.required],
+        [Validators.min(1), Validators.max(10000), Validators.required],
       ],
     });
   }
@@ -76,9 +82,8 @@ export class CreateHouseComponent implements OnInit {
 
   states$: any;
   cities$: any;
-  //TODO: hacer una interface para los errores
-  //ponerlo en true cuando el form este controlado
-  errors: any = false;
+
+  errors: boolean = false;
 
   userProfile$: Observable<any> = new Observable();
   userProfile: any;
@@ -179,16 +184,24 @@ export class CreateHouseComponent implements OnInit {
       // this.userProfile.unsubscribe();
       this.router.navigate(['profile']); }
       else */
-    this.onUpload();
     console.log(this.formNewHouse.errors);
-  }
-
-  onUpload() {
-    if (!this.files[0]) {
+    if (this.formNewHouse.invalid) {
+      this.errors = true;
+      Swal.fire({
+        title: 'Oops...',
+        html: `<p><b>Hay campos requeridos en el form</b></p>`,
+        icon: 'error',
+      });
+    } else if (!this.files[0]) {
       // alert('Enter at least one cover photo');
       Swal.fire('Enter at least one cover photo');
       return;
+    } else {
+      this.onUpload();
     }
+  }
+
+  onUpload() {
     this.openDialog();
     console.log(this.formNewHouse.value);
     this.files.forEach((image) => {

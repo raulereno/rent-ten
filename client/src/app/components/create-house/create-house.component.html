@@ -1,9 +1,9 @@
-<div class="wrapper">
-  <div class="container_form">
+<div class="wrapper mat-app-background">
+  <div class="container_form mat-app-background">
     <form [formGroup]="formNewHouse" class="form_creation" action="houses/createhouse" method="post"
       style="display: flex; flex-direction: column; width: 35%" (ngSubmit)="onSubmit()">
 
-      <div class="container_type">
+      <div class="container_type mat-app-background">
         <label for="select_type">What kind of place will you host?</label>
         <select name="type" id="select_type" formControlName="type">
           <option value="house">House</option>
@@ -11,10 +11,12 @@
           <option value="guest house">Guest House</option>
           <option value="hotel">Hotel</option>
         </select>
-        <span *ngIf="formNewHouse.get('type')?.touched && formNewHouse.get('type')?.errors?.['required']" class="text-danger">This field is required </span>
+        <span *ngIf="errors && formNewHouse.get('type')?.errors?.['required']" class="text-danger">This field is
+          required </span>
+
       </div>
 
-      <div class="container_roomsAndGuest">
+      <div class="container_roomsAndGuest mat-app-background">
         <div class="roomsAndGuest">
           <label for="input_rooms">Number of rooms</label>
           <div>
@@ -25,7 +27,8 @@
                   d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
               </svg>
             </button>
-            <input (change)="dontLetNegative($event)" name="rooms" [value]="this.formNewHouse.value.rooms" formControlName="rooms" type="number" id="">
+            <input (change)="dontLetNegative($event)" name="rooms" [value]="this.formNewHouse.value.rooms"
+              formControlName="rooms" type="number" id="">
 
             <button type="button" (click)="handlePLusAndMinus('+', 'rooms')">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -47,7 +50,8 @@
                   d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
               </svg>
             </button>
-            <input name="bathrooms" (change)="dontLetNegative($event)" [value]="this.formNewHouse.value.bathrooms" formControlName="bathrooms" type="number" id="">
+            <input name="bathrooms" (change)="dontLetNegative($event)" [value]="this.formNewHouse.value.bathrooms"
+              formControlName="bathrooms" type="number" id="">
             <button type="button" (click)="handlePLusAndMinus('+', 'bathrooms')">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path
@@ -66,7 +70,8 @@
                   d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
               </svg>
             </button>
-            <input [value]="this.formNewHouse.value.maxpeople" formControlName="maxpeople" type="number" name="maxpeople" id="" (change)="dontLetNegative($event)">
+            <input [value]="this.formNewHouse.value.maxpeople" formControlName="maxpeople" type="number"
+              name="maxpeople" id="" (change)="dontLetNegative($event)">
 
             <button type="button" (click)="handlePLusAndMinus('+', 'maxpeople')">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -83,14 +88,15 @@
         <input type="number" name="price" id="input_price" formControlName="price"
           (change)="handlePrice(formNewHouse.value)" />
         <span>$USD</span>
-        <div>
-          <span style="display: inline-block;" *ngIf="formNewHouse.get('price')?.touched &&( formNewHouse.get('price')?.errors?.['required']||formNewHouse.get('price')?.errors?.['min'])" class="text-danger">{{formNewHouse.get('price')?.errors?.['min'].actual < 0?'This field cant be not negative':'' }} </span>
-        </div>
+        <span
+          *ngIf="errors &&( formNewHouse.get('price')?.errors?.['required']||formNewHouse.get('price')?.errors?.['min'])"
+          class="text-danger">{{formNewHouse.get('price')?.errors?.['min'].actual < 0?'This field cant be not negative':'This field is required' }}
+        </span>
       </div>
 
 
 
-      <div class="container_services">
+      <div class="container_services mat-app-background">
         <div>
           <span>Do you allow pets?</span>
           <label class="switch" for="input_allowpets">
@@ -108,7 +114,7 @@
         </div>
       </div>
 
-      <div class="container_location">
+      <div class="container_location mat-app-background">
         <div>
           <label for="input_country">Country:</label>
           <select name="country" id="" formControlName="country" (ngModelChange)="searchStates($event)">
@@ -116,6 +122,9 @@
               {{ country.name }}
             </option>
           </select>
+          <span *ngIf="errors && formNewHouse.get('country')?.errors?.['required']" class="text-danger">This field is
+            required </span>
+
         </div>
         <div>
           <label for="input_country">States:</label>
@@ -124,6 +133,9 @@
               {{ state.name }}
             </option>
           </select>
+          <span *ngIf="errors && formNewHouse.get('state')?.errors?.['required']" class="text-danger">This field is
+            required </span>
+
         </div>
 
         <div>
@@ -131,10 +143,13 @@
           <select name="city" formControlName="city" id="">
             <option *ngFor="let city of cities$" [ngValue]="city">{{ city }}</option>
           </select>
+          <span *ngIf=" errors && formNewHouse.get('city')?.errors?.['required']" class="text-danger">This field is
+            required </span>
+
         </div>
       </div>
       <hr />
-      <div class="dropzone">
+      <div class="dropzone mat-app-background">
         <ngx-dropzone (change)="onSelect($event);" #dropzone>
           <ngx-dropzone-label>Drag or click to select the photos of the place</ngx-dropzone-label>
 
@@ -147,7 +162,7 @@
         </ngx-dropzone>
       </div>
       <!-- '3000ms', '1500ms' -->
-      <button type="submit" class="submit" mat-raised-button [disabled]="formNewHouse.invalid">Created</button>
+      <button type="submit" class="submit" mat-raised-button>Create</button>
       <!-- <div>
         {{ currentHouse }}
       </div> -->
