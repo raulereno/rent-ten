@@ -247,7 +247,7 @@ router.put("/editUser/:id", async (req, res) => {
     mail,
     country
   } = req.body;
-
+  console.log(userId)
   try {
     const user = await User.findOne({ where: { id: userId } });
 
@@ -267,6 +267,6 @@ router.put("/editUser/:id", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-});
+}); 
 
 module.exports = router;
