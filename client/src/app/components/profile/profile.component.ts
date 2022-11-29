@@ -82,6 +82,7 @@ export class ProfileComponent implements OnInit {
     );
 
     this.profileForm = this.initForm();
+    this.onPathValue();
   }
 
   loadProfile() {
@@ -217,23 +218,33 @@ export class ProfileComponent implements OnInit {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
   }
 
-  onSubmit(): void {
-
-  }
-
   initForm(): FormGroup {
     return this.fb.group({
-      name: ['', [Validators.minLength(30)]],
-      lastname: ['', [Validators.minLength(30)]],
+      name: ['', [Validators.minLength(3)]],
+      lastname: ['', [Validators.minLength(3)]],
       mail: ['', [Validators.required]],
-      country: ['', [Validators.minLength(30)]]
+      country: ['', [Validators.minLength(3)]]
     });
+  }
+
+  onSubmit() {
+    this.saveData(this.profileForm.value.userId, this.profileForm.value.name, this.profileForm.value.lastname, this.profileForm.value.mail, this.profileForm.value.country);
   }
 
   saveData(userId: string, name: string, lastname: string, mail: string, country: string) {
     if (confirm('Confirm your data?')) {
+      this.userProfile = this.profileForm.value;
       this.http.updateData(userId, name, lastname, mail, country);
     }
+  }
+
+  onPathValue(): void {
+    this.profileForm.patchValue({
+      name: this.userProfile.name,
+      lastname: this.userProfile.lastname,
+      mail: this.userProfile.mail,
+      country: this.userProfile.country
+    });
   }
 
 }

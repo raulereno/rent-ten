@@ -17,7 +17,8 @@
             </div>
             <!-- <button style="float:right" (click)="showProfileJson()">Console log Profile json & profile DB</button> -->
             <div class="infodiv">
-                <h2 class="text">{{ user.name }}</h2>
+                <h2 class="text">{{ user.name }} {{ user.lastname }}</h2>
+                <h2 class="text">{{ user.country }}</h2>
                 <h2 class="text">{{user.email}}</h2>
                 <h3>{{user.mail}}</h3>
                 <h4 *ngIf="user.verified === 'verified'" style="color: green">&#x2714;Your email is verified</h4>
@@ -382,15 +383,20 @@
 
                     <ng-container>
                         <div>
-                            <form (ngSubmit)="onSubmit()" [formGroup]="profileForm">
+                            <form (ngSubmit)="onSubmit()" [formGroup]="profileForm" action="users/editUser/'user.id'">
                                 <label for="name">Name</label><br/>
-                                <input type="text" name="name" value="{{ user.name }}" formControlName="name" aria-invalid="false"><br/>
+                                <input type="text" name="name" value="{{ user.name }}" formControlName="name"><br/>
                                 <label for="lastname">Lastname</label><br/>
-                                <input type="text" name="lastname" value="{{ user.lastname }}" formControlName="lastname" aria-invalid="false"><br/>
+                                <input type="text" name="lastname" value="{{ user.lastname }}" formControlName="lastname"><br/>
                                 <label for="mail">Email</label><br/>
-                                <input type="text" name="mail" value="{{ user.mail }}" formControlName="mail" aria-invalid="false"><br/>
+                                <input type="text" name="mail" value="{{ user.mail }}" formControlName="mail"><br/>
+                                <div *ngIf="profileForm.get('mail')?.touched && profileForm.get('mail')?.errors?.['required']" class="alert alert-danger">This field is required.</div>
                                 <label for="country">Country</label><br/>
-                                <input type="text" name="country" value="{{ user.country }}" formControlName="country" aria-invalid="false"><br/>
+                                <input type="text" name="country" value="{{ user.country }}" formControlName="country"><br/>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-dark" (click)="onSubmit(); modal.dismiss('Cross click')" [disabled]="profileForm.invalid">Save</button>
+                                </div>
                             </form>
                         </div>
                         <br/>
@@ -405,9 +411,7 @@
                 </div>
             </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="saveData(user.id, user.name, user.lastname, user.mail, user.country); modal.dismiss('Cross click')">Save</button>
-        </div>
+
     </ng-template>
 
 
