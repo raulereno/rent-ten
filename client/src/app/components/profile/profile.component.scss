@@ -27,7 +27,6 @@
     background-color: #fafafa86;
     position: absolute;
     bottom: 0;
-    left: -1rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -51,7 +50,9 @@
     height: 20%;
   }
 }
-
+.darkmode .edit {
+  background-color: #303030a4;
+}
 .infodiv {
   display: flex;
   flex-direction: column;

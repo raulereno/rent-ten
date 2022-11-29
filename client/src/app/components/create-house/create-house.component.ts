@@ -1,5 +1,5 @@
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppState } from './../../redux/store/app.state';
 import { Observable } from 'rxjs';
 import { loadedCountries } from './../../redux/actions/location.actions';
@@ -40,20 +40,34 @@ export interface NewHouse {
   providers: [UploadImgService],
 })
 export class CreateHouseComponent implements OnInit {
-  //Local Variables
-  newHouse: NewHouse = {
-    city: '',
-    country: '',
-    state: '',
-    rooms: 1,
-    bathrooms: 1,
-    maxpeople: 1,
-    allowpets: false,
-    wifi: false,
-    price: 0,
-    type: '',
-    picture: [],
-  };
+  //Local VariablesinitForm(): FormGroup {
+
+  initForm(): FormGroup {
+    return this.fb.group({
+      country: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      rooms: [1, [Validators.min(1), Validators.max(20), Validators.required]],
+      bathrooms: [
+        1,
+        [Validators.min(1), Validators.max(10), Validators.required],
+      ],
+      maxpeople: [
+        1,
+        [Validators.min(1), Validators.max(50), Validators.required],
+      ],
+      allowPets: [false],
+      wifi: [false],
+      picture: [[]],
+      price: [
+        0,
+        [Validators.min(0), Validators.max(10000), Validators.required],
+      ],
+    });
+  }
+
+  formNewHouse!: FormGroup;
 
   selectedCountry: any = { name: 'arg' };
   files: File[] = [];
@@ -77,10 +91,12 @@ export class CreateHouseComponent implements OnInit {
     private _locationService: LocationService,
     private matDialog: MatDialog,
     private _location: Location,
-    private router: Router
+    private router: Router,
+    private readonly fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.formNewHouse = this.initForm();
     this._auth.user$.subscribe((profile) => {
       this.email = profile?.email ? profile?.email : '';
     });
@@ -118,6 +134,9 @@ export class CreateHouseComponent implements OnInit {
        })
       */
   }
+  get currentHouse() {
+    return JSON.stringify(this.formNewHouse.value);
+  }
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -144,7 +163,7 @@ export class CreateHouseComponent implements OnInit {
   }
   searchCities(state: string) {
     this._locationService
-      .getCities(this.newHouse.country, state)
+      .getCities(this.formNewHouse.value.country, state)
       .subscribe((response) => {
         this.cities$ = response.data;
       });
@@ -154,21 +173,24 @@ export class CreateHouseComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  onSubmit(create: NgForm) {
+  onSubmit() {
     /* if(this.userProfile.verified !== 'verified'){
       alert('Your account must to be verification')
       // this.userProfile.unsubscribe();
       this.router.navigate(['profile']); }
-      else */ this.onUpload(create);
+      else */
+    this.onUpload();
+    console.log(this.formNewHouse.errors);
   }
 
-  onUpload(create: NgForm) {
+  onUpload() {
     if (!this.files[0]) {
       // alert('Enter at least one cover photo');
       Swal.fire('Enter at least one cover photo');
       return;
     }
     this.openDialog();
+    console.log(this.formNewHouse.value);
     this.files.forEach((image) => {
       const data = new FormData();
       data.set('file', image);
@@ -176,63 +198,102 @@ export class CreateHouseComponent implements OnInit {
       data.set('cloud_name', 'dbgpp8nla');
 
       this._uploadImg.uploadImage(data).subscribe((response) => {
-        this.newHouse.picture?.push(response.secure_url);
-        if (this.files.length === this.newHouse.picture.length) {
-          this._http.createHouse(this.newHouse, this.email);
+        this.formNewHouse.value.picture?.push(response.secure_url);
+        if (this.files.length === this.formNewHouse.value.picture.length) {
+          console.log(this.formNewHouse.value.picture);
+          this._http.createHouse(this.formNewHouse.value, this.email);
           this.files = [];
-          create.resetForm();
+          this.formNewHouse.reset({
+            country: '',
+            city: '',
+            state: '',
+            type: '',
+            rooms: 1,
+            bathrooms: 1,
+            maxpeople: 1,
+            allowPets: false,
+            wifi: false,
+            picture: [],
+            price: 0,
+          });
         }
       });
     });
   }
 
-  get currentHouse() {
-    return JSON.stringify(this.newHouse);
-  }
-
   handlePrice(price: number) {
     if (price <= 0) {
-      this.newHouse.price = 0;
+      this.formNewHouse.value.price = 0;
     }
   }
   handleType(e: string) {
-    this.newHouse.type = e;
+    this.formNewHouse.value.type = e;
   }
 
   //Add and less number
   handlePLusAndMinus(operator: string, name: string) {
     switch (name) {
       case 'bathrooms':
-        if (this.newHouse.bathrooms === 1 && operator === '+') {
-          this.newHouse.bathrooms++;
-        } else if (this.newHouse.bathrooms >= 2) {
+        if (this.formNewHouse.value.bathrooms === 1 && operator === '+') {
+          this.formNewHouse.value.bathrooms++;
+        } else if (this.formNewHouse.value.bathrooms >= 2) {
           operator === '+'
-            ? this.newHouse.bathrooms++
-            : this.newHouse.bathrooms--;
+            ? this.formNewHouse.value.bathrooms++
+            : this.formNewHouse.value.bathrooms--;
         } else {
-          this.newHouse.bathrooms = 1;
+          this.formNewHouse.get('bathrooms')?.setValue(1);
         }
         break;
 
       case 'rooms':
-        if (this.newHouse.rooms === 1 && operator === '+') {
-          this.newHouse.rooms++;
-        } else if (this.newHouse.rooms >= 2) {
-          operator === '+' ? this.newHouse.rooms++ : this.newHouse.rooms--;
+        if (this.formNewHouse.value.rooms === 1 && operator === '+') {
+          this.formNewHouse.value.rooms++;
+        } else if (this.formNewHouse.value.rooms >= 2) {
+          operator === '+'
+            ? this.formNewHouse.value.rooms++
+            : this.formNewHouse.value.rooms--;
         } else {
-          this.newHouse.rooms = 1;
+          this.formNewHouse.value.rooms = 1;
         }
         break;
       case 'maxpeople':
-        if (this.newHouse.maxpeople === 1 && operator === '+') {
-          this.newHouse.maxpeople++;
-        } else if (this.newHouse.maxpeople >= 2) {
+        if (this.formNewHouse.value.maxpeople === 1 && operator === '+') {
+          this.formNewHouse.value.maxpeople++;
+        } else if (this.formNewHouse.value.maxpeople >= 2) {
           operator === '+'
-            ? this.newHouse.maxpeople++
-            : this.newHouse.maxpeople--;
+            ? this.formNewHouse.value.maxpeople++
+            : this.formNewHouse.value.maxpeople--;
         } else {
-          this.newHouse.maxpeople = 1;
+          this.formNewHouse.value.maxpeople = 1;
         }
+        break;
+    }
+  }
+  dontLetNegative(event: any) {
+    const name = event.target.name;
+    const value = event.target.value;
+    console.log(name);
+    console.log(value);
+
+    switch (name) {
+      case 'maxpeople':
+        if (value <= 1) {
+          this.formNewHouse.get('maxpeople')?.setValue(1);
+        }
+        break;
+      case 'rooms':
+        if (value <= 1) {
+          this.formNewHouse.get('rooms')?.setValue(1);
+        }
+        break;
+
+      case 'bathrooms':
+        if (value <= 1) {
+          this.formNewHouse.get('bathrooms')?.setValue(1);
+        }
+        break;
+
+      default:
         break;
     }
   }

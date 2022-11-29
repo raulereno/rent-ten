@@ -8,7 +8,7 @@
   }
 }
 
-.background{
+.background {
   position: relative;
   margin: 0 auto;
   width: 100%;
@@ -19,11 +19,11 @@
   border-right: 1px solid #96969681;
 }
 
-.container{
+.container {
   min-height: 79vh;
 }
 
-.flex{
+.flex {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,7 +53,7 @@
   margin-top: 1.5rem;
   width: 80%;
 }
-.navigation{
+.navigation {
   width: 110%;
   margin-top: 4rem;
   margin-bottom: 2rem;
@@ -83,14 +83,13 @@
 
 /* //////////// FILTERS MODAL ////////////// */
 
-.altfilters{
+.altfilters {
   margin-top: 2rem;
   margin-bottom: 1rem;
   height: 3.6rem;
   width: 10rem;
-  transition: all .2s;
+  transition: all 0.2s;
   border: 1px solid rgba(0, 0, 0, 0.368);
-  background-color: #fafafa;
   border-radius: 5px;
 }
 
@@ -98,12 +97,11 @@
   transform: scale(1.05);
 }
 
-.filters{
+.filters {
   height: 3.6rem;
   width: 5rem;
-  transition: all .2s;
+  transition: all 0.2s;
   border: 1px solid rgba(0, 0, 0, 0.368);
-  background-color: #fafafa;
   border-radius: 5px;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -121,7 +119,8 @@
 
   height: 5rem;
   margin-bottom: 1rem;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .headtitle {
@@ -140,9 +139,9 @@
   background: none;
   border: 0;
   font-size: 30px;
-  transition: .5 all;
+  transition: 0.5 all;
 }
-.modalbutton:hover{
+.modalbutton:hover {
   transform: scale(1.1);
   color: rgb(141, 0, 0);
 }
@@ -161,7 +160,8 @@
   font-size: 1rem;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
-  border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
+  border-bottom: var(--bs-modal-header-border-width) solid
+    var(--bs-modal-header-border-color);
   border-top-left-radius: var(--bs-modal-inner-border-radius);
   border-top-right-radius: var(--bs-modal-inner-border-radius);
 }
@@ -176,11 +176,11 @@
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-left: 0.5rem;
-  font-size: .875rem;
+  font-size: 0.875rem;
   border-color: rgba(92, 92, 92, 0.275);
   border-radius: 0.25rem;
   width: 9rem;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .filter-select:focus {
@@ -194,16 +194,16 @@
 }
 
 .modal-footer button {
-  transition: .3s all;
+  transition: 0.3s all;
 }
 
 .modal-footer button:hover {
   transform: scale(1.03);
 }
 
-.footer{
+.footer {
   width: 100%;
-  border-top: 1px solid #A4A4A4;
+  border-top: 1px solid #a4a4a4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -216,16 +216,16 @@
   background-color: #303030;
   color: white;
 }
-.darkmodeModal .modalbutton{
+.darkmodeModal .modalbutton {
   color: white;
 }
-.darkmodeModal .modalbutton:hover{
+.darkmodeModal .modalbutton:hover {
   color: rgb(210, 0, 0);
 }
-.darkmodeModal mat-label{
+.darkmodeModal mat-label {
   color: white;
 }
-.darkmodeModal mat-form-field{
+.darkmodeModal mat-form-field {
   color: white;
 }
 .darkmodeModal .modal-footer button {
@@ -236,7 +236,7 @@
   background-color: #6e6e6eb9;
   color: white;
 }
-.darkmodePaginator{
+.darkmodePaginator {
   color: white;
 }
 /*Mediaqueries  */
@@ -263,13 +263,12 @@
   bottom: -3.1rem;
   border: 1px solid rgba(128, 128, 128, 0.552);
   border-radius: 5px;
-
 }
 
 .buttonOrder {
   height: 3.6rem;
 
-  transition: all .2s;
+  transition: all 0.2s;
   border: 1px solid black;
   border-radius: 6px;
 }
@@ -315,19 +314,19 @@
     align-content: center;
     grid-template-columns: 100%;
   }
-  .navigation{
+  .navigation {
     margin-top: 0.5rem;
   }
-    .filtersdiv{
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-    }
-    .paginado{
-      margin-bottom: 0.5rem;
-      width: 100%;
-      font-size: 0.8rem;
-    }
+  .filtersdiv {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }
+  .paginado {
+    margin-bottom: 0.5rem;
+    width: 100%;
+    font-size: 0.8rem;
+  }
 }
 
 .alternative_home {
@@ -344,16 +343,16 @@
   margin-top: 1rem;
   min-width: 10rem;
   max-height: 2.8rem;
-  transition: all .2s;
+  transition: all 0.2s;
   border: 1px solid black;
   border-radius: 6px;
 }
 
-.alternativehome_buttonFilter:hover{
+.alternativehome_buttonFilter:hover {
   transform: scale(1.05);
 }
 
-.noHouses{
+.noHouses {
   display: flex;
   flex-direction: column;
   align-items: center;
