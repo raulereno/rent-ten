@@ -191,7 +191,7 @@ router.post("/fulldb", async (req, res) => {
     await User.create({ lastname: "Castioni", name: "Ezequiel", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668902580/fz0t1blvbqtawh67ultd.jpg", mail: "castioniezequiel@gmail.com", sub: '123456', verified: "verified", admin: true })
     await User.create({ lastname: "Terragno", name: "Diana", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668887349/dgkfsmjmsa7ryh7qaiks.jpg", mail: "dianaterragno@gmail.com", sub: '123456', verified: "verified", admin: true })
     await User.create({ lastname: "Ereno", name: "Raul", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1669161526/px9jrclxc4ub480gs08l.jpg", mail: "raulereno@gmail.com", sub: '123456', verified: "verified", admin: true })
-    await User.create({ lastname: "Jackson", name: "Ariana", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668898884/eipeywxilye3soog2nne.jpg", mail: "ariijackson96@gmail.com", sub: '123456', verified: "verified", admin: true })
+    await User.create({ lastname: "Amaya Natel", name: "Ariana", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668898884/eipeywxilye3soog2nne.jpg", mail: "ariijackson96@gmail.com", sub: '123456', verified: "verified", admin: true })
     await User.create({ lastname: "De Filippis", name: "Leandro", picture: "https://avatars.githubusercontent.com/u/76658911?v=4", mail: "leandefilippis@gmail.com", sub: '123456', verified: "verified", admin: true })
     await User.create({ lastname: "Hurtado", name: "Jhony Saenz", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668898845/uqdscb1mhxqiz6jzlrgv.jpg", mail: "jash0310@gmail.com", sub: '123456', verified: "verified", admin: true })
 
