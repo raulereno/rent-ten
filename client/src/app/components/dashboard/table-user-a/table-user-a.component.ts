@@ -33,6 +33,7 @@ export class TableUserAComponent implements OnInit {
   public users: any[];
 
   id: string;
+  newValues: any;
 
   customChangeAutorized: string;
 
@@ -63,11 +64,28 @@ export class TableUserAComponent implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
-  showInfo() {
-    console.log(this.users);
-  }
 
   desactiveAccount(id: string) {
     this._admindashboard.delete_set(id, 'not');
   }
+
+  setAdmin (data:string, id:string)
+{
+  console.log(id)
+  console.log(data)  
+  let newValues = {
+      admin: data
+    }
+    this._admindashboard.admin_set(newValues, id)
+  
+   /* else {
+    let newValues = {
+      admin: !event.target.checked
+    }
+    this._admindashboard.admin_set(newValues, id)
+  } */
+
+  
+
+} 
 }

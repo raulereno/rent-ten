@@ -39,7 +39,6 @@ export class ChatComponent implements OnInit {
     this.formMail = this.initForm();
     this._auth.user$.subscribe((profile) => {
       this.dbProfile = profile;
-      console.log(profile);
     });
   }
   sendMessage() {

@@ -225,8 +225,8 @@ export class ProfileComponent implements OnInit {
   initForm(): FormGroup {
     return this.fb.group({
       userId: [''],
-      name: ['', [Validators.minLength(3)]],
-      lastname: ['', [Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      lastname: ['', [Validators.required, Validators.minLength(3)]],
       mail: ['', [Validators.required]],
       country: ['', [Validators.minLength(3)]]
     });

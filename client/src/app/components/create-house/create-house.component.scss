@@ -1,12 +1,10 @@
-.wrapper{
+.wrapper {
   display: flex;
   margin: 0 auto;
 }
 
-
 .isCoverPhoto {
   border: 4px solid rgb(0, 0, 55);
-
 }
 
 .labelCoverPhoto {
@@ -17,7 +15,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: rgba(128, 128, 128, 0.14);
   height: 150vh;
   // background-image: url('https://www.wallpaperup.com/uploads/wallpapers/2017/04/24/1087078/a7b33135b987d8e76c27fe9cd9a5e725-700.jpg');
   // background-position: center;
@@ -40,7 +37,6 @@
   }
 
   .form_creation {
-
     padding: 0.5rem;
     width: 50% !important;
     height: 100vh;
@@ -62,45 +58,42 @@
         width: 15rem;
         height: 2rem;
         align-self: center;
-        background-color: rgba(0, 0, 0, 0.18);
         border-radius: 3px;
-        option{
+        option {
           font-size: 1.3rem;
         }
       }
     }
-    .container_price{
+    .container_price {
       margin: 2rem 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      label{
+      label {
         font-size: 1.3rem;
         margin-right: 1rem;
       }
-      input{
+      input {
         width: 3rem;
         height: 2rem;
         font-size: 1.1rem;
         margin-right: 0.5rem;
       }
-      span{
+      span {
         font-size: 1rem;
       }
-
     }
-    .container_services{
+    .container_services {
       display: flex;
       justify-content: center;
       justify-content: space-evenly;
       margin-bottom: 2rem;
-      div{
+      div {
         display: flex;
         flex-direction: column;
         align-items: center;
-        span{
+        span {
           font-size: 1.2rem;
-
         }
         .switch {
           margin-top: 0.5rem;
@@ -126,8 +119,8 @@
           right: 0;
           bottom: 0;
           background-color: #ccc;
-          -webkit-transition: .4s;
-          transition: .4s;
+          -webkit-transition: 0.4s;
+          transition: 0.4s;
         }
 
         .slider:before {
@@ -138,16 +131,16 @@
           left: 4px;
           bottom: 4px;
           background-color: white;
-          -webkit-transition: .4s;
-          transition: .4s;
+          -webkit-transition: 0.4s;
+          transition: 0.4s;
         }
 
         input:checked + .slider {
-          background-color: #2196F3;
+          background-color: #2196f3;
         }
 
         input:focus + .slider {
-          box-shadow: 0 0 1px #2196F3;
+          box-shadow: 0 0 1px #2196f3;
         }
 
         input:checked + .slider:before {
@@ -166,44 +159,44 @@
         }
       }
     }
-    .container_location{
+    .container_location {
       display: flex;
       justify-content: center;
       justify-content: space-around;
-        div{
-          display: flex;
-          flex-direction: column;
-          label{
+      div {
+        display: flex;
+        flex-direction: column;
+        label {
+          font-size: 1.3rem;
+          align-self: center;
+          margin: 0.5rem 0;
+        }
+        select {
+          width: 12rem;
+          height: 2.5rem;
+          option {
             font-size: 1.3rem;
-            align-self: center;
-            margin: 0.5rem 0;
-          }
-          select{
-            width: 12rem;
-            height: 2.5rem;
-            option{
-              font-size: 1.3rem;
-            }
           }
         }
+      }
     }
     .container_roomsAndGuest {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
-      .roomsAndGuest{
+      .roomsAndGuest {
         display: flex;
         flex-direction: column;
-        label{
+        label {
           font-size: 1rem;
           font-weight: bold;
         }
-        div{
+        div {
           align-self: center;
         }
       }
     }
-    .submit{
+    .submit {
       margin-top: 0.5rem;
       width: 9rem;
       padding: 0.8rem;
@@ -212,8 +205,6 @@
       align-self: flex-end;
       border-radius: 3px;
     }
-
-
 
     button svg {
       transition: all 0.1s;

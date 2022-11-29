@@ -217,4 +217,11 @@ export class DataService {
     console.log(value)
     this.http.put(`${environment.baseUrl}/users/editUser/${value.userId}`, value ).subscribe({ error: error => console.log(error)});
   }
+
+  set_admin(newValues: any, userId: string): Observable<any> {
+    console.log('userId', userId)
+    console.log('nevalues', newValues)
+    return this.http.put<any>(`${environment.baseUrl}/users/editUser/${userId}`, newValues);
+  }
+
 }

@@ -27,7 +27,6 @@
     background-color: #fafafa86;
     position: absolute;
     bottom: 0;
-    left: -1rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -51,7 +50,9 @@
     height: 20%;
   }
 }
-
+.darkmode .edit {
+  background-color: #303030a4;
+}
 .infodiv {
   display: flex;
   flex-direction: column;
@@ -80,6 +81,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: center;
   min-width: 90%;
 }
 
@@ -224,6 +226,33 @@
   .container-image {
     .edit {
       height: 20%;
+    }
+  }
+}
+
+.darkmode .accordion-button {
+  background-color: #303030;
+}
+.darkmodeFavs .price {
+  color: rgb(63, 168, 7);
+}
+.darkmodeFavs {
+  .botdiv {
+    h3 {
+      color: white;
+    }
+  }
+}
+.darkmodeMyHouses {
+  .card-body {
+    p {
+      color: white;
+    }
+    h3 {
+      color: white;
+    }
+    .price {
+      color: rgb(63, 168, 7);
     }
   }
 }

@@ -2,8 +2,8 @@
 
 
 
-  
-  
+
+
   <div class="background mat-app-background">
     <div class="flex container"
     *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowPets || filterForm.value.wifi || filterForm.value.city || filterForm.value.order || filterForm.value.country">
@@ -55,7 +55,7 @@
   *ngIf="!filterForm.value.allowPets && !filterForm.value.city && !filterForm.value.country && !filterForm.value.maxPrice && !filterForm.value.minPrice && !filterForm.value.order && !filterForm.value.wifi">
   <div class="alternative_home">
 
-    <button class="altfilters">
+    <button class="altfilters mat-app-background">
       <span class="flex" type="button" color="raised" aria-label="Sing Up" (click)="openFilterModal(filters)">
         <mat-icon>filter_list</mat-icon>
         <span>Filters</span>
@@ -181,5 +181,4 @@
   </div>
 
 </ng-template>
-<footer class="mat-app-background footer mat-elevation-z4">Rent-Ten - made with ♥ by group 10 of FT-30A at SoyHenry.
-</footer>
+
