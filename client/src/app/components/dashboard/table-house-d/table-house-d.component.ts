@@ -38,8 +38,11 @@ export class TableHouseDComponent implements OnInit {
     this.userProfile$ = this.store.select(selectorListProfile);
     this.loadProfile();
 
-    this._admindashboard.setHousesD();
-    this._admindashboard.getHousesD$.subscribe((res) => (this.houses = res));
+    this.userProfile$ = this.store.select(selectorListProfile);
+    this.loadProfile()
+
+    this._admindashboard.setHousesD()
+    this._admindashboard.getHousesD$.subscribe(res => this.houses = res)
   }
 
   loadProfile(): void {
@@ -50,12 +53,13 @@ export class TableHouseDComponent implements OnInit {
           this.userProfile = res;
         });
       });
+
     });
   }
 
-  back() {
-    this.router.navigate(['dashboard']);
-  }
+
+  back() { this.router.navigate(['dashboard']) }
+
 
   showInfo() {
     console.log(this.houses);
@@ -84,4 +88,6 @@ export class TableHouseDComponent implements OnInit {
     this.filtered_house_result = null;
     this.filtered_house = '';
   }
+
+
 }

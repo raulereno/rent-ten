@@ -7,6 +7,7 @@ import { catchError, throwError } from 'rxjs';
 import { Booking } from '../models/Booking';
 import { DataService } from './data.service';
 import { House } from '../models/House';
+import { DataServiceService } from './data-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +15,10 @@ import { House } from '../models/House';
 export class AdmindashboardService {
   constructor(private http: HttpClient, private data: DataService) {}
 
-  private changeUserAutorized: string = '';
 
-  private activateAutorized = new BehaviorSubject<string>(
-    this.changeUserAutorized
-  );
+  private changeUserAutorized: string = ""
+
+  private activateAutorized = new BehaviorSubject<string>(this.changeUserAutorized);
 
   public customChangeAutorized = this.activateAutorized.asObservable();
 
@@ -83,3 +83,4 @@ export class AdmindashboardService {
     });
   }
 }
+

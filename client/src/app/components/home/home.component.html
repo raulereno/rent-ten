@@ -1,7 +1,13 @@
-<div class="background mat-app-background">
-  <div class="flex container"
+
+
+
+
+
+
+  <div class="background mat-app-background">
+    <div class="flex container"
     *ngIf="filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowPets || filterForm.value.wifi || filterForm.value.city || filterForm.value.order || filterForm.value.country">
-    <div class="navigation">
+    <div class="navigation" >
       <div class="mat-app-background filtersdiv">
         <div style="display:none" class="order-options" [ngClass]="show_div? 'order-options showDiv': 'order-options'">
           <button [ngClass]="filterForm.value.order === 'min' ? 'active':''"
@@ -9,10 +15,6 @@
           <button [ngClass]="filterForm.value.order === 'max' ? 'active':''"
             (click)="filterForm.get('order')?.setValue('max'); handleOrder()">Most expensive</button>
         </div>
-        <mat-paginator class="paginado mat-app-background" [ngClass]="{'darkmodeModal': darkmode}"
-          [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
-          (page)="handlePage($event)" showFirstLastButtons="">
-        </mat-paginator>
         <button class="filters position-relative mat-app-background">
           <span *ngIf="quantityFilter !== 0"
             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -23,6 +25,10 @@
             <span>Filters</span>
           </span>
         </button>
+        <mat-paginator class="paginado mat-app-background" [ngClass]="{'darkmodeModal': darkmode}"
+        [length]="allHouses.length" [pageSize]="page_size" [pageSizeOptions]="page_size_options"
+        (page)="handlePage($event)" showFirstLastButtons="">
+        </mat-paginator>
       </div>
     </div>
 
@@ -34,20 +40,18 @@
           [dbProfile]="dbProfile" class="grid-content"></app-house>
       </div>
       <div class="noHouses mat-app-background"
-        *ngIf="!allHouses.length && (filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowPets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order)">
+        *ngIf="(allHouses.length == 0) && (filterForm.value.minPrice || filterForm.value.maxPrice || filterForm.value.allowPets || filterForm.value.wifi || selectedCountry || selectedCity || filterForm.value.order)">
         <h3 style="font-size: 3rem;">There is no house with those requirements</h3>
         <button type="button" class="btn btn-outline-dark mat-app-background" (click)="clearFilters()">Clear
           filters</button>
       </div>
     </div>
+
+
   </div>
 
-  <!-- Start Alternative home -->
-
-</div>
-
-<div
-  [ngClass]="filterForm.value.allowPets && filterForm.value.city && filterForm.value.country && filterForm.value.maxPrice && filterForm.value.minPrice && filterForm.value.order && filterForm.value.wifi? 'background mat-app-background' : ''"
+    <!-- Start Alternative home -->
+  <div class="background mat-app-background"
   *ngIf="!filterForm.value.allowPets && !filterForm.value.city && !filterForm.value.country && !filterForm.value.maxPrice && !filterForm.value.minPrice && !filterForm.value.order && !filterForm.value.wifi">
   <div class="alternative_home">
 

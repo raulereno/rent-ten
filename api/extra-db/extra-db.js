@@ -8,6 +8,8 @@ const {
   opinions,
 } = require("./data");
 
+const {houses_eze} = require("./realplaces_data")
+
 function getRandomArbitrary(max, min) {
   return Math.floor(Math.random() * (max - min) + min);
 }
@@ -58,6 +60,9 @@ const newReview = () => {
   };
 };
 
+
+
+
 const extraHouses = (n) => {
   return [...Array(n).keys()].map(() => newHouse());
 };
@@ -72,4 +77,36 @@ const extraBookings = (n) => {
 
 // let extraHouses = [...Array(50).keys()].map(() => newHouse())
 
-module.exports = { extraHouses, extraReviews, extraBookings };
+
+
+const realHousesArray = () => {
+  return houses_eze.map((house) => newRealHouse(house))
+};
+
+
+const newRealHouse = (house) => {
+
+  return {
+    city: house.city,
+    country: house.country,
+    picture: house.picture,
+    type: house.type,
+    rooms: getRandomArbitrary(1, 6),
+    bathrooms: getRandomArbitrary(1, 4),
+    allowpets: booleans[Math.floor(Math.random() * 2)],
+    wifi: booleans[Math.floor(Math.random() * 2)],
+    price: getRandomArbitrary(50, 501),
+    address:
+      adresses[Math.floor(Math.random() * adresses.length)] +
+      " " +
+      Math.floor(Math.random() * 500),
+    scores: [],
+  }
+
+}
+
+
+
+
+
+module.exports = { extraHouses, extraReviews, extraBookings, realHousesArray };

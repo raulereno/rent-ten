@@ -102,8 +102,28 @@ export class CreateHouseComponent implements OnInit {
 
   ngOnInit(): void {
     this.formNewHouse = this.initForm();
-    this._auth.user$.subscribe((profile) => {
-      this.email = profile?.email ? profile?.email : '';
+
+    this._auth.isAuthenticated$.subscribe((res) => {
+      if (res === false) {
+        alert('Login first');
+        this._auth.loginWithRedirect({
+          authorizationParams: { redirect_uri: window.location.origin },
+        });
+      } else {
+        this.formNewHouse = this.initForm();
+        this._auth.user$.subscribe((profile) => {
+          this.email = profile?.email ? profile?.email : '';
+          this._http.getUser(this.email).subscribe((res) => {
+            if (res.verified == 'not_verified') {
+              alert('You must verify your account before post a new place');
+              this.router.navigate(['./profile']);
+              return;
+            } else {
+              return;
+            }
+          });
+        });
+      }
     });
 
     this.countries$ = this._store.select(selectorListCountries);

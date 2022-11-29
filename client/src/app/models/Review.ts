@@ -5,6 +5,6 @@ export interface Review {
     updatedAt: string;
     createdAt: string;
     houseId: string;
-    userId: string;
+    UserId: string;
     userEmail: string;
 }

@@ -54,24 +54,16 @@ export class TableHouseAComponent implements OnInit {
           this.userProfile = res;
         });
       });
+
     });
   }
-
+  
   back() { this.router.navigate(['dashboard']) }
 
   showInfo() {
     console.log(this.houses);
   }
 
-  changeHouseStatus(houseId: string) {
-    let newValues = { deleted: true };
-    this._admindashboard.changeHouseStatus(
-      this.userProfile.id,
-      houseId,
-      newValues
-    );
-    this.resetResults();
-  }
 
   handleInput() {
     this.filtered_house_result = this.houses.find(
@@ -87,5 +79,10 @@ export class TableHouseAComponent implements OnInit {
     this.filtered_house = '';
   }
 
+  changeHouseStatus(houseId: string) {
+    let newValues = { deleted: true }
+    this._admindashboard.changeHouseStatus(this.userProfile.id, houseId, newValues)
+    this.resetResults()
 
+  }
 }

@@ -86,7 +86,8 @@ module.exports = (sequelize) => {
 
     scores: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: true
+      allowNull: true,
+      defaultValue: []
     },
 
     deleted: {
