@@ -8,6 +8,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { Booking } from 'src/app/models/Booking';
 import { Observable } from 'rxjs';
 import { House } from 'src/app/models/House';
+import { Review } from 'src/app/models/Review';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { loadProfile } from 'src/app/redux/actions/location.actions';
 import Swal from 'sweetalert2';
@@ -74,19 +75,32 @@ export class ReviewsComponent implements OnInit {
       if (profile.length === 0) {
         this.auth.user$.subscribe((profile) => {
           this.profileJson = profile;
+<<<<<<< HEAD
           this.http.getUser(this.profileJson.email).subscribe((res) => {
             this.store.dispatch(loadProfile({ userProfile: res }));
             this.userProfile = res;
             this.ableToPostReview = this.house.Bookings.some(
               (booking: Booking) => booking.UserId === this.userProfile.id
             );
+=======
+          this.http.getUser(this.profileJson.email).subscribe(res => {
+            this.store.dispatch(loadProfile({ userProfile: res }))
+            this.userProfile = res
+            this.ableToPostReview = this.house.Bookings?.some((booking: Booking) => booking.UserId === this.userProfile.id)
+>>>>>>> developEze
           });
         });
       } else {
+<<<<<<< HEAD
         this.userProfile = profile;
         this.ableToPostReview = this.house.Bookings.some(
           (booking: Booking) => booking.UserId === this.userProfile.id
         );
+=======
+        this.userProfile = profile
+        this.ableToPostReview = this.house.Bookings?.some((booking: Booking) => booking.UserId === this.userProfile.id)
+
+>>>>>>> developEze
       }
     });
   }
@@ -109,6 +123,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   openLetReviewModal(content: any) {
+<<<<<<< HEAD
     console.log(this.house.Booking);
     console.log(this.userProfile);
     if (
@@ -119,6 +134,11 @@ export class ReviewsComponent implements OnInit {
       alert('You can only post reviews of places you have been to');
     }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+=======
+    if (this.house.Reviews.some((review:Review) => review.UserId == this.userProfile.id)) {alert('You already gave a review for this place'); return}
+    if (!this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)) { alert('You can only post reviews of places you have been to'); return }
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+>>>>>>> developEze
   }
 
   getRating(e: number) {
@@ -149,6 +169,7 @@ export class ReviewsComponent implements OnInit {
       return;
     }
     // if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
+<<<<<<< HEAD
     if (this.newReviewInput.length < 10) {
       this.errors = 'Review must have more than 10 characters.';
       return;
@@ -168,6 +189,13 @@ export class ReviewsComponent implements OnInit {
       .subscribe((res) => {
         this.house.Reviews = [...this.house.Reviews, res];
       });
+=======
+    if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
+    if (!this.newRatingInput) { this.errors = 'Please select a valoration.'; return }
+    console.log(this.newRatingInput)
+    this.http.postNewReview(this.newReviewInput, this.newRatingInput, this.userProfile.id, this.house.id, this.userProfile.mail)
+      .subscribe((res) => { this.house.Reviews = [...this.house.Reviews, res]})
+>>>>>>> developEze
     document.getElementById('closeModalButton')!.click();
     Toast.fire({
       icon: 'success',

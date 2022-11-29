@@ -103,6 +103,7 @@
 
 .slider_title {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 15px;
     font-weight: 400;
     color: rgb(37, 37, 37);
     background-color: rgba(189, 188, 188, 0.096);

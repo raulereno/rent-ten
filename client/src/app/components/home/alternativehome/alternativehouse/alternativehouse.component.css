@@ -2,12 +2,16 @@
     width: 12.5rem;
     height: 20rem;
     transition: all 0.3s;
-    animation: fadein 2s;
     border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
-  
     height: 100%;
+    animation: fadeInLeft 10s, fadein 0.1s;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
   }
-  
+
+
   .darkmode {
     background-color: #303030;
     color: white;
@@ -41,7 +45,7 @@
   .carrouselbutton {
     display: flex;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.176);
+    background-color: rgba(44, 44, 44, 0.176);
     border-radius: 0.75rem;
     transition: .3 all;
   }
@@ -60,7 +64,7 @@
   .image {
     height: 10rem;
     width: 12.5rem;
-    border-radius: 0.75rem 0.75rem 0rem 0.75rem;
+    border-radius: 0.75rem 0.75rem 0rem 0rem;
     transition: 0.5s;
   }
   
@@ -75,7 +79,12 @@
   }
   
   .firstdiv {
+    padding-bottom: 0.2rem;
+    padding-left: 0.2rem;
     display: flex;
+    border-bottom-left-radius: 0.55rem;
+    border-bottom-right-radius: 0.55rem;
+    background-color: rgba(39, 39, 39, 0.695);
     margin-bottom: -0.5rem;
   }
   
@@ -174,7 +183,40 @@
       transform: scale(1);
     }
   }
-  
+
+ 
+ @-webkit-keyframes fadeInLeft {
+    0% {
+       opacity: 1;
+       -webkit-transform: translateX(50px);
+    }
+    100% {
+       opacity: 0.9;
+       -webkit-transform: translateX(0);
+    }
+ }
+ 
+ @keyframes fadeInLeft {
+    0% {
+       opacity: 1;
+       transform: translateX(50px);
+    }
+    100% {
+       opacity: 0.9;
+       transform: translateX(0px);
+    }
+ }
+ 
+ .fadeInLeft {
+ -webkit-animation-name: fadeInLeft;
+ animation-name: fadeInLeft;
+ } 
+
+
+  .slideshow {
+  position: relative;
+  overflow: hidden;
+}
   
   .botdiv {
     display: flex;
@@ -196,7 +238,7 @@
   }
   
   ngb-rating {
-    color: #b39601;
+    color: #e3be00;
     font-size: 1rem;
   }
   

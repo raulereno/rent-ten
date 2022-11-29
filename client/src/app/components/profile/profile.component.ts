@@ -173,8 +173,8 @@ export class ProfileComponent implements OnInit {
   }
   deleteHouse(houseId: string, userId: string) {
     let value = {
-      deleted: true,
-    };
+      deleted: true
+    }
 
     Swal.fire({
       title: 'Are you sure you want delete your create place?',
@@ -185,7 +185,7 @@ export class ProfileComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.http.handleHouseState(userId, houseId, value);
+        this.http.handleHouseState(userId, houseId, value).subscribe();
         this.userProfile = {
           ...this.userProfile,
           Houses: this.userProfile.Houses?.filter((h) => h.id !== houseId),

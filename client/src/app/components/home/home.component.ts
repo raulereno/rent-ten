@@ -251,7 +251,7 @@ export class HomeComponent implements OnInit {
     );
     try {
       this.paginator.firstPage();
-    }catch (error) {
+    } catch (error) {
       return
     }
 

@@ -128,12 +128,18 @@ export class DataServiceService {
       }
     })}
 
+  getUsers(): Observable<any> {
+    // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
+    return this.http.get<any>('http://localhost:3001/users/allUsers');
+  }
+
+  getUsersD(): Observable<any> {
+    // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
+    return this.http.get<any>('http://localhost:3001/users/usersD');
+  }
+
   deleteAccount(userId: string, value:string) {
-    this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}?value=${value}`, { userId }).subscribe({
-      error: error => {
-        console.log(error)
-      }
-    })
+    return this.http.put<any>(`${environment.baseUrl}/users/deleteAccount/${userId}?value=${value}`, { userId })
   }
 
   fetchGeoLoc():Observable<any>{
@@ -141,4 +147,19 @@ export class DataServiceService {
     return data
   }
 
+  handleHouseState(userId: string, houseId:string, newValues: any) {
+    return this.http.put<any>(`${environment.baseUrl}/houses/edithouse/${houseId}?userId=${userId}`, newValues)
+    // .subscribe({
+    //   error: error => {
+    //     console.log(error)
+    //   }
+    // })
+  }
+
+  getDeletedHouses(): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/houses/deletedhouses`);
+  }
+
 }
+
+
