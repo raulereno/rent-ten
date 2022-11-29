@@ -30,6 +30,7 @@ import { Location } from '@angular/common';
 import { Booking } from 'src/app/models/Booking';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -39,6 +40,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ProfileComponent implements OnInit {
+[x: string]: any;
   allHouses$: Observable<any> = new Observable();
   dbProfile: userProfile;
   allHouses: House[] = [];
@@ -54,6 +56,7 @@ export class ProfileComponent implements OnInit {
   housesProfile: House[] = [];
   bookingsProfile: Booking[] = [];
   darkmode: boolean;
+  profileForm!: FormGroup;
 
   constructor(
     public auth: AuthService,
@@ -64,6 +67,7 @@ export class ProfileComponent implements OnInit {
     private _router: Router,
     private _helper: HelperService,
     private modalService: NgbModal,
+    private readonly fb: FormBuilder,
   ) {
   }
 
@@ -76,6 +80,8 @@ export class ProfileComponent implements OnInit {
     this._helper.customDarkMode.subscribe(
       (active: boolean) => (this.darkmode = active)
     );
+
+    this.profileForm = this.initForm();
   }
 
   loadProfile() {
@@ -209,6 +215,19 @@ export class ProfileComponent implements OnInit {
 
   openModal(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+  }
+
+  onSubmit(): void {
+
+  }
+
+  initForm(): FormGroup {
+    return this.fb.group({
+      name: ['', [Validators.minLength(30)]],
+      lastname: ['', [Validators.minLength(30)]],
+      mail: ['', [Validators.required]],
+      country: ['', [Validators.minLength(30)]]
+    });
   }
 
   saveData(userId: string, name: string, lastname: string, mail: string, country: string) {

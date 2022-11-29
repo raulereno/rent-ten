@@ -369,6 +369,7 @@
             </ng-template>
         </ngb-panel>
     </ngb-accordion>
+-->
 
     <ng-template #content let-modal>
         <div class="modal-header">
@@ -381,15 +382,15 @@
 
                     <ng-container>
                         <div>
-                            <form>
+                            <form (ngSubmit)="onSubmit()" [formGroup]="profileForm">
                                 <label for="name">Name</label><br/>
-                                <input type="text" name="name" value="{{ user.name }}" aria-invalid="false"><br/>
+                                <input type="text" name="name" value="{{ user.name }}" formControlName="name" aria-invalid="false"><br/>
                                 <label for="lastname">Lastname</label><br/>
-                                <input type="text" name="lastname" value="{{ user.lastname }}" aria-invalid="false"><br/>
+                                <input type="text" name="lastname" value="{{ user.lastname }}" formControlName="lastname" aria-invalid="false"><br/>
                                 <label for="mail">Email</label><br/>
-                                <input type="text" name="mail" value="{{ user.mail }}" aria-invalid="false"><br/>
+                                <input type="text" name="mail" value="{{ user.mail }}" formControlName="mail" aria-invalid="false"><br/>
                                 <label for="country">Country</label><br/>
-                                <input type="text" name="country" value="{{ user.country }}" aria-invalid="false"><br/>
+                                <input type="text" name="country" value="{{ user.country }}" formControlName="country" aria-invalid="false"><br/>
                             </form>
                         </div>
                         <br/>
