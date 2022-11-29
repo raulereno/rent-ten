@@ -16,6 +16,11 @@ h1 {
   margin-left: 3%;
   text-align: left;
 }
+.darkmode {
+  h1 {
+    color: white;
+  }
+}
 .prueba {
   width: 5%;
   height: 5%;
@@ -23,8 +28,8 @@ h1 {
 .wrapper {
   align-items: center;
   display: flex;
-  grid-template-columns: repeat(5,100%);
-  overflow:hidden;
+  grid-template-columns: repeat(5, 100%);
+  overflow: hidden;
   scroll-behavior: smooth;
 
   section {
@@ -35,28 +40,25 @@ h1 {
     display: grid;
     grid-template-columns: repeat(5, auto);
     margin: 20px 0;
-    
+
     .item {
       padding-left: 10px;
       transition: $duration all;
-      
-      &:hover { 
+
+      &:hover {
         margin: 0 40px;
         transform: scale(1.2);
       }
-      
     }
     .arrow {
-
       margin-top: 2%;
       margin-bottom: 0%;
       margin-left: -2.5%;
-
     }
     .arrowinside {
       top: -10rem;
     }
-    
+
     a {
       position: absolute;
       color: #fff;
@@ -68,19 +70,28 @@ h1 {
       padding: 40px;
       text-align: center;
       z-index: 1;
-    
-      
+
       &:nth-of-type(1) {
-        top:0; bottom:0; left:0;
-        background: linear-gradient(-90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(
+          -90deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.25) 100%
+        );
       }
       &:nth-of-type(2) {
-        top:0; bottom:0; right: 0;
-        background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%);
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.25) 100%
+        );
       }
-      
     }
-    
   }
 }
 
@@ -100,16 +111,16 @@ h1 {
 //     display: grid;
 //     grid-template-columns: repeat(5, auto);
 //     margin: 20px 0;
-    
+
 //     .item {
 //       padding-left: 10px;
 //       transition: $duration all;
-      
-//       &:hover { 
+
+//       &:hover {
 //         margin: 0 40px;
 //         transform: scale(1.2);
 //       }
-      
+
 //     }
 //     .arrow {
 
@@ -120,7 +131,7 @@ h1 {
 //     .arrowinside {
 //       top: -10rem;
 //     }
-    
+
 //     a {
 //       position: absolute;
 //       color: #fff;
@@ -132,7 +143,7 @@ h1 {
 //       padding: 40px;
 //       text-align: center;
 //       z-index: 1;
-      
+
 //       &:nth-of-type(1) {
 //         top:0; bottom:0; left:0;
 //         background: linear-gradient(-90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
@@ -141,12 +152,11 @@ h1 {
 //         top:0; bottom:0; right: 0;
 //         background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
 //       }
-      
+
 //     }
-    
+
 //   }
 // }
-
 
 .hr_sliders {
   margin-bottom: -3.5%;

@@ -8,6 +8,7 @@ import { Booking } from '../models/Booking';
 import { DataServiceService } from './data-service.service';
 import { House } from '../models/House';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +18,7 @@ export class AdmindashboardService {
     private http: HttpClient,
     private data: DataServiceService,
   ) { }
+
 
   private changeUserAutorized: string = ""
 
@@ -94,3 +96,4 @@ export class AdmindashboardService {
 
  
 }
+

@@ -64,16 +64,10 @@ export class TableHouseAComponent implements OnInit {
 
     });
   }
-
+  
   back() { this.router.navigate(['dashboard']) }
 
 
-  changeHouseStatus(houseId: string) {
-    let newValues = { deleted: true }
-    this._admindashboard.changeHouseStatus(this.userProfile.id, houseId, newValues)
-    this.resetResults()
-
-  }
 
   handleInput(){
     this.filtered_house_result = this.houses.find((h:House) => h.id === this.filtered_house.trimRight())
@@ -85,5 +79,10 @@ export class TableHouseAComponent implements OnInit {
     this.filtered_house = ''
   }
 
+  changeHouseStatus(houseId: string) {
+    let newValues = { deleted: true }
+    this._admindashboard.changeHouseStatus(this.userProfile.id, houseId, newValues)
+    this.resetResults()
 
+  }
 }
