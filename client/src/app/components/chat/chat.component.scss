@@ -1,47 +1,116 @@
-.chatContainer{
-  padding: 30px;
-  width: 23rem;
-  height: 30rem;
-
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 70px;
-  background-color: grey;
+.container_imgChat {
+  background-color: white;
+  padding: 0.8em;
+  border-radius: 100%;
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  border: 1.5px black solid;
+  transition: all 0.5s;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    border: 3px black solid;
+  }
+  img {
+    width: 3rem;
+    height: 3rem;
+  }
 }
-.inputContainer{
-  form{
-    input{
-      width: 23rem;
-      height: 2.5rem;
+.container_chat {
+  border-radius: 5px;
+  position: fixed;
+  bottom: 0.5rem;
+  right: 5.5rem;
+  width: 25rem;
+  height: 30rem;
+  background-color: white;
+  border: 1px black solid;
+  display: none;
+
+  .chat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .faqs {
+      color: black;
+      font-size: 2rem;
+      margin: 0.5rem 0 0 0;
+    }
+    .chat_lista {
+      list-style: none;
+      padding-left: 0;
+      li {
+        background-color: rgba(128, 128, 128, 0.54);
+        margin: 1rem;
+        padding: 0.5rem;
+        &:hover {
+          transform: scale(1.05);
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  textarea {
+    resize: none;
+    display: none;
+  }
+  button {
+    display: none;
+  }
+  input {
+    display: none;
+  }
+  label {
+    display: none;
+    color: black;
+  }
+  .container_textArea {
+    display: flex;
+    flex-direction: column;
+    .allowInput {
+      display: flex;
+      flex-direction: column;
+      label {
+        display: flex;
+      }
+      input {
+        display: flex;
+      }
+      textarea {
+        display: flex;
+        height: 8rem;
+        width: 100%;
+        resize: none;
+        color: black;
+      }
+      .allowButton {
+        display: flex;
+        width: 3rem;
+        align-self: flex-end;
+      }
     }
   }
 }
-.local{
-  background-color:red;
+.local {
+  color: black;
+  background-color: rgb(0, 0, 100);
 }
-.remoto{
-  align-self: flex-end;
+.remoto {
+  color: black;
 }
-
-.container-imgChat{
-  align-self: flex-end;
-  background-color: black;
-  border-radius: 100%;
-  width: 5rem;
-  height: 5rem;
+.active {
   display: flex;
-  .imgChat{
-    align-self: center;
-    justify-self: center;
-    width: 80%;
-    height: 80%;
-
-    border-radius: 100%;
-  }
+  flex-direction: column;
+  justify-content: space-between;
 }
-.hiddeChat{
-  display: none;
+.questionActive {
+  transform: scale(1.05);
+  font-weight: 600;
+  cursor: pointer;
 }
-.showChat{
-  display: block;
+.container_answers {
+  overflow-y: scroll;
+  width: 100%;
 }

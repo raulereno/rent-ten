@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Country, City } from '../../models/location.model';
 import { LocationService } from '../../services/location.service';
-import { DataServiceService } from '../../services/data-service.service';
+import { DataService } from '../../services/data.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { House } from '../../models/House';
 import { Store } from '@ngrx/store';
@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
   // ****** CONSTRUCTOR ******* //
 
   constructor(
-    public http: DataServiceService,
+    public http: DataService,
     public auth: AuthService,
     private store: Store<any>,
     private readonly fb: FormBuilder,
