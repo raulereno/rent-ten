@@ -31,7 +31,7 @@
 
 .bodydiv {
   min-height: 70vh;
-  width: 120%;
+  width: 85vw;
   padding: 1rem;
   padding-top: 2rem;
   margin-left: 3rem;
@@ -43,7 +43,7 @@
 .grid {
   display: grid;
   justify-content: center;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 20% 20% 20% 20% 20%;
 }
 
 .grid .grid-content {
@@ -80,7 +80,7 @@
   color: rgb(52, 52, 52);
   font-size: 16px;
   width: 70%;
-  margin-right: 2rem;
+  margin-left: 5vw;
 }
 
 /* //////////// FILTERS MODAL ////////////// */
@@ -330,58 +330,70 @@
   align-items: center;
 }
 
-/* //////////////////////////RESPONSIVE////////////////////////// */
+/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
 
-@media only screen and (min-width: 1500px) {
+@media only screen and (max-width: 1600px) {
   .grid {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-columns: 25% 25% 25% 25%;
   }
 }
 
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 1300px) {
   .grid {
-    display: grid;
-    justify-content: center;
-    align-content: center;
+    grid-template-columns: 33% 33% 33%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 47% 47%;
+  }
+  .bodydiv{
+    width: 90vw;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .bodydiv{
+    width: 70vw;
+  }
+  .grid {
     grid-template-columns: 100%;
   }
   .navigation{
     margin-top: 0.5rem;
+  }
+  .paginado{
+    width: 70%;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-left: 0px;
+    padding: 10px;
+  }
+  .footer{
+    font-size: 15px;
   }
   .filtersdiv{
     display: flex;
     flex-direction: column;
     align-content: center;
   }
-  .paginado{
-    margin-bottom: 0.5rem;
-    width: 100%;
-    font-size: 0.8rem;
+  .filters{
+    margin-top: 20px;
   }
 }
 
-/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
-
-@media only screen and (max-width: 1800px) {
-
-}
-
-@media only screen and (max-width: 1450px) {
-
-}
-
-@media only screen and (max-width: 900px) {
-
-}
-
-@media only screen and (max-width: 650px) {
-
-}
-
 @media only screen and (max-width: 500px) {
+  .paginado{
+    width: 360px;
+  }
 
+  .bodydiv{
+    width: 85vw;
+  }
+
+  .footer{
+    font-size: 13px;
+  }
 }
 /* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
