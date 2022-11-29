@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
 import { Booking } from '../models/Booking';
+import { userProfile } from '../models/UserProfile';
 
 @Injectable({
   providedIn: 'root',
@@ -211,4 +212,16 @@ export class DataService {
   getDeletedHouses(): Observable<any> {
     return this.http.get<any>(`${environment.baseUrl}/houses/deletedhouses`);
   }
+
+  updateData(value: any) {
+    console.log(value)
+    this.http.put(`${environment.baseUrl}/users/editUser/${value.userId}`, value ).subscribe({ error: error => console.log(error)});
+  }
+
+  set_admin(newValues: any, userId: string): Observable<any> {
+    console.log('userId', userId)
+    console.log('nevalues', newValues)
+    return this.http.put<any>(`${environment.baseUrl}/users/editUser/${userId}`, newValues);
+  }
+
 }

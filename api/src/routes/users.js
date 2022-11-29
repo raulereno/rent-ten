@@ -1,4 +1,6 @@
+const { json } = require("body-parser");
 const { Router } = require("express");
+const { filter } = require("lodash");
 const { SendMail_verification } = require("../controllers/SendMail_verification")
 
 const {
@@ -16,7 +18,6 @@ router.get("/", async (req, res) => {
   try {
     let user = await User.findAll();
     let filterAdmins = await user.filter(user => !user.admin)
-
     res.status(200).json(filterAdmins);
   } catch (error) {
     res.status(401).json(error.message);
@@ -26,10 +27,8 @@ router.get("/", async (req, res) => {
 router.get("/allUsers", async (req, res) => {
   try {
     const users = await getUsers();
-    console.log(users)
     const usersA = users.filter(elem => elem.authorized === 'all')
     const usersS = [...new Set(usersA)]
-    console.log(usersS)
     res.status(200).json(usersS);
   } catch (error) {
     res.status(401).json(error.message);
@@ -41,7 +40,6 @@ router.get("/usersD", async (req, res) => {
     const users = await getUsers();
     const usersD = users.filter(elem => elem.authorized !== 'all')
     const usersS = [...new Set(usersD)]
-    console.log(usersS)
     res.status(200).json(usersS);
   } catch (error) {
     res.status(401).json(error.message);
@@ -54,7 +52,7 @@ router.get("/getuser", async (req, res) => {
     let finder = await User.findOne({ where: { mail: mail }, include: [Review, House, Booking] })
     res.status(200).json(finder);
   } catch (error) {
-    console.log(error);
+    res.status(400).json({ error })
     res.status(400).json({ error })
   }
 });
@@ -126,12 +124,6 @@ router.post("/requirecode/:mail", async (req, res) => {
   const code = Math.random().toString(36).slice(4);
 
   try {
-    // await transporter.sendMail({
-    //   from: '"Verication email for your Rent-Ten account" "<Rent-Ten@rentten.com>"',
-    //   to: mail,
-    //   subject: "Verification code",
-    //   html: `<h1> Hola, tu codigo para verificar tu mail en RentTen es: <b>${code}</b></h1>`,
-    // });
 
     await SendMail_verification(mail, code)
 
@@ -164,6 +156,42 @@ router.get("/verifymail/:mail", async (req, res) => {
   }
 });
 
+router.put("/editUser/:userId", async (req, res) => {
+  const {userId} = req.params;
+  console.log(userId)
+  const {
+    name,
+    picture,
+    sub,
+    lastname,
+    mail,
+    country,
+    authorized,
+    verified,
+    verificationCode,
+    admin,
+    favoriteshouses,
+  } = req.body;
+ console.log(req.body)
+  try {
+    const user = await User.findByPk(userId)
+    console.log(user)
+ /*    if (user.admin === true) { */
+      await user.update(req.body);
+      console.log(user)
+      res.status(200).json(user);
+    /* } else {
+      res.status(200).json({
+        msg: `The ID ${userId} is not admin`,
+      }); 
+
+    }*/
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
 router.patch("/changepicture/:userID", async (req, res) => {
   const { userID } = req.params;
   const { newPicture, authID } = req.body;
@@ -178,24 +206,6 @@ router.patch("/changepicture/:userID", async (req, res) => {
   }
 });
 
-// router.put('/deleteAccount/:userId', async (req, res) => {
-//   const userId = req.params.userId;
-
-//   try {
-//     const user = await User.findOne({ where: { id: Number(userId) } });
-
-//     if (user.id === userId) {
-//       await user.update({ authorized: "not" });
-//       return res
-//         .status(200)
-//         .json({ msg: `Your account has been delete!` });
-//     } else {
-//       throw new Error({ msg: "Can't delete this account" });
-//     }
-//   } catch (error) {
-//     res.status(400).json({ msg: "Can't delete this account" });
-//   }
-// });
 
 router.put('/deleteAccount/:userId', async (req, res) => {
   const userId = req.params.userId;
@@ -208,7 +218,7 @@ router.put('/deleteAccount/:userId', async (req, res) => {
       await user.update({ authorized: value });
       return res
         .status(200)
-        .json({ msg: 'Your account has been delete!' });
+        .json({ msg: `Your account has been delete!` });
     } else {
       throw new Error({ msg: "Can't delete this account" });
     }
@@ -217,25 +227,5 @@ router.put('/deleteAccount/:userId', async (req, res) => {
   }
 });
 
-/* 
-router.put('/deleteAccount', async (req, res) => {
-  const { id } = req.body;
-
-  try {
-    const user = await User.findByPk(id);
-
-    if (user.id === user) {
-      user.update({ authorized: 'not' });
-      res.status(200).json({ msg: `Your account has been delete` });
-    } else {
-      res
-        .status(200)
-        .json({ msg: `Your account has been delete` });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-*/
 
 module.exports = router;

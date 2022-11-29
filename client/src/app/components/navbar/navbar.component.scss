@@ -115,19 +115,18 @@
   color: blue;
 }
 
-.myFavorites {
-  width: 8rem;
-  height: 2.2rem;
-  background-color: #dfdfdf;
+.myFavourites {
   border: 0;
-  border-radius: 3px;
-  font-size: 0.9rem;
   font-weight: 500;
-  align-self: center;
+  background-color: rgba(128, 128, 128, 0.15);
+  padding: 0.5rem 0.6rem;
+  border-radius: 5px;
+  transition: all 0.5s;
 }
 
 .myFavourites:hover {
   transform: scale(1.05);
+  background-color: rgba(164, 164, 164, 0.331);
 }
 
 .favmodal {
@@ -191,6 +190,9 @@
   padding-left: 1rem;
   padding-right: 1rem;
   margin-top: 1rem;
+  display: flex;
+
+  justify-content: center;
 }
 
 .grid {
@@ -312,4 +314,8 @@
     display: flex;
     flex-direction: column;
   }
+}
+.hostButton:hover {
+  transform: scale(1.05);
+  background-color: rgba(164, 164, 164, 0.331);
 }

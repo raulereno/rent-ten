@@ -62,9 +62,6 @@ export class TableUserDComponent implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
-  showInfo() {
-    console.log(this.users);
-  }
 
   desactiveAccount(id: string) {
     this._admindashboard.delete_set(id, 'all');

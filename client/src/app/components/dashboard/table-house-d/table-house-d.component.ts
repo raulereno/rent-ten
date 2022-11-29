@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
 import { AuthService } from '@auth0/auth0-angular';
 import { AdmindashboardService } from 'src/app/services/admindashboard.service';
 import { DataService } from 'src/app/services/data.service';
@@ -38,8 +38,11 @@ export class TableHouseDComponent implements OnInit {
     this.userProfile$ = this.store.select(selectorListProfile);
     this.loadProfile();
 
-    this._admindashboard.setHousesD();
-    this._admindashboard.getHousesD$.subscribe((res) => (this.houses = res));
+    this.userProfile$ = this.store.select(selectorListProfile);
+    this.loadProfile()
+
+    this._admindashboard.setHousesD()
+    this._admindashboard.getHousesD$.subscribe(res => this.houses = res)
   }
 
   loadProfile(): void {
@@ -50,16 +53,15 @@ export class TableHouseDComponent implements OnInit {
           this.userProfile = res;
         });
       });
+
     });
   }
 
-  back() {
-    this.router.navigate(['dashboard']);
-  }
 
-  showInfo() {
-    console.log(this.houses);
-  }
+  back() { this.router.navigate(['dashboard']) }
+
+
+ 
 
   changeHouseStatus(houseId: string) {
     let newValues = { deleted: false };
@@ -84,4 +86,6 @@ export class TableHouseDComponent implements OnInit {
     this.filtered_house_result = null;
     this.filtered_house = '';
   }
+
+
 }
