@@ -5,7 +5,6 @@ import { userProfile } from 'src/app/models/UserProfile';
 import { AdmindashboardService } from 'src/app/services/admindashboard.service';
 import { Store } from '@ngrx/store';
 
-<<<<<<< HEAD
 import { DataService } from 'src/app/services/data.service';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { AuthService } from '@auth0/auth0-angular';
@@ -13,14 +12,6 @@ import { loadProfile } from 'src/app/redux/actions/location.actions';
 import { House } from 'src/app/models/House';
 
 
-=======
-
-import { DataServiceService } from 'src/app/services/data-service.service';
-import { selectorListProfile } from 'src/app/redux/selectors/selectors';
-import { AuthService } from '@auth0/auth0-angular';
-import { loadProfile } from 'src/app/redux/actions/location.actions';
-import { House } from 'src/app/models/House';
->>>>>>> developEze
 
 @Component({
   selector: 'app-table-house-a',

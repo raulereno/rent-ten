@@ -21,7 +21,7 @@ export class SliderComponent implements OnInit {
 
   prueba: Observable<House[]>
 
-  constructor(public http: DataServiceService, private store: Store<any>) { 
+  constructor(public http: DataService, private store: Store<any>) { 
   }
 
 

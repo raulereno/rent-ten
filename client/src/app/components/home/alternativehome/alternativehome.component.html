@@ -18,13 +18,9 @@
 
     <app-slider [dbProfile]="dbProfile" [array]="housesSorted_byRating" [slider_sliced]="slider_rating"></app-slider>
 
-<<<<<<< HEAD
-    <h1 *ngIf="housesInArea" class="slider_title"><span class="slider_title_text">In your area ({{geoloc_value}})</span></h1>
-=======
     <h1 *ngIf="housesInArea" class="slider_title"><span class="slider_title_text">
             <img src="../../../../assets/inarea_icon.png" style="max-width: 25px"> In your area
             ({{geoloc_value}})</span></h1>
->>>>>>> developEze
 
     <app-slider [dbProfile]="dbProfile" [array]="housesInArea" [slider_sliced]="slider_housesInArea">
     </app-slider>

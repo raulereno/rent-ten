@@ -80,6 +80,7 @@ export class ProfileComponent implements OnInit {
         this.auth.user$.subscribe((profile) => {
           this.profileJson = profile;
           this.http.getUser(this.profileJson.email).subscribe((res) => {
+            res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
             this.store.dispatch(loadProfile({ userProfile: res }));
             this.userProfile = res;
           });
@@ -88,6 +89,7 @@ export class ProfileComponent implements OnInit {
         this.userProfile = profile;
       }
       this.http.getUser(profile.mail).subscribe((res) => {
+        res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
         this.userProfile = res;
       });
     });

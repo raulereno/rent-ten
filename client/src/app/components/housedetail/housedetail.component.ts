@@ -22,10 +22,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class HousedetailComponent implements OnInit {
   @ViewChild('pay', { static: true }) pay: ElementRef;
 
-  @ViewChild("pay", { static: true }) pay: ElementRef;
-
   constructor(private route: ActivatedRoute,
-    public http: DataServiceService,
+    public http: DataService,
     private fb: FormBuilder,
     private location: Location,
     private router: Router,
