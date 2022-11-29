@@ -11,7 +11,7 @@ export class HelperService {
     private _local: LocalStorageService,
   ) { }
 
-  private darkmodeLocal:boolean = this._local.darkmode()
+  private darkmodeLocal: boolean = this._local.darkmode()
 
   private darkMode = new BehaviorSubject<boolean>(this.darkmodeLocal);
 
