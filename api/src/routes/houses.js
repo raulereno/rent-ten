@@ -25,7 +25,6 @@ router.get("/deletedhouses", async (req, res) => {
     let allHouses = await House.findAll()
     let filter = await allHouses.filter(house => house.deleted)
     res.status(200).json(filter)
-
   } catch (error) {
     console.log(error)
     res.status(400).json(error)
@@ -68,6 +67,7 @@ router.get("/order/:order", async (req, res) => {
 });
 
 
+
 // --- POST METHODS ---
 router.post("/setowner", async (req, res) => {
   const { userId, houseId } = req.body;
@@ -102,6 +102,7 @@ router.post("/createhouse", async (req, res) => {
 
 
 // --- PUT METHODS ---
+
 
 router.put("/edithouse/:id", async (req, res) => {
   const houseId = req.params.id;
@@ -139,7 +140,6 @@ router.put("/edithouse/:id", async (req, res) => {
     console.log(error);
   }
 });
-
 // --- DELETE METHODS ---
 
 router.delete("/deletehouse", async (req, res) => {
