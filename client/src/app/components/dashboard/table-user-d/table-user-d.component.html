@@ -1,0 +1,32 @@
+<div style="margin-top: 1rem;">
+  <button class="btn btn-secondary" (click)="back()">Back</button>
+  <h3>Total deleted users: {{users.length}}</h3>
+</div>
+<div>
+  <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
+    [collectionSize]="users.length"></ngb-pagination>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#id</th>
+      <th scope="col">e-mail</th>
+      <th scope="col">Name</th>
+      <th scope="col">Last</th>
+      <th scope="col">authorized</th>
+      <th scope="col">Activate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{user.id}}</th>
+      <td>{{user.mail}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.lastname}}</td>
+      <td>{{user.authorized}}</td>
+      <td>
+        <button class="buttons" class="btn btn-success" (click)="desactiveAccount(user.id)">x</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

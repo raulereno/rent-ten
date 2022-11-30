@@ -196,8 +196,8 @@ router.post("/fulldb", async (req, res) => {
     await User.create({ lastname: "Hurtado", name: "Jhony Saenz", picture: "https://res.cloudinary.com/dbgpp8nla/image/upload/v1668898845/uqdscb1mhxqiz6jzlrgv.jpg", mail: "jash0310@gmail.com", sub: '123456', verified: "verified", admin: true })
 
 
-    extraHouses(50).forEach(async (house) => {
-      // realHousesArray().forEach(async (house) => {
+    // extraHouses(50).forEach(async (house) => {
+      realHousesArray().forEach(async (house) => {
 
       let finder = await House.findOne({ where: house });
       const { scores, city, country, rooms, bathrooms, maxpeople, allowpets, wifi, type } =

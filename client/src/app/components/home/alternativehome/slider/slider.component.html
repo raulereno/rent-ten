@@ -1,0 +1,26 @@
+
+<div (mouseenter)="onMouseEnter()" (mouseleave)="onMouseOut()" class="slider" *ngIf="slider_sliced.length > 0">
+
+    <div class="slid_left">
+        <h1 style="font-size: 130%;" *ngIf="!enableArrow('back')" (click)="slice_goBack()">
+            <p>&#x2770;</p>
+        </h1>
+    </div>
+
+    <div class="cards_cont">
+
+        <div class="card, col" *ngFor="let house of slider_sliced">
+            <app-alternativehouse [house]=house [dbProfile]="dbProfile">
+            </app-alternativehouse>
+        </div>
+
+    </div>
+
+    <div class="slid_right">
+        <h1 style="font-size: 130%;" *ngIf="!enableArrow('foward')" (click)="slice_goFoward()">
+            <p>&#x2771;</p>
+        </h1>
+    </div>
+
+</div>
+
