@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Faqs } from './../../models/faqs.interface';
 import { Component, OnInit } from '@angular/core';
 import { FAQS } from 'src/app/models/faqs.interface';
+import { HelperService } from 'src/app/services/helper.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,6 +19,7 @@ export class ChatComponent implements OnInit {
   answer: number;
   allowInput: boolean = true;
   dbProfile: any;
+  darkmode:boolean = false;
 
   formMail!: FormGroup;
 
@@ -32,7 +34,8 @@ export class ChatComponent implements OnInit {
     private _router: Router,
     private _auth: AuthService,
     private readonly fb: FormBuilder,
-    public _chat: ChatService
+    public _chat: ChatService,
+    private _helper: HelperService,
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +43,9 @@ export class ChatComponent implements OnInit {
     this._auth.user$.subscribe((profile) => {
       this.dbProfile = profile;
     });
+    this._helper.customDarkMode.subscribe(
+      (active: boolean) => (this.darkmode = active)
+    );
   }
   sendMessage() {
     this._chat.sendMessage(
@@ -51,8 +57,8 @@ export class ChatComponent implements OnInit {
     this.formMail.get('subject')?.setValue('');
     Swal.fire({
       icon: 'success',
-      title: 'We send your question to rentten2022@gmail.com',
-      text: 'Pronto recibira la respuesta a traves del mail',
+      title: 'We sent your question to rentten2022@gmail.com',
+      text: 'Thank you for your time, we will soon answer you by e-mail!',
     });
   }
   showChat() {
@@ -64,13 +70,13 @@ export class ChatComponent implements OnInit {
     if (this.faqs[i].response === '') {
       if (this.dbProfile === null) {
         Swal.fire({
-          title: 'You must be user to send us a message',
+          title: 'You must be an user to send us a message',
           text: 'Do you want to register?',
           icon: 'warning',
           showCancelButton: true,
           cancelButtonColor: '#d33',
           confirmButtonColor: '#3085d6',
-          confirmButtonText: 'Yes I want to register',
+          confirmButtonText: 'Register',
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {

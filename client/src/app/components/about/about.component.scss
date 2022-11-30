@@ -34,7 +34,10 @@ ul li {
   }
 }
 .container_about {
-  height: 100%;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 h3 {
   margin: 0;

@@ -25,8 +25,6 @@ export class AboutComponent implements OnInit {
     this._helper.customDarkMode.subscribe(
       (active: boolean) => (this.darkmode = active)
     );
-
-
   }
 
 }

@@ -3,8 +3,7 @@
   height: 400px;
   transition: all 0.3s;
   animation: fadein 2s;
-  border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
-  height: 100%;
+  border-radius: 15px;
 }
 
 /* .darkmode {
@@ -24,7 +23,7 @@
 }
 
 .margin {
-  margin-bottom: -1.2rem;
+  margin-bottom: -24px;
 }
 
 .updiv {
@@ -67,8 +66,8 @@
 
 .firstdiv {
   display: flex;
-  margin-top: -4.4rem;
-  margin-bottom: -0.8rem;
+  margin-top: -88px;
+  margin-bottom: -16px;
 }
 
 .namediv {
@@ -82,13 +81,11 @@
 }
 
 .favdiv {
-  width: 100%;
-
   display: flex;
   justify-content: flex-end;
 
   position: relative;
-  top: 33px;
+  top: 32px;
   right: 0px;
 }
 
@@ -119,13 +116,13 @@
 }
 #addfav:hover {
   transition: 0.25s;
-  height: 2.5rem;
+  height: 50px;
   background-color: #ffc107;
 }
 
 #removefav {
   transition: 0.25s;
-  height: 2.5rem;
+  height: 50px;
   border: none;
   background-color: #ffc107;
   transition: 0.5s all;
@@ -142,8 +139,8 @@
 }
 
 .heartsvg {
-  width: 0.8rem;
-  padding-right: 0.1rem;
+  width: 16px;
+  padding-right: 2px;
   fill: #d6a410;
   transition: all 0.2s;
 }
@@ -153,7 +150,7 @@
 }
 
 #favsvg {
-  margin-left: 0.1rem;
+  margin-left: 2px;
   fill: rgb(126, 0, 0);
 }
 
@@ -170,6 +167,7 @@
     transform: scale(1.1);
   }
 }
+
 @keyframes dislike {
   0% {
     transform: scale(1.1);
@@ -192,25 +190,26 @@
 .info {
   font-weight: 100;
   color: gray;
-  margin: -0.2rem;
-  margin-left: 0.25rem;
+  margin: -4px;
+  margin-left: 5px;
 }
 
 .price {
   color: rgb(23, 59, 3);
   font-weight: 400;
-  margin-left: 0.25rem;
+  margin-left: 5px;
 }
 
 ngb-rating {
   position: relative;
-  top: -4rem;
-  left: 0rem;
+  top: -80px;
+  left: 0px;
   background-color: #ffffff97;
-  padding: 0.3rem;
-  border-radius: 0rem 0.75rem 0rem 0.75rem;
-  font-size: 1.1rem;
+  padding: 6px;
+  border-radius: 0px 15px 0px 15px;
+  font-size: 22px;
 }
+
 .darkmode .price {
   color: rgb(55, 151, 4);
 }

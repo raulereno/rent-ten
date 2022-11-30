@@ -15,8 +15,12 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-image: url("../../../assets/background.jpg");
-  border-left: 1px solid #96969681;
-  border-right: 1px solid #96969681;
+}
+
+.altbackground{
+  width: 95%;
+  margin: 0 auto;
+  padding-bottom: 30px;
 }
 
 .container {
@@ -86,10 +90,10 @@
 /* //////////// FILTERS MODAL ////////////// */
 
 .altfilters {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  height: 3.6rem;
-  width: 10rem;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  height: 80px;
+  width: 150px;
   transition: all 0.2s;
   border: 1px solid rgba(0, 0, 0, 0.368);
   border-radius: 5px;
@@ -318,6 +322,7 @@
   display: grid;
   justify-items: center;
   justify-content: center;
+  background-color: none;
 }
 
 .alternativehome_buttonFilter {

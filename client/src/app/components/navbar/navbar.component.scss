@@ -106,14 +106,6 @@
   transition: all 1s;
   color: white;
 }
-.darkmode .myFavorites {
-  background-color: #3a3a3a;
-  color: white;
-  transition: all 1s;
-}
-.darkmode .myFavorites:hover {
-  color: blue;
-}
 
 .myFavourites {
   border: 0;
@@ -187,9 +179,9 @@
 }
 
 .favoritesbody {
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-top: 1rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
   display: flex;
 
   justify-content: center;
@@ -216,7 +208,6 @@
 .houseinfo {
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(90deg, rgba(129, 129, 129, 0.156), white);
   height: 6rem;
   padding-left: 0.7rem;
   padding-top: 0.7rem;
@@ -237,7 +228,7 @@
 
 .type {
   font-size: 20px;
-  font-weight: 900;
+  font-weight: 500;
   color: rgb(43, 43, 43);
 }
 
@@ -265,6 +256,14 @@
 .darkmodeModal {
   background-color: #3a3a3a;
   color: white;
+
+  .type{
+    color: #fafafa;
+  }
+
+  .price{
+    color: rgb(60, 135, 20)
+  }
 }
 
 @media screen and (max-width: 750px) {
