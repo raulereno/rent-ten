@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
 import { AuthService } from '@auth0/auth0-angular';
 import { AdmindashboardService } from 'src/app/services/admindashboard.service';
 import { DataService } from 'src/app/services/data.service';
@@ -61,9 +61,7 @@ export class TableHouseDComponent implements OnInit {
   back() { this.router.navigate(['dashboard']) }
 
 
-  showInfo() {
-    console.log(this.houses);
-  }
+ 
 
   changeHouseStatus(houseId: string) {
     let newValues = { deleted: false };

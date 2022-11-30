@@ -29,6 +29,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Booking } from 'src/app/models/Booking';
 import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ThumbnailsMode } from 'ng-gallery';
 
 @Component({
   selector: 'app-profile',
@@ -37,6 +40,7 @@ import Swal from 'sweetalert2';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ProfileComponent implements OnInit {
+  [x: string]: any;
   allHouses$: Observable<any> = new Observable();
   dbProfile: userProfile;
   allHouses: House[] = [];
@@ -52,6 +56,7 @@ export class ProfileComponent implements OnInit {
   housesProfile: House[] = [];
   bookingsProfile: Booking[] = [];
   darkmode: boolean;
+  profileForm!: FormGroup;
 
   constructor(
     public auth: AuthService,
@@ -60,7 +65,9 @@ export class ProfileComponent implements OnInit {
     private _uploadImg: UploadImgService,
     private localStorageSvc: LocalStorageService,
     private _router: Router,
-    private _helper: HelperService
+    private _helper: HelperService,
+    private modalService: NgbModal,
+    private readonly fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +79,9 @@ export class ProfileComponent implements OnInit {
     this._helper.customDarkMode.subscribe(
       (active: boolean) => (this.darkmode = active)
     );
+
+    this.profileForm = this.initForm();
+    this.onPathValue();
   }
 
   loadProfile() {
@@ -176,6 +186,7 @@ export class ProfileComponent implements OnInit {
       replaceUrl: true,
     }); //TODO: Redireccionar casa creada a detail
   }
+
   deleteHouse(houseId: string, userId: string) {
     let value = {
       deleted: true,
@@ -215,6 +226,53 @@ export class ProfileComponent implements OnInit {
         this.auth.logout();
         this._router.navigate(['home']);
       }
+    });
+  }
+
+  openModal(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+  }
+
+  initForm(): FormGroup {
+    return this.fb.group({
+      userId: [''],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      lastname: ['', [Validators.required, Validators.minLength(3)]],
+      mail: ['', [Validators.required]],
+      country: ['', [Validators.minLength(3)]],
+    });
+  }
+
+  onSubmit(userId: string) {
+    this.profileForm.get('userId')?.setValue(userId);
+    this.saveData(this.profileForm.value);
+    console.log(this.profileForm.value);
+  }
+
+  saveData(value: any) {
+    Swal.fire({
+      title: 'Confirm your data?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      reverseButtons: true,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Updated data!', '', 'success');
+        this.userProfile = this.profileForm.value;
+        this.http.updateData(this.profileForm.value);
+        document.getElementById('closeModal')!.click();
+      }
+    });
+  }
+
+  onPathValue(): void {
+    this.profileForm.patchValue({
+      name: this.userProfile.name,
+      lastname: this.userProfile.lastname,
+      mail: this.userProfile.mail,
+      country: this.userProfile.country,
     });
   }
 }

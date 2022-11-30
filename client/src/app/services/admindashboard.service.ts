@@ -5,15 +5,19 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
 import { Booking } from '../models/Booking';
-import { DataService } from './data.service';
-import { House } from '../models/House';
 import { DataServiceService } from './data-service.service';
+import { House } from '../models/House';
+
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AdmindashboardService {
-  constructor(private http: HttpClient, private data: DataService) {}
+
+  constructor(
+    private http: HttpClient,
+    private data: DataServiceService,
+  ) { }
 
 
   private changeUserAutorized: string = ""
@@ -29,58 +33,67 @@ export class AdmindashboardService {
   // ----------- Users Services -----------
 
   // activated users =
-  private usersA$ = new BehaviorSubject<any>([]);
+  private usersA$ = new BehaviorSubject<any>([])
   get getUsersA$(): Observable<any> {
-    return this.usersA$.asObservable();
+    return this.usersA$.asObservable()
   }
+
   setUsersA(): void {
-    this.data.getUsers().subscribe((res) => this.usersA$.next(res));
+    this.data.getUsers().subscribe(res => this.usersA$.next(res))
   }
 
   // deleted users =
-  private usersD$ = new BehaviorSubject<any>([]);
+  private usersD$ = new BehaviorSubject<any>([])
   get getUsersD$(): Observable<any> {
-    return this.usersD$.asObservable();
+    return this.usersD$.asObservable()
   }
   setUsersD(): void {
-    this.data.getUsersD().subscribe((res) => this.usersD$.next(res));
+    this.data.getUsersD().subscribe(res => this.usersD$.next(res))
   }
 
   // update tables
   delete_set(id: string, value: string): void {
     this.data.deleteAccount(id, value).subscribe(() => {
-      this.setUsersA();
-      this.setUsersD();
-    });
+      this.setUsersA()
+      this.setUsersD()
+    })
   }
 
+  admin_set( newValues: any , id: string,): void {
+    this.data.set_admin(newValues, id).subscribe(() => {
+      this.setUsersA()
+    }) 
+    
+  }
   // ----------- Houses Services -----------
 
-  // Active houses =
-  private housesA$ = new BehaviorSubject<any>([]);
+  // Active houses = 
+  private housesA$ = new BehaviorSubject<any>([])
   get getHousesA$(): Observable<any> {
-    return this.housesA$.asObservable();
+    return this.housesA$.asObservable()
   }
   setHousesA(): void {
-    this.data.getHouses().subscribe((res) => this.housesA$.next(res));
+    this.data.getHouses().subscribe(res => this.housesA$.next(res))
   }
 
-  // Deleted Houses =
-  private housesD$ = new BehaviorSubject<any>([]);
+
+  // Deleted Houses = 
+  private housesD$ = new BehaviorSubject<any>([])
   get getHousesD$(): Observable<any> {
-    return this.housesD$.asObservable();
+    return this.housesD$.asObservable()
   }
   setHousesD(): void {
-    this.data.getDeletedHouses().subscribe((res) => this.housesD$.next(res));
+    this.data.getDeletedHouses().subscribe(res => this.housesD$.next(res))
   }
 
   // update tables
   changeHouseStatus(userId: string, houseId: string, newValues: any): void {
-    console.log(newValues);
     this.data.handleHouseState(userId, houseId, newValues).subscribe(() => {
-      this.setHousesA();
-      this.setHousesD();
-    });
+      this.setHousesA()
+      this.setHousesD()
+    })
   }
+
+ 
 }
 

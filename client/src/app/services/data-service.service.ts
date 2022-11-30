@@ -31,11 +31,11 @@ export class DataServiceService {
       })
     }
   }
-  updateProfilePicture(url:string,userID:string,authID:string){
-    if(url&&userID){
-      this.http.patch(`${environment.baseUrl}/users/changepicture/${userID}`,{newPicture:url, authID:authID}).subscribe({
-        error:error=>{
-          console.error('There was an error!',error);
+  updateProfilePicture(url: string, userID: string, authID: string) {
+    if (url && userID) {
+      this.http.patch(`${environment.baseUrl}/users/changepicture/${userID}`, { newPicture: url, authID: authID }).subscribe({
+        error: error => {
+          console.error('There was an error!', error);
         }
       })
     }
@@ -77,7 +77,7 @@ export class DataServiceService {
       }
     })
   }
-  
+
 
   createHouse(house: NewHouse, email: string) {
     this.http.post(`${environment.baseUrl}/houses/createhouse?userMail=${email}`, house).subscribe({
@@ -102,18 +102,18 @@ export class DataServiceService {
   }
 
   makeABook(houseId: string, newReserve: Booking, userId: string) {
-    this.http.post(`http://localhost:3001/bookings`, {houseId, newReserve, userId}).subscribe({
+    this.http.post(`http://localhost:3001/bookings`, { houseId, newReserve, userId }).subscribe({
       error: error => {
         console.log(error);
       }
     })
   }
 
-  postNewReview(opinion:string, rating: number, userId:string, houseId:string, userEmail:string): Observable<any> {
-    return this.http.post<any>(`http://localhost:3001/reviews`, {opinion, rating, userId, houseId, userEmail})
+  postNewReview(opinion: string, rating: number, userId: string, houseId: string, userEmail: string): Observable<any> {
+    return this.http.post<any>(`http://localhost:3001/reviews`, { opinion, rating, userId, houseId, userEmail })
   }
 
-  getHouses_withOrder(order:string): Observable<any> {
+  getHouses_withOrder(order: string): Observable<any> {
     return this.http.get<any>(`${environment.baseUrl}/houses/order/${order}`);
   }
 
@@ -121,12 +121,13 @@ export class DataServiceService {
     return this.http.post<any>(`http://localhost:3001/mercadopago/payment`, item)
   }
 
-  updateBookingStatus(houseId: string, code: string, status:string) {
+  updateBookingStatus(houseId: string, code: string, status: string) {
     this.http.put<any>(`${environment.baseUrl}/bookings/checkstatus`, { houseId: houseId, code: code, status: status }).subscribe({
       error: error => {
         console.log(error)
       }
-    })}
+    })
+  }
 
   getUsers(): Observable<any> {
     // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
@@ -160,6 +161,13 @@ export class DataServiceService {
     return this.http.get<any>(`${environment.baseUrl}/houses/deletedhouses`);
   }
 
+  updateData(userId: string, name: string, lastname: string, mail: string, country: string) {
+    return this.http.put<any>(`${environment.baseUrl}/users/editUser/${userId}`, { userId, name, lastname, mail, country });
+  }
+
+  set_admin(newValues: any, userId: string): Observable<any> {
+    console.log('userId', userId)
+    console.log('nevalues', newValues)
+    return this.http.put<any>(`${environment.baseUrl}/users/editUser/${userId}`, newValues);
+  }
 }
-
-
