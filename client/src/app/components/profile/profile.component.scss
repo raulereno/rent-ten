@@ -19,6 +19,35 @@
   margin-left: 3rem;
   height: 100vh;
   min-width: 20%;
+  .userdiv {
+    display: flex;
+    flex-direction: column;
+    button {
+      align-self: center;
+    }
+  }
+  .container-image {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    h1 {
+      text-align: center;
+    }
+  }
+  .infodiv {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    .text {
+      text-align: center;
+    }
+    h3 {
+      text-align: center;
+    }
+    h4 {
+      text-align: center;
+    }
+  }
 }
 .container-image {
   position: relative;
@@ -52,16 +81,6 @@
 }
 .darkmode .edit {
   background-color: #303030a4;
-}
-.infodiv {
-  display: flex;
-  flex-direction: column;
-  margin-left: 1.5rem;
-  margin-top: 1rem;
-}
-
-.text {
-  color: black;
 }
 
 .rightdiv {

@@ -102,6 +102,7 @@ export class NavbarComponent implements OnInit {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes I want to register',
+        reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           this.auth.loginWithRedirect();

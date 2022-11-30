@@ -58,8 +58,13 @@
       </h2>
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
         aria-labelledby="panelsStayOpen-headingOne">
-        <div class="accordion-body">
-          <div *ngFor="let hou of userProfile?.Houses" class="card" style="width: 18rem;" [ngClass]="{'darkmodeMyHouses': darkmode}">
+        <div class="accordion-body" style="
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        ">
+          <div *ngFor="let hou of userProfile?.Houses"  class="card" style="width: 18rem; margin-bottom: 0.5rem;"
+            [ngClass]="{'darkmodeMyHouses': darkmode}">
             <button (click)="deleteHouse(hou.id, user.id)" class="btn btn-danger btn-sm"><svg
                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -303,7 +308,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </ng-template>
         </ngb-panel>
         <ngb-panel title="MY FAVOURITES">

@@ -56,8 +56,8 @@
                             <h2 class="text">Make a booking:</h2>
                             <mat-form-field>
                                 <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
-                                    <input matStartDate placeholder="Start date" formControlName="start">
-                                    <input matEndDate placeholder="End date" formControlName="end">
+                                    <input class="inputdate" matStartDate placeholder="Start date" formControlName="start">
+                                    <input class="inputdate" matEndDate placeholder="End date" formControlName="end">
                                 </mat-date-range-input>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-date-range-picker #picker></mat-date-range-picker>
@@ -78,9 +78,9 @@
                     </div>
                     <div class="reserved">
                         <div *ngIf="house.Bookings.length > 0">
-                            <h2 class="text"><span style="color: red; font-size: 25px; font-weight: 200;">&#x26A0;</span> This place is not available on:</h2>
+                            <h2><span style="color: rgb(221, 58, 58); font-size: 25px; font-weight: 200; margin-right: 5px;">&#x26A0;</span>  Not available on:</h2>
                                 <div *ngFor="let book of house.Bookings">
-                                    <h3 class="notavailable"><span style="color: red; font-weight: 400;">X</span> {{book.start}} <span style="color: gray; font-weight: 400;">// to:</span> {{book.end}}</h3>
+                                    <h3 class="notavailable">{{book.start}} <span style="color: gray; font-weight: 400;"> to:</span> {{book.end}}</h3>
                                 </div>
                         </div>
                         <div *ngIf="house.Bookings.length === 0">
@@ -120,5 +120,4 @@
             </div>
         </ng-template>
     </div>
-    <footer class="mat-app-background footer mat-elevation-z4">Rent-Ten - made with ♥ by group 10 of FT-30A at SoyHenry.</footer>
 </div>

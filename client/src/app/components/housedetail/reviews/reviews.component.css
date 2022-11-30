@@ -76,7 +76,7 @@ ngb-rating{
     height: 60px;
     font-size: 25px;
     color: #0d6efd;
-
+    background-color: #fafafa;
     margin: 0 auto;
     padding-bottom: 5px;
 
@@ -90,7 +90,7 @@ ngb-rating{
 
 .reviewbutton:hover{
     color: #fafafa;
-    background-color: #0d6efd;;
+    background-color: #0d6efd;
 }
 
 #postbutton{

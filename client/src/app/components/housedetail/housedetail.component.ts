@@ -22,7 +22,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class HousedetailComponent implements OnInit {
   @ViewChild('pay', { static: true }) pay: ElementRef;
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     public http: DataService,
     private fb: FormBuilder,
     private location: Location,
@@ -30,7 +31,7 @@ export class HousedetailComponent implements OnInit {
     private _helper: HelperService,
     public auth: AuthService,
     private modalService: NgbModal
-  ) { }
+  ) {}
 
   userProfile: userProfile;
   profileJson: any;
@@ -45,8 +46,8 @@ export class HousedetailComponent implements OnInit {
   totaldays: number;
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.paramsId = params["id"];
+    this.route.params.subscribe((params) => {
+      this.paramsId = params['id'];
       this.http
         .getHouse(this.paramsId)
         .subscribe((data) => (this.house = data));
@@ -72,8 +73,10 @@ export class HousedetailComponent implements OnInit {
   }
 
   unavailableDays = (calendarDate: Date): boolean => {
-    let today = new Date()
-    if (today > calendarDate || calendarDate > new Date('12-31-2024')) { return false }
+    let today = new Date();
+    if (today > calendarDate || calendarDate > new Date('12-31-2024')) {
+      return false;
+    }
     if (!this.house.Bookings) return true;
     return !this.house.Bookings.some(
       (d: Booking) =>
@@ -106,18 +109,17 @@ export class HousedetailComponent implements OnInit {
   }
 
   reserveHouse(): void {
-
-    if (this.house.Users![0].id == this.userProfile.id ) {
+    if (this.house.Users![0].id == this.userProfile.id) {
       Swal.fire({
         icon: 'error',
         title: 'Oops..',
-        text: 'You cant reserve your own place'
-      })
-      return
+        text: 'You cant reserve your own place',
+      });
+      return;
     }
 
-    let start = this.form.value.daterange.start
-    let end = this.form.value.daterange.end
+    let start = this.form.value.daterange.start;
+    let end = this.form.value.daterange.end;
 
     if (!start || !end) {
       Swal.fire({
@@ -133,7 +135,6 @@ export class HousedetailComponent implements OnInit {
         title: 'Oops...',
         text: 'This place has bookings between your selected dates. Please make two bookings or change your dates',
       });
-      // alert('This place has bookings between your selected dates. Please make two bookings or change your dates'); return
     } else {
       let transactionCode = Math.random().toString(36).slice(4);
       let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
