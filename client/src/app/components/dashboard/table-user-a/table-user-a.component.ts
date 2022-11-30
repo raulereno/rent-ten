@@ -36,15 +36,18 @@ export class TableUserAComponent implements OnInit {
 
   customChangeAutorized: string;
 
-  public page = 1;
-  public pageSize = 5;
+  public page: number = 1;
+  public pageSize: number = 5;
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile);
     this.loadProfile();
 
     this._admindashboard.setUsersA();
-    this._admindashboard.getUsersA$.subscribe((res) => (this.users = res));
+    this._admindashboard.getUsersA$.subscribe((res) => {
+      this.users = res;
+      console.log(this.users);
+    });
   }
 
   loadProfile(): void {

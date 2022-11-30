@@ -80,7 +80,10 @@ export class ProfileComponent implements OnInit {
         this.auth.user$.subscribe((profile) => {
           this.profileJson = profile;
           this.http.getUser(this.profileJson.email).subscribe((res) => {
-            res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
+            res = {
+              ...res,
+              Houses: res.Houses.filter((h: House) => !h.deleted),
+            };
             this.store.dispatch(loadProfile({ userProfile: res }));
             this.userProfile = res;
           });
@@ -89,7 +92,7 @@ export class ProfileComponent implements OnInit {
         this.userProfile = profile;
       }
       this.http.getUser(profile.mail).subscribe((res) => {
-        res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) }
+        res = { ...res, Houses: res.Houses.filter((h: House) => !h.deleted) };
         this.userProfile = res;
       });
     });
@@ -175,8 +178,8 @@ export class ProfileComponent implements OnInit {
   }
   deleteHouse(houseId: string, userId: string) {
     let value = {
-      deleted: true
-    }
+      deleted: true,
+    };
 
     Swal.fire({
       title: 'Are you sure you want delete your create place?',
@@ -185,6 +188,7 @@ export class ProfileComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         this.http.handleHouseState(userId, houseId, value).subscribe();
@@ -197,12 +201,21 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteAccount(userId: string) {
-    if (confirm('Are you sure you want delete your account?')) {
-      //this.store.dispatch(changeAuthorizedUser({ payload: 'not' }));
-      this.http.deleteAccount(userId, 'not');
-      this.auth.logout();
-      this._router.navigate(['home']);
-    }
+    Swal.fire({
+      title: 'Are you sure you want delete your account?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      reverseButtons: true,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Good Bye!', '', 'success');
+        this.http.deleteAccount(userId, 'not');
+        this.auth.logout();
+        this._router.navigate(['home']);
+      }
+    });
   }
 }
 

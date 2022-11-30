@@ -1,3 +1,4 @@
+import { DataService } from 'src/app/services/data.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ChatService } from './../../services/chat.service';
 import { AuthService } from '@auth0/auth0-angular';
@@ -20,6 +21,7 @@ export class ChatComponent implements OnInit {
   dbProfile: any;
 
   formMail!: FormGroup;
+  showChatWhenAdmin: boolean = true;
 
   initForm(): FormGroup {
     return this.fb.group({
@@ -32,13 +34,21 @@ export class ChatComponent implements OnInit {
     private _router: Router,
     private _auth: AuthService,
     private readonly fb: FormBuilder,
-    public _chat: ChatService
+    public _chat: ChatService,
+    private _http: DataService
   ) {}
 
   ngOnInit(): void {
     this.formMail = this.initForm();
     this._auth.user$.subscribe((profile) => {
-      this.dbProfile = profile;
+      this._http.getUser(profile?.email!).subscribe((res) => {
+        if (res !== null) {
+          if (res.admin) {
+            this.showChatWhenAdmin = false;
+          }
+        }
+        this.dbProfile = res;
+      });
     });
   }
   sendMessage() {

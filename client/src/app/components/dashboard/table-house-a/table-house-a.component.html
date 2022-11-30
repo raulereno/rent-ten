@@ -2,9 +2,9 @@
   <button class="btn btn-secondary" (click)="back()">Back</button>
   <h3>Total active houses: {{houses.length}}</h3>
 </div>
-<div style="float: right; margin-right: 2%">
-  <label>Search by ID:</label>
-  <input [(ngModel)]="filtered_house" id="filter_input" />
+<div style=" margin-bottom: 2%;">
+  <label style="margin-right: 0.2rem;">Search by ID:</label>
+  <input style="margin-right: 0.6rem;" [(ngModel)]="filtered_house" id="filter_input" />
   <button *ngIf="!filtered_house_result" (click)="handleInput()" type="button" class="btn btn-info">Search</button>
   <button *ngIf="filtered_house_result" (click)="resetResults()" type="button" class="btn btn-info">Reset</button>
 </div>
@@ -12,7 +12,7 @@
   <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
     [collectionSize]="houses.length"></ngb-pagination>
 </div>
-<table class="table table-striped">
+<table class="table table-striped mat-app-background">
   <thead>
     <tr class="table-primary">
       <th scope="col">#id</th>

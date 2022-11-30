@@ -1,8 +1,8 @@
-<div class="container_imgChat" (click)="showChat()">
+<div *ngIf=" showChatWhenAdmin " class="container_imgChat" (click)="showChat()">
   <img src="assets/logo.png" alt="">
 </div>
 
-<div class="container_chat" [ngClass]="{'active': chat }">
+<div *ngIf=" showChatWhenAdmin" class="container_chat" [ngClass]="{'active': chat }">
   <div class="chat">
     <h3 class="faqs">FAQS</h3>
     <ul id="chat_lista" class="chat_lista">
@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div *ngIf="dbProfile!== null" class="container_textArea">
+  <div *ngIf="showChatWhenAdmin " class="container_textArea">
     <form [ngClass]="{'allowInput': !allowInput}" [formGroup]="formMail" (submit)="sendMessage()">
       <label for="subject">Subject:</label>
       <input type="text" name="subject" id="" formControlName="subject">
