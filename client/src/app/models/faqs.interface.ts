@@ -17,12 +17,13 @@ export interface UserQuestion {
 
 export const FAQS: Faqs[] = [
   {
-    question: 'What do i need to post my own housing?',
-    response: 'You need to have an account on MercadoPago and be registered and verified on our page',
+    question: 'What do i need to reserve a place?',
+    response: 'You need to registered and verified on our page',
   },
   {
     question: 'How can i publish my own housing?',
-    response: 'Register on our page, verify your e-mail and then, complete the "Become a Host" form',
+    response:
+      'Register on our page, verify your e-mail and then, complete the "Become a Host" form',
   },
   {
     question: 'What is the payment method used in this website?',
@@ -31,5 +32,5 @@ export const FAQS: Faqs[] = [
   {
     question: 'For any other questions you can contact us by e-mail!',
     response: '',
-  }
+  },
 ];

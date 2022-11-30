@@ -174,7 +174,6 @@ export class CreateHouseComponent implements OnInit {
 
   onSelect(event: any) {
     if (this.files.some((e) => e.name === event.addedFiles[0].name)) {
-      console.log('ok');
       return;
     }
     this.files.push(...event.addedFiles);
@@ -204,12 +203,11 @@ export class CreateHouseComponent implements OnInit {
       // this.userProfile.unsubscribe();
       this.router.navigate(['profile']); }
       else */
-    console.log(this.formNewHouse.errors);
     if (this.formNewHouse.invalid) {
       this.errors = true;
       Swal.fire({
         title: 'Oops...',
-        html: `<p><b>Hay campos requeridos en el form</b></p>`,
+        html: `<p><b>There are required fields in the form</b></p>`,
         icon: 'error',
       });
     } else if (!this.files[0]) {
@@ -223,7 +221,6 @@ export class CreateHouseComponent implements OnInit {
 
   onUpload() {
     this.openDialog();
-    console.log(this.formNewHouse.value);
     this.files.forEach((image) => {
       const data = new FormData();
       data.set('file', image);
@@ -233,7 +230,6 @@ export class CreateHouseComponent implements OnInit {
       this._uploadImg.uploadImage(data).subscribe((response) => {
         this.formNewHouse.value.picture?.push(response.secure_url);
         if (this.files.length === this.formNewHouse.value.picture.length) {
-          console.log(this.formNewHouse.value.picture);
           this._http.createHouse(this.formNewHouse.value, this.email);
           this.files = [];
           this.formNewHouse.reset({
@@ -305,8 +301,6 @@ export class CreateHouseComponent implements OnInit {
   dontLetNegative(event: any) {
     const name = event.target.name;
     const value = event.target.value;
-    console.log(name);
-    console.log(value);
 
     switch (name) {
       case 'maxpeople':

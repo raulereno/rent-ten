@@ -136,8 +136,7 @@ export class ReviewsComponent implements OnInit {
       return;
     }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-    console.log(this.house.Booking);
-    console.log(this.userProfile);
+
     if (
       !this.house.Bookings.some(
         (booking: Booking) => booking.UserId === this.userProfile.id

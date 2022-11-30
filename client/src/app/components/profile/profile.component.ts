@@ -246,7 +246,6 @@ export class ProfileComponent implements OnInit {
   onSubmit(userId: string) {
     this.profileForm.get('userId')?.setValue(userId);
     this.saveData(this.profileForm.value);
-    console.log(this.profileForm.value);
   }
 
   saveData(value: any) {

@@ -213,14 +213,14 @@ export class HomeComponent implements OnInit {
     //TODO: BUSCAR EL TIPO DEL EVENTO
     let city = event.target.value;
     this.selectedCity = city;
-    console.log('city', city);
+
     // this.handleFilters();
 
     let nombrecualquier = this.allHouses?.filter(
       (elemten) => elemten.city === city
     );
 
-    
+
   }
 
   handleOrder() {
@@ -258,7 +258,7 @@ export class HomeComponent implements OnInit {
     this.quantityFilter = calculateFilter(this.filterForm.value);
     this.allHouses$.subscribe(res=> this.allHouses=res);
 
- 
+
   }
   applyFilter() {
     this.handleFilters();

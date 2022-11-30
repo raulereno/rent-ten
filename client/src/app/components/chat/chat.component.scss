@@ -21,7 +21,8 @@
   right: 30px;
   border: 1.5px rgba(0, 0, 0, 0.244) solid;
   transition: all 0.5s;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   opacity: 60%;
   &:hover {
     cursor: pointer;
@@ -31,7 +32,7 @@
   }
 }
 
-.chatimg{
+.chatimg {
   height: 40px;
   width: 40px;
   padding-bottom: 3px;
@@ -44,17 +45,18 @@
   bottom: 30px;
   right: 120px;
   width: 25rem;
-  height: 700px;
+  height: 81%;
   background-color: white;
   display: none;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   animation: fadein 0.5s;
   .chat {
     display: flex;
     flex-direction: column;
     align-items: center;
     .faqs {
-      color: #3A3A3A;
+      color: #3a3a3a;
       font-size: 40px;
       margin-top: 25px;
       width: 100%;
@@ -118,16 +120,17 @@
       }
       textarea {
         display: flex;
-        height: 150px;
+        height: 130px;
         width: 400px;
         resize: none;
         padding-top: 10px;
       }
-      .chatinput{
-        color: #3A3A3A;
+      .chatinput {
+        color: #3a3a3a;
         padding-left: 10px;
         border-radius: 10px;
         border: 1px solid #3a3a3a80;
+        margin: 0;
       }
       .allowButton {
         display: flex;
@@ -146,9 +149,9 @@
         border-radius: 5px;
         transition: all 0.2s;
       }
-      .allowButton:hover{
-          color: #fafafa;
-          background-color: #0d6efd;
+      .allowButton:hover {
+        color: #fafafa;
+        background-color: #0d6efd;
       }
     }
   }
@@ -159,8 +162,8 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.question{
-  color: #3A3A3A;
+.question {
+  color: #3a3a3a;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-weight: 500;
 }
@@ -171,20 +174,21 @@
   cursor: pointer;
 }
 .container_answers {
-  color: #3A3A3A;
+  color: #3a3a3a;
   font-size: 25px;
   width: 85%;
 }
 
-.answers{
-  color: #3A3A3A;
+.answers {
+  color: #3a3a3a;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-weight: 600;
-  line-height: 30px;
-  margin-top: 20px;
+  line-height: 20px;
+  margin-top: 10px;
+  font-size: 1rem;
 }
 
-.mplink{
+.mplink {
   color: #0d6efd;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-weight: 600;

@@ -17,7 +17,7 @@
   background-image: url("../../../assets/background.jpg");
 }
 
-.altbackground{
+.altbackground {
   width: 95%;
   margin: 0 auto;
   padding-bottom: 30px;
@@ -105,8 +105,8 @@
 }
 
 .filters {
-  height: 3.6rem;
-  width: 5rem;
+  height: 4.4rem;
+  width: 6rem;
   transition: all 0.2s;
   border: 1px solid rgba(0, 0, 0, 0.368);
   border-radius: 5px;
