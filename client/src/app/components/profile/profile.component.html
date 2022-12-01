@@ -17,21 +17,23 @@
           &#x2716; Your account is not verified
         </h5>
         <!-- ---- EMAIL ---- -->
-        <div>
+        <div style="display: flex; flex-direction: column; width: 50%; align-self: center; margin-bottom: 0.5rem;">
           <div *ngIf="user.verified === 'pending'">
 
             <form>
               <p>Please enter the security code which you received in your email</p>
-              <input #code name="code" value="" type="string" placeholder="Insert the code">
-              <button style="size: 50%" (click)="sendVerificationCode(code.value)" type="button"
-                class="btn btn-outline-warning btn-sm">Verify</button>
+              <div style="display: flex;">
+                <input #code name="code" value="" type="string" placeholder="Insert the code">
+                <button style="size: 50%" (click)="sendVerificationCode(code.value)" type="button"
+                  class="btn btn-outline-warning btn-sm">Verify</button>
+              </div>
             </form>
           </div>
         </div>
       </div>
       <p style="color:red" *ngIf="error">{{error.error.msg}}</p>
 
-      <button style="margin-bottom: 0.3rem" class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Edit my profile</button>
+      <button style="margin-bottom: 0.3rem " class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Edit my profile</button>
     </div>
   </div>
 
