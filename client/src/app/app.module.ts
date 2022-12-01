@@ -48,6 +48,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 //BOOTSTRAP
+
+//BOOTSTRAP
 import { NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 //ROUTING
 import { RouterModule, Routes } from '@angular/router';
@@ -69,6 +71,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 //COOKIES
 import { CookieService } from 'ngx-cookie-service';
 import { SocketIoModule } from 'ngx-socket-io';
+import { FooterComponent } from './components/footer/footer.component';
 import { UsersguardGuard } from './guard/usersguard.guard';
 
 const routes: Routes = [
@@ -123,6 +126,7 @@ const routes: Routes = [
     TableHouseDComponent,
     AlternativehouseComponent,
     SliderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

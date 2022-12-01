@@ -9,12 +9,13 @@ import { DataService } from './data.service';
 import { House } from '../models/House';
 import { DataServiceService } from './data-service.service';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class AdmindashboardService {
-  constructor(private http: HttpClient, private data: DataService) {}
 
+  constructor(private http: HttpClient, private data: DataService) {}
 
   private changeUserAutorized: string = ""
 
@@ -33,6 +34,7 @@ export class AdmindashboardService {
   get getUsersA$(): Observable<any> {
     return this.usersA$.asObservable();
   }
+
   setUsersA(): void {
     this.data.getUsers().subscribe((res) => this.usersA$.next(res));
   }
@@ -49,11 +51,17 @@ export class AdmindashboardService {
   // update tables
   delete_set(id: string, value: string): void {
     this.data.deleteAccount(id, value).subscribe(() => {
-      this.setUsersA();
-      this.setUsersD();
-    });
+      this.setUsersA()
+      this.setUsersD()
+    })
   }
 
+  admin_set( newValues: any , id: string,): void {
+    this.data.set_admin(newValues, id).subscribe(() => {
+      this.setUsersA()
+    }) 
+    
+  }
   // ----------- Houses Services -----------
 
   // Active houses =
@@ -76,11 +84,12 @@ export class AdmindashboardService {
 
   // update tables
   changeHouseStatus(userId: string, houseId: string, newValues: any): void {
-    console.log(newValues);
     this.data.handleHouseState(userId, houseId, newValues).subscribe(() => {
       this.setHousesA();
       this.setHousesD();
     });
   }
+
+ 
 }
 

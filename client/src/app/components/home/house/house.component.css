@@ -3,8 +3,7 @@
   height: 400px;
   transition: all 0.3s;
   animation: fadein 2s;
-  border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
-  height: 100%;
+  border-radius: 15px;
 }
 
 /* .darkmode {
@@ -23,8 +22,8 @@
   opacity: 70%;
 }
 
-.margin{
-  margin-bottom: -25px;
+.margin {
+  margin-bottom: -24px;
 }
 
 .updiv {
@@ -51,7 +50,6 @@
   color: black;
 }
 
-
 .image {
   height: 200px;
   width: 250px;
@@ -65,7 +63,6 @@
   left: 86%;
   color: black;
 }
-
 
 .firstdiv {
   display: flex;
@@ -84,13 +81,11 @@
 }
 
 .favdiv {
-  width: 100%;
-
   display: flex;
   justify-content: flex-end;
 
   position: relative;
-  top: 33px;
+  top: 32px;
   right: 0px;
 }
 
@@ -108,31 +103,29 @@
 }
 
 #addfav {
-  transition: .25s;
+  transition: 0.25s;
   color: #ffc107;
   border: 2px solid #ffc107;
   border-top: none;
   border-color: #ffc107;
   background-color: none;
-
 }
-
 
 #addfav svg {
   animation: dislike 0.5s 1;
 }
 #addfav:hover {
   transition: 0.25s;
-  height: 2.5rem;
+  height: 50px;
   background-color: #ffc107;
 }
 
 #removefav {
   transition: 0.25s;
-  height: 2.5rem;
+  height: 50px;
   border: none;
   background-color: #ffc107;
-  transition: .5s all;
+  transition: 0.5s all;
 }
 
 #removefav svg {
@@ -145,20 +138,20 @@
   background-color: #dc3545;
 }
 
-.heartsvg{
-  width: 0.8rem;
-  padding-right: 0.1rem;
-  fill:#d6a410;
+.heartsvg {
+  width: 16px;
+  padding-right: 2px;
+  fill: #d6a410;
   transition: all 0.2s;
 }
 
-.favourites:hover .heartsvg{
-  fill:rgb(126, 0, 0);
+.favourites:hover .heartsvg {
+  fill: rgb(126, 0, 0);
 }
 
-#favsvg{
-  margin-left: 0.1rem;
-  fill:rgb(126, 0, 0);
+#favsvg {
+  margin-left: 2px;
+  fill: rgb(126, 0, 0);
 }
 
 @keyframes like {
@@ -174,6 +167,7 @@
     transform: scale(1.1);
   }
 }
+
 @keyframes dislike {
   0% {
     transform: scale(1.1);
@@ -188,7 +182,6 @@
   }
 }
 
-
 .botdiv {
   display: flex;
   flex-direction: column;
@@ -197,22 +190,27 @@
 .info {
   font-weight: 100;
   color: gray;
-  margin: -0.2rem;
-  margin-left: 0.25rem;
+  margin: -4px;
+  margin-left: 5px;
 }
 
 .price {
   color: rgb(23, 59, 3);
   font-weight: 400;
-  margin-left: 0.25rem;
+  margin-left: 5px;
 }
 
 ngb-rating {
   position: relative;
-  top: -4rem;
-  left: 0rem;
+  top: -80px;
+  left: 0px;
+  color: #3a3a3a;
   background-color: #ffffff97;
-  padding: 0.3rem;
-  border-radius: 0rem 0.75rem 0rem 0.75rem ;
-  font-size: 1.1rem;
+  padding: 6px;
+  border-radius: 0px 15px 0px 15px;
+  font-size: 22px;
+}
+
+.darkmode .price {
+  color: rgb(55, 151, 4);
 }

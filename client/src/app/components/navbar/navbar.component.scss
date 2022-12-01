@@ -106,28 +106,19 @@
   transition: all 1s;
   color: white;
 }
-.darkmode .myFavorites {
-  background-color: #3a3a3a;
-  color: white;
-  transition: all 1s;
-}
-.darkmode .myFavorites:hover {
-  color: blue;
-}
 
 .myFavourites {
-  width: 8rem;
-  height: 2.2rem;
-  background-color: #dfdfdf;
   border: 0;
-  border-radius: 3px;
-  font-size: 0.9rem;
   font-weight: 500;
-  align-self: center;
+  background-color: rgba(128, 128, 128, 0.15);
+  padding: 0.5rem 0.6rem;
+  border-radius: 5px;
+  transition: all 0.5s;
 }
 
 .myFavourites:hover {
   transform: scale(1.05);
+  background-color: rgba(164, 164, 164, 0.331);
 }
 
 .favmodal {
@@ -188,9 +179,12 @@
 }
 
 .favoritesbody {
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-top: 1rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  display: flex;
+
+  justify-content: center;
 }
 
 .grid {
@@ -214,7 +208,6 @@
 .houseinfo {
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(90deg, rgba(129, 129, 129, 0.156), white);
   height: 6rem;
   padding-left: 0.7rem;
   padding-top: 0.7rem;
@@ -235,7 +228,7 @@
 
 .type {
   font-size: 20px;
-  font-weight: 900;
+  font-weight: 500;
   color: rgb(43, 43, 43);
 }
 
@@ -263,6 +256,14 @@
 .darkmodeModal {
   background-color: #3a3a3a;
   color: white;
+
+  .type{
+    color: #fafafa;
+  }
+
+  .price{
+    color: rgb(60, 135, 20)
+  }
 }
 
 @media screen and (max-width: 750px) {
@@ -300,17 +301,20 @@
       display: flex;
       align-items: flex-end;
 
-      a{
+      a {
         align-self: flex-end;
       }
-      .switch{
+      .switch {
         align-self: flex-end;
       }
     }
   }
-  .profile{
+  .profile {
     display: flex;
     flex-direction: column;
   }
-
+}
+.hostButton:hover {
+  transform: scale(1.05);
+  background-color: rgba(164, 164, 164, 0.331);
 }

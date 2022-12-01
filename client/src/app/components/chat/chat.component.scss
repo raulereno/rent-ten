@@ -1,52 +1,88 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .container_imgChat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px;
   background-color: white;
-  padding: 0.8em;
   border-radius: 100%;
   position: fixed;
-  bottom: 0.5rem;
-  right: 0.5rem;
-  border: 1.5px black solid;
+  bottom: 30px;
+  right: 30px;
+  border: 1.5px rgba(0, 0, 0, 0.244) solid;
   transition: all 0.5s;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  opacity: 60%;
   &:hover {
     cursor: pointer;
     transform: scale(1.05);
-    border: 3px black solid;
-  }
-  img {
-    width: 3rem;
-    height: 3rem;
+    opacity: 100%;
+    transition: all 0.5s;
   }
 }
-.container_chat {
-  border-radius: 5px;
-  position: fixed;
-  bottom: 0.5rem;
-  right: 5.5rem;
-  width: 25rem;
-  height: 30rem;
-  background-color: white;
-  border: 1px black solid;
-  display: none;
 
+.chatimg {
+  height: 40px;
+  width: 40px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+}
+
+.container_chat {
+  border-radius: 30px;
+  position: fixed;
+  bottom: 30px;
+  right: 120px;
+  width: 25rem;
+  height: 81%;
+  background-color: white;
+  display: none;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  animation: fadein 0.5s;
   .chat {
     display: flex;
     flex-direction: column;
     align-items: center;
     .faqs {
-      color: black;
-      font-size: 2rem;
-      margin: 0.5rem 0 0 0;
+      color: #3a3a3a;
+      font-size: 40px;
+      margin-top: 25px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid #3a3a3a4c;
+      padding-bottom: 20px;
     }
     .chat_lista {
       list-style: none;
-      padding-left: 0;
+      border-bottom: 1px solid #3a3a3a4c;
+      padding-bottom: 20px;
+      width: 100%;
+      margin: 0 auto;
       li {
-        background-color: rgba(128, 128, 128, 0.54);
+        display: flex;
+        justify-content: center;
+        border: 1px solid #0d6efd;
+        border-radius: 20px;
         margin: 1rem;
         padding: 0.5rem;
+        transition: all 0.2s;
+        width: 80%;
         &:hover {
-          transform: scale(1.05);
-          font-weight: 600;
+          transform: scale(1.1);
           cursor: pointer;
         }
       }
@@ -69,48 +105,91 @@
   .container_textArea {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 60px;
     .allowInput {
       display: flex;
       flex-direction: column;
-      label {
-        display: flex;
-      }
       input {
         display: flex;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        height: 40px;
       }
       textarea {
         display: flex;
-        height: 8rem;
-        width: 100%;
+        height: 130px;
+        width: 400px;
         resize: none;
-        color: black;
+        padding-top: 10px;
+      }
+      .chatinput {
+        color: #3a3a3a;
+        padding-left: 10px;
+        border-radius: 10px;
+        border: 1px solid #3a3a3a80;
+        margin: 0;
       }
       .allowButton {
         display: flex;
-        width: 3rem;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        font-size: 15px;
+        font-weight: 400;
+        width: 100px;
         align-self: flex-end;
+        text-align: center;
+        color: #0d6efd;
+        margin-top: 15px;
+        background-color: none;
+        border: 1px solid #0d6efd;
+        border-radius: 5px;
+        transition: all 0.2s;
+      }
+      .allowButton:hover {
+        color: #fafafa;
+        background-color: #0d6efd;
       }
     }
   }
 }
-.local {
-  color: black;
-  background-color: rgb(0, 0, 100);
-}
-.remoto {
-  color: black;
-}
+
 .active {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+.question {
+  color: #3a3a3a;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
+}
+
 .questionActive {
-  transform: scale(1.05);
+  transform: scale(1.1);
   font-weight: 600;
   cursor: pointer;
 }
 .container_answers {
-  overflow-y: scroll;
-  width: 100%;
+  color: #3a3a3a;
+  font-size: 25px;
+  width: 85%;
+}
+
+.answers {
+  color: #3a3a3a;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  line-height: 20px;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.mplink {
+  color: #0d6efd;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 600;
 }

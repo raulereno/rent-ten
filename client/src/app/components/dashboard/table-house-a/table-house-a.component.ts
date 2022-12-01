@@ -5,6 +5,7 @@ import { userProfile } from 'src/app/models/UserProfile';
 import { AdmindashboardService } from 'src/app/services/admindashboard.service';
 import { Store } from '@ngrx/store';
 
+
 import { DataService } from 'src/app/services/data.service';
 import { selectorListProfile } from 'src/app/redux/selectors/selectors';
 import { AuthService } from '@auth0/auth0-angular';
@@ -26,6 +27,8 @@ export class TableHouseAComponent implements OnInit {
     private store: Store<any>,
     public auth: AuthService
   ) { }
+
+
   headers = ['Name', 'Position', 'Office', 'Age', 'Start Date', 'Salary'];
   public houses: any[];
   userProfile$: Observable<any> = new Observable();
@@ -37,6 +40,8 @@ export class TableHouseAComponent implements OnInit {
 
   public page = 1;
   public pageSize = 5;
+
+  
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile);
@@ -84,5 +89,6 @@ export class TableHouseAComponent implements OnInit {
     this._admindashboard.changeHouseStatus(this.userProfile.id, houseId, newValues)
     this.resetResults()
 
-  }
+
+}
 }

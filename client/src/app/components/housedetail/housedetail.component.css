@@ -126,8 +126,9 @@
     animation: fadein 2s;
     margin: 0 auto;
     height: 20rem;
-    width: 80%;
+    width: 90%;
     display: flex;
+    justify-content: center;
 }
 
 .location{
@@ -164,7 +165,7 @@
 .bookingdiv{
     display:flex;
     flex-direction: column;
-    margin-left: 100px;
+    margin-left: 50px;
 }
 
 .booking{
@@ -176,6 +177,9 @@
 }
 
 .makebooking{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-right: 20px;
     padding-right: 20px;
     border-right: 1px solid #A4A4A4;
@@ -184,10 +188,19 @@
 .text{
     font-size: 20px;
     font-weight: 400;
+    color: #3a3a3a;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
 }
 
+/* .inputdate{
+    width: 20px;
+} */
+
 .notavailable{
-    font-weight: 600;
+    font-weight: 500;
+    margin-top: 2px;
     margin-bottom: -5px;
 }
 
@@ -262,7 +275,7 @@
 .infodiv{
     display:flex;
     flex-direction: column;
-    width: 50%;
+    width: fit-content
 }
 
 .restext{
@@ -291,7 +304,7 @@
 
 
 
-/* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////  RESPONSIVE  /////////////30px/////////////////////////////////////////// */
 
 @media only screen and (max-width: 1800px) {
     .mainimg{
@@ -323,6 +336,10 @@
     .location{
         font-size: 35px;
         margin-bottom: 5px;
+    }
+
+    .text{
+        font-size: 30px;
     }
 
     .price{
@@ -362,7 +379,7 @@
     }
 
     .location{
-        font-size: 35px;
+        font-size: 30px;
         margin-bottom: 5px;
     }
 
@@ -374,6 +391,26 @@
     .info{
         font-size: 15px;
         margin-bottom: -1px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .body{
+        justify-content: center;
+        flex-direction: column;
+        height: fit-content;
+        padding-bottom: 100px;
+    }
+
+    .infodiv{
+        width: 100%;
+        align-items: center;
+        border-bottom: 1px solid #0d6efd;
+        padding-bottom: 30px;
+    }
+
+    .bookingdiv{
+        margin-top: 30px;
     }
 }
 
@@ -396,6 +433,20 @@
 
     .botcornerimg{
         border-radius: 0px 0px 20px 0px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .makebooking{
+        border-right: none;
+    }
+    
+    .reserved{
+        display: none;
+    }
+
+    .notavailable{
+        display: none;
     }
 }
 
@@ -454,6 +505,20 @@
 
     .botcornerimg{
         border-radius: 0px 0px 10px 0px;
+    }
+
+    .location{
+        font-size: 20px;
+        margin-bottom: -5px;
+    }
+
+    .price{
+        font-size: 15px;
+        margin-bottom: 0px;
+    }
+
+    .text{
+        font-size: 20px;
     }
 }
 /* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */

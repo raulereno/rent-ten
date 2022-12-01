@@ -17,21 +17,20 @@ export interface UserQuestion {
 
 export const FAQS: Faqs[] = [
   {
-    question: 'Cual es el metodo de pago para poder reservar',
-    response: 'El metodo de pago es mercadopago, es seguro y confiable. ',
+    question: 'What do i need to reserve a place?',
+    response: 'You need to registered and verified on our page',
   },
   {
-    question: 'Que se necesita para poder reservar un alojamiento',
+    question: 'How can i publish my own housing?',
     response:
-      'Estar registrado en nuestra pagina, verificar su mail y poseer una cuenta de MercadoPago',
+      'Register on our page, verify your e-mail and then, complete the "Become a Host" form',
   },
   {
-    question: 'Como puedo publicar mi alojamiento?',
-    response:
-      'Registrate en nuestra pagina, verifica tu mail y completa el formulario de creación de alojamiento',
+    question: 'What is the payment method used in this website?',
+    response: 'The payment method is MercadoPago, it is safe and trusted!',
   },
   {
-    question: 'Para otras preguntas comunicate con nosotros',
+    question: 'For any other questions you can contact us by e-mail!',
     response: '',
   },
 ];

@@ -66,6 +66,7 @@ export class TableUserDComponent implements OnInit {
     console.log(this.users);
   }
 
+
   desactiveAccount(id: string) {
     this._admindashboard.delete_set(id, 'all');
   }
