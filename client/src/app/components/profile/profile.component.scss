@@ -128,22 +128,22 @@
   left: 90%;
 }
 
-.editbody{
+.editbody {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-form{
+form {
   width: 100%;
 }
 
-.editdiv{
+.editdiv {
   display: flex;
   justify-content: center;
 }
 
-.inputdiv{
+.inputdiv {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -152,7 +152,7 @@ form{
   border-bottom: 1px solid #3a3a3a27;
 }
 
-.editlabel{
+.editlabel {
   font-size: 16px;
   font-weight: 500;
   margin: 0 auto;
@@ -160,7 +160,7 @@ form{
   color: #3a3a3a;
 }
 
-.editinput{
+.editinput {
   height: 50px;
   width: 50%;
   text-align: center;
@@ -173,7 +173,7 @@ form{
   margin: 0 auto;
 }
 
-.error{
+.error {
   color: #d9534f;
   font-size: 15px;
   font-weight: 500;
@@ -185,7 +185,7 @@ input[type="file"] {
   display: none;
 }
 
-.imagelabel{
+.imagelabel {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -201,12 +201,12 @@ input[type="file"] {
   transition: all 0.2s;
 }
 
-.imagelabel:hover{
+.imagelabel:hover {
   color: #fafafa;
   background-color: #0d6efd;
 }
 
-.deletebutton{
+.deletebutton {
   height: 50px;
   width: 180px;
   font-size: 20px;
@@ -218,12 +218,12 @@ input[type="file"] {
   transition: all 0.2s;
 }
 
-.deletebutton:hover{
+.deletebutton:hover {
   color: #fafafa;
   background-color: #d9534f;
 }
 
-.savebutton{
+.savebutton {
   height: 50px;
   width: 150px;
   font-size: 20px;
@@ -236,7 +236,7 @@ input[type="file"] {
   cursor: pointer;
 }
 
-.savebutton:hover{
+.savebutton:hover {
   color: #fafafa;
   background-color: #0d6efd;
 }
@@ -258,6 +258,7 @@ input[type="file"] {
 }
 
 .profileImg {
+  align-self: center;
   width: 240px;
   height: 240px;
   border-radius: 50%;
