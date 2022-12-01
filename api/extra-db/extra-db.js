@@ -8,7 +8,7 @@ const {
   opinions,
 } = require("./data");
 
-const {realHouses} = require("./realplaces_data")
+const { realHouses } = require("./realplaces_data");
 
 function getRandomArbitrary(max, min) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -41,8 +41,8 @@ const newHouse = () => {
     allowpets: booleans[Math.floor(Math.random() * 2)],
     wifi: booleans[Math.floor(Math.random() * 2)],
     type: houseTypes[Math.floor(Math.random() * houseTypes.length)],
-    //price: getRandomArbitrary(50, 501),
-    price: 1,
+    price: getRandomArbitrary(50, 501),
+    //price: 1,
     address:
       adresses[Math.floor(Math.random() * adresses.length)] +
       " " +
@@ -60,9 +60,6 @@ const newReview = () => {
   };
 };
 
-
-
-
 const extraHouses = (n) => {
   return [...Array(n).keys()].map(() => newHouse());
 };
@@ -77,15 +74,11 @@ const extraBookings = (n) => {
 
 // let extraHouses = [...Array(50).keys()].map(() => newHouse())
 
-
-
 const realHousesArray = () => {
-  return realHouses.map((house) => newRealHouse(house))
+  return realHouses.map((house) => newRealHouse(house));
 };
 
-
 const newRealHouse = (house) => {
-
   return {
     city: house.city,
     country: house.country,
@@ -101,12 +94,7 @@ const newRealHouse = (house) => {
       " " +
       Math.floor(Math.random() * 500),
     scores: [],
-  }
-
-}
-
-
-
-
+  };
+};
 
 module.exports = { extraHouses, extraReviews, extraBookings, realHousesArray };
