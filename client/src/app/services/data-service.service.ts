@@ -110,7 +110,7 @@ export class DataServiceService {
   }
 
   getHouseReviews(houseId: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:3001/reviews/${houseId}`);
+    return this.http.get<any>(`${environment.baseUrl}/reviews/${houseId}`);
   }
 
   fullDatabase() {
@@ -174,12 +174,12 @@ export class DataServiceService {
 
   getUsers(): Observable<any> {
     // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
-    return this.http.get<any>('http://localhost:3001/users/allUsers');
+    return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
   }
 
   getUsersD(): Observable<any> {
     // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
-    return this.http.get<any>('http://localhost:3001/users/usersD');
+    return this.http.get<any>(`${environment.baseUrl}/users/usersD`);
   }
 
   deleteAccount(userId: string, value: string) {
