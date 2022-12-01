@@ -49,6 +49,42 @@
   }
 }
 
+.verifydiv{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  .insertcode{
+    height: 40px;
+    width: 150px;
+    padding-left: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #3a3a3a6f;
+    background-color: none;
+    border: 1px solid #FFC107;
+    border-right: none;
+    border-radius: 10px 0px 0px 10px;
+  }
+
+  .verifymail{
+    height: 40px;
+    width: 80px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #FFC107;
+    background-color: none;
+    border: 1px solid #FFC107;
+    border-radius: 0px 10px 10px 0px;
+    transition: all 0.2s;
+  }
+
+  .verifymail:hover{
+    color: #fafafa;
+    background-color: #FFC107;;
+  }
+}
+
 /// EDIT MODAL ///
 
 .edithead {
@@ -213,12 +249,7 @@ input[type="file"] {
   max-width: 80%;
 }
 
-#favdiv {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.favdiv {
+.favouritesdiv {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -233,14 +264,15 @@ input[type="file"] {
   object-fit: cover;
 }
 
+///////////////////////////////////////////// HOUSECARDS /////////////////////////////////////////////
+
 .housecard {
   width: 250px;
   height: 400px;
   transition: all 0.3s;
   animation: fadein 2s;
-  border-radius: 15px 15px 15px 15px;
-  margin-bottom: 0.5rem;
-  margin-right: 1rem;
+  border-radius: 15px;
+  margin-right: 30px;
 }
 
 .housecard:hover .image {
@@ -250,6 +282,7 @@ input[type="file"] {
 
 .updiv {
   display: flex;
+  margin-bottom: 0px;
 }
 
 .image {
@@ -261,11 +294,13 @@ input[type="file"] {
 
 .firstdiv {
   display: flex;
-  margin-top: 0.4rem;
+  margin-top: -32px;
+  margin-bottom: -16px;
 }
 
 .namediv {
   width: 88%;
+  margin-top: 4px;
   margin-left: 5px;
 }
 
@@ -273,30 +308,56 @@ input[type="file"] {
   font-size: 18px;
 }
 
-.remove {
-  width: 12%;
-  margin-top: -0.4rem;
+.favdiv {
+  display: flex;
+  justify-content: flex-end;
+
+  position: relative;
+  top: 32px;
+  right: 0px;
 }
 
 .favourites {
-  height: 1.8rem;
-  width: 1.5rem;
-
-  font-size: 0.8rem;
+  height: 36px;
+  width: 30px;
+  font-size: 16px;
   font-weight: 100;
   border-top: none;
   border-radius: 0px 0px 20px 20px;
 
   cursor: pointer;
   transition: 0.25s;
+  background-color: #fde497;
+}
+
+#addfav {
+  transition: 0.25s;
+  color: #ffc107;
+  border: 2px solid #ffc107;
+  border-top: none;
+  border-color: #ffc107;
+  background-color: none;
+}
+
+#addfav svg {
+  animation: dislike 0.5s 1;
+}
+#addfav:hover {
+  transition: 0.25s;
+  height: 50px;
+  background-color: #ffc107;
 }
 
 #removefav {
   transition: 0.25s;
-  height: 2.5rem;
-  color: white;
+  height: 50px;
   border: none;
   background-color: #ffc107;
+  transition: 0.5s all;
+}
+
+#removefav svg {
+  animation: like 0.5s 1;
 }
 
 #removefav:hover {
@@ -305,24 +366,73 @@ input[type="file"] {
   background-color: #dc3545;
 }
 
+.heartsvg {
+  width: 16px;
+  padding-right: 2px;
+  fill: #d6a410;
+  transition: all 0.2s;
+}
+
+.favourites:hover .heartsvg {
+  fill: rgb(126, 0, 0);
+}
+
+#favsvg {
+  margin-left: 2px;
+  fill: rgb(126, 0, 0);
+}
+
+@keyframes like {
+  0% {
+    transform: scale(1);
+  }
+
+  90% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes dislike {
+  0% {
+    transform: scale(1.1);
+  }
+
+  90% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 .botdiv {
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
 }
 
 .info {
   font-weight: 100;
   color: gray;
   margin: -4px;
+  margin-left: 5px;
 }
 
 .price {
   color: rgb(23, 59, 3);
   font-weight: 400;
-  margin-top: 10px;
   margin-left: 5px;
 }
+
+.darkmode .price {
+  color: rgb(55, 151, 4);
+}
+
+///////////////////////////////////////////// HOUSECARDS /////////////////////////////////////////////
 
 .accordion{
   padding-top: 50px;
@@ -330,10 +440,6 @@ input[type="file"] {
   margin: 0 auto;
   width: 80%;
 }
-
-/* ::ng-deep .card.accordion-button {
-  min-width: 30rem !important;
-} */
 
 @media screen and (max-width: 600px) {
   .wrapper {

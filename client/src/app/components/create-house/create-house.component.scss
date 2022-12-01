@@ -12,7 +12,6 @@ input[type=number] {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 130vh;
   background-image: url('../../../assets/background.jpg');
   background-position: center;
   background-size: cover;
@@ -22,11 +21,11 @@ input[type=number] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 130vh;
   width: 60%;
   background-color: #fafafa;
   margin: 0 auto;
   padding: 0px 40px 0px 40px;
+  padding-bottom: 60px;
 }
 
 .form{
@@ -275,7 +274,7 @@ input[type=number] {
 
       input{
         height: 30px;
-        width: 100px;
+        max-width: 100px;
         text-align: center;
         font-size: 18px;
         font-weight: 500;
@@ -297,18 +296,18 @@ hr{
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  max-width: 500px;
   margin: 0 auto;
 }
 
 ngx-dropzone{
-  width: 100%;
+  max-width: 80%;
 }
 
 .submit {
   margin-top: 30px;
   height: 50px;
-  width: 200px;
+  max-width: 200px;
   color: white;
   font-size: 20px;
   background-color: #0d6efd;

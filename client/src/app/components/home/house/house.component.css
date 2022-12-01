@@ -6,17 +6,6 @@
   border-radius: 15px;
 }
 
-/* .darkmode {
-  background-color: #303030;
-  color: white;
-   transition: all 1s;
-}
-.darkmode .info {
-  font-weight: 100;
-  color: white;
-  margin: -4px;
-} */
-
 .housecard:hover .image {
   transition: 0.5s;
   opacity: 70%;
