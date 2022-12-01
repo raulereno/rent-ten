@@ -166,6 +166,4 @@ export class NavbarComponent implements OnInit {
   setActive(): void {
     this.active = !this.active;
   }
-
-
 }
