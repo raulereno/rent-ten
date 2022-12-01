@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Inject } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,6 +20,8 @@ import Swal from 'sweetalert2';
 })
 export class ReviewsComponent implements OnInit {
 
+  // @ViewChild('myDiv') closeModalButton: ElementRef;
+  
   userProfile$: Observable<any> = new Observable();
   userProfile: userProfile;
 
@@ -43,7 +45,8 @@ export class ReviewsComponent implements OnInit {
     private modalService: NgbModal,
     public auth: AuthService,
     private router: Router
-  ) {}
+  ) {} 
+    
 
   ngOnInit(): void {
 
@@ -116,16 +119,10 @@ export class ReviewsComponent implements OnInit {
   openLetReviewModal(content: any) {
     if (this.house.Reviews.some((review:Review) => review.UserId == this.userProfile.id)) {alert('You already gave a review for this place'); return}
     if (!this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)) { alert('You can only post reviews of places you have been to'); return }
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
-    console.log(this.house.Booking);
-    console.log(this.userProfile);
-    if (
-      !this.house.Bookings.some(
-        (booking: Booking) => booking.UserId === this.userProfile.id
-      )
-    ) {
-      alert('You can only post reviews of places you have been to');
+    if (!this.house.Bookings.some((booking: Booking) => booking.UserId === this.userProfile.id)) {
+      alert('You can only post reviews of places you have been to'); return
     }
+
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
@@ -138,7 +135,12 @@ export class ReviewsComponent implements OnInit {
   }
 
   postNewReview() {
+
     this.errors = ''
+
+    if (!this.userProfile.id) { this.errors = 'Login before let a review for this house!'; return }
+    if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
+    if (!this.newRatingInput) { this.errors = 'Please select a valoration.'; return }
 
     const Toast = Swal.mixin({
       toast: true,
@@ -152,18 +154,15 @@ export class ReviewsComponent implements OnInit {
       } 
     })
 
-    if (!this.userProfile.id) { this.errors = 'Login before let a review for this house!'; return }
-    if (this.newReviewInput.length < 10) { this.errors = 'Review must have more than 10 characters.'; return }
-    if (!this.newRatingInput) { this.errors = 'Please select a valoration.'; return }
     this.http.postNewReview(this.newReviewInput, this.newRatingInput, this.userProfile.id, this.house.id, this.userProfile.mail)
-      .subscribe((res) => { this.house.Reviews = [...this.house.Reviews, res]})  
-    document.getElementById('closeModalButton')!.click();
+      .subscribe((res) => { this.house.Reviews = [...this.house.Reviews, res]})
+    
     Toast.fire({
       icon: 'success',
       title: 'Thank you for your time!'
     })
-    // alert('Thank you for your time!')
 
+    document.getElementById('closeModalButton')!.click();
   }
 
 }

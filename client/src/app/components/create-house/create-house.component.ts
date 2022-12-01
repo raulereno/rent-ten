@@ -53,6 +53,7 @@ export class CreateHouseComponent implements OnInit {
     price: 0,
     type: '',
     picture: [],
+
   };
 
   selectedCountry: any = { name: 'arg' };
@@ -78,19 +79,19 @@ export class CreateHouseComponent implements OnInit {
     private matDialog: MatDialog,
     private _location: Location,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
     this._auth.isAuthenticated$.subscribe(res => {
       if (res === false) {
         alert('Login first');
-      this._auth.loginWithRedirect({authorizationParams: { redirect_uri: window.location.origin }})
+        this._auth.loginWithRedirect({ authorizationParams: { redirect_uri: window.location.origin } })
       } else {
         this._auth.user$.subscribe((profile) => {
           this.email = profile?.email ? profile?.email : '';
           this._http.getUser(this.email).subscribe(res => {
-            if (res.verified == 'not_verified') {alert('You must verify your account before post a new place');this.router.navigate(['./profile']); return} else {return}
+            if (res.verified == 'not_verified') { alert('You must verify your account before post a new place'); this.router.navigate(['./profile']); return } else { return }
           })
         });
       }
@@ -198,8 +199,17 @@ export class CreateHouseComponent implements OnInit {
     });
   }
 
-  get currentHouse() {
-    return JSON.stringify(this.newHouse);
+  // get currentHouse() {
+  //   return JSON.stringify(this.newHouse);
+  // }
+
+  currentHouse() {
+ 
+    if (this.newHouse.country && this.newHouse.state && this.newHouse.type && this.newHouse.price) {
+      return true
+    } else {
+      return
+    }
   }
 
   handlePrice(price: number) {

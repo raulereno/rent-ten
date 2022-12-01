@@ -76,7 +76,6 @@ export class AlternativehomeComponent implements OnInit {
 
   }
 
-
   showInfo() {
 
   }
