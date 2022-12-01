@@ -72,7 +72,7 @@ export class TableUserAComponent implements OnInit {
     this._admindashboard.delete_set(id, 'not');
   }
 
-  setAdmin(data: string, id: string) {
+  setAdmin(data: boolean, id: string) {
     let newValues = {
       admin: data,
     };
@@ -85,6 +85,4 @@ export class TableUserAComponent implements OnInit {
     this._admindashboard.admin_set(newValues, id)
   } */
   }
-
-  
 }
