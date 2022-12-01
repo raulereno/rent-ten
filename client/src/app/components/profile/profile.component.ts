@@ -261,7 +261,7 @@ export class ProfileComponent implements OnInit {
         Swal.fire('Updated data!', '', 'success');
         this.userProfile = this.profileForm.value;
         this.http.updateData(this.profileForm.value);
-        document.getElementById('closeModal')!.click();
+        document.getElementById('closemodal')!.click();
       }
     });
   }
