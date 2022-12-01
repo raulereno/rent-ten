@@ -1,15 +1,14 @@
+import packageInfo from '../../auth_config.json';
 
-import packageInfo from '../../auth_config.json'
-
-let domain = packageInfo.domain
-let clientId = packageInfo.clientId
+let domain = packageInfo.production.domain;
+let clientId = packageInfo.production.clientId;
 
 export const environment = {
   production: true,
-  baseUrl:"https://rent-ten-production.up.railway.app",
+  baseUrl: 'https://rent-ten-production.up.railway.app',
   auth: {
     domain,
     clientId,
-    redirectUri: window.location.origin
+    redirectUri: window.location.origin,
   },
 };

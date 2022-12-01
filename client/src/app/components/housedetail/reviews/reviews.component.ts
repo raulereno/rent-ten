@@ -1,3 +1,4 @@
+import { HelperService } from 'src/app/services/helper.service';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { Store } from '@ngrx/store';
@@ -34,6 +35,7 @@ export class ReviewsComponent implements OnInit {
 
   newReviewInput: string = '';
   newRatingInput: number;
+  darkmode: boolean;
 
   constructor(
     public http: DataService,
@@ -41,13 +43,18 @@ export class ReviewsComponent implements OnInit {
     private route: ActivatedRoute,
     private modalService: NgbModal,
     public auth: AuthService,
-    private router: Router
+    private router: Router,
+    private _helper: HelperService
   ) {}
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile);
 
     this.loadProfile();
+
+    this._helper.customDarkMode.subscribe(
+      (res: boolean) => (this.darkmode = res)
+    );
 
     this.auth.user$.subscribe((profile) => {
       this.profileJson = profile;
