@@ -1,41 +1,25 @@
-<div *ngIf="slider_priceval.length > 0">
-    <h1>Places with best price/valoration rate</h1>
-    <div class="wrapper">
+<div class="alternativecont row" [ngClass]="{'darkmode': darkmode}">
+    <h1 *ngIf="housesSorted_byqualityprice" class="slider_title">
+        <span class="slider_title_text">
+            <img src="../../../../assets/priceval_icon.png" style="max-width: 25px"> Places with best price/valoration
+            rate
+        </span>
+    </h1>
 
-        <section id="section">
-            <a (click)="slice_goBack()" class="arrow">
-                <p style="margin-top: 20%">&#x2770;</p>
-            </a>
-            <div *ngFor="let house of slider_priceval" class="grid">
-                <app-house class="housesdiv, item" [house]=house [dbProfile]="dbProfile">
-                </app-house>
-            </div>
-            <a (click)="slice_goFoward()" class="arrow">
-                <p style="margin-top: 20%">&#x2771;</p>
-            </a>
-        </section>
-    </div>
+    <app-slider [page_secondslice]=4 [dbProfile]="dbProfile" [array]="housesSorted_byqualityprice" [slider_sliced]="slider_priceval">
+    </app-slider>
 
+    <h1 *ngIf="housesSorted_byRating" class="slider_title">
+        <span class="slider_title_text"><img src="../../../../assets/bestrated_icon.png" style="max-width: 25px"> Best
+            rated places</span>
+    </h1>
 
-    <div *ngIf="slider_rating.length > 0" style="margin-top: -1.1%">
-        <hr />
-        <h1>Best rated places</h1>
-        <hr class="hr_sliders" />
-        <div class="wrapper">
+    <app-slider [page_secondslice]=4 [dbProfile]="dbProfile" [array]="housesSorted_byRating" [slider_sliced]="slider_rating"></app-slider>
 
-            <section id="section1">
-                <a (click)="slice_rating_goBack()" class="arrow">
-                    <p style="margin-top: 20%">&#x2770;</p>
-                </a>
-                <div *ngFor="let house of slider_rating" class="grid">
-                    <app-house class="housesdiv, item" [house]=house [dbProfile]="dbProfile">
-                    </app-house>
-                </div>
-                <a (click)="slice_rating_goFoward()" class="arrow">
-                    <p style="margin-top: 20%">&#x2771;</p>
-                </a>
-            </section>
-        </div>
-    </div>
+    <h1 *ngIf="housesInArea" class="slider_title"><span class="slider_title_text">
+            <img src="../../../../assets/inarea_icon.png" style="max-width: 25px"> In your area
+            ({{geoloc_value}})</span></h1>
 
+    <app-slider [page_secondslice]=4 [dbProfile]="dbProfile" [array]="housesInArea" [slider_sliced]="slider_housesInArea">
+    </app-slider>
 </div>

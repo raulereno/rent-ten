@@ -1,0 +1,240 @@
+.housecard {
+  width: 250px;
+  height: 300px;
+  transition: all 0.3s;
+  animation: fadein 2s;
+  border-radius: 15px;
+  animation: fadeInLeft 10s, fadein 0.1s;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.darkmode {
+  background-color: #303030;
+  color: white;
+  /* transition: all 1s; */
+}
+
+.darkmode .price {
+  color: white;
+}
+
+.darkmode .info {
+  font-weight: 100;
+  color: white;
+  margin: -4px;
+}
+
+.housecard:hover .image {
+  transition: 0.5s;
+  opacity: 70%;
+}
+
+.updiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.updiv:hover .carrouselbutton {
+  background-color: white;
+}
+
+.carrouselbutton {
+  display: flex;
+  cursor: pointer;
+  background-color: rgba(44, 44, 44, 0.176);
+  border-radius: 0.75rem;
+  transition: 0.3 all;
+}
+
+#leftarrow {
+  position: relative;
+  top: 45%;
+  left: 4%;
+  z-index: +1;
+}
+
+.image {
+  height: 200px;
+  width: 250px;
+  border-radius: 15px 15px 0px 15px;
+  transition: 0.5s;
+}
+
+.updiv ngb-rating {
+  position: absolute;
+  top: 168px;
+  left: 0px;
+  color: #3a3a3a;
+  background-color: #ffffff97;
+  padding: 6px;
+  border-radius: 0px 15px 0px 15px;
+  font-size: 22px;
+}
+
+.firstdiv {
+  display: flex;
+}
+
+.namediv {
+  width: 90%;
+}
+
+.name {
+  font-size: 18px;
+  margin-top: -25px;
+}
+
+.favdiv {
+  display: flex;
+  justify-content: flex-end;
+
+  position: relative;
+  top: 0px;
+  right: 0px;
+}
+
+.favourites {
+  height: 36px;
+  width: 30px;
+  font-size: 16px;
+  font-weight: 100;
+  border-top: none;
+  border-radius: 0px 0px 20px 20px;
+
+  cursor: pointer;
+  transition: 0.25s;
+  background-color: #fde497;
+}
+
+#addfav {
+  transition: 0.25s;
+  color: #ffc107;
+  border: 2px solid #ffc107;
+  border-top: none;
+  border-color: #ffc107;
+  background-color: none;
+}
+
+#addfav svg {
+  animation: dislike 0.5s 1;
+}
+#addfav:hover {
+  transition: 0.25s;
+  height: 50px;
+  background-color: #ffc107;
+}
+
+#removefav {
+  transition: 0.25s;
+  height: 50px;
+  border: none;
+  background-color: #ffc107;
+  transition: 0.5s all;
+}
+
+#removefav svg {
+  animation: like 0.5s 1;
+}
+
+#removefav:hover {
+  transition: 0.25s;
+  color: white;
+  background-color: #dc3545;
+}
+
+.heartsvg {
+  width: 16px;
+  padding-right: 2px;
+  fill: #d6a410;
+  transition: all 0.2s;
+}
+
+.favourites:hover .heartsvg {
+  fill: rgb(126, 0, 0);
+}
+
+#favsvg {
+  margin-left: 2px;
+  fill: rgb(126, 0, 0);
+}
+
+@keyframes like {
+  0% {
+    transform: scale(1);
+  }
+
+  90% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes dislike {
+  0% {
+    transform: scale(1.1);
+  }
+
+  90% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes fadeInLeft {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateX(50px);
+  }
+  100% {
+    opacity: 0.9;
+    -webkit-transform: translateX(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 1;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 0.9;
+    transform: translateX(0px);
+  }
+}
+
+.fadeInLeft {
+  -webkit-animation-name: fadeInLeft;
+  animation-name: fadeInLeft;
+}
+
+.slideshow {
+  position: relative;
+  overflow: hidden;
+}
+
+.botdiv {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+}
+
+.info {
+  font-weight: 100;
+  color: gray;
+  margin: -0.2rem;
+}
+
+.price {
+  color: rgb(23, 59, 3);
+  font-weight: 400;
+  margin-top: -20px;
+}

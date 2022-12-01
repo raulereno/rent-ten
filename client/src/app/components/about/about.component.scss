@@ -1,0 +1,142 @@
+h1,
+h4 {
+  text-align: center;
+}
+h4 {
+  width: 70%;
+  align-self: center;
+}
+h1 {
+  margin-top: 1rem;
+  font-size: 2.5rem;
+  text-decoration: underline 4px;
+}
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  /* display: grid;
+  grid-template-columns: repeat(3, 1fr); */
+}
+
+ul li {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-img {
+  .container_social-medias {
+    .svg-github,
+    .svg-linkedin {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+.container_about {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+h3 {
+  margin: 0;
+}
+
+.darkmode {
+  .container-img {
+    .container_social-medias {
+      background-color: #303030e8;
+
+      .svg-linkedin {
+        fill: rgba(255, 255, 255, 0.605);
+        transition: all 0.5s;
+      }
+
+      .svg-github {
+        fill: rgba(255, 255, 255, 0.605);
+        transition: all 0.5s;
+      }
+    }
+  }
+}
+
+img {
+  width: 17em;
+  height: 17em;
+  border-radius: 100%;
+}
+
+.container-img {
+  position: relative;
+
+  .container_social-medias {
+    background-color: #fafafae2;
+
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: all 1s;
+
+    a {
+      margin: 0.5rem;
+
+      .svg-linkedin {
+        fill: rgba(0, 0, 0, 0.605);
+        transition: all 0.5s;
+      }
+
+      .svg-github {
+        fill: rgba(0, 0, 0, 0.605);
+        transition: all 0.5s;
+      }
+
+      .svg-linkedin:hover {
+        fill: #0a66c2;
+        transform: scale(1.1);
+      }
+
+      .svg-github:hover {
+        fill: rgb(0, 0, 0);
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &:hover .container_social-medias {
+    height: 20%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  h1 {
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+
+    li {
+      width: 100%;
+    }
+  }
+
+  .container-img .container_social-medias {
+    height: 20%;
+  }
+
+  .container-img h3 {
+    width: 100%;
+  }
+}

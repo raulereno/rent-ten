@@ -1,92 +1,136 @@
-<div class="wrapper">
-  <div class="topdiv">
+<div class="mat-app-background" [ngClass]="darkmode? 'background darkmode':'background'">
+  <div class="wrapper mat-app-background">
     <button class="button" routerLink="/home">🡠</button>
-    <img class="mainimg" src="{{house.picture[3]}}" alt="Pic1">
-
-    <div class="sidediv">
-      <div class="rtopdiv">
-        <img class="sideimg" src="{{house.picture[1]}}" alt="Pic1">
-        <img id="upcornerimg" class="sideimg" src="{{house.picture[1]}}" alt="Pic3">
+    <section class="gallery" [ngClass]="darkmode? 'darkmodeGallery':''">
+      <div class="topdiv">
+        <img id="preview" class="mainimg" src="{{house.picture[0]}}" alt="Image">
+        <div class="rows">
+          <div class="column">
+            <img class="sideimg active" [ngClass]="!house.picture[3] ? 'upcornerimg' : ''" src="{{house.picture[0]}}"
+              alt="Image" Gallery>
+            <img *ngIf="house.picture[1]" class="sideimg" src="{{house.picture[1]}}" alt="Image" Gallery>
+            <img *ngIf="house.picture[2]" class="sideimg" [ngClass]="!house.picture[5] ? 'botcornerimg' : ''"
+              src="{{house.picture[2]}}" alt="Image" Gallery>
+          </div>
+          <div *ngIf="house.picture[3]" class="column">
+            <img class="sideimg" [ngClass]="!house.picture[6] ? 'upcornerimg' : ''" src="{{house.picture[3]}}"
+              alt="Image" Gallery>
+            <img *ngIf="house.picture[4]" class="sideimg" src="{{house.picture[4]}}" alt="Image" Gallery>
+            <img *ngIf="house.picture[5]" class="sideimg" [ngClass]="!house.picture[8] ? 'botcornerimg' : ''"
+              src="{{house.picture[5]}}" alt="Image" Gallery>
+          </div>
+          <div *ngIf="house.picture[6]" class="column">
+            <img class="sideimg" [ngClass]="!house.picture[9] ? 'upcornerimg' : ''" src="{{house.picture[6]}}"
+              alt="Image" Gallery>
+            <img *ngIf="house.picture[7]" class="sideimg" src="{{house.picture[7]}}" alt="Image" Gallery>
+            <img *ngIf="house.picture[8]" class="sideimg" [ngClass]="!house.picture[11] ? 'botcornerimg' : ''"
+              src="{{house.picture[8]}}" alt="Image" Gallery>
+          </div>
+        </div>
       </div>
-      <div class="rbotdiv">
-        <img class="sideimg" src="{{house.picture[1]}}" alt="Pic4">
-        <img id="botcornerimg" class="sideimg" src="{{house.picture[1]}}" alt="Pic5">
+      <div class="reviews">
+        <app-reviews></app-reviews>
+      </div>
+      <div class="insetShadow">
+
+      </div>
+    </section>
+
+    <div class="body">
+      <div class="infodiv">
+        <h2 class="location">{{house.country}}, {{house.city}}</h2>
+        <div class="flex">
+          <h3 class="price" [ngClass]="{'darkPrice':darkmode}"> ARS ${{house.price}}</h3>
+        </div>
+        <p class="info">
+          <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span style="color: green">✓</span></span>
+          <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
+        </p>
+        <p class="info">
+          <span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span style="color: green">✓</span></span>
+          <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
+        </p>
+        <p class="info">{{house.rooms}} room/s</p>
+        <p class="info">{{house.bathrooms}} bathroom/s</p>
+        <p class="info">{{house.maxpeople}} occupant/s</p>
+      </div>
+
+      <div class="bookingdiv" [ngClass]="darkmode? 'darkmodeBooking':''">
+        <div class="booking">
+          <div class="makebooking">
+            <form class="form" [formGroup]="form">
+              <h2 class="text">Make a booking:</h2>
+              <mat-form-field>
+                <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
+                  <input matStartDate placeholder="Start date" formControlName="start">
+                  <input matEndDate placeholder="End date" formControlName="end">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </form>
+
+            <div>
+              <button *ngIf="!(auth.isAuthenticated$ | async)" class="reservebutton" (click)="reserveHouse()"
+                type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
+                autocomplete="off">Login to make a reserve</button>
+            </div>
+
+            <div>
+              <button *ngIf="(auth.isAuthenticated$ | async)" (click)="reserveHouse()" type="button"
+                class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Reserve
+                now</button>
+            </div>
+          </div>
+          <div class="reserved">
+            <div *ngIf="house.Bookings.length > 0">
+              <h2><span
+                  style="color: rgb(221, 58, 58); font-size: 25px; font-weight: 200; margin-right: 5px;">&#x26A0;</span>
+                Not available on:</h2>
+              <div *ngFor="let book of house.Bookings">
+                <h3 class="notavailable">{{book.start}} <span style="color: gray; font-weight: 400;"> to:</span>
+                  {{book.end}}</h3>
+              </div>
+            </div>
+            <div *ngIf="house.Bookings.length === 0">
+              <h3>&#x263A; This house is all year available</h3>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <ng-template #pay let-modal>
+      <div class="reservehead" [ngClass]="darkmode? 'darkmodeReserve':''">
+        <h4 class="headtitle">Make a reserve:</h4>
+        <p class="ptitle">House id: {{house.id}}</p>
+        <button type="button" id="closemodal" class="modalbutton" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">✕</button>
+      </div>
+
+      <div class="reservebody" [ngClass]="darkmode? 'darkmodeReserve':''">
+        <form>
+          <ng-container>
+            <img class="reserveimg" src="{{house.picture[0]}}" />
+            <h4 class="reslocation">{{house.country}}, {{house.city}}</h4>
+            <div class="infodiv">
+              <h3 class="restext">Price per day: <span class="textvalue">ARS ${{house.price}}</span></h3>
+              <h3 class="restext">Total days: <span class="textvalue">{{totaldays + 1}}</span></h3>
+              <h3 id="margin" class="restext">From: <span
+                  class="textvalue">{{ formatDate_payment(form.value.daterange.start) }}</span></h3>
+              <h3 class="restext">To: <span class="textvalue">{{ formatDate_payment(form.value.daterange.end) }}</span>
+              </h3>
+              <h3 id="margin" class="restext">Total: <span class="resprice">ARS ${{totalprice}}</span></h3>
+            </div>
+          </ng-container>
+        </form>
+      </div>
+
+      <div class="modal-footer" [ngClass]="darkmode? 'darkmodeReserve':''">
+        <button *ngIf="paymentstatus !== 'ready'" disabled type="button" class="btn btn-primary">Processing
+          payment...</button>
+        <form type="button" id="payment-form"></form>
+      </div>
+    </ng-template>
   </div>
 </div>
-<div class="body">
-  <div class="col">
-    <h3 class="location">{{house.country}}, {{house.city}}</h3>
-    <p class="info">{{house.rooms}} room/s</p>
-    <p class="info">{{house.bathrooms}} bathroom/s</p>
-    <h3 class="info">
-      <span *ngIf="house.allowpets as value; else elseBlock">Pets: <span style="color: green">✓</span></span>
-      <ng-template #elseBlock>Pets: <span style="color: red">✕</span></ng-template>
-      <span style="margin-left: 0.5%"><span *ngIf="house.wifi as value; else elseBlockwifi">Wi-Fi: <span
-            style="color: green">✓</span></span>
-        <ng-template #elseBlockwifi>Wi-Fi: <span style="color: red">✕</span></ng-template>
-      </span>
-    </h3>
-    <h3 class="info">Occupants: {{house.maxpeople}} </h3>
-    <h3 class="price" *ngIf="house.country"> USD ${{house.price}}</h3>
-  </div>
-
-</div>
-<div style="width: 400px; margin-top: 10%; display:contents; align-items: center; justify-content: center;">
-
-  <app-reviews></app-reviews>
-
-</div>
-
-
-<div class='container' style="display: flex; margin-top: 5%; align-items: center; justify-content: center;">
-
-  <div style="min-width:300px; margin-right: 100px; margin-bottom: 5%;">
-    <hr />
-    <H2>Make a booking:</H2>
-    <form [formGroup]="form">
-      <mat-form-field>
-
-        <mat-date-range-input [rangePicker]="picker" [dateFilter]="unavailableDays" formGroupName="daterange">
-          <input matStartDate placeholder="start date" formControlName="start">
-          <input matEndDate placeholder="end date" formControlName="end">
-        </mat-date-range-input>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-
-
-      </mat-form-field>
-
-    </form>
-
-    <div> <button *ngIf="!(auth.isAuthenticated$ | async)" disabled style="margin-left: 2%" (click)="reserveHouse()"
-        type="button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Login
-        to make a reserve</button>
-
-      <div> <button *ngIf="!paymentstatus && (auth.isAuthenticated$ | async) " style="margin-left: 2%"
-          (click)="reserveHouse()" type="button" class="btn btn-outline-primary" data-toggle="button"
-          aria-pressed="false" autocomplete="off">Reserve
-          now</button>
-        <button *ngIf="paymentstatus == 'loading'" style="margin-left: 2%" disabled type="button"
-          class="btn btn-outline-primary" data-toggle="button" aria-pressed="false"
-          autocomplete="off">Loading...</button>
-        <form id="payment-form"></form>
-      </div>
-
-
-      <div *ngIf="house.Bookings.length > 0">
-        <br />
-        <h4>&#x26A0; This house has bookings on this dates:</h4>
-        <ul>
-          <li *ngFor="let book of house.Bookings">
-            &#x2714; From: {{book.start}} // To: {{book.end}}
-          </li>
-        </ul>
-      </div>
-
-      <div *ngIf="house.Bookings.length === 0">
-        <h3>&#x263A; This house is all year available</h3>
-      </div>
-
-    </div>

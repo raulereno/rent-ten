@@ -1,0 +1,393 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.wrapper {
+  display: flex;
+}
+
+.leftdiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  height: 100vh;
+  width: 400px;
+  .userdiv {
+    display: flex;
+    flex-direction: column;
+    button {
+      align-self: center;
+    }
+  }
+  .container-image {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    h1 {
+      text-align: center;
+    }
+  }
+  .infodiv {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    .text {
+      text-align: center;
+    }
+    h3 {
+      text-align: center;
+    }
+    h4 {
+      text-align: center;
+    }
+  }
+}
+
+/// EDIT MODAL ///
+
+.edithead {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 80px;
+  margin-bottom: 1rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.headtitle {
+  font-size: 30px;
+  margin-top: 1rem;
+}
+
+.ptitle {
+  margin-top: -0.5rem;
+}
+
+.modalbutton {
+  height: 30px;
+  width: 35px;
+  color: #000;
+  background: none;
+  border: 0;
+  font-size: 30px;
+  transition: 0.5 all;
+}
+.modalbutton:hover {
+  transform: scale(1.1);
+  color: #d9534f;
+}
+
+#closemodal {
+  position: absolute;
+  top: 1rem;
+  left: 90%;
+}
+
+.editbody{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form{
+  width: 100%;
+}
+
+.editdiv{
+  display: flex;
+  justify-content: center;
+}
+
+.inputdiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #3a3a3a27;
+}
+
+.editlabel{
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  color: #3a3a3a;
+}
+
+.editinput{
+  height: 50px;
+  width: 50%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #3a3a3a;
+  background-color: none;
+  border: 2px solid #0d6efd;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+
+.error{
+  color: #d9534f;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top: 10px;
+  margin: 0 auto;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.imagelabel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  height: 50px;
+  width: 50%;
+  font-size: 20px;
+  color: #0d6efd;
+  background-color: none;
+  border: 1px solid #0d6efd;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.imagelabel:hover{
+  color: #fafafa;
+  background-color: #0d6efd;
+}
+
+.deletebutton{
+  height: 50px;
+  width: 180px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #d9534f;
+  background-color: none;
+  border: 1px solid #d9534f;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.deletebutton:hover{
+  color: #fafafa;
+  background-color: #d9534f;
+}
+
+.savebutton{
+  height: 50px;
+  width: 150px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #0d6efd;
+  background-color: none;
+  border: 1px solid #0d6efd;
+  border-radius: 10px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.savebutton:hover{
+  color: #fafafa;
+  background-color: #0d6efd;
+}
+
+/// EDIT MODAL ///
+.rightdiv {
+  display: flex;
+  flex-direction: column;
+  height: 100rem;
+  max-width: 80%;
+}
+
+#favdiv {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.favdiv {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  min-width: 90%;
+}
+
+.profileImg {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.housecard {
+  width: 250px;
+  height: 400px;
+  transition: all 0.3s;
+  animation: fadein 2s;
+  border-radius: 15px 15px 15px 15px;
+  margin-bottom: 0.5rem;
+  margin-right: 1rem;
+}
+
+.housecard:hover .image {
+  transition: 0.5s;
+  opacity: 70%;
+}
+
+.updiv {
+  display: flex;
+}
+
+.image {
+  height: 200px;
+  width: 250px;
+  border-radius: 15px 15px 0px 15px;
+  transition: 0.5s;
+}
+
+.firstdiv {
+  display: flex;
+  margin-top: 0.4rem;
+}
+
+.namediv {
+  width: 88%;
+  margin-left: 5px;
+}
+
+.name {
+  font-size: 18px;
+}
+
+.remove {
+  width: 12%;
+  margin-top: -0.4rem;
+}
+
+.favourites {
+  height: 1.8rem;
+  width: 1.5rem;
+
+  font-size: 0.8rem;
+  font-weight: 100;
+  border-top: none;
+  border-radius: 0px 0px 20px 20px;
+
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+#removefav {
+  transition: 0.25s;
+  height: 2.5rem;
+  color: white;
+  border: none;
+  background-color: #ffc107;
+}
+
+#removefav:hover {
+  transition: 0.25s;
+  color: white;
+  background-color: #dc3545;
+}
+
+.botdiv {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.info {
+  font-weight: 100;
+  color: gray;
+  margin: -4px;
+}
+
+.price {
+  color: rgb(23, 59, 3);
+  font-weight: 400;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.accordion{
+  padding-top: 50px;
+  padding-right: 50px;
+  margin: 0 auto;
+  width: 80%;
+}
+
+/* ::ng-deep .card.accordion-button {
+  min-width: 30rem !important;
+} */
+
+@media screen and (max-width: 600px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .leftdiv {
+    height: auto;
+  }
+}
+
+#acordionProfile {
+  background-color: black;
+}
+
+/* Cuando la pantalla es menor a 900px  (tablets y teléfonos inteligentes)*/
+@media only screen and (max-width: 1000px) {
+  .container-image {
+    .edit {
+      height: 20%;
+    }
+  }
+}
+
+.darkmode .accordion-button {
+  background-color: #303030;
+}
+.darkmodeFavs .price {
+  color: rgb(63, 168, 7);
+}
+.darkmodeFavs {
+  .botdiv {
+    h3 {
+      color: white;
+    }
+  }
+}
+.darkmodeMyHouses {
+  .card-body {
+    p {
+      color: white;
+    }
+    h3 {
+      color: white;
+    }
+    .price {
+      color: rgb(63, 168, 7);
+    }
+  }
+}
+
+.darkmode {
+  .card {
+    background-color: #303030;
+  }
+}

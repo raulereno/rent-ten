@@ -1,18 +1,29 @@
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
-import { FormGroup, NgForm } from '@angular/forms';
+import {
+  NgForm,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ValidationErrors,
+} from '@angular/forms';
 import { AppState } from './../../redux/store/app.state';
 import { Observable } from 'rxjs';
 import { loadedCountries } from './../../redux/actions/location.actions';
-import { DataServiceService } from 'src/app/services/data-service.service';
-import { Component, OnInit,Inject } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
 import { LocationService } from 'src/app/services/location.service';
-import { selectorListCountries } from 'src/app/redux/selectors/selectors';
+import {
+  selectorListCountries,
+  selectorListProfile,
+} from 'src/app/redux/selectors/selectors';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
-import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 export interface NewHouse {
   city: string;
   country: string;
@@ -31,23 +42,38 @@ export interface NewHouse {
   selector: 'app-create-house',
   templateUrl: './create-house.component.html',
   styleUrls: ['./create-house.component.scss'],
+
   providers: [UploadImgService],
 })
 export class CreateHouseComponent implements OnInit {
-  //Local Variables
-  newHouse: NewHouse = {
-    city: '',
-    country: '',
-    state: '',
-    rooms: 1,
-    bathrooms: 1,
-    maxpeople: 1,
-    allowpets: false,
-    wifi: false,
-    price: 0,
-    type: '',
-    picture: [],
-  };
+  //Local VariablesinitForm(): FormGroup {
+
+  initForm(): FormGroup {
+    return this.fb.group({
+      country: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      rooms: [1, [Validators.min(1), Validators.max(20), Validators.required]],
+      bathrooms: [
+        1,
+        [Validators.min(1), Validators.max(10), Validators.required],
+      ],
+      maxpeople: [
+        1,
+        [Validators.min(1), Validators.max(50), Validators.required],
+      ],
+      allowPets: [false],
+      wifi: [false],
+      picture: [[]],
+      price: [
+        0,
+        [Validators.min(1), Validators.max(10000), Validators.required],
+      ],
+    });
+  }
+
+  formNewHouse!: FormGroup;
 
   selectedCountry: any = { name: 'arg' };
   files: File[] = [];
@@ -56,24 +82,48 @@ export class CreateHouseComponent implements OnInit {
 
   states$: any;
   cities$: any;
-  //TODO: hacer una interface para los errores
-  //ponerlo en true cuando el form este controlado
-  errors:any =false
+
+  errors: boolean = false;
+
+  userProfile$: Observable<any> = new Observable();
+  userProfile: any;
 
   constructor(
     private _uploadImg: UploadImgService,
-    private _http: DataServiceService,
+    private _http: DataService,
     public _auth: AuthService,
     private _store: Store<AppState>,
     private _locationService: LocationService,
     private matDialog: MatDialog,
-    private _location:Location,
+    private _location: Location,
+    private router: Router,
+    private readonly fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this._auth.user$.subscribe((profile) => {
+    this.formNewHouse = this.initForm();
 
-      this.email = profile?.email ? profile?.email : '';
+    this._auth.isAuthenticated$.subscribe((res) => {
+      if (res === false) {
+        alert('Login first');
+        this._auth.loginWithRedirect({
+          authorizationParams: { redirect_uri: window.location.origin },
+        });
+      } else {
+        this.formNewHouse = this.initForm();
+        this._auth.user$.subscribe((profile) => {
+          this.email = profile?.email ? profile?.email : '';
+          this._http.getUser(this.email).subscribe((res) => {
+            if (res.verified == 'not_verified') {
+              alert('You must verify your account before post a new place');
+              this.router.navigate(['./profile']);
+              return;
+            } else {
+              return;
+            }
+          });
+        });
+      }
     });
 
     this.countries$ = this._store.select(selectorListCountries);
@@ -81,24 +131,53 @@ export class CreateHouseComponent implements OnInit {
     this._locationService.getCountries().subscribe((response) => {
       this._store.dispatch(loadedCountries({ countries: response.data }));
     });
+
+    /* this.userProfile$ = this._store.select(selectorListProfile)
+    this.userProfile$.subscribe(res=>
+      { if(res.id){
+        this.userProfile= res
+        console.log(this.userProfile)
+        if(this.userProfile.verified !== 'verified'){
+          alert('Your account must to be verification')
+          // this.userProfile.unsubscribe();
+          this.router.navigate(['profile']);
+
+        }}
+        else {
+          this._http.getUser(this.email).subscribe(res=>{
+            if(res.verified === 'verified'){
+              this.router.navigate(['createhouse']);
+            } else {
+              alert('Your account must to be verification')
+              // this.userProfile.unsubscribe();
+              this.router.navigate(['profile']);
+
+            }
+          })
+        }
+
+       })
+      */
+  }
+  get currentHouse() {
+    return JSON.stringify(this.formNewHouse.value);
   }
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {}
-    let dialogRef =this.matDialog.open(DialogBodyComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(value => {
+    dialogConfig.data = {};
+    let dialogRef = this.matDialog.open(DialogBodyComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((value) => {
       console.log(`Dialog sent: ${value}`);
     });
   }
 
   onSelect(event: any) {
-
     if (this.files.some((e) => e.name === event.addedFiles[0].name)) {
       return;
     }
     this.files.push(...event.addedFiles);
-    this.errors=false
+    this.errors = false;
   }
 
   searchStates(country: string) {
@@ -108,7 +187,7 @@ export class CreateHouseComponent implements OnInit {
   }
   searchCities(state: string) {
     this._locationService
-      .getCities(this.newHouse.country, state)
+      .getCities(this.formNewHouse.value.country, state)
       .subscribe((response) => {
         this.cities$ = response.data;
       });
@@ -118,16 +197,30 @@ export class CreateHouseComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  onSubmit(create: NgForm) {
-    this.onUpload(create);
+  onSubmit() {
+    /* if(this.userProfile.verified !== 'verified'){
+      alert('Your account must to be verification')
+      // this.userProfile.unsubscribe();
+      this.router.navigate(['profile']); }
+      else */
+    if (this.formNewHouse.invalid) {
+      this.errors = true;
+      Swal.fire({
+        title: 'Oops...',
+        html: `<p><b>There are required fields in the form</b></p>`,
+        icon: 'error',
+      });
+    } else if (!this.files[0]) {
+      // alert('Enter at least one cover photo');
+      Swal.fire('Enter at least one cover photo');
+      return;
+    } else {
+      this.onUpload();
+    }
   }
 
-  onUpload(create: NgForm) {
-    if (!this.files[0]) {
-      alert('Ingresa al menos una foto de portada');
-      return;
-    }
-
+  onUpload() {
+    this.openDialog();
     this.files.forEach((image) => {
       const data = new FormData();
       data.set('file', image);
@@ -135,67 +228,99 @@ export class CreateHouseComponent implements OnInit {
       data.set('cloud_name', 'dbgpp8nla');
 
       this._uploadImg.uploadImage(data).subscribe((response) => {
-        this.newHouse.picture?.push(response.secure_url);
-        if (this.files.length === this.newHouse.picture.length) {
-          this._http.createHouse(this.newHouse, this.email);
-          this.files=[]
-          create.resetForm()
+        this.formNewHouse.value.picture?.push(response.secure_url);
+        if (this.files.length === this.formNewHouse.value.picture.length) {
+          this._http.createHouse(this.formNewHouse.value, this.email);
+          this.files = [];
+          this.formNewHouse.reset({
+            country: '',
+            city: '',
+            state: '',
+            type: '',
+            rooms: 1,
+            bathrooms: 1,
+            maxpeople: 1,
+            allowPets: false,
+            wifi: false,
+            picture: [],
+            price: 0,
+          });
         }
       });
     });
   }
 
-  get currentHouse() {
-    return JSON.stringify(this.newHouse);
-  }
-
-  handlePrice(price:number){
-    if(price <= 0){
-      this.newHouse.price = 0
+  handlePrice(price: number) {
+    if (price <= 0) {
+      this.formNewHouse.value.price = 0;
     }
-
   }
-  handleType(e:string){
-    this.newHouse.type= e;
-
+  handleType(e: string) {
+    this.formNewHouse.value.type = e;
   }
-
-
 
   //Add and less number
   handlePLusAndMinus(operator: string, name: string) {
     switch (name) {
       case 'bathrooms':
-        if (this.newHouse.bathrooms === 1 && operator === '+') {
-          this.newHouse.bathrooms++;
-        } else if (this.newHouse.bathrooms >= 2) {
+        if (this.formNewHouse.value.bathrooms === 1 && operator === '+') {
+          this.formNewHouse.value.bathrooms++;
+        } else if (this.formNewHouse.value.bathrooms >= 2) {
           operator === '+'
-            ? this.newHouse.bathrooms++
-            : this.newHouse.bathrooms--;
+            ? this.formNewHouse.value.bathrooms++
+            : this.formNewHouse.value.bathrooms--;
         } else {
-          this.newHouse.bathrooms = 1;
+          this.formNewHouse.get('bathrooms')?.setValue(1);
         }
         break;
 
       case 'rooms':
-        if (this.newHouse.rooms === 1 && operator === '+') {
-          this.newHouse.rooms++;
-        } else if (this.newHouse.rooms >= 2) {
-          operator === '+' ? this.newHouse.rooms++ : this.newHouse.rooms--;
+        if (this.formNewHouse.value.rooms === 1 && operator === '+') {
+          this.formNewHouse.value.rooms++;
+        } else if (this.formNewHouse.value.rooms >= 2) {
+          operator === '+'
+            ? this.formNewHouse.value.rooms++
+            : this.formNewHouse.value.rooms--;
         } else {
-          this.newHouse.rooms = 1;
+          this.formNewHouse.value.rooms = 1;
         }
         break;
       case 'maxpeople':
-        if (this.newHouse.maxpeople === 1 && operator === '+') {
-          this.newHouse.maxpeople++;
-        } else if (this.newHouse.maxpeople >= 2) {
+        if (this.formNewHouse.value.maxpeople === 1 && operator === '+') {
+          this.formNewHouse.value.maxpeople++;
+        } else if (this.formNewHouse.value.maxpeople >= 2) {
           operator === '+'
-            ? this.newHouse.maxpeople++
-            : this.newHouse.maxpeople--;
+            ? this.formNewHouse.value.maxpeople++
+            : this.formNewHouse.value.maxpeople--;
         } else {
-          this.newHouse.maxpeople = 1;
+          this.formNewHouse.value.maxpeople = 1;
         }
+        break;
+    }
+  }
+  dontLetNegative(event: any) {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    switch (name) {
+      case 'maxpeople':
+        if (value <= 1) {
+          this.formNewHouse.get('maxpeople')?.setValue(1);
+        }
+        break;
+      case 'rooms':
+        if (value <= 1) {
+          this.formNewHouse.get('rooms')?.setValue(1);
+        }
+        break;
+
+      case 'bathrooms':
+        if (value <= 1) {
+          this.formNewHouse.get('bathrooms')?.setValue(1);
+        }
+        break;
+
+      default:
         break;
     }
   }

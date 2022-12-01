@@ -1,148 +1,126 @@
-<div class="wrapper">
-  <div class="container_form">
-    <form #create="ngForm" class="form_creation" action="houses/createhouse" method="post"
-      style="display: flex; flex-direction: column; width: 35%" (ngSubmit)="onSubmit(create)">
+<div class="background mat-app-background">
+  <div class="createhouse mat-app-background">
+    <form [formGroup]="formNewHouse" action="houses/createhouse" method="post" (ngSubmit)="onSubmit()">
+      <div class="firstdiv">
+        <div class="creatediv mat-app-background">
+          <div class="typediv">
+            <label class="labelform" for="select_type">What kind of place will you host?</label>
+            <select class="typeselect" name="type" id="select_type" formControlName="type">
+              <option value="guest house">Guest House</option>
+              <option value="department">Department</option>
+              <option value="house">House</option>
+              <option value="hotel">Hotel</option>
+            </select>
+            <span class="error" *ngIf="errors && formNewHouse.get('type')?.errors?.['required']">This field is required </span>
+          </div>
 
-      <div class="container_type">
-        <label for="select_type">What kind of place will you host?</label>
-        <select name="type" id="select_type" [(ngModel)]="newHouse.type">
-          <option value="house">House</option>
-          <option value="department">Department</option>
-          <option value="guest house">Guest House</option>
-          <option value="hotel">Hotel</option>
-        </select>
-      </div>
+          <div class="locationdiv mat-app-background">
+            <div>
+              <label class="labelform" for="input_country">Country:</label>
+              <select class="selectform" name="country" formControlName="country" (ngModelChange)="searchStates($event)">
+                <option *ngFor="let country of countries$ | async" [ngValue]="country.name">{{ country.name }}</option>
+              </select>
+              <span class="error" *ngIf="errors && formNewHouse.get('country')?.errors?.['required']">This field is required</span>
+            </div>
 
-      <div class="container_roomsAndGuest">
-        <div class="roomsAndGuest">
-          <label for="input_rooms">Number of rooms</label>
-          <div>
-            <button type="button" (click)="handlePLusAndMinus('-', 'rooms')"
-              [ngClass]="this.newHouse.rooms === 1 ? 'disabled' : ''">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
-              </svg>
-            </button>
-            <span>{{ newHouse.rooms }}</span>
-            <button type="button" (click)="handlePLusAndMinus('+', 'rooms')">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
-              </svg>
-            </button>
+            <div>
+              <label class="labelform" for="input_country">State:</label>
+              <select class="selectform" name="states" formControlName="state" (ngModelChange)="searchCities($event)">
+                <option *ngFor="let state of states$" [ngValue]="state.name">{{ state.name }}</option>
+              </select>
+              <span class="error" *ngIf="errors && formNewHouse.get('state')?.errors?.['required']">This field is required</span>
+            </div>
+
+            <div>
+              <label class="labelform">City:</label>
+              <select class="selectform" name="city" formControlName="city">
+                <option *ngFor="let city of cities$" [ngValue]="city">{{ city }}</option>
+              </select>
+              <span class="error" *ngIf=" errors && formNewHouse.get('city')?.errors?.['required']">This field is required</span>
+            </div>
+          </div>
+
+          <div class="numberdiv">
+            <div>
+              <label class="numberlabel" for="input_rooms">Rooms:</label>
+              <div class="inputdiv">
+                <button id="minus" class="button" type="button" (click)="handlePLusAndMinus('-', 'rooms')"
+                  [ngClass]="this.formNewHouse.value.rooms === 1 ? 'disabled' : ''">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" /></svg>
+                </button>
+                <input (change)="dontLetNegative($event)" name="rooms" [value]="this.formNewHouse.value.rooms" formControlName="rooms" type="number">
+                <button id="plus" class="button" type="button" (click)="handlePLusAndMinus('+', 'rooms')">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" /></svg>
+                </button>
+              </div>
+            </div>
+  
+            <div>
+              <label class="numberlabel" for="input_bathrooms">Bathrooms:</label>
+              <div class="inputdiv">
+                <button id="minus" class="button" type="button" (click)="handlePLusAndMinus('-', 'bathrooms')" [ngClass]="this.formNewHouse.value.bathrooms === 1 ? 'disabled' : ''">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" /></svg>
+                </button>
+                <input name="bathrooms" (change)="dontLetNegative($event)" [value]="this.formNewHouse.value.bathrooms" formControlName="bathrooms" type="number">
+                <button id="plus" class="button" type="button" (click)="handlePLusAndMinus('+', 'bathrooms')">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" /></svg>
+                </button>
+              </div>
+            </div>
+  
+            <div>
+              <label class="numberlabel" for="input_maxpeople">Guests:</label>
+              <div class="inputdiv">
+                <button id="minus" class="button" type="button" (click)="handlePLusAndMinus('-', 'maxpeople')" [ngClass]="this.formNewHouse.value.maxpeople === 1 ? 'disabled' : ''">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" /></svg>
+                </button>
+                <input [value]="this.formNewHouse.value.maxpeople" formControlName="maxpeople" type="number" name="maxpeople" (change)="dontLetNegative($event)">
+                <button id="plus" class="button" type="button" (click)="handlePLusAndMinus('+', 'maxpeople')">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" /></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="servicesdiv mat-app-background">
+            <div>
+              <span class="labelswitch">Are pets allowed?</span>
+              <label class="switch" for="input_allowpets">
+                <input type="checkbox" name="allowpets" id="input_allowpets" value="true" formControlName="allowPets" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            
+            <div>
+              <span class="labelswitch">Does the place have wifi?</span>
+              <label class="switch" for="input_wifi">
+                <input type="checkbox" name="wifi" id="input_wifi" value="true" formControlName="wifi" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="pricediv">
+            <div>
+              <label class="pricelabel" for="input_price">Price per night:</label>
+              <input class="priceinput" type="number" name="price" id="input_price" formControlName="price" (change)="handlePrice(formNewHouse.value)" />
+              <span class="price">ARS</span>
+            </div>
+            <span class="error" *ngIf="errors &&( formNewHouse.get('price')?.errors?.['required']||formNewHouse.get('price')?.errors?.['min'])">{{formNewHouse.get('price')?.errors?.['min'].actual < 0?'This field has to be a positive number':'This field is required' }}</span>
           </div>
         </div>
-        <div class="roomsAndGuest">
-          <label for="input_bathrooms">Number of bathrooms</label>
-          <div>
-            <button type="button" (click)="handlePLusAndMinus('-', 'bathrooms')"
-              [ngClass]="this.newHouse.bathrooms === 1 ? 'disabled' : ''">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
-              </svg>
-            </button>
-            <span>{{ newHouse.bathrooms }}</span>
-            <button type="button" (click)="handlePLusAndMinus('+', 'bathrooms')">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
-              </svg>
-            </button>
-          </div>
-        </div>
-        <div class="roomsAndGuest">
-          <label for="input_maxpeople">How many guests would you like to welcome?</label>
-          <div>
-            <button type="button" (click)="handlePLusAndMinus('-', 'maxpeople')"
-              [ngClass]="this.newHouse.maxpeople === 1 ? 'disabled' : ''">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
-              </svg>
-            </button>
-            <span>{{ newHouse.maxpeople }}</span>
-            <button type="button" (click)="handlePLusAndMinus('+', 'maxpeople')">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
-              </svg>
-            </button>
-          </div>
-        </div>
       </div>
 
-      <div class="container_price">
-        <label for="input_price">Price per night:</label>
-        <input type="number" name="price" id="input_price" [(ngModel)]="newHouse.price"
-          (change)="handlePrice(newHouse.price)" />
-        <span>$USD</span>
-      </div>
-
-
-
-      <div class="container_services">
-        <div>
-          <span>Do you allow pets?</span>
-          <label class="switch" for="input_allowpets">
-
-            <input type="checkbox" name="allowpets" id="input_allowpets" value="true" [(ngModel)]="newHouse.allowpets" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div>
-          <span>Does the place have wifi connection?</span>
-          <label class="switch" for="input_wifi">
-            <input type="checkbox" name="wifi" id="input_wifi" value="true" [(ngModel)]="newHouse.wifi" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-      </div>
-
-      <div class="container_location">
-        <div>
-          <label for="input_country">Country:</label>
-          <select name="country" id="" [(ngModel)]="newHouse.country" (ngModelChange)="searchStates($event)">
-            <option *ngFor="let country of countries$ | async" [ngValue]="country.name">
-              {{ country.name }}
-            </option>
-          </select>
-        </div>
-        <div>
-          <label for="input_country">States:</label>
-          <select name="states" [(ngModel)]="newHouse.state" id="" (ngModelChange)="searchCities($event)">
-            <option *ngFor="let state of states$" [ngValue]="state.name">
-              {{ state.name }}
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <label>City:</label>
-          <select name="city" [(ngModel)]="newHouse.city" id="">
-            <option *ngFor="let city of cities$" [ngValue]="city">{{ city }}</option>
-          </select>
-        </div>
-      </div>
-      <hr />
-      <div class="dropzone">
-        <ngx-dropzone (change)="onSelect($event);" #dropzone >
+      <div class="dropzone mat-app-background">
+        <ngx-dropzone (change)="onSelect($event);" #dropzone>
           <ngx-dropzone-label>Drag or click to select the photos of the place</ngx-dropzone-label>
 
-          <ngx-dropzone-image-preview  #dropzone ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files; let i = index" [file]="f"
-            [removable]="true" (removed)="onRemove(f)" [ngClass]="{ isCoverPhoto: i === 0 }">
-            <ngx-dropzone-label *ngIf="i === 0" [ngClass]="{ labelCoverPhoto: i === 0 }">Foto de portada
-            </ngx-dropzone-label>
+          <ngx-dropzone-image-preview #dropzone ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files; let i = index" [file]="f" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label *ngIf="i === 0" [ngClass]="{ labelCoverPhoto: i === 0 }">Foto de portada</ngx-dropzone-label>
           </ngx-dropzone-image-preview>
         </ngx-dropzone>
+        <button type="submit" class="submit" mat-raised-button>Create</button>
       </div>
-      <!-- '3000ms', '1500ms' -->
-      <button type="submit" class="submit" mat-raised-button (click)="openDialog()" disabled={{errors}}>Crear</button>
-      <!-- <div>
-        {{ currentHouse }}
-      </div> -->
     </form>
-</div>
-
+  </div>
 </div>

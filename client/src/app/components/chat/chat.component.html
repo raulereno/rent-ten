@@ -1,0 +1,30 @@
+<div *ngIf="showChatWhenAdmin" class="container_imgChat" (click)="showChat()" >
+  <img class="chatimg" src="assets/logo-small.png" alt="" >
+</div>
+
+<div *ngIf=" showChatWhenAdmin" class="container_chat" [ngClass]="{'active': chat,'darkmodeChat': darkmode }">
+  <div class="chat">
+    <h3 class="faqs">FAQS</h3>
+    <ul id="chat_lista" class="chat_lista">
+      <li *ngFor="let item of faqs; index as i" class="question" [ngClass]="{'questionActive': answer ===i}" (click)="showAnswer(i)">
+        {{item.question}}</li>
+    </ul>
+    <div class="container_answers">
+      <p class="answers" *ngIf="answer!== undefined">{{faqs[answer].response}}</p>
+      <p class="answers" *ngIf="answer!== undefined && answer ===2">Here's a link to MercadoPago's webpage: <a class="mplink" href="https://www.mercadopago.com.ar/hub/registration/landing" target="_blank">MercadoPago</a></p>
+
+    </div>
+  </div>
+
+  <div *ngIf="showChatWhenAdmin " class="container_textArea">
+    <form [ngClass]="{'allowInput': !allowInput}" [formGroup]="formMail" (submit)="sendMessage()">
+      <input class="chatinput" type="text" name="subject" id="" formControlName="subject" placeholder="Subject">
+      <textarea class="chatinput" formControlName="message" placeholder="Write your message"
+        >
+      </textarea>
+      <button type="submit" [ngClass]="{'allowButton': !allowInput}">Send</button>
+    </form>
+  </div>
+
+</div>
+

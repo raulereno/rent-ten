@@ -17,6 +17,8 @@ export const HANDLE_FILTERS = '[HANDLE FILTERS] HANDLE_FILTERS'
 export const CHANGE_VERIFIED = '[CHANGE_VERIFIED] CHANGE_VERIFIED'
 export const HANDLE_ORDER = '[HANDLE_ORDER] HANDLE_ORDER'
 export const LOAD_PAYMENT = '[LOAD_PAYMENT] LOAD_PAYMENT'
+export const CHANGE_AUTHORIZED = '[CHANGE_AUTHORIZED] CHANGE_AUTHORIZED';
+export const DELETE_HOUSE = '[DELETE_HOUSE] DELETE_HOUSE';
 
 export const loadData= createAction(
     LOAD_DATA
@@ -61,6 +63,7 @@ export const deleteFavoriteHouse = createAction (
     props<{ payload: string}>()
     )
 
+
 export const handleFilters = createAction (
     HANDLE_FILTERS,
     props<{payload: any}>()
@@ -80,3 +83,13 @@ export const loadPayment = createAction(
   LOAD_PAYMENT,
   props<{ payload: Booking}>()
 )
+
+export const changeAuthorizedUser = createAction (
+    CHANGE_AUTHORIZED,
+    props<{ payload: string }>()
+);
+
+export const deleteHouse = createAction (
+    DELETE_HOUSE,
+    props<{ payload: boolean }>()
+);

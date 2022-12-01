@@ -1,3 +1,4 @@
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -6,9 +7,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class HelperService {
 
-  constructor() { }
+  constructor(
+    private _local: LocalStorageService,
+  ) { }
 
-  private darkMode = new BehaviorSubject<boolean>(false);
+  private darkmodeLocal: boolean = this._local.darkmode()
+
+  private darkMode = new BehaviorSubject<boolean>(this.darkmodeLocal);
 
   public customDarkMode = this.darkMode.asObservable();
 
