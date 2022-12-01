@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { HelperService } from 'src/app/services/helper.service';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -182,7 +183,7 @@ export class ProfileComponent implements OnInit {
   }
 
   goTo(id: string) {
-    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`], {
+    this._router.navigate([`${environment.baseUrl}/home/housedetail/${id}`], {
       replaceUrl: true,
     }); //TODO: Redireccionar casa creada a detail
   }
