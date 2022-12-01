@@ -28,7 +28,7 @@
     <div class="reviewshead" [ngClass]="darkmode? 'darkmodeLetReview':''">
       <h4 class="headtitle">Post your experience!</h4>
       <p class="ptitle">Was everything alright? Tell us!</p>
-      <button type="button" id="closemodal" class="modalbutton" aria-label="Close"
+      <button type="button" #closeModalButton id="closeModalButton" class="modalbutton" aria-label="Close"
         (click)="modal.dismiss('Cross click')">✕</button>
     </div>
     <div class="reviewsbody" [ngClass]="darkmode? 'darkmodeLetReview':''">
