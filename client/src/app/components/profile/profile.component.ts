@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { HelperService } from 'src/app/services/helper.service';
 import { UploadImgService } from 'src/app/services/upload-img.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -182,11 +183,10 @@ export class ProfileComponent implements OnInit {
   }
 
   goTo(id: string) {
-    this._router.navigate([`http://localhost:4200/home/housedetail/${id}`], {
+    this._router.navigate([`${environment.baseUrl}/home/housedetail/${id}`], {
       replaceUrl: true,
     }); //TODO: Redireccionar casa creada a detail
   }
-
   deleteHouse(houseId: string, userId: string) {
     let value = {
       deleted: true,
@@ -246,7 +246,6 @@ export class ProfileComponent implements OnInit {
   onSubmit(userId: string) {
     this.profileForm.get('userId')?.setValue(userId);
     this.saveData(this.profileForm.value);
-    console.log(this.profileForm.value);
   }
 
   saveData(value: any) {

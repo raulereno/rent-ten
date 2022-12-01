@@ -20,7 +20,7 @@ export class ChatComponent implements OnInit {
   answer: number;
   allowInput: boolean = true;
   dbProfile: any;
-  darkmode:boolean = false;
+  darkmode: boolean = false;
 
   formMail!: FormGroup;
   showChatWhenAdmin: boolean = true;
@@ -38,7 +38,7 @@ export class ChatComponent implements OnInit {
     private readonly fb: FormBuilder,
     public _chat: ChatService,
     private _http: DataService,
-    private _helper: HelperService,
+    private _helper: HelperService
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +60,7 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     this._chat.sendMessage(
       this.formMail.value.message,
-      this.dbProfile.email,
+      this.dbProfile.mail,
       this.formMail.value.subject
     );
     this.formMail.get('message')?.setValue('');

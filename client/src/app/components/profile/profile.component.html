@@ -3,18 +3,8 @@
   <div class="leftdiv mat-app-background">
     <div class="userdiv">
       <div class="container-image" [ngClass]="{'darkmode': darkmode}">
-        <h1>My Profile</h1>
         <img src="{{user.picture}}" class="profileImg" />
-        <span class="edit">
-          <svg (click)="fileInput.click()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path
-              d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z" />
-          </svg>
-          <input (change)="onFileSelected($event)" #fileInput type="file" name="" id="" id="fileUpload"
-            style="display: none;">
-        </span>
       </div>
-      <!-- <button style="float:right" (click)="showProfileJson()">Console log Profile json & profile DB</button> -->
       <div class="infodiv">
         <h2 class="text">{{ user.name }} {{ user.lastname }}</h2>
         <h2 class="text">{{ user.country }}</h2>
@@ -28,7 +18,6 @@
         </h5>
         <!-- ---- EMAIL ---- -->
         <div>
-
           <div *ngIf="user.verified === 'pending'">
 
             <form>
@@ -42,13 +31,12 @@
       </div>
       <p style="color:red" *ngIf="error">{{error.error.msg}}</p>
 
-      <button style="margin-bottom: 0.3rem" class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Edit</button>
+      <button style="margin-bottom: 0.3rem" class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Edit my profile</button>
     </div>
   </div>
 
   <!-- bootstap -->
-  <div class="accordion mat-app-background" id="accordionPanelsStayOpenExample"
-    style="min-width: 75%; margin-top: 2rem; max-width: 75%;">
+  <div class="accordion mat-app-background">
     <div class="accordion-item mat-app-background">
       <h2 class="accordion-header mat-app-background" id="panelsStayOpen-headingOne">
         <button class="accordion-button collapsed mat-app-background" type="button" data-bs-toggle="collapse"
@@ -224,49 +212,50 @@
   </div>
 
     <ng-template #content let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">My Data Profile</h4>
-            <button id="closeModal" type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="mb-3">
-
-                    <ng-container>
-                        <div>
-                            <form (ngSubmit)="onSubmit(user.id)" [formGroup]="profileForm" action="users/editUser/'user.id'">
-                                <label for="name">Name</label><br/>
-                                <input type="text" name="name" value="{{ user.name }}" formControlName="name"><br/>
-                                <div *ngIf="profileForm.get('name')?.touched && profileForm.get('name')?.errors?.['required']" class="alert alert-danger">This field is required.</div>
-                                <div *ngIf="profileForm.get('name')?.touched && profileForm.get('name')?.errors?.['minlength']" class="alert alert-danger">Name must be longer than {{ profileForm.get('name')?.errors?.['minlength']?.requiredLength }} characters.</div>
-                                <label for="lastname">Lastname</label><br/>
-                                <input type="text" name="lastname" value="{{ user.lastname }}" formControlName="lastname"><br/>
-                                <div *ngIf="profileForm.get('lastname')?.touched && profileForm.get('lastname')?.errors?.['required']" class="alert alert-danger">This field is required.</div>
-                                <div *ngIf="profileForm.get('lastname')?.touched && profileForm.get('lastname')?.errors?.['minlength']" class="alert alert-danger">Lastname must be longer than {{ profileForm.get('lastname')?.errors?.['minlength']?.requiredLength }} characters.</div>
-                                <label for="mail">Email</label><br/>
-                                <input type="text" name="mail" value="{{ user.mail }}" formControlName="mail"><br/>
-                                <div *ngIf="profileForm.get('mail')?.touched && profileForm.get('mail')?.errors?.['required']" class="alert alert-danger">This field is required.</div>
-                                <label for="country">Country</label><br/>
-                                <input type="text" name="country" value="{{ user.country }}" formControlName="country"><br/>
-
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-outline-dark" [disabled]="profileForm.invalid">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                        <br/>
-                        <div>
-                            <div>
-                                <button (click)="deleteAccount(user.id)" type="button" class="btn btn-danger btn-sm">Delete
-                                    Account</button>
-                            </div>
-                        </div>
-                    </ng-container>
-
+      <div class="edithead" [ngClass]="{'darkmodeModal': darkmode}">
+        <h4 class="headtitle">Profile:</h4>
+        <p class="ptitle">Edit your profile!</p>
+        <button type="button" id="closemodal" class="modalbutton" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">✕</button>
+      </div>
+        <div class="editbody">
+          <form>
+            <ng-container>
+                <div class="editdiv">
+                  <form (ngSubmit)="onSubmit(user.id)" [formGroup]="profileForm" action="users/editUser/'user.id'">
+                    <div class="inputdiv">
+                      <label class="imagelabel" for="fileUpload"><input (change)="onFileSelected($event)" #fileInput type="file" id="fileUpload">Change profile picture</label>
+                    </div>
+                    <div class="inputdiv">
+                      <label class="editlabel" for="name">Name</label>
+                      <input class="editinput" type="text" name="name" value="{{ user.name }}" formControlName="name">
+                      <span class="error" *ngIf="profileForm.get('name')?.touched && profileForm.get('name')?.errors?.['required']">This field is required.</span>
+                      <span class="error" *ngIf="profileForm.get('name')?.touched && profileForm.get('name')?.errors?.['minlength']">Name must be longer than {{ profileForm.get('name')?.errors?.['minlength']?.requiredLength }} characters.</span>
+                    </div>
+                    <div class="inputdiv">
+                      <label class="editlabel" for="lastname">Lastname</label>
+                      <input class="editinput" type="text" name="lastname" value="{{ user.lastname }}" formControlName="lastname">
+                      <span class="error" *ngIf="profileForm.get('lastname')?.touched && profileForm.get('lastname')?.errors?.['required']">This field is required.</span>
+                      <span class="error" *ngIf="profileForm.get('lastname')?.touched && profileForm.get('lastname')?.errors?.['minlength']">Lastname must be longer than {{ profileForm.get('lastname')?.errors?.['minlength']?.requiredLength }} characters.</span>
+                    </div>
+                    <div class="inputdiv">
+                      <label class="editlabel" for="mail">Email</label>
+                      <input class="editinput" type="text" name="mail" value="{{ user.mail }}" formControlName="mail">
+                      <span class="error" *ngIf="profileForm.get('mail')?.touched && profileForm.get('mail')?.errors?.['required']">This field is required.</span>
+                    </div>
+                    <div class="inputdiv">
+                      <label class="editlabel" for="country">Country</label>
+                      <input class="editinput" type="text" name="country" value="{{ user.country }}" formControlName="country">
+                    </div>
+                    <div class="modal-footer">
+                      <button class="deletebutton" (click)="deleteAccount(user.id)" type="button">Delete account</button>
+                      <button class="savebutton" type="submit" [disabled]="profileForm.invalid">Save</button>
+                    </div>
+                  </form>
                 </div>
-            </form>
+            </ng-container>
+          </form>
         </div>
-
     </ng-template>
 
   <!-- bootstap -->

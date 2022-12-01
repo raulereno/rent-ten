@@ -1,48 +1,54 @@
-<div class='row' *ngIf="house.Reviews">
-    <ng-template #content let-modal>
-        <div class="reviewshead">
-            <h4 class="headtitle">Reviews</h4>
-            <p class="ptitle">Read the reviews of previous occupants!</p>
-            <button type="button" id="closemodal" class="modalbutton" aria-label="Close" (click)="modal.dismiss('Cross click')">✕</button>
+<div class='row' *ngIf="house.Reviews" [ngClass]="darkmode? 'darkmodeContainer':''">
+  <ng-template #content let-modal [ngClass]="darkmode? 'darkmode':''">
+    <div class="reviewshead" [ngClass]="darkmode? 'darkmode':''">
+      <h4 class="headtitle">Reviews</h4>
+      <p class="ptitle">Read the reviews of previous occupants!</p>
+      <button type="button" id="closemodal" class="modalbutton" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">✕</button>
+    </div>
+    <div class="reviewsbody" [ngClass]="darkmode? 'darkmode':''">
+      <form>
+        <div class="mb-3">
+          <ng-container>
+            <div class="review" *ngFor="let review of house.Reviews">
+              <ngb-rating [max]="5" [(rate)]="review.rating" [readonly]="true"></ngb-rating>
+              <span class="user">{{review.userEmail}}</span> |
+              <span style="color:grey; font-size: 12px;">{{returnDate(review.createdAt)}}</span>
+              <p class="opinion">{{review.opinion}}</p>
+              <hr />
+            </div>
+          </ng-container>
         </div>
-        <div class="reviewsbody">
-            <form>
-                <div class="mb-3">
-                    <ng-container>
-                        <div class="review" *ngFor="let review of house.Reviews">
-                            <ngb-rating [max]="5" [(rate)]="review.rating" [readonly]="true"></ngb-rating>
-                            <span class="user">{{review.userEmail}}</span> |
-                            <span style="color:grey; font-size: 12px;">{{returnDate(review.createdAt)}}</span>
-                            <p class="opinion">{{review.opinion}}</p>
-                            <hr />
-                        </div>
-                    </ng-container>
-                </div>
-            </form>
-        </div>
-    </ng-template>
+      </form>
+    </div>
+  </ng-template>
 
 
-    <ng-template #letReview let-modal>
-        <div class="reviewshead">
-            <h4 class="headtitle">Post your experience!</h4>
-            <p class="ptitle">Was everything alright? Tell us!</p>
-            <button type="button" id="closemodal" class="modalbutton" aria-label="Close" (click)="modal.dismiss('Cross click')">✕</button>
-        </div>
-        <div class="reviewsbody">
-            <form>
-                <ng-container>
-                    <div><span class="rating">Rate the place:</span><ngb-rating (rateChange)=getRating($event) [max]="5"></ngb-rating></div>
-                    <textarea (input)=setReview($event) style="height: 12rem" aria-label="Username" class="your-review" placeholder="Your review..."></textarea>
-                    <p class="error">{{errors}}</p>
-                </ng-container>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="postNewReview()">Post</button>
-        </div>
-    </ng-template>
+  <ng-template #letReview let-modal>
+    <div class="reviewshead" [ngClass]="darkmode? 'darkmodeLetReview':''">
+      <h4 class="headtitle">Post your experience!</h4>
+      <p class="ptitle">Was everything alright? Tell us!</p>
+      <button type="button" #closeModalButton id="closeModalButton" class="modalbutton" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">✕</button>
+    </div>
+    <div class="reviewsbody" [ngClass]="darkmode? 'darkmodeLetReview':''">
+      <form>
+        <ng-container>
+          <div><span class="rating">Rate the place:</span>
+            <ngb-rating (rateChange)=getRating($event) [max]="5"></ngb-rating>
+          </div>
+          <textarea (input)=setReview($event) style="height: 12rem" aria-label="Username" class="your-review"
+            placeholder="Your review..."></textarea>
+          <p class="error">{{errors}}</p>
+        </ng-container>
+      </form>
+    </div>
+    <div class="modal-footer" [ngClass]="darkmode? 'darkmodeLetReview':''">
+      <button type="button" class="btn btn-outline-dark" (click)="postNewReview()">Post</button>
+    </div>
+  </ng-template>
 
-    <button class="reviewbutton" (click)="openModal(content)">Reviews</button>
-    <button id="postbutton" class="reviewbutton" *ngIf="ableToPostReview" (click)="openLetReviewModal(letReview)">Post your experience!</button>
+  <button class="reviewbutton" (click)="openModal(content)">Reviews</button>
+  <button id="postbutton" class="reviewbutton" *ngIf="ableToPostReview" (click)="openLetReviewModal(letReview)">Post
+    your experience!</button>
 </div>

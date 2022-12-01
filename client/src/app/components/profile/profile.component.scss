@@ -15,10 +15,9 @@
 .leftdiv {
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
-  margin-left: 3rem;
+  margin-top: 60px;
   height: 100vh;
-  min-width: 20%;
+  width: 400px;
   .userdiv {
     display: flex;
     flex-direction: column;
@@ -49,44 +48,167 @@
     }
   }
 }
-.container-image {
-  position: relative;
 
-  .edit {
-    background-color: #fafafa86;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    height: 0;
-    transition: all 1s ease;
-  }
+/// EDIT MODAL ///
 
-  .edit svg {
-    width: 2rem;
-    fill: rgb(0, 0, 0);
-  }
+.edithead {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  .edit svg:hover {
-    visibility: visible;
-    transform: scale(1.1);
-    cursor: pointer;
-    fill: rgb(0, 0, 0);
-  }
-
-  &:hover .edit {
-    height: 20%;
-  }
-}
-.darkmode .edit {
-  background-color: #303030a4;
+  height: 80px;
+  margin-bottom: 1rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
+.headtitle {
+  font-size: 30px;
+  margin-top: 1rem;
+}
+
+.ptitle {
+  margin-top: -0.5rem;
+}
+
+.modalbutton {
+  height: 30px;
+  width: 35px;
+  color: #000;
+  background: none;
+  border: 0;
+  font-size: 30px;
+  transition: 0.5 all;
+}
+.modalbutton:hover {
+  transform: scale(1.1);
+  color: #d9534f;
+}
+
+#closemodal {
+  position: absolute;
+  top: 1rem;
+  left: 90%;
+}
+
+.editbody{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form{
+  width: 100%;
+}
+
+.editdiv{
+  display: flex;
+  justify-content: center;
+}
+
+.inputdiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #3a3a3a27;
+}
+
+.editlabel{
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  color: #3a3a3a;
+}
+
+.editinput{
+  height: 50px;
+  width: 50%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #3a3a3a;
+  background-color: none;
+  border: 2px solid #0d6efd;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+
+.error{
+  color: #d9534f;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top: 10px;
+  margin: 0 auto;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.imagelabel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  height: 50px;
+  width: 50%;
+  font-size: 20px;
+  color: #0d6efd;
+  background-color: none;
+  border: 1px solid #0d6efd;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.imagelabel:hover{
+  color: #fafafa;
+  background-color: #0d6efd;
+}
+
+.deletebutton{
+  height: 50px;
+  width: 180px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #d9534f;
+  background-color: none;
+  border: 1px solid #d9534f;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.deletebutton:hover{
+  color: #fafafa;
+  background-color: #d9534f;
+}
+
+.savebutton{
+  height: 50px;
+  width: 150px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #0d6efd;
+  background-color: none;
+  border: 1px solid #0d6efd;
+  border-radius: 10px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.savebutton:hover{
+  color: #fafafa;
+  background-color: #0d6efd;
+}
+
+/// EDIT MODAL ///
 .rightdiv {
   display: flex;
   flex-direction: column;
-  padding-left: 5rem;
   height: 100rem;
   max-width: 80%;
 }
@@ -105,29 +227,10 @@
 }
 
 .profileImg {
-  width: 12rem;
-  height: 12rem;
+  width: 240px;
+  height: 240px;
   border-radius: 50%;
   object-fit: cover;
-}
-
-.edit svg:hover ~ .profileImg {
-  opacity: 0.3;
-}
-
-.favouriteslist {
-  height: 2rem;
-  width: 15rem;
-
-  font-size: 1.5rem;
-  font-family: "Judson";
-
-  position: relative;
-  margin-top: 3rem;
-  display: flex;
-  align-items: center;
-
-  background-image: linear-gradient(90deg, rgba(108, 142, 255, 0.3), white);
 }
 
 .housecard {
@@ -221,6 +324,13 @@
   margin-left: 5px;
 }
 
+.accordion{
+  padding-top: 50px;
+  padding-right: 50px;
+  margin: 0 auto;
+  width: 80%;
+}
+
 /* ::ng-deep .card.accordion-button {
   min-width: 30rem !important;
 } */
@@ -273,5 +383,11 @@
     .price {
       color: rgb(63, 168, 7);
     }
+  }
+}
+
+.darkmode {
+  .card {
+    background-color: #303030;
   }
 }

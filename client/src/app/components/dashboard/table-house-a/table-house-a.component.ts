@@ -17,7 +17,7 @@ import { House } from 'src/app/models/House';
 @Component({
   selector: 'app-table-house-a',
   templateUrl: './table-house-a.component.html',
-  styleUrls: ['./table-house-a.component.css']
+  styleUrls: ['./table-house-a.component.css'],
 })
 export class TableHouseAComponent implements OnInit {
   constructor(
@@ -32,7 +32,7 @@ export class TableHouseAComponent implements OnInit {
   headers = ['Name', 'Position', 'Office', 'Age', 'Start Date', 'Salary'];
   public houses: any[];
   userProfile$: Observable<any> = new Observable();
-  public userProfile: userProfile; 
+  public userProfile: userProfile;
 
 
   public filtered_house: any;
@@ -44,13 +44,11 @@ export class TableHouseAComponent implements OnInit {
   
 
   ngOnInit(): void {
-
     this.userProfile$ = this.store.select(selectorListProfile);
-    this.loadProfile()
+    this.loadProfile();
 
-    this._admindashboard.setHousesA()
-    this._admindashboard.getHousesA$.subscribe(res => this.houses = res)
-
+    this._admindashboard.setHousesA();
+    this._admindashboard.getHousesA$.subscribe((res) => (this.houses = res));
   }
 
   loadProfile(): void {
@@ -67,16 +65,23 @@ export class TableHouseAComponent implements OnInit {
   
   back() { this.router.navigate(['dashboard']) }
 
+  showInfo() {
+    console.log(this.houses);
+  }
 
 
-  handleInput(){
-    this.filtered_house_result = this.houses.find((h:House) => h.id === this.filtered_house.trimRight())
-    if (!this.filtered_house_result) {alert('No house with that ID')}
+  handleInput() {
+    this.filtered_house_result = this.houses.find(
+      (h: House) => h.id === this.filtered_house.trimRight()
+    );
+    if (!this.filtered_house_result) {
+      alert('No house with that ID');
+    }
   }
 
   resetResults() {
-    this.filtered_house_result = null
-    this.filtered_house = ''
+    this.filtered_house_result = null;
+    this.filtered_house = '';
   }
 
   changeHouseStatus(houseId: string) {
@@ -84,5 +89,6 @@ export class TableHouseAComponent implements OnInit {
     this._admindashboard.changeHouseStatus(this.userProfile.id, houseId, newValues)
     this.resetResults()
 
-  }
+
+}
 }

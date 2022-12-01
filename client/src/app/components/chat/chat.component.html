@@ -2,7 +2,7 @@
   <img class="chatimg" src="assets/logo-small.png" alt="" >
 </div>
 
-<div *ngIf=" showChatWhenAdmin" class="container_chat" [ngClass]="{'active': chat }">
+<div *ngIf=" showChatWhenAdmin" class="container_chat" [ngClass]="{'active': chat,'darkmodeChat': darkmode }">
   <div class="chat">
     <h3 class="faqs">FAQS</h3>
     <ul id="chat_lista" class="chat_lista">
@@ -11,7 +11,7 @@
     </ul>
     <div class="container_answers">
       <p class="answers" *ngIf="answer!== undefined">{{faqs[answer].response}}</p>
-      <p class="answers" *ngIf="answer!== undefined && answer ===1">Here's a link to MercadoPago's webpage: <a class="mplink" href="https://www.mercadopago.com.ar/hub/registration/landing" target="_blank">MercadoPago</a></p>
+      <p class="answers" *ngIf="answer!== undefined && answer ===2">Here's a link to MercadoPago's webpage: <a class="mplink" href="https://www.mercadopago.com.ar/hub/registration/landing" target="_blank">MercadoPago</a></p>
 
     </div>
   </div>

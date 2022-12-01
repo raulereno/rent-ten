@@ -38,11 +38,10 @@ export class AlternativehomeComponent implements OnInit {
   housesInArea: House[];
   slider_housesInArea: House[] = [];
 
-  constructor(
-    public http: DataService,
-    private store: Store<any>,
-    private helper: HelperService
-  ) {}
+
+
+  constructor(public http: DataService, private store: Store<any>, private helper: HelperService) { }
+
 
   ngOnInit(): void {
     this.helper.customDarkMode.subscribe(
@@ -52,17 +51,12 @@ export class AlternativehomeComponent implements OnInit {
 
     this.http.getHouses_withOrder('byqualityprice').subscribe((res) => {
       this.housesSorted_byqualityprice = res.slice(0, 15);
-      this.slider_priceval = this.housesSorted_byqualityprice.slice(0, 5);
-    });
-
-    this.http.getHouses_withOrder('byqualityprice').subscribe((res) => {
-      this.housesSorted_byqualityprice = res.slice(0, 15);
-      this.slider_priceval = this.housesSorted_byqualityprice.slice(0, 5);
+      this.slider_priceval = this.housesSorted_byqualityprice.slice(0, 4);
     });
 
     this.http.getHouses_withOrder('rating').subscribe((res) => {
       this.housesSorted_byRating = res.slice(0, 15);
-      this.slider_rating = this.housesSorted_byRating.slice(0, 5);
+      this.slider_rating = this.housesSorted_byRating.slice(0, 4);
     });
 
     this.userProfile$.subscribe((res) => {
@@ -80,10 +74,13 @@ export class AlternativehomeComponent implements OnInit {
               house.country.toLowerCase() == geolocation.toLowerCase()
           )
           .slice(0, 15);
-        this.slider_housesInArea = this.housesInArea.slice(0, 5);
+        this.slider_housesInArea = this.housesInArea.slice(0, 4);
       });
     });
   }
 
-  showInfo() {}
+  showInfo() {
+
+  }
+
 }
