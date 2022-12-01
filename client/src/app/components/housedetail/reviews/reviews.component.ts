@@ -129,7 +129,11 @@ export class ReviewsComponent implements OnInit {
         (review: Review) => review.UserId == this.userProfile.id
       )
     ) {
-      alert('You already gave a review for this place');
+      // alert('You already gave a review for this place');
+      Swal.fire({
+        icon: 'warning',
+        title: 'You already gave a review for this place',
+      });
       return;
     }
     if (
@@ -137,15 +141,11 @@ export class ReviewsComponent implements OnInit {
         (booking: Booking) => booking.UserId === this.userProfile.id
       )
     ) {
-      alert('You can only post reviews of places you have been to');
-      return;
-    }
-    if (
-      !this.house.Bookings.some(
-        (booking: Booking) => booking.UserId === this.userProfile.id
-      )
-    ) {
-      alert('You can only post reviews of places you have been to');
+      // alert('You can only post reviews of places you have been to');
+      Swal.fire({
+        icon: 'warning',
+        title: 'You can only post reviews of places you have been to',
+      });
       return;
     }
 
