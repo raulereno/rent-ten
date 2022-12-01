@@ -186,7 +186,6 @@ export class ProfileComponent implements OnInit {
       replaceUrl: true,
     }); //TODO: Redireccionar casa creada a detail
   }
-
   deleteHouse(houseId: string, userId: string) {
     let value = {
       deleted: true,
@@ -246,7 +245,6 @@ export class ProfileComponent implements OnInit {
   onSubmit(userId: string) {
     this.profileForm.get('userId')?.setValue(userId);
     this.saveData(this.profileForm.value);
-    console.log(this.profileForm.value);
   }
 
   saveData(value: any) {
