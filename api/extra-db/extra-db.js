@@ -8,7 +8,7 @@ const {
   opinions,
 } = require("./data");
 
-const {houses_eze} = require("./realplaces_data")
+const {realHouses} = require("./realplaces_data")
 
 function getRandomArbitrary(max, min) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -80,7 +80,7 @@ const extraBookings = (n) => {
 
 
 const realHousesArray = () => {
-  return houses_eze.map((house) => newRealHouse(house))
+  return realHouses.map((house) => newRealHouse(house))
 };
 
 

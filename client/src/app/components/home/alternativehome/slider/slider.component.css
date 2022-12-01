@@ -3,6 +3,15 @@
     grid-template-columns: 25% 25% 25% 25%;
 } */
 
+@media (max-width:991.98px) {
+    .po_items_ho {
+        column-gap: 10rem;
+        -moz-column-gap: 15rem;
+        -webkit-column-gap: 15rem;
+    } 
+}
+
+
 
 .alternativecont {
     display: flex;

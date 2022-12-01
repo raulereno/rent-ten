@@ -37,18 +37,15 @@ export class TableUserAComponent implements OnInit {
 
   customChangeAutorized: string;
 
-  public page: number = 1;
-  public pageSize: number = 5;
+  public page = 1;
+  public pageSize = 5;
 
   ngOnInit(): void {
     this.userProfile$ = this.store.select(selectorListProfile);
     this.loadProfile();
 
     this._admindashboard.setUsersA();
-    this._admindashboard.getUsersA$.subscribe((res) => {
-      this.users = res;
-      console.log(this.users);
-    });
+    this._admindashboard.getUsersA$.subscribe((res) => (this.users = res));
   }
 
   loadProfile(): void {
@@ -65,6 +62,10 @@ export class TableUserAComponent implements OnInit {
 
   back() {
     this.router.navigate(['dashboard']);
+  }
+
+  showInfo() {
+    console.log(this.users);
   }
 
   desactiveAccount(id: string) {
@@ -84,4 +85,6 @@ export class TableUserAComponent implements OnInit {
     this._admindashboard.admin_set(newValues, id)
   } */
   }
+
+  
 }

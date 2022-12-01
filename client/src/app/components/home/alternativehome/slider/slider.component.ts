@@ -1,5 +1,5 @@
 import { animation } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, observable, Observable, Subject } from 'rxjs';
 import { House } from 'src/app/models/House';
@@ -30,43 +30,31 @@ export class SliderComponent implements OnInit {
 
   // Slider of houses sorted by quality/price
 
-  page_index: number = 1;
-  page_size: number = 1;
-  page_firstslice: number = 0;
-  page_secondslice: number = 4;
-
+  page_index: number = 1
+  page_size: number = 1
+  page_firstslice: number = 0
+  @Input() page_secondslice: number
+  
   ngOnInit(): void {
-    this.animation();
+
+    this.animation()
   }
 
   animation() {
     setTimeout(() => {
       const animate = () => {
-        if (this.animate && this.array) {
-          this.page_index < this.array.length && this.animationside == 'foward'
-            ? this.slice_goFoward()
-            : this.slice_goBack();
-        }
-      };
+        if (this.animate && this.array) { this.page_index < this.array?.length && this.animationside == 'foward' ? this.slice_goFoward() : this.slice_goBack() }
+      }
       setInterval(animate, 5500);
     }, Math.floor(Math.random() * (2000 - 800) + 800));
   }
 
   slice_goFoward() {
-    if (
-      this.page_index + 4 == this.array.length ||
-      this.page_index + 4 >= this.array.length
-    ) {
-      this.animationside = 'back';
-      return;
-    }
-    this.page_firstslice = this.page_firstslice + this.page_size;
-    this.page_secondslice = this.page_secondslice + this.page_size;
-    this.page_index = this.page_index + 1;
-    this.slider_sliced = this.array.slice(
-      this.page_firstslice,
-      this.page_secondslice
-    );
+    if (this.page_index + this.page_secondslice == this.array?.length || this.page_index + this.page_secondslice >= this.array.length) { this.animationside = 'back'; return }
+    this.page_firstslice = this.page_firstslice + this.page_size
+    this.page_secondslice = this.page_secondslice + this.page_size
+    this.page_index = this.page_index + 1
+    this.slider_sliced = this.array.slice(this.page_firstslice, this.page_secondslice)
   }
 
   slice_goBack() {
@@ -84,12 +72,8 @@ export class SliderComponent implements OnInit {
   }
 
   enableArrow(arrow: string) {
-    if (arrow === 'foward') {
-      return this.page_index + 4 >= this.array.length;
-    }
-    if (arrow === 'back') {
-      return this.page_index == 1;
-    }
+    if (arrow === 'foward') { return this.page_index + this.page_secondslice >= this.array?.length }
+    if (arrow === 'back') { return this.page_index == 1 }
 
     return true;
   }

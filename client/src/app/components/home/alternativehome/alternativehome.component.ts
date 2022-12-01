@@ -38,11 +38,10 @@ export class AlternativehomeComponent implements OnInit {
   housesInArea: House[];
   slider_housesInArea: House[] = [];
 
-  constructor(
-    public http: DataService,
-    private store: Store<any>,
-    private helper: HelperService
-  ) {}
+
+
+  constructor(public http: DataService, private store: Store<any>, private helper: HelperService) { }
+
 
   ngOnInit(): void {
     this.helper.customDarkMode.subscribe(
@@ -80,5 +79,8 @@ export class AlternativehomeComponent implements OnInit {
     });
   }
 
-  showInfo() {}
+  showInfo() {
+
+  }
+
 }

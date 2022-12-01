@@ -186,7 +186,6 @@ export class ProfileComponent implements OnInit {
       replaceUrl: true,
     }); //TODO: Redireccionar casa creada a detail
   }
-
   deleteHouse(houseId: string, userId: string) {
     let value = {
       deleted: true,

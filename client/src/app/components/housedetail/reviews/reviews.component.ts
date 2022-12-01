@@ -1,5 +1,12 @@
 import { HelperService } from 'src/app/services/helper.service';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  Inject,
+} from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -122,11 +129,7 @@ export class ReviewsComponent implements OnInit {
         (review: Review) => review.UserId == this.userProfile.id
       )
     ) {
-      Swal.fire(
-        'Oops...',
-        'You already gave a review for this place!',
-        'warning'
-      );
+      alert('You already gave a review for this place');
       return;
     }
     if (
@@ -134,27 +137,18 @@ export class ReviewsComponent implements OnInit {
         (booking: Booking) => booking.UserId === this.userProfile.id
       )
     ) {
-      Swal.fire(
-        'Oops...',
-        'You can only post reviews of places you have been to!',
-        'warning'
-      );
-
+      alert('You can only post reviews of places you have been to');
       return;
     }
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-
     if (
       !this.house.Bookings.some(
         (booking: Booking) => booking.UserId === this.userProfile.id
       )
     ) {
-      Swal.fire(
-        'Oops...',
-        'You can only post reviews of places you have been to!',
-        'warning'
-      );
+      alert('You can only post reviews of places you have been to');
+      return;
     }
+
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
@@ -169,18 +163,6 @@ export class ReviewsComponent implements OnInit {
   postNewReview() {
     this.errors = '';
 
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast: any) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
-      },
-    });
-
     if (!this.userProfile.id) {
       this.errors = 'Login before let a review for this house!';
       return;
@@ -193,6 +175,19 @@ export class ReviewsComponent implements OnInit {
       this.errors = 'Please select a valoration.';
       return;
     }
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast: any) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
+    });
+
     this.http
       .postNewReview(
         this.newReviewInput,
@@ -204,11 +199,12 @@ export class ReviewsComponent implements OnInit {
       .subscribe((res) => {
         this.house.Reviews = [...this.house.Reviews, res];
       });
-    document.getElementById('closeModalButton')!.click();
+
     Toast.fire({
       icon: 'success',
       title: 'Thank you for your time!',
     });
-    // alert('Thank you for your time!')
+
+    document.getElementById('closeModalButton')!.click();
   }
 }
