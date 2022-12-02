@@ -22,8 +22,8 @@ export class AlternativehomeComponent implements OnInit {
 
   readonly breakpoint$ = this.breakpointObserver
     .observe([
-      '(min-width:1900px)',
-      '(min-width:1700px) and (max-width:1899.5px)',
+      '(min-width:2050px)',
+      '(min-width:1700px) and (max-width:2049px)',
       Breakpoints.Large,
       Breakpoints.Medium,
       Breakpoints.Small,
@@ -114,12 +114,12 @@ export class AlternativehomeComponent implements OnInit {
     });
   }
   private breakpointChanged() {
-    if (this.breakpointObserver.isMatched('(min-width:1900px)')) {
+    if (this.breakpointObserver.isMatched('(min-width:2050px)')) {
       this.numberOfCardsInSlide = 6;
       this.currentBreakpoint = '(min-width:1900px)';
     } else if (
       this.breakpointObserver.isMatched(
-        '(min-width:1700px) and (max-width:1899.5px)'
+        '(min-width:1700px) and (max-width:2049px)'
       )
     ) {
       this.numberOfCardsInSlide = 5;
