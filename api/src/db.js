@@ -1,12 +1,12 @@
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
-const fs = require('fs');
-const path = require('path');
-const {DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT} = process.env;
+require("dotenv").config();
+const { Sequelize } = require("sequelize");
+const fs = require("fs");
+const path = require("path");
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-let sequelize = 
+let sequelize =
   process.env.NODE_ENV === "production"
-    ? new Sequelize ({
+    ? new Sequelize({
         database: DB_NAME,
         dialect: "postgres",
         host: DB_HOST,
@@ -26,46 +26,48 @@ let sequelize =
           keepAlive: true,
         },
         ssl: true,
-    })
-    : new Sequelize(
-      `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/rentten`,
-      { logging: false, native: false }
-    );
+      })
+    : new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/rentten`, {
+        logging: false,
+        native: false,
+      });
 
-    const basename = path.basename(__filename);
-    const modelDefiners = [];
+const basename = path.basename(__filename);
+const modelDefiners = [];
 
-    fs.readdirSync(path.join(__dirname, '/models'))
-    .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
-    .forEach((file) => {
-        modelDefiners.push(require(path.join(__dirname, '/models', file)));
-    });
+fs.readdirSync(path.join(__dirname, "/models"))
+  .filter(
+    (file) =>
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+  )
+  .forEach((file) => {
+    modelDefiners.push(require(path.join(__dirname, "/models", file)));
+  });
 
+modelDefiners.forEach((model) => model(sequelize));
 
-    modelDefiners.forEach(model => model(sequelize));
+let entries = Object.entries(sequelize.models);
+let capsEntries = entries.map((entry) => [
+  entry[0][0].toUpperCase() + entry[0].slice(1),
+  entry[1],
+]);
+sequelize.models = Object.fromEntries(capsEntries);
 
-    let entries = Object.entries(sequelize.models);
-    let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
-    sequelize.models = Object.fromEntries(capsEntries);
+const { House, User, Review, Booking } = sequelize.models;
 
+House.belongsToMany(User, { through: "House_user", timestamps: false });
+User.belongsToMany(House, { through: "House_user", timestamps: false });
 
-    const { House, User, Review, Booking } = sequelize.models;
+House.hasMany(Review);
+Review.belongsTo(House);
 
+House.hasMany(Booking);
+Booking.belongsTo(House);
 
-    House.belongsToMany(User, {through: 'House_user', timestamps: false});
-    User.belongsToMany(House, {through: 'House_user', timestamps: false});
+User.hasMany(Review);
+Review.belongsTo(User);
 
-    House.hasMany(Review);
-    Review.belongsTo(House);
-    
-    House.hasMany(Booking);
-    Booking.belongsTo(House);
+User.hasMany(Booking);
+Booking.belongsTo(User);
 
-    User.hasMany(Review);
-    Review.belongsTo(User);
-
-    User.hasMany(Booking);
-    Booking.belongsTo(User);
-
-    
-    module.exports = {...sequelize.models, conn: sequelize, };
+module.exports = { ...sequelize.models, conn: sequelize };

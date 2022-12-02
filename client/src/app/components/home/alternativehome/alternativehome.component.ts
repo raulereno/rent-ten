@@ -52,11 +52,6 @@ export class AlternativehomeComponent implements OnInit {
     this.http.getHouses_withOrder('byqualityprice').subscribe((res) => {
       this.housesSorted_byqualityprice = res.slice(0, 15);
       this.slider_priceval = this.housesSorted_byqualityprice.slice(0, 4);
-    }); //TODO: ES IGUAL LA FN?
-
-    this.http.getHouses_withOrder('byqualityprice').subscribe((res) => {
-      this.housesSorted_byqualityprice = res.slice(0, 15);
-      this.slider_priceval = this.housesSorted_byqualityprice.slice(0, 4);
     });
 
     this.http.getHouses_withOrder('rating').subscribe((res) => {
