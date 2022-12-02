@@ -198,14 +198,10 @@
   margin-bottom: 5px;
 }
 
-/* .inputdate{
-    width: 20px;
-} */
-
-.notavailable {
-  font-weight: 500;
-  margin-top: 2px;
-  margin-bottom: -5px;
+.notavailable{
+    font-weight: 500;
+    margin-top: 2px;
+    margin-bottom: -5px;
 }
 
 .footer {

@@ -5,7 +5,7 @@ let clientId = packageInfo.production.clientId;
 
 export const environment = {
   production: true,
-  // baseUrl:"https://rent-ten-production.up.railway.app",
+  //https://rent-ten-production.up.railway.app
   baseUrl: 'https://rentten-api.up.railway.app',
   auth: {
     domain,

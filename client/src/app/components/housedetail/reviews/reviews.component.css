@@ -217,12 +217,12 @@ ngb-rating {
   background-color: rgba(94, 158, 255, 0.514);
   color: white;
 }
-.darkmodeLetReview #closemodal {
+.darkmodeLetReview #closeModalButton {
   border-radius: 6px;
 }
 .darkmodeLetReview button:hover {
   background-color: rgba(94, 158, 255, 0.6);
 }
-.darkmodeLetReview #closemodal:hover {
+.darkmodeLetReview #closeModalButton:hover {
   background-color: rgba(94, 158, 255, 0.6);
 }

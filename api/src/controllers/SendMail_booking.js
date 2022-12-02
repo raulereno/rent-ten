@@ -14,7 +14,7 @@ const SendMail_booking = async (data) => {
 
             <h3 style="color:blue"> Thank you for booking on Rent-Ten!</h3>
             <h3>Here are the details of your booking:</h3><br/>
-            <b>• Link to the place you rented:</b>  <a href="http://localhost:4200/housedetail/${data.houseId}">CLICK</a><br/>
+            <b>• Link to the place you rented:</b>  <a href="https://rent-ten.vercel.app/housedetail/${data.houseId}">CLICK</a><br/>
             <b>• When you can entry to the house:</b> ${data.start}<br/>
             <b>• When you must go out:</b> ${data.end}<br/>
             <h3>Remember contact your guest one day before!</h3><br/>
