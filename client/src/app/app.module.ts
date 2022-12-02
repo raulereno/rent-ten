@@ -48,8 +48,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 //BOOTSTRAP
-
-//BOOTSTRAP
 import { NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 //ROUTING
 import { RouterModule, Routes } from '@angular/router';

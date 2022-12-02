@@ -4,76 +4,73 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.background{
+.background {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-image: url('../../../assets/background.jpg');
+  background-image: url("../../../assets/background.jpg");
   background-position: center;
   background-size: cover;
 }
 
-.createhouse{
+.createhouse {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 60%;
-  background-color: #fafafa;
   margin: 0 auto;
   padding: 0px 40px 0px 40px;
   padding-bottom: 60px;
 }
 
-.form{
+.form {
   width: 100%;
 }
 
-.labelform{
+.labelform {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 500;
   margin-bottom: 10px;
-  color: #3a3a3a;
 }
 
-.selectform{
+.selectform {
   height: 40px;
   width: 100%;
   border-radius: 5px;
   margin-bottom: 8px;
   text-align: center;
   font-size: 20px;
-  font-weight: 500;
-  color: #3a3a3a;
+  font-weight: 400;
   background-color: #fafafa;
   border: 2px solid #0d6efd;
   border-radius: 20px;
-  option{
+  option {
     font-size: 20px;
   }
 }
 
-.error{
+.error {
   color: rgb(162, 46, 46);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
-.firstdiv{
+.firstdiv {
   display: flex;
   margin-top: 80px;
   width: 100%;
-  .creatediv{
+  .creatediv {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: none;
     margin: 0 auto;
     width: 100%;
-    .typediv{
+    .typediv {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -83,24 +80,23 @@ input[type=number] {
       border-bottom: 1px solid #3a3a3a27;
     }
 
-    .typeselect{
+    .typeselect {
       height: 40px;
       width: 90%;
       border-radius: 5px;
       margin-bottom: 8px;
       text-align: center;
       font-size: 20px;
-      font-weight: 500;
-      color: #3a3a3a;
+      font-weight: 400;
       background-color: #fafafa;
       border: 2px solid #0d6efd;
       border-radius: 20px;
-      option{
+      option {
         font-size: 20px;
       }
     }
 
-    .locationdiv{
+    .locationdiv {
       display: flex;
       justify-content: center;
       margin-bottom: 30px;
@@ -116,7 +112,7 @@ input[type=number] {
       }
     }
 
-    .pricediv{
+    .pricediv {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -125,35 +121,33 @@ input[type=number] {
       padding-bottom: 50px;
       width: 100%;
       border-bottom: 1px solid #3a3a3a27;
-      div{
+      div {
         margin-bottom: 8px;
       }
-      input{
+      input {
         height: 40px;
         width: 90px;
         text-align: center;
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         color: rgb(38, 108, 38);
         background-color: #fafafa;
         border: 2px solid #3a3a3a9c;
         border-radius: 20px;
       }
-      .pricelabel{
+      .pricelabel {
         font-size: 23px;
-        font-weight: 500;
+        font-weight: 400;
         margin-right: 10px;
-        color: #3a3a3a;
       }
-      .price{
+      .price {
         font-size: 20px;
         margin-left: 10px;
         color: rgb(38, 108, 38);
       }
     }
 
-    
-    .servicesdiv{
+    .servicesdiv {
       display: flex;
       justify-content: space-around;
       margin-top: 10px;
@@ -162,11 +156,10 @@ input[type=number] {
       width: 100%;
       border-bottom: 1px solid #3a3a3a27;
 
-      .labelswitch{
+      .labelswitch {
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         margin-right: 30px;
-        color: #3a3a3a;
       }
 
       div {
@@ -241,7 +234,7 @@ input[type=number] {
     }
   }
 
-  .numberdiv{
+  .numberdiv {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
@@ -249,35 +242,34 @@ input[type=number] {
     padding-bottom: 50px;
     width: 100%;
     border-bottom: 1px solid #3a3a3a27;
-    div{
+    div {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .numberlabel{
+    .numberlabel {
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 400;
       margin-bottom: 5px;
-      color: #3a3a3a;
     }
 
-    .inputdiv{
+    .inputdiv {
       height: 30px;
       display: flex;
       flex-direction: row;
       align-items: center;
 
-      .button svg{
+      .button svg {
         fill: #0d6efd;
         height: 20px;
       }
 
-      input{
+      input {
         height: 30px;
         max-width: 100px;
         text-align: center;
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         color: #3a3a3a;
         background-color: #fafafa;
         border: 2px solid #0d6efd;
@@ -288,11 +280,11 @@ input[type=number] {
   }
 }
 
-hr{
+hr {
   margin-bottom: 80px;
 }
 
-.dropzone{
+.dropzone {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -300,7 +292,7 @@ hr{
   margin: 0 auto;
 }
 
-ngx-dropzone{
+ngx-dropzone {
   max-width: 80%;
 }
 
@@ -356,60 +348,60 @@ button {
 }
 
 @media only screen and (max-width: 1100px) {
-  .createhouse{
+  .createhouse {
     flex-wrap: wrap;
   }
-  .typediv{
+  .typediv {
     flex-wrap: wrap;
   }
-  .locationdiv{
+  .locationdiv {
     flex-wrap: wrap;
   }
-  .pricediv{
+  .pricediv {
     flex-wrap: wrap;
   }
-  .servicesdiv{
+  .servicesdiv {
     flex-wrap: wrap;
   }
-  .numberdiv{
+  .numberdiv {
     flex-wrap: wrap;
   }
-  .background{
+  .background {
     height: 150vh;
   }
-  .createhouse{
+  .createhouse {
     height: 150vh;
   }
 }
 
 @media only screen and (max-width: 877px) {
-  .background{
+  .background {
     height: 170vh;
   }
-  .createhouse{
+  .createhouse {
     height: 170vh;
   }
 }
 
 @media only screen and (max-width: 750px) {
-  .background{
+  .background {
     height: 180vh;
   }
-  .createhouse{
+  .createhouse {
     height: 180vh;
   }
-  .numberdiv{
-    div{
+  .numberdiv {
+    div {
       margin-bottom: 20px;
     }
   }
 }
 
 @media only screen and (max-width: 600px) {
-  .background{
+  .background {
     height: 185vh;
   }
-  .createhouse{
+  .createhouse {
     height: 185vh;
   }
 }

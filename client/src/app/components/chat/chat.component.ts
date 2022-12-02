@@ -4,7 +4,7 @@ import { ChatService } from './../../services/chat.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Faqs } from './../../models/faqs.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FAQS } from 'src/app/models/faqs.interface';
 import { HelperService } from 'src/app/services/helper.service';
 import Swal from 'sweetalert2';
@@ -20,7 +20,7 @@ export class ChatComponent implements OnInit {
   answer: number;
   allowInput: boolean = true;
   dbProfile: any;
-  darkmode: boolean = false;
+  @Input() darkmode: boolean;
 
   formMail!: FormGroup;
   showChatWhenAdmin: boolean = true;
@@ -53,9 +53,9 @@ export class ChatComponent implements OnInit {
         this.dbProfile = res;
       });
     });
-    this._helper.customDarkMode.subscribe(
-      (active: boolean) => (this.darkmode = active)
-    );
+    // this._helper.customDarkMode.subscribe(
+    //   (active: boolean) => (this.darkmode = active)
+    // );
   }
   sendMessage() {
     this._chat.sendMessage(
