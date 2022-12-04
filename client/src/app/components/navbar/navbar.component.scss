@@ -279,6 +279,12 @@
   }
 }
 @media screen and (max-width: 992px) {
+  .favoriteshead {
+    #closemodal {
+      left: 90%;
+      top: 0.5rem;
+    }
+  }
   .favoritesbody {
     form {
       .grid {
@@ -329,7 +335,7 @@
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s;
     &.active {
-      width: 80%;
+      width: 100%;
       flex-direction: column;
     }
   }
