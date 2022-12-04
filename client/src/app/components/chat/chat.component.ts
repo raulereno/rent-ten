@@ -25,6 +25,8 @@ export class ChatComponent implements OnInit {
   formMail!: FormGroup;
   showChatWhenAdmin: boolean = true;
 
+  showTooltip: boolean = true;
+
   initForm(): FormGroup {
     return this.fb.group({
       subject: [''],
@@ -43,6 +45,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.formMail = this.initForm();
+
     this._auth.user$.subscribe((profile) => {
       this._http.getUser(profile?.email!).subscribe((res) => {
         if (res !== null) {
@@ -56,6 +59,9 @@ export class ChatComponent implements OnInit {
     // this._helper.customDarkMode.subscribe(
     //   (active: boolean) => (this.darkmode = active)
     // );
+    setTimeout(() => {
+      this.showTooltip = false;
+    }, 8000);
   }
   sendMessage() {
     this._chat.sendMessage(
@@ -69,10 +75,13 @@ export class ChatComponent implements OnInit {
       icon: 'success',
       title: 'We sent your question to rentten2022@gmail.com',
       text: 'Thank you for your time, we will soon answer you by e-mail!',
+      background: this.darkmode ? '#303030' : 'white',
+      color: this.darkmode ? 'white' : 'black',
     });
   }
   showChat() {
     this.chat = !this.chat;
+    this.showTooltip = false;
   }
 
   showAnswer(i: number) {
@@ -88,6 +97,8 @@ export class ChatComponent implements OnInit {
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'Register',
           reverseButtons: true,
+          background: this.darkmode ? '#303030' : 'white',
+          color: this.darkmode ? 'white' : 'black',
         }).then((result) => {
           if (result.isConfirmed) {
             this._auth.loginWithRedirect();

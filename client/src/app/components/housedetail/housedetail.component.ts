@@ -114,6 +114,8 @@ export class HousedetailComponent implements OnInit {
         icon: 'error',
         title: 'Oops..',
         text: 'You cant reserve your own place',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
       });
       return;
     }
@@ -126,6 +128,8 @@ export class HousedetailComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'Please select both dates',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
       });
     }
     // if (!start || !end) { alert("Please select both dates"); return }
@@ -134,6 +138,8 @@ export class HousedetailComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'This place has bookings between your selected dates. Please make two bookings or change your dates',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
       });
     } else {
       let transactionCode = Math.random().toString(36).slice(4);
