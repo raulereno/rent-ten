@@ -71,8 +71,9 @@
         Become a Host
       </a>
     </div>
-    <a mat-button routerLink="/about" (click)="setActive()">About</a>
     <a mat-button routerLink="/home" (click)="setActive()">Home</a>
+    <a mat-button routerLink="/about" (click)="setActive()">About</a>
+    
 
     <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
       aria-label="Sing Up">
