@@ -7,6 +7,14 @@
     opacity: 1;
   }
 }
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 
 .container_imgChat {
   display: flex;
@@ -29,6 +37,9 @@
     transform: scale(1.05);
     opacity: 100%;
     transition: all 0.5s;
+    .tooltiptext.dontShow {
+      display: flex;
+    }
   }
 }
 
@@ -63,8 +74,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border-bottom: 1px solid #3a3a3a4c;
-      padding-bottom: 10px;
     }
     .chat_lista {
       list-style: none;
@@ -198,10 +207,14 @@
 .darkmodeChat {
   background-color: #303030;
   .chat {
-    .faqs {
-      color: white;
+    .title-close {
       border-bottom: 1px solid rgba(255, 255, 255, 0.487);
+
+      .faqs {
+        color: white;
+      }
     }
+
     .chat_lista {
       .question {
         color: white;
@@ -229,4 +242,87 @@
       }
     }
   }
+}
+.title-close {
+  display: flex;
+  border-bottom: 1px solid #3a3a3a4c;
+  width: 100%;
+  span {
+    position: relative;
+    right: 23px;
+    bottom: -11px;
+    font-size: 1.8rem;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      color: rgb(160, 0, 0);
+    }
+  }
+}
+@media screen and (max-width: 550px) {
+  .container_imgChat {
+    height: 60px;
+    width: 60px;
+    bottom: 10px;
+    right: 10px;
+    z-index: 99;
+    .chatimg {
+      height: 30px;
+      width: 30px;
+    }
+  }
+  .container_chat {
+    width: 95%;
+    right: 5px;
+    bottom: 40px;
+    height: 82%;
+    .chat {
+      .chat_lista {
+        padding-bottom: 0;
+      }
+      .faqs {
+        font-size: 1.5rem;
+        margin: 0.2rem;
+        padding-bottom: 2px;
+      }
+      .answers {
+        font-size: 1rem;
+      }
+    }
+    .container_textArea {
+      .allowInput {
+        .chatinput {
+          width: 325px;
+          height: 25px;
+        }
+        .textarea {
+          height: 80px;
+        }
+        .sendButton {
+          height: 20px;
+          margin-top: 0.2em;
+        }
+      }
+    }
+  }
+}
+
+.tooltiptext {
+  width: 250px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 20px;
+  font-size: 1.3rem;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  left: -257px;
+  border: 1px white solid;
+}
+
+.tooltiptext.dontShow {
+  display: none;
 }

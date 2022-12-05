@@ -133,6 +133,8 @@ export class ReviewsComponent implements OnInit {
       Swal.fire({
         icon: 'warning',
         title: 'You already gave a review for this place',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
       });
       return;
     }
@@ -145,6 +147,8 @@ export class ReviewsComponent implements OnInit {
       Swal.fire({
         icon: 'warning',
         title: 'You can only post reviews of places you have been to',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
       });
       return;
     }
@@ -180,6 +184,8 @@ export class ReviewsComponent implements OnInit {
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
+      background: this.darkmode ? '#303030' : 'white',
+      color: this.darkmode ? 'white' : 'black',
       timer: 3000,
       timerProgressBar: true,
       didOpen: (toast: any) => {

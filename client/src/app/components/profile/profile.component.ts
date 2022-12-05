@@ -200,6 +200,8 @@ export class ProfileComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
       reverseButtons: true,
+      background: this.darkmode ? '#303030' : 'white',
+      color: this.darkmode ? 'white' : 'black',
     }).then((result) => {
       if (result.isConfirmed) {
         this.http.handleHouseState(userId, houseId, value).subscribe();
@@ -218,10 +220,17 @@ export class ProfileComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Yes',
       reverseButtons: true,
+      background: this.darkmode ? '#303030' : 'white',
+      color: this.darkmode ? 'white' : 'black',
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Good Bye!', '', 'success');
+        Swal.fire({
+          text: 'Good Bye!',
+          icon: 'success',
+          background: this.darkmode ? '#303030' : 'white',
+          color: this.darkmode ? 'white' : 'black',
+        });
         this.http.deleteAccount(userId, 'not');
         this.auth.logout();
         this._router.navigate(['home']);
@@ -255,10 +264,17 @@ export class ProfileComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Yes',
       reverseButtons: true,
+      background: this.darkmode ? '#303030' : 'white',
+      color: this.darkmode ? 'white' : 'black',
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Updated data!', '', 'success');
+        Swal.fire({
+          text: 'Updated data!',
+          icon: 'success',
+          background: this.darkmode ? '#303030' : 'white',
+          color: this.darkmode ? 'white' : 'black',
+        });
         this.userProfile = this.profileForm.value;
         this.http.updateData(this.profileForm.value);
         document.getElementById('closemodal')!.click();

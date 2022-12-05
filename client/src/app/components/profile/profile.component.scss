@@ -7,6 +7,9 @@
     opacity: 1;
   }
 }
+* {
+  font-family: "Roboto", sans-serif;
+}
 
 .wrapper {
   display: flex;
@@ -49,11 +52,11 @@
   }
 }
 
-.verifydiv{
+.verifydiv {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  .insertcode{
+  .insertcode {
     height: 40px;
     width: 150px;
     padding-left: 10px;
@@ -62,26 +65,26 @@
     font-weight: 500;
     color: #3a3a3a6f;
     background-color: none;
-    border: 1px solid #FFC107;
+    border: 1px solid #ffc107;
     border-right: none;
     border-radius: 10px 0px 0px 10px;
   }
 
-  .verifymail{
+  .verifymail {
     height: 40px;
     width: 80px;
     font-size: 20px;
     font-weight: 500;
-    color: #FFC107;
+    color: #ffc107;
     background-color: none;
-    border: 1px solid #FFC107;
+    border: 1px solid #ffc107;
     border-radius: 0px 10px 10px 0px;
     transition: all 0.2s;
   }
 
-  .verifymail:hover{
+  .verifymail:hover {
     color: #fafafa;
-    background-color: #FFC107;;
+    background-color: #ffc107;
   }
 }
 
@@ -275,6 +278,43 @@ input[type="file"] {
   border-radius: 15px;
   margin-right: 30px;
 }
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  align-content: center;
+  img {
+    height: 14rem;
+  }
+  .deleteOwnHouse {
+    width: 30%;
+    align-self: flex-end;
+    background-color: rgba(184, 0, 0, 0.539);
+    border: none;
+    position: absolute;
+    border-radius: 0 6px 0 5px;
+    transition: all 0.3s;
+    svg {
+      fill: none;
+    }
+    &:hover {
+      background-color: rgb(184, 0, 0);
+      transform: scale(1.07);
+    }
+  }
+  .card-body {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    .card-title,
+    .card-text {
+      text-align: center;
+    }
+  }
+  .card-footer {
+    align-self: center;
+  }
+}
 
 .housecard:hover .image {
   transition: 0.5s;
@@ -435,7 +475,7 @@ input[type="file"] {
 
 ///////////////////////////////////////////// HOUSECARDS /////////////////////////////////////////////
 
-.accordion{
+.accordion {
   padding-top: 50px;
   padding-right: 50px;
   margin: 0 auto;

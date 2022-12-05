@@ -1,10 +1,16 @@
-<div *ngIf="showChatWhenAdmin" class="container_imgChat" (click)="showChat()" >
+<div  *ngIf="showChatWhenAdmin" class="container_imgChat" (click)="showChat()" >
   <img class="chatimg" src="assets/logo-small.png" alt="" >
+  <span  class="tooltiptext" [ngClass]="{'dontShow': !showTooltip}"> Ey here we have FAQS</span>
 </div>
+<!-- TODO: hacer tooltip en chat -->
+
 
 <div *ngIf=" showChatWhenAdmin" class="container_chat" [ngClass]="{'active': chat,'darkmodeChat': darkmode }">
   <div class="chat">
-    <h3 class="faqs">FAQS</h3>
+    <div class="title-close">
+      <h3 class="faqs">FAQS</h3>
+      <span (click)="showChat()">✕</span>
+    </div>
     <ul id="chat_lista" class="chat_lista">
       <li *ngFor="let item of faqs; index as i" class="question" [ngClass]="{'questionActive': answer ===i}" (click)="showAnswer(i)">
         {{item.question}}</li>
@@ -19,10 +25,10 @@
   <div *ngIf="showChatWhenAdmin " class="container_textArea">
     <form [ngClass]="{'allowInput': !allowInput}" [formGroup]="formMail" (submit)="sendMessage()">
       <input class="chatinput" type="text" name="subject" id="" formControlName="subject" placeholder="Subject">
-      <textarea class="chatinput" formControlName="message" placeholder="Write your message"
+      <textarea class="chatinput textarea" formControlName="message" placeholder="Write your message"
         >
       </textarea>
-      <button type="submit" [ngClass]="{'allowButton': !allowInput}">Send</button>
+      <button class="sendButton" type="submit" [ngClass]="{'allowButton': !allowInput}">Send</button>
     </form>
   </div>
 

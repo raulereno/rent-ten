@@ -19,6 +19,9 @@ ul {
   /* display: grid;
   grid-template-columns: repeat(3, 1fr); */
 }
+p {
+  font-family: "Roboto", sans-serif;
+}
 
 ul li {
   width: 30%;
@@ -114,8 +117,22 @@ img {
     height: 20%;
   }
 }
-
-@media screen and (max-width: 800px) {
+@media screen and (min-width: 801px) and (max-width: 1023px) {
+  .container-img .container_social-medias {
+    height: 20%;
+  }
+}
+@media screen and (min-width: 525px) and (max-width: 824px) {
+  ul {
+    li {
+      width: 50%;
+    }
+  }
+  .container-img .container_social-medias {
+    height: 20%;
+  }
+}
+@media screen and (max-width: 524px) {
   h1 {
     font-size: 1.5rem;
     margin-top: 0.3rem;

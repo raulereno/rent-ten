@@ -94,3 +94,9 @@
 .slider_title_text {
   margin-left: 3%;
 }
+
+@media screen and (max-width: 506px) {
+  .slider_title {
+    text-align: center;
+  }
+}
