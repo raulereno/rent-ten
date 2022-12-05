@@ -352,3 +352,18 @@
   background-color: none;
   border: none;
 }
+.buttonDark {
+  border: 0;
+  background-color: #303030;
+  margin: 0 0.5rem 0 0.5rem;
+  .sun {
+    fill: orange;
+  }
+  .moon {
+    fill: #303030;
+    transform: rotate(-10deg);
+  }
+}
+.buttonDarkmodeInLigth {
+  background-color: #fafafa;
+}
