@@ -300,6 +300,21 @@
     font-weight: 400;
 }
 
+/* .favorite_icon {
+    bottom: 50%;
+    right: 10%;
+    margin-right: 0px;
+    margin-top: 0px;
+    position: absolute;
+} */
+
+.material-icons.md-48 { 
+    font-size: 35px; 
+    color: rgba(221, 46, 37, 0.767);
+    margin-top: -1rem;
+    cursor: pointer;
+} 
+
 /* ////////////////////////////////////////////////////////  RESERVE MODAL  //////////////////////////////////////////////////////// */
 
 

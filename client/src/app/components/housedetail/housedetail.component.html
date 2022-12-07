@@ -32,7 +32,12 @@
 
         <div class="body">
             <div class="infodiv">
-                <h2 class="location">{{house.country}}, {{house.city}}</h2>
+                    <h2 class="location">
+                        <i *ngIf="checkIsFavorite(house.id) === false" (click)="setFavorite(house.id, userProfile.id)" class="material-icons md-48">favorite_border</i> 
+                        <i *ngIf="checkIsFavorite(house.id) === true"  (click)="deleteFavorite(house.id, userProfile.id)" class="material-icons md-48">favorite</i> 
+                        {{house.country}}, {{house.city}}
+                    </h2>
+                
                 <div class="flex">
                     <h3 class="price" [ngClass]="{'darkPrice':darkmode}"> ARS ${{house.price}}</h3>
                 </div>
