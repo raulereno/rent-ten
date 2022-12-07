@@ -300,6 +300,19 @@
   font-size: 25px;
   font-weight: 400;
 }
+.like,
+.dislike {
+  fill: rgba(221, 46, 37, 0.767);
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.like {
+  animation: like 0.5s 1;
+}
+.dislike {
+  animation: dislike 0.5s 1;
+}
 
 /* ////////////////////////////////////////////////////////  RESERVE MODAL  //////////////////////////////////////////////////////// */
 
@@ -551,4 +564,31 @@
 }
 .darkmodeReserve #closemodal {
   color: white;
+}
+@keyframes like {
+  0% {
+    transform: scale(1);
+  }
+
+  90% {
+    transform: scale(0.7);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dislike {
+  0% {
+    transform: scale(1.1);
+  }
+
+  90% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

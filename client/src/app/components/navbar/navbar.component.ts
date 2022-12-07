@@ -14,7 +14,10 @@ import { House } from '../../models/House';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { loadProfile } from 'src/app/redux/actions/location.actions';
+import {
+  loadHouses,
+  loadProfile,
+} from 'src/app/redux/actions/location.actions';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -66,6 +69,9 @@ export class NavbarComponent implements OnInit {
     this.allHouses$ = this._store.select(selectorListHouses);
 
     this.allHouses$.subscribe((res) => {
+      if (res.length === 0) {
+        this.loadHouses();
+      }
       let favorites = this.localStorageSvc.getFavoritesHouses();
       this.favoritesHouses = res.filter((house: House) =>
         favorites.some((h: string) => h === house.id)
@@ -79,6 +85,12 @@ export class NavbarComponent implements OnInit {
     this._helper.customDarkMode.subscribe(
       (active: boolean) => (this.darkmode = active)
     );
+  }
+
+  loadHouses(): void {
+    this.http.getHouses().subscribe((res) => {
+      this._store.dispatch(loadHouses({ allHouses: res }));
+    });
   }
   validateUser(): void {
     const Toast = Swal.mixin({

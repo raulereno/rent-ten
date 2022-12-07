@@ -1,5 +1,13 @@
+import {
+  addFavoriteHouse,
+  deleteFavoriteHouse,
+  loadPayment,
+  loadProfile,
+} from 'src/app/redux/actions/location.actions';
+import { Observable } from 'rxjs';
+import { selectorListProfile } from './../../redux/selectors/selectors';
+import { LocalStorageService } from './../../services/local-storage.service';
 import { HelperService } from './../../services/helper.service';
-import { loadPayment } from './../../redux/actions/location.actions';
 import { Store } from '@ngrx/store';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,9 +38,12 @@ export class HousedetailComponent implements OnInit {
     private router: Router,
     private _helper: HelperService,
     public auth: AuthService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private store: Store<any>,
+    private localStorageSvc: LocalStorageService
   ) {}
 
+  userProfile$: Observable<any> = new Observable();
   userProfile: userProfile;
   profileJson: any;
   paramsId: string;
@@ -46,19 +57,31 @@ export class HousedetailComponent implements OnInit {
   totaldays: number;
 
   ngOnInit(): void {
+    this.userProfile$ = this.store.select(selectorListProfile);
+    this.userProfile$.subscribe((res) => (this.userProfile = res));
+
     this.route.params.subscribe((params) => {
       this.paramsId = params['id'];
       this.http
         .getHouse(this.paramsId)
         .subscribe((data) => (this.house = data));
     });
-
-    this.auth.user$.subscribe((res) => {
-      this.profileJson = res;
-      this.http
-        .getUser(this.profileJson.email)
-        .subscribe((res) => (this.userProfile = res));
+    this.auth.user$.subscribe((profile) => {
+      this.profileJson = profile;
+      this.http.getUser(this.profileJson.email).subscribe((res) => {
+        this.store.dispatch(loadProfile({ userProfile: res }));
+        this.userProfile$.subscribe((res) => {
+          this.userProfile = res;
+        });
+      });
     });
+
+    // this.auth.user$.subscribe((res) => {
+    //   this.profileJson = res;
+    //   this.http
+    //     .getUser(this.profileJson.email)
+    //     .subscribe((res) => (this.userProfile = res));
+    // });
 
     this.form = this.fb.group({
       daterange: new FormGroup({
@@ -212,6 +235,40 @@ export class HousedetailComponent implements OnInit {
   formatDate_payment(date: any) {
     let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return date.toLocaleDateString('en-GB', options);
+  }
+  toggleFavorite(houseId: string): void {
+    let favoritesLS = this.localStorageSvc.getFavoritesHouses();
+    if (!favoritesLS.includes(houseId)) {
+      this.localStorageSvc.addToFavorite(houseId);
+      this.userProfile.favoriteshouses?.concat(houseId);
+    }
+  }
+
+  setFavorite(houseId: string, userId: string): void {
+    if (!userId) {
+      this.toggleFavorite(houseId);
+    } else {
+      this.http.setFavorite(houseId, userId);
+      this.store.dispatch(addFavoriteHouse({ payload: houseId }));
+    }
+  }
+
+  deleteFavorite(houseId: string, userId: string): void {
+    this.http.deleteFavorite(houseId, userId);
+    this.store.dispatch(deleteFavoriteHouse({ payload: houseId }));
+    this.localStorageSvc.removeFavorite(houseId);
+  }
+
+  checkIsFavorite(houseId: string) {
+    let favoritesLS = this.localStorageSvc.getFavoritesHouses();
+    // let fh = this.dbProfile.favoriteshouses
+    if (this.userProfile?.id) {
+      return this.userProfile.favoriteshouses!.some((h: any) => h == houseId);
+    } else if (favoritesLS?.length > 0) {
+      return favoritesLS.some((h: string) => h == houseId);
+    } else {
+      return false;
+    }
   }
 
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
