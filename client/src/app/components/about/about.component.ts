@@ -12,21 +12,13 @@ import { CREATORS, About } from '../../models/about.interface';
 export class AboutComponent implements OnInit {
   creators: About[] = CREATORS;
   info = [];
-  darkmode:boolean = false;
+  darkmode: boolean = false;
 
-
-
-  constructor(
-    public auth: AuthService,
-    private _helper: HelperService,
-    ) { }
+  constructor(public auth: AuthService, private _helper: HelperService) {}
 
   ngOnInit(): void {
     this._helper.customDarkMode.subscribe(
       (active: boolean) => (this.darkmode = active)
     );
-
-
   }
-
 }

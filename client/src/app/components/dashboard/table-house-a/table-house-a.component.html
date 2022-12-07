@@ -2,9 +2,9 @@
   <button class="btn btn-secondary" (click)="back()">Back</button>
   <h3>Total active houses: {{houses.length}}</h3>
 </div>
-<div style="float: right; margin-right: 2%">
-  <label>Search by ID:</label>
-  <input [(ngModel)]="filtered_house" id="filter_input" />
+<div style=" margin-bottom: 2%;">
+  <label style="margin-right: 0.2rem;">Search by ID:</label>
+  <input style="margin-right: 0.6rem;" [(ngModel)]="filtered_house" id="filter_input" />
   <button *ngIf="!filtered_house_result" (click)="handleInput()" type="button" class="btn btn-info">Search</button>
   <button *ngIf="filtered_house_result" (click)="resetResults()" type="button" class="btn btn-info">Reset</button>
 </div>
@@ -20,7 +20,7 @@
       <th scope="col">Picture</th>
       <th scope="col">Type</th>
       <th scope="col">MaxPeople</th>
-      <th scope="col">Price USD</th>
+      <th scope="col">Price ARS</th>
       <th scope="col">Deactivate</th>
     </tr>
   </thead>

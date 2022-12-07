@@ -7,12 +7,15 @@
   </a>
 
 
-  <button (click)="setActive()" class="button_hamburger">
-    <svg class="button_svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+  <button *ngIf="!active" (click)="setActive()" class="button_hamburger mat-app-background">
+    <svg class="button_svg" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
       viewBox="0 0 16 16">
       <path fill-rule="evenodd"
         d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
     </svg>
+  </button>
+  <button *ngIf="active" (click)="setActive()" class="close_button-hamburger mat-app-background">
+    <svg fill="currentColor"  width="30" height="30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
   </button>
 
   <!-- <div style="margin-left: 20%; margin-right: 20%" class='row' *ngIf="favoritesHouses.length">  -->
@@ -31,7 +34,7 @@
           <div *ngFor="let favorite of favoritesHouses">
             <div class="house">
               <div class="updiv">
-                <a routerLink="/housedetail/{{favorite.id}}">
+                <a (click)="modal.dismiss('Cross click')" routerLink="/housedetail/{{favorite.id}}" >
                   <img class="image" [src]="favorite.picture[0]" />
                 </a>
               </div>
@@ -40,7 +43,7 @@
                 <div class="houseinfo">
                   <h1 class="type">{{favorite.type | titlecase}}</h1>
                   <span class="location"><br />{{favorite.country}}, {{favorite.city}}</span>
-                  <h3 class="price"> USD ${{favorite.price}}</h3>
+                  <h3 class="price"> ARS ${{favorite.price}}</h3>
                 </div>
               </div>
               <button type="button" id="removefav" class="modalbutton" aria-label="Close"
@@ -56,37 +59,51 @@
   <!-- *ngIf="!userProfile" -->
   <!-- class="btn btn-lg btn-outline-primary"
 *ngIf="!isLogged" -->
-  <div class="rightdiv" [ngClass]="{'rightdiv--activo': active}">
+  <div class="rightdiv mat-app-background" [ngClass]="{'active': active}">
     <a *ngIf="userProfile.admin" mat-button routerLink="/dashboard">Dashboard</a>
     <div class="host">
-      <a class="hostButton" *ngIf="!userProfile.id" (click)="validateUser()"
+      <a class="hostButton" *ngIf="!userProfile.id" (click)="validateUser();setActive()"
         style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button>
         Become a Host
       </a>
-      <a class="hostButton" *ngIf="userProfile.id" (click)="validateUser()"
+      <a class="hostButton" *ngIf="userProfile.id" (click)="validateUser();setActive()"
         style="margin-right: 5%; background-color: rgba(128, 128, 128, 0.15);" mat-button>
         Become a Host
       </a>
     </div>
-    <a mat-button routerLink="/home">Home</a>
-    <a mat-button routerLink="/about">About</a>
+    <a mat-button routerLink="/about" (click)="setActive()">About</a>
+    <a mat-button routerLink="/home" (click)="setActive()">Home</a>
 
     <a (click)="loginWithRedirect()" mat-fab color="raised" *ngIf="(auth.isAuthenticated$ | async) === false"
       aria-label="Sing Up">
-      <mat-icon class="profilebutton">account_circle</mat-icon>
+
+      <svg style="margin-bottom: 5px;" width="20" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M272 304h-96C78.8 304 0 382.8 0 480c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32C448 382.8 369.2 304 272 304zM48.99 464C56.89 400.9 110.8 352 176 352h96c65.16 0 119.1 48.95 127 112H48.99zM224 256c70.69 0 128-57.31 128-128c0-70.69-57.31-128-128-128S96 57.31 96 128C96 198.7 153.3 256 224 256zM224 48c44.11 0 80 35.89 80 80c0 44.11-35.89 80-80 80S144 172.1 144 128C144 83.89 179.9 48 224 48z"/></svg>
     </a>
 
     <!-- <button mat-button (click)="showInfo()">ShowInfo</button> -->
 
     <div *ngIf="(auth.isAuthenticated$ | async) === true" class="profile">
-      <a mat-button routerLink="/profile">
+      <a mat-button routerLink="/profile" (click)="setActive()">
         <img *ngIf="userProfile.picture" src={{userProfile.picture}} alt="">
         <!-- <mat-icon #elseBlock>account_circle</mat-icon> -->
       </a>
       <button mat-button (click)="logout()">Sign out</button>
     </div>
-
-    <button class="switch" id="switch" [ngClass]=" darkmode ? 'switch active' : 'switch'" (click)="darkMode();">
+    <button class="buttonDark" [ngClass]="{'buttonDarkmodeInLigth': !darkmode}" (click)="darkMode();">
+      <span *ngIf="darkmode">
+        <svg class="sun" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM352 256c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zm32 0c0-70.7-57.3-128-128-128s-128 57.3-128 128s57.3 128 128 128s128-57.3 128-128z" />
+        </svg>
+      </span>
+      <span *ngIf="!darkmode">
+        <svg class="moon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+          <path
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z" />
+        </svg>
+      </span>
+    </button>
+    <!-- <button class="switch" id="switch" [ngClass]=" darkmode ? 'switch active' : 'switch'" (click)="darkMode();">
       <span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path
@@ -99,6 +116,7 @@
             d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z" />
         </svg>
       </span>
-    </button>
+    </button> -->
   </div>
 </div>
+

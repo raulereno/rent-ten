@@ -1,3 +1,4 @@
+import { HelperService } from './../../services/helper.service';
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 import {
   NgForm,
@@ -21,9 +22,10 @@ import {
 } from 'src/app/redux/selectors/selectors';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { text } from '@cloudinary/url-gen/qualifiers/source';
 export interface NewHouse {
   city: string;
   country: string;
@@ -87,6 +89,7 @@ export class CreateHouseComponent implements OnInit {
 
   userProfile$: Observable<any> = new Observable();
   userProfile: any;
+  darkmode: boolean;
 
   constructor(
     private _uploadImg: UploadImgService,
@@ -97,12 +100,15 @@ export class CreateHouseComponent implements OnInit {
     private matDialog: MatDialog,
     private _location: Location,
     private router: Router,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private _helper: HelperService
   ) {}
 
   ngOnInit(): void {
     this.formNewHouse = this.initForm();
-
+    this._helper.customDarkMode.subscribe(
+      (res: boolean) => (this.darkmode = res)
+    );
     this._auth.isAuthenticated$.subscribe((res) => {
       if (res === false) {
         alert('Login first');
@@ -174,7 +180,6 @@ export class CreateHouseComponent implements OnInit {
 
   onSelect(event: any) {
     if (this.files.some((e) => e.name === event.addedFiles[0].name)) {
-      console.log('ok');
       return;
     }
     this.files.push(...event.addedFiles);
@@ -204,17 +209,22 @@ export class CreateHouseComponent implements OnInit {
       // this.userProfile.unsubscribe();
       this.router.navigate(['profile']); }
       else */
-    console.log(this.formNewHouse.errors);
     if (this.formNewHouse.invalid) {
       this.errors = true;
       Swal.fire({
         title: 'Oops...',
-        html: `<p><b>Hay campos requeridos en el form</b></p>`,
+        html: `<p><b>There are required fields in the form</b></p>`,
         icon: 'error',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
       });
     } else if (!this.files[0]) {
       // alert('Enter at least one cover photo');
-      Swal.fire('Enter at least one cover photo');
+      Swal.fire({
+        text: 'Enter at least one cover photo',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
+      });
       return;
     } else {
       this.onUpload();
@@ -233,7 +243,6 @@ export class CreateHouseComponent implements OnInit {
       this._uploadImg.uploadImage(data).subscribe((response) => {
         this.formNewHouse.value.picture?.push(response.secure_url);
         if (this.files.length === this.formNewHouse.value.picture.length) {
-          console.log(this.formNewHouse.value.picture);
           this._http.createHouse(this.formNewHouse.value, this.email);
           this.files = [];
           this.formNewHouse.reset({
@@ -256,23 +265,30 @@ export class CreateHouseComponent implements OnInit {
 
   handlePrice(price: number) {
     if (price <= 0) {
-      this.formNewHouse.value.price = 0;
+      this.formNewHouse.get('price')?.setValue(0);
     }
   }
   handleType(e: string) {
-    this.formNewHouse.value.type = e;
+    this.formNewHouse.get('type')?.setValue(e);
   }
 
   //Add and less number
   handlePLusAndMinus(operator: string, name: string) {
+    console.log(name, operator);
     switch (name) {
       case 'bathrooms':
         if (this.formNewHouse.value.bathrooms === 1 && operator === '+') {
-          this.formNewHouse.value.bathrooms++;
+          this.formNewHouse
+            .get('bathrooms')
+            ?.setValue(this.formNewHouse.get('bathrooms')?.value + 1);
         } else if (this.formNewHouse.value.bathrooms >= 2) {
           operator === '+'
-            ? this.formNewHouse.value.bathrooms++
-            : this.formNewHouse.value.bathrooms--;
+            ? this.formNewHouse
+                .get('bathrooms')
+                ?.setValue(this.formNewHouse.get('bathrooms')?.value + 1)
+            : this.formNewHouse
+                .get('bathrooms')
+                ?.setValue(this.formNewHouse.get('bathrooms')?.value - 1);
         } else {
           this.formNewHouse.get('bathrooms')?.setValue(1);
         }
@@ -280,33 +296,45 @@ export class CreateHouseComponent implements OnInit {
 
       case 'rooms':
         if (this.formNewHouse.value.rooms === 1 && operator === '+') {
-          this.formNewHouse.value.rooms++;
+          this.formNewHouse
+            .get('rooms')
+            ?.setValue(this.formNewHouse.get('rooms')?.value + 1);
         } else if (this.formNewHouse.value.rooms >= 2) {
           operator === '+'
-            ? this.formNewHouse.value.rooms++
-            : this.formNewHouse.value.rooms--;
+            ? this.formNewHouse
+                .get('rooms')
+                ?.setValue(this.formNewHouse.get('rooms')?.value + 1)
+            : this.formNewHouse
+                .get('rooms')
+                ?.setValue(this.formNewHouse.get('rooms')?.value - 1);
         } else {
-          this.formNewHouse.value.rooms = 1;
+          this.formNewHouse.get('rooms')?.setValue(1);
         }
         break;
       case 'maxpeople':
         if (this.formNewHouse.value.maxpeople === 1 && operator === '+') {
-          this.formNewHouse.value.maxpeople++;
+          this.formNewHouse
+            .get('maxpeople')
+            ?.setValue(this.formNewHouse.get('maxpeople')?.value + 1);
         } else if (this.formNewHouse.value.maxpeople >= 2) {
           operator === '+'
-            ? this.formNewHouse.value.maxpeople++
-            : this.formNewHouse.value.maxpeople--;
+            ? this.formNewHouse
+                .get('maxpeople')
+                ?.setValue(this.formNewHouse.get('maxpeople')?.value + 1)
+            : this.formNewHouse
+                .get('maxpeople')
+                ?.setValue(this.formNewHouse.get('maxpeople')?.value - 1);
         } else {
-          this.formNewHouse.value.maxpeople = 1;
+          this.formNewHouse.get('maxpeople')?.setValue(1);
         }
         break;
     }
+    console.log(this.formNewHouse.value);
   }
   dontLetNegative(event: any) {
+    console.log(event);
     const name = event.target.name;
     const value = event.target.value;
-    console.log(name);
-    console.log(value);
 
     switch (name) {
       case 'maxpeople':
@@ -330,4 +358,6 @@ export class CreateHouseComponent implements OnInit {
         break;
     }
   }
-}
+  
+  }
+

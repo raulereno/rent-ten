@@ -2,7 +2,10 @@ h1,
 h4 {
   text-align: center;
 }
-
+h4 {
+  width: 70%;
+  align-self: center;
+}
 h1 {
   margin-top: 1rem;
   font-size: 2.5rem;
@@ -15,6 +18,9 @@ ul {
   list-style: none;
   /* display: grid;
   grid-template-columns: repeat(3, 1fr); */
+}
+p {
+  font-family: "Roboto", sans-serif;
 }
 
 ul li {
@@ -34,7 +40,10 @@ ul li {
   }
 }
 .container_about {
-  height: 100%;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 h3 {
   margin: 0;
@@ -108,8 +117,22 @@ img {
     height: 20%;
   }
 }
-
-@media screen and (max-width: 800px) {
+@media screen and (min-width: 801px) and (max-width: 1023px) {
+  .container-img .container_social-medias {
+    height: 20%;
+  }
+}
+@media screen and (min-width: 525px) and (max-width: 824px) {
+  ul {
+    li {
+      width: 50%;
+    }
+  }
+  .container-img .container_social-medias {
+    height: 20%;
+  }
+}
+@media screen and (max-width: 524px) {
   h1 {
     font-size: 1.5rem;
     margin-top: 0.3rem;

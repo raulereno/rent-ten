@@ -1,5 +1,5 @@
 import { animation } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, observable, Observable, Subject } from 'rxjs';
 import { House } from 'src/app/models/House';
@@ -10,41 +10,34 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css']
+  styleUrls: ['./slider.component.css'],
 })
 export class SliderComponent implements OnInit {
+  @Input() array: House[];
+  @Input() dbProfile: userProfile;
+  @Input() slider_sliced: House[];
 
+  prueba: Observable<House[]>;
 
-  @Input() array: House[]
-  @Input() dbProfile: userProfile
-  @Input() slider_sliced: House[]
-
-  prueba: Observable<House[]>
-
-  constructor(public http: DataService, private store: Store<any>) { 
-  }
-
+  constructor(public http: DataService, private store: Store<any>) {}
 
   // Local inneeded variables
-  allHouses: House[] = []
+  allHouses: House[] = [];
   public userProfile: userProfile;
-  userProfile$: Observable<any> = new Observable()
-  animate: boolean = true
-  animationside: string = 'foward'
-
+  userProfile$: Observable<any> = new Observable();
+  animate: boolean = true;
+  animationside: string = 'foward';
 
   // Slider of houses sorted by quality/price
 
   page_index: number = 1
   page_size: number = 1
   page_firstslice: number = 0
-  page_secondslice: number = 5
-
-
+  @Input() page_secondslice: number
+  
   ngOnInit(): void {
 
     this.animation()
-
   }
 
 
@@ -58,7 +51,7 @@ export class SliderComponent implements OnInit {
   }
 
   slice_goFoward() {
-    if (this.page_index + 4 == this.array.length || this.page_index + 4 >= this.array.length) { this.animationside = 'back'; return }
+    if (this.page_index + this.page_secondslice == this.array?.length || this.page_index + this.page_secondslice >= this.array.length) { this.animationside = 'back'; return }
     this.page_firstslice = this.page_firstslice + this.page_size
     this.page_secondslice = this.page_secondslice + this.page_size
     this.page_index = this.page_index + 1
@@ -66,26 +59,31 @@ export class SliderComponent implements OnInit {
   }
 
   slice_goBack() {
-    if (this.page_index == 1) {this.animationside = 'foward'; return }
-    this.page_firstslice = this.page_firstslice - this.page_size
-    this.page_secondslice = this.page_secondslice - this.page_size
-    this.page_index = this.page_index - 1
-    this.slider_sliced = this.array.slice(this.page_firstslice, this.page_secondslice)
+    if (this.page_index == 1) {
+      this.animationside = 'foward';
+      return;
+    }
+    this.page_firstslice = this.page_firstslice - this.page_size;
+    this.page_secondslice = this.page_secondslice - this.page_size;
+    this.page_index = this.page_index - 1;
+    this.slider_sliced = this.array.slice(
+      this.page_firstslice,
+      this.page_secondslice
+    );
   }
 
   enableArrow(arrow: string) {
-    if (arrow === 'foward') { return this.page_index + 4 >= this.array.length }
+    if (arrow === 'foward') { return this.page_index + this.page_secondslice >= this.array?.length }
     if (arrow === 'back') { return this.page_index == 1 }
 
-    return true
+    return true;
   }
 
   onMouseEnter() {
-    this.animate = false
+    this.animate = false;
   }
 
   onMouseOut() {
-    this.animate = true
+    this.animate = true;
   }
-
 }

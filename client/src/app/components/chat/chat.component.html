@@ -1,29 +1,34 @@
-<div class="container_imgChat" (click)="showChat()">
-  <img src="assets/logo.png" alt="">
+<div  *ngIf="showChatWhenAdmin" class="container_imgChat" (click)="showChat()" >
+  <img class="chatimg" src="assets/logo-small.png" alt="" >
+  <span  class="tooltiptext" [ngClass]="{'dontShow': !showTooltip}"> Ey here we have FAQS</span>
 </div>
+<!-- TODO: hacer tooltip en chat -->
 
-<div class="container_chat" [ngClass]="{'active': chat }">
+
+<div *ngIf=" showChatWhenAdmin" class="container_chat" [ngClass]="{'active': chat,'darkmodeChat': darkmode }">
   <div class="chat">
-    <h3 class="faqs">FAQS</h3>
+    <div class="title-close">
+      <h3 class="faqs">FAQS</h3>
+      <span (click)="showChat()">✕</span>
+    </div>
     <ul id="chat_lista" class="chat_lista">
-      <li style="color: black;" *ngFor="let item of faqs; index as i" class="question" [ngClass]="{'questionActive': answer ===i}" [ngClass]="{'questionActive': answer ===i}" (click)="showAnswer(i)">
+      <li *ngFor="let item of faqs; index as i" class="question" [ngClass]="{'questionActive': answer ===i}" (click)="showAnswer(i)">
         {{item.question}}</li>
     </ul>
     <div class="container_answers">
-      <p class="anwers" style="color: black;" *ngIf="answer!== undefined">{{faqs[answer].response}}</p>
-      <p class="anwers" style="color: black;" *ngIf="answer!== undefined && answer ===1">Para pagar con el crea una cuenta en su sitio web <a href="https://www.mercadopago.com.ar/hub/registration/landing" target="_blank">MercadoPago</a></p>
+      <p class="answers" *ngIf="answer!== undefined">{{faqs[answer].response}}</p>
+      <p class="answers" *ngIf="answer!== undefined && answer ===2">Here's a link to MercadoPago's webpage: <a class="mplink" href="https://www.mercadopago.com.ar/hub/registration/landing" target="_blank">MercadoPago</a></p>
 
     </div>
   </div>
 
-  <div *ngIf="dbProfile!== null" class="container_textArea">
+  <div *ngIf="showChatWhenAdmin " class="container_textArea">
     <form [ngClass]="{'allowInput': !allowInput}" [formGroup]="formMail" (submit)="sendMessage()">
-      <label for="subject">Subject:</label>
-      <input type="text" name="subject" id="" formControlName="subject">
-      <textarea formControlName="message" placeholder="Write your message"
+      <input class="chatinput" type="text" name="subject" id="" formControlName="subject" placeholder="Subject">
+      <textarea class="chatinput textarea" formControlName="message" placeholder="Write your message"
         >
       </textarea>
-      <button type="submit" [ngClass]="{'allowButton': !allowInput}">Enviar</button>
+      <button class="sendButton" type="submit" [ngClass]="{'allowButton': !allowInput}">Send</button>
     </form>
   </div>
 

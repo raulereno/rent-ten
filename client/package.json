@@ -34,6 +34,7 @@
     "@ngrx/store": "^14.3.2",
     "@ngrx/store-devtools": "^14.3.2",
     "@popperjs/core": "^2.10.2",
+    "@sweetalert2/theme-dark": "^5.0.15",
     "angular-mat-datepicker": "^0.0.2",
     "angular-responsive-carousel": "^2.1.2",
     "axios": "^1.1.3",
@@ -42,9 +43,7 @@
     "ng-gallery": "^7.1.2",
     "ngx-cookie-service": "^15.0.0",
     "ngx-dropzone": "^3.1.0",
-    "ngx-socket-io": "^4.4.0",
     "rxjs": "~7.5.0",
-    "socket.io-client": "^4.5.3",
     "sweetalert2": "^11.6.14",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

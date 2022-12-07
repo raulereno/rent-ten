@@ -1,6 +1,4 @@
-<hr />
 <div class="alternativecont row" [ngClass]="{'darkmode': darkmode}">
-
     <h1 *ngIf="housesSorted_byqualityprice" class="slider_title">
         <span class="slider_title_text">
             <img src="../../../../assets/priceval_icon.png" style="max-width: 25px"> Places with best price/valoration
@@ -8,20 +6,20 @@
         </span>
     </h1>
 
-    <app-slider [dbProfile]="dbProfile" [array]="housesSorted_byqualityprice" [slider_sliced]="slider_priceval">
+    <app-slider [page_secondslice]="numberOfCardsInSlide" [dbProfile]="dbProfile" [array]="housesSorted_byqualityprice" [slider_sliced]="slider_priceval">
     </app-slider>
 
     <h1 *ngIf="housesSorted_byRating" class="slider_title">
-        <span class="slider_title_text"><img src="../../../../assets/bestrated_icon.png" style="max-width: 25px">Best
+        <span class="slider_title_text"><img src="../../../../assets/bestrated_icon.png" style="max-width: 25px"> Best
             rated places</span>
     </h1>
 
-    <app-slider [dbProfile]="dbProfile" [array]="housesSorted_byRating" [slider_sliced]="slider_rating"></app-slider>
+    <app-slider [page_secondslice]="numberOfCardsInSlide" [dbProfile]="dbProfile" [array]="housesSorted_byRating" [slider_sliced]="slider_rating"></app-slider>
 
     <h1 *ngIf="housesInArea" class="slider_title"><span class="slider_title_text">
             <img src="../../../../assets/inarea_icon.png" style="max-width: 25px"> In your area
             ({{geoloc_value}})</span></h1>
 
-    <app-slider [dbProfile]="dbProfile" [array]="housesInArea" [slider_sliced]="slider_housesInArea">
+    <app-slider [page_secondslice]="numberOfCardsInSlide" [dbProfile]="dbProfile" [array]="housesInArea" [slider_sliced]="slider_housesInArea">
     </app-slider>
 </div>

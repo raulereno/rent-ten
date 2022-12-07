@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
 import { Booking } from '../models/Booking';
+import { userProfile } from '../models/UserProfile';
 
 @Injectable({
   providedIn: 'root',
@@ -110,11 +111,11 @@ export class DataService {
   }
 
   getHouseReviews(houseId: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:3001/reviews/${houseId}`);
+    return this.http.get<any>(`${environment.baseUrl}/reviews/${houseId}`);
   }
 
   fullDatabase() {
-    this.http.post(`http://localhost:3001/houses/fulldb`, {}).subscribe({
+    this.http.post(`${environment.baseUrl}/houses/fulldb`, {}).subscribe({
       error: (error) => {
         console.log(error);
       },
@@ -123,7 +124,7 @@ export class DataService {
 
   makeABook(houseId: string, newReserve: Booking, userId: string) {
     this.http
-      .post(`http://localhost:3001/bookings`, { houseId, newReserve, userId })
+      .post(`${environment.baseUrl}/bookings`, { houseId, newReserve, userId })
       .subscribe({
         error: (error) => {
           console.log(error);
@@ -138,7 +139,7 @@ export class DataService {
     houseId: string,
     userEmail: string
   ): Observable<any> {
-    return this.http.post<any>(`http://localhost:3001/reviews`, {
+    return this.http.post<any>(`${environment.baseUrl}/reviews`, {
       opinion,
       rating,
       userId,
@@ -153,7 +154,7 @@ export class DataService {
 
   getPaymentLink(item: any): Observable<any> {
     return this.http.post<any>(
-      `http://localhost:3001/mercadopago/payment`,
+      `${environment.baseUrl}/mercadopago/payment`,
       item
     );
   }
@@ -174,12 +175,12 @@ export class DataService {
 
   getUsers(): Observable<any> {
     // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
-    return this.http.get<any>('http://localhost:3001/users/allUsers');
+    return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
   }
 
   getUsersD(): Observable<any> {
     // return this.http.get<any>(`${environment.baseUrl}/users/allUsers`);
-    return this.http.get<any>('http://localhost:3001/users/usersD');
+    return this.http.get<any>(`${environment.baseUrl}/users/usersD`);
   }
 
   deleteAccount(userId: string, value: string) {
@@ -212,10 +213,16 @@ export class DataService {
     return this.http.get<any>(`${environment.baseUrl}/houses/deletedhouses`);
   }
 
-  set_admin(newValues: any, userId: string): Observable<any> {
-    console.log('userId', userId)
-    console.log('nevalues', newValues)
-    return this.http.put<any>(`${environment.baseUrl}/users/editUser/${userId}`, newValues);
+  updateData(value: any) {
+    this.http
+      .put(`${environment.baseUrl}/users/editUser/${value.userId}`, value)
+      .subscribe({ error: (error) => console.log(error) });
   }
 
+  set_admin(newValues: any, userId: string): Observable<any> {
+    return this.http.put<any>(
+      `${environment.baseUrl}/users/editUser/${userId}`,
+      newValues
+    );
+  }
 }

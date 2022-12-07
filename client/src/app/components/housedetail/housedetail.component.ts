@@ -72,8 +72,10 @@ export class HousedetailComponent implements OnInit {
   }
 
   unavailableDays = (calendarDate: Date): boolean => {
-    let today = new Date()
-    if (today > calendarDate || calendarDate > new Date('12-31-2024')) { return false }
+    let today = new Date();
+    if (today > calendarDate || calendarDate > new Date('12-31-2024')) {
+      return false;
+    }
     if (!this.house.Bookings) return true;
     return !this.house.Bookings.some(
       (d: Booking) =>
@@ -106,24 +108,27 @@ export class HousedetailComponent implements OnInit {
   }
 
   reserveHouse(): void {
-
-    if (this.house.Users![0].id == this.userProfile.id ) {
+    if (this.house.Users![0].id == this.userProfile.id) {
       Swal.fire({
         icon: 'error',
         title: 'Oops..',
-        text: 'You cant reserve your own place'
-      })
-      return
+        text: 'You cant reserve your own place',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
+      });
+      return;
     }
 
-    let start = this.form.value.daterange.start
-    let end = this.form.value.daterange.end
+    let start = this.form.value.daterange.start;
+    let end = this.form.value.daterange.end;
 
     if (!start || !end) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Please select both dates',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
       });
     }
     // if (!start || !end) { alert("Please select both dates"); return }
@@ -132,8 +137,9 @@ export class HousedetailComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'This place has bookings between your selected dates. Please make two bookings or change your dates',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
       });
-      // alert('This place has bookings between your selected dates. Please make two bookings or change your dates'); return
     } else {
       let transactionCode = Math.random().toString(36).slice(4);
       let options = { year: 'numeric', month: '2-digit', day: '2-digit' };

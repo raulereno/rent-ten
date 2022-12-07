@@ -15,8 +15,12 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-image: url("../../../assets/background.jpg");
-  border-left: 1px solid #96969681;
-  border-right: 1px solid #96969681;
+}
+
+.altbackground {
+  width: 95%;
+  margin: 0 auto;
+  padding-bottom: 30px;
 }
 
 .container {
@@ -57,8 +61,8 @@
 }
 .navigation {
   width: 110%;
-  margin-top: 4rem;
-  margin-bottom: 2rem;
+  margin-top: 30px;
+  margin-bottom: 30px;
   animation: fadein 3s;
 }
 
@@ -86,10 +90,10 @@
 /* //////////// FILTERS MODAL ////////////// */
 
 .altfilters {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  height: 3.6rem;
-  width: 10rem;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 60px;
+  width: 100px;
   transition: all 0.2s;
   border: 1px solid rgba(0, 0, 0, 0.368);
   border-radius: 5px;
@@ -101,8 +105,8 @@
 }
 
 .filters {
-  height: 3.6rem;
-  width: 5rem;
+  height: 4.4rem;
+  width: 6rem;
   transition: all 0.2s;
   border: 1px solid rgba(0, 0, 0, 0.368);
   border-radius: 5px;
@@ -120,8 +124,7 @@
   justify-content: center;
   align-items: center;
 
-  height: 5rem;
-  margin-bottom: 1rem;
+  height: 3rem;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
@@ -151,7 +154,6 @@
 
 #closemodal {
   position: absolute;
-  top: 1rem;
   left: 90%;
 }
 
@@ -159,12 +161,10 @@
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  justify-content: space-between;
-  font-size: 1rem;
+  justify-content: center;
+  font-size: 1.3rem;
   padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-  border-bottom: var(--bs-modal-header-border-width) solid
-    var(--bs-modal-header-border-color);
+  margin-top: 0.5rem;
   border-top-left-radius: var(--bs-modal-inner-border-radius);
   border-top-right-radius: var(--bs-modal-inner-border-radius);
 }
@@ -195,7 +195,10 @@
 #margin {
   margin-top: 1rem;
 }
-
+.modal-footer {
+  display: flex;
+  justify-content: center;
+}
 .modal-footer button {
   transition: 0.3s all;
 }
@@ -209,6 +212,16 @@
 .darkmodeModal {
   background-color: #303030;
   color: white;
+}
+.darkmodeModal .filtershead {
+  border-bottom: 1px solid #fafafa;
+}
+.darkmodeModal .container_location {
+  border-top: 1px solid #fafafa;
+  border-bottom: 1px solid #fafafa;
+}
+.darkmodeModal .container_price {
+  border-bottom: 1px solid #fafafa;
 }
 .darkmodeModal .modalbutton {
   color: white;
@@ -308,7 +321,6 @@
     align-content: center;
   }
   .paginado {
-    margin-bottom: 0.5rem;
     width: 100%;
     font-size: 0.8rem;
   }
@@ -318,6 +330,7 @@
   display: grid;
   justify-items: center;
   justify-content: center;
+  background-color: none;
 }
 
 .alternativehome_buttonFilter {
@@ -410,3 +423,27 @@
   }
 }
 /* ////////////////////////////////////////////////////////  RESPONSIVE  //////////////////////////////////////////////////////// */
+.container_location {
+  border-top: 1px solid#3030307a;
+  border-bottom: 1px solid #3030307a;
+  padding-bottom: 0.8rem;
+}
+.container_location .selectdiv mat-label {
+  text-align: center;
+}
+.container_price {
+  border-bottom: 1px solid #3030307a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container_price .modal-body {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0.5rem;
+}
+.container_services .modal-body {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0;
+}

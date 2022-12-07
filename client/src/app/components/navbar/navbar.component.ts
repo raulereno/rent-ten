@@ -100,8 +100,11 @@ export class NavbarComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes I want to register',
+        reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           this.auth.loginWithRedirect();
@@ -109,11 +112,12 @@ export class NavbarComponent implements OnInit {
       });
     } else if (this.userProfile.verified !== 'verified') {
       // alert('Your account must to be verification')
-      Swal.fire(
-        'Your account must to be verification',
-        'Do you want to verify your username?',
-        'warning'
-      ).then((result) => {
+      Swal.fire({
+        html: '<h2> Your account must be verified </h2> <br> <p>Do you want to verify your account?</p>',
+        icon: 'warning',
+        background: this.darkmode ? '#303030' : 'white',
+        color: this.darkmode ? 'white' : 'black',
+      }).then((result) => {
         this.router.navigate(['profile']);
       });
       // this.router.navigate(['profile']);

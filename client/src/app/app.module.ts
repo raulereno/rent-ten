@@ -68,27 +68,69 @@ import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
 //COOKIES
 import { CookieService } from 'ngx-cookie-service';
-import { SocketIoModule } from 'ngx-socket-io';
 import { FooterComponent } from './components/footer/footer.component';
+import { UsersguardGuard } from './guard/usersguard.guard';
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [UsersguardGuard],
     children: [
       // { path: '', redirectTo: 'home' },
-      { path: 'home', component: HomeComponent },
+      {
+        path: 'home',
+        canActivate: [UsersguardGuard],
+        component: HomeComponent,
+      },
       { path: 'login', component: LoginComponent },
-      { path: 'about', component: AboutComponent },
-      { path: 'createhouse', component: CreateHouseComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'housedetail/:id', component: HousedetailComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'dashboard/housesA', component: TableHouseAComponent },
-      { path: 'dashboard/housesD', component: TableHouseDComponent },
-      { path: 'dashboard/usersA', component: TableUserAComponent },
-      { path: 'dashboard/usersD', component: TableUserDComponent },
+      {
+        path: 'about',
+        canActivate: [UsersguardGuard],
+        component: AboutComponent,
+      },
+      {
+        path: 'createhouse',
+        canActivate: [UsersguardGuard],
+        component: CreateHouseComponent,
+      },
+      {
+        path: 'profile',
+        canActivate: [UsersguardGuard],
+        component: ProfileComponent,
+      },
+      {
+        path: 'housedetail/:id',
+        canActivate: [UsersguardGuard],
+        component: HousedetailComponent,
+      },
+      {
+        path: 'dashboard',
+        canActivate: [UsersguardGuard],
+        component: DashboardComponent,
+      },
+      {
+        path: 'dashboard/housesA',
+        canActivate: [UsersguardGuard],
+        component: TableHouseAComponent,
+      },
+      {
+        path: 'dashboard/housesD',
+        canActivate: [UsersguardGuard],
+        component: TableHouseDComponent,
+      },
+      {
+        path: 'dashboard/usersA',
+        canActivate: [UsersguardGuard],
+        component: TableUserAComponent,
+      },
+      {
+        path: 'dashboard/usersD',
+        canActivate: [UsersguardGuard],
+        component: TableUserDComponent,
+      },
       {
         path: 'housedetail/mercadopago/:id/:houseId/:code',
+        canActivate: [UsersguardGuard],
         component: StatusComponent,
       },
       { path: 'chat', component: ChatComponent },
@@ -162,7 +204,6 @@ const routes: Routes = [
     NgbModule,
     GalleryModule,
     NgbAccordionModule,
-    SocketIoModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

@@ -7,6 +7,7 @@ import { DataService } from '../../services/data.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { House } from '../../models/House';
 import { Store } from '@ngrx/store';
+
 import {
   loadCountries,
   loadedCountries,
@@ -213,14 +214,12 @@ export class HomeComponent implements OnInit {
     //TODO: BUSCAR EL TIPO DEL EVENTO
     let city = event.target.value;
     this.selectedCity = city;
-    console.log('city', city);
+
     // this.handleFilters();
 
     let nombrecualquier = this.allHouses?.filter(
       (elemten) => elemten.city === city
     );
-
-    
   }
 
   handleOrder() {
@@ -228,15 +227,14 @@ export class HomeComponent implements OnInit {
 
     this.store.dispatch(handleOrder({ payload: order }));
 
-    this.allHouses$.subscribe(res=> this.allHouses=res);
-
+    this.allHouses$.subscribe((res) => (this.allHouses = res));
   }
 
   handleFilters() {
     const { allowPets, city, country, maxPrice, minPrice, order, wifi } =
       this.filterForm.value;
 
-      console.log(this.filterForm.value);
+    console.log(this.filterForm.value);
     this.store.dispatch(
       handleFilters({
         payload: {
@@ -252,20 +250,18 @@ export class HomeComponent implements OnInit {
     try {
       this.paginator.firstPage();
     } catch (error) {
-      return
+      return;
     }
 
     this.quantityFilter = calculateFilter(this.filterForm.value);
-    this.allHouses$.subscribe(res=> this.allHouses=res);
-
- 
+    this.allHouses$.subscribe((res) => (this.allHouses = res));
   }
   applyFilter() {
     this.handleFilters();
   }
 
   openFilterModal(filters: any) {
-    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title',modalDialogClass:'mat-app-background' });
+    this.modalService.open(filters, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   clearFilters() {
@@ -290,5 +286,4 @@ export class HomeComponent implements OnInit {
     this.http.setFavorite(houseId, userId);
     this.store.dispatch(addFavoriteHouse({ payload: houseId }));
   }
-
 }

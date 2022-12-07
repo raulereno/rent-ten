@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users">
+    <tr *ngFor="let user of users | slice:(page-1) * pageSize:(page-1) * pageSize + pageSize">
       <th scope="row">{{user.id}}</th>
       <td>{{user.mail}}</td>
       <td>{{user.name}}</td>
