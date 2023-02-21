@@ -156,7 +156,7 @@ MERCADOPAGO_TOKEN=
 <h2> DEPLOY </h2>
 Para deploy del servidor y base de datos de la APP se usó __render__:
 
- - __Ruta base__: 
+ - __Ruta base__: https://renttenapi.onrender.com/
 
 Para el frontend se usó __vercel__:
 
