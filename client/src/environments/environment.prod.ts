@@ -8,7 +8,7 @@ export const environment = {
   //https://rent-ten-production.up.railway.app <-- cuenta de raul
   //https://rentten-api.up.railway.app <-- cuenta de eze
   //https://renttenapi.onrender.com <<< deploy del back en Render
-  baseUrl: 'https://renttenapi.onrender.com',
+  baseUrl: 'https://rent-ten-production.up.railway.app',
   auth: {
     domain,
     clientId,
