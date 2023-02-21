@@ -154,7 +154,7 @@ MERCADOPAGO_TOKEN=
 ```
 
 <h2> DEPLOY </h2>
-Para deploy del servidor y base de datos de la APP se usó __railway__:
+Para deploy del servidor y base de datos de la APP se usó __render__:
 
  - __Ruta base__: 
 
