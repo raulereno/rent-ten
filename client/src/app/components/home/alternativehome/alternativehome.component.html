@@ -1,4 +1,17 @@
 <div class="alternativecont row" [ngClass]="{'darkmode': darkmode}">
+  
+      <div *ngIf="!housesSorted_byRating || !housesSorted_byqualityprice">
+        <div class="text-center">
+            <div class='d-flex justify-content-center text-secondary'>
+                <h3>Fetching data from server, it may take about a minute. Please wait...</h3>
+            </div>
+    
+            <div class='navigation'>
+                <img width='50px' class='loadingGif' src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" />
+            </div>
+        </div>
+    </div>
+  
     <h1 *ngIf="housesSorted_byqualityprice" class="slider_title">
         <span class="slider_title_text">
             <img src="../../../../assets/priceval_icon.png" style="max-width: 25px"> Places with best price/valoration
